@@ -1,0 +1,40 @@
+﻿@model WebApplication2.Models.ViewModels.ViewEmployeeRoleModel
+
+@if (!Model.EmployeeRole.Active)
+{
+    <h2 class="text-danger">This Role Has Been Deactivated</h2>
+    <hr />
+}
+
+<h2>@Model.EmployeeRole.Employee.Name</h2>
+<h2>@Model.EmployeeRole.Role.ArabicName لدى @Model.EmployeeRole.Institution.ArabicName</h2>
+
+
+<div class="col-md-3">
+
+
+    @if (Model.canActive || Model.canActive)
+    {
+        <hr />
+        <h4>Options</h4>
+        <ul>
+
+
+            @if (((!Model.EmployeeRole.Active) && Model.canActive))
+            {
+                <li>@Html.ActionLink("Activate", "Active", "Roles", new { id = Model.EmployeeRole.ID }, null)</li>
+            }
+            @if (((Model.EmployeeRole.Active) && Model.canDeactive))
+            {
+                <li>@Html.ActionLink("Deactivate", "Deactive", "Roles", new { id = Model.EmployeeRole.ID }, null)</li>
+            }
+
+
+
+
+        </ul>
+    }
+
+
+
+</div>

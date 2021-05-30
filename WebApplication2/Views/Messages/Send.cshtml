@@ -1,0 +1,67 @@
+﻿@model WebApplication2.Models.ViewModels.SendMessageModel
+
+@{string img = ViewBag.img; }
+
+@using (Html.BeginForm("Send", "Messages", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>إرسال رسالة</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+
+
+             <a href="~/Controllers/Employees/PersonProfile/@Model.Reciever.ID">
+        <div class="col-md-12">
+            <img class="img-circle" style="width:70px; height:70px;" src="data:image/jpg;base64,@(img)">
+
+            <h2 style="display:inline;margin:10px">@Model.Reciever.Name</h2>
+
+        </div>
+       </a>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Header, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Header, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.Header, htmlAttributes: new { @class = "control-label col-md-2" })
+
+    </div>
+
+
+    <div class="form-group">
+
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.File, new { type = "file", name = "File", @class = "form-control" })
+        </div>
+        @Html.LabelFor(model => model.File, htmlAttributes: new { @class = "control-label col-md-2" })
+
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.Text, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+
+    </div>
+
+    <input type="hidden" name="SenderID" value="@Model.Sender.ID" class="control-label" />
+    <input type="hidden" name="RecieverID" value="@Model.Reciever.ID" class="control-label" />
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Send" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+    }
+
+ 

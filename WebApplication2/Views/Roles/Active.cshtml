@@ -1,0 +1,25 @@
+﻿
+
+@model WebApplication2.Models.EmployeeRole
+
+<h3>Are you sure you want to Active this?</h3>
+<div>
+    <h3>@Model.Employee.Name</h3>
+    <h4>@Model.Institution.ArabicName</h4>
+    <h4>@Model.Role.ArabicName</h4>
+
+
+    <hr />
+    <dl class="dl-horizontal">
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Active" class="btn btn-default" /> |
+            @Html.ActionLink("Back to Institution", "View", new { id = Model.ID })
+        </div>
+    }
+</div>

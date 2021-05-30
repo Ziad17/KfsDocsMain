@@ -1,0 +1,63 @@
+﻿
+
+@{
+    string img = ViewBag.Img;
+}
+
+
+
+
+
+<div class="col-md-3">
+    <div class="card-group" style="margin-top:10px">
+
+        <img class="img-rounded" width="170" height="170" src="data:image/jpg;base64,@(img)">
+    </div>
+</div>
+
+ @*   <p>@img</p>*@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*@using (Html.BeginForm("UploadFiles", "Test", FormMethod.Post,new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            <div class="form-group">
+                <div class="col-md-10">
+                    <input type="file" name="fileE" class="btn btn-primary" />
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+
+
+                    <input type="submit" class="btn btn-primary" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10 text-success">
+                    @ViewBag.FileStatus
+                </div>
+            </div>
+        </div>
+    }*@
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

@@ -1,0 +1,32 @@
+﻿
+
+
+
+
+
+@using (Html.BeginForm("ChangePhoto", "Employees", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <h4>تحديث الصورة الشخصية</h4>
+
+    <div class="form-horizontal">
+        <hr />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="file" name="Img" title="أختيار صورة" class="btn btn-primary" />
+
+            </div>
+        </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+
+                <input type="submit" value="حفظ" class="btn btn-primary" />
+            </div>
+        </div>
+
+    </div>
+}

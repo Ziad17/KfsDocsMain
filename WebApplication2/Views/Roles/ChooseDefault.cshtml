@@ -1,0 +1,69 @@
+﻿@model WebApplication2.Models.ViewModels.RolesChooseDefaultModel
+
+<h2>@Model.Employee.Name</h2>
+
+
+<br/>
+@if (Model.DefaultRole != null)
+{
+    <h4>Your Default Role Is @Model.DefaultRole.Role.ArabicName at @Model.DefaultRole.Institution.ArabicName</h4>
+  
+}
+else
+{ <h4 class="text-danger">No Default Role Found Please Choose One.</h4>}
+
+
+
+<hr />
+
+
+   <h5>My Roles</h5>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DefaultRole.Role.ArabicName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DefaultRole.Institution.ArabicName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DefaultRole.Active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DefaultRole.HiringDate)
+        </th>
+     
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.EmployeeRoles)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role.ArabicName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Institution.ArabicName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Active)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HiringDate)
+            </td>
+           
+            @if (item.Active)
+            {
+        <td>
+            @using (Html.BeginForm("ChooseDefault", "Roles"))
+            {     @Html.AntiForgeryToken()
+                <input type="hidden" name="id"  value="@item.ID" />
+
+                <input type="submit" class="btn btn-default" value="ChooseDefault" />
+            }
+        </td>
+            }
+        </tr>
+    }
+
+</table>

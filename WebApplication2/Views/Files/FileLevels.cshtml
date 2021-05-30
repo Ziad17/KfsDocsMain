@@ -1,0 +1,40 @@
+﻿@model WebApplication2.Models.ViewModels.ViewFileLevelsModel
+
+@{
+    string level = "A";
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("الوظيفة")
+        </th>
+        <th>
+            @Html.DisplayName("العمليات")
+        </th>
+
+    </tr>
+<h2>
+  @Model.LevelsDictionary.Count;
+</h2>
+    @foreach (var item in Model.LevelsDictionary[level])
+    {
+        <tr>
+            <td>
+                @Html.Display(item.Key)
+            </td>
+
+            <td>
+                <ul>
+                    <li>
+                        @foreach (var permission in item.Value)
+                        {
+                            @Html.Display(permission)
+                        }
+                    </li>
+                </ul>
+            </td>
+
+        </tr>
+    }
+
+</table>

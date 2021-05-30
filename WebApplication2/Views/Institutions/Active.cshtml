@@ -1,0 +1,74 @@
+﻿-@model WebApplication2.Models.Institution
+
+<h3>Are you sure you want to Active this?</h3>
+<div>
+    <h4>@Model.ArabicName</h4>
+    <hr />
+    <dl class="dl-horizontal">
+    
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Website)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Website)
+        </dd>
+
+      
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PrimaryPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrimaryPhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SecondaryPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SecondaryPhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InstitutionType.ArabicName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InstitutionType.ArabicName)
+        </dd>
+
+      
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Active" class="btn btn-default" /> |
+            @Html.ActionLink("Back to Institution", "InstitutionProfile",new { id=Model.ID})
+        </div>
+    }
+</div>

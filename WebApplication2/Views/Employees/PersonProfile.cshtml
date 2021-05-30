@@ -1,0 +1,74 @@
+﻿@model WebApplication2.Models.ViewModels.EmployeeProfileModel
+
+
+
+@{
+    string img = ViewBag.Img;
+}
+
+
+
+
+
+
+
+
+
+<div class="col-md-3">
+   
+        <div class="card-group" style="margin-top:10px">
+
+            <img class="img-rounded" width="170" height="170" src="data:image/jpg;base64,@(img)">
+
+
+
+            <div class="card-body">
+
+                <h2>
+                    @Html.DisplayFor(model => model.Employee.Name, new { htmlAttributes = new { @class = "card-title" } })
+
+                </h2>
+                @for (int i = 0; i < Model.Roles.Count; i++)
+                {
+                    <h4 class="card-text">
+                        @Html.ActionLink(Model.Roles[i].Role.ArabicName + " لدى " + Model.Roles[i].Institution.ArabicName, "View", "Roles", new { id = Model.Roles[i].ID }, null)
+                    </h4>
+
+                }
+                <h4>
+                    @Html.DisplayFor(model => model.Employee.PHD, new { htmlAttributes = new { @class = "card-title" } })
+
+                </h4>
+                <h5>
+                    @Html.DisplayFor(model => model.Employee.Bio, new { htmlAttributes = new { @class = "card-title" } })
+
+                </h5>
+                <h5>
+                </h5>
+
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+<div class="col-md-8">
+
+    <div class="navbar" style="margin-top: 20px;">
+        <a href="~/Messages/Send/@Model.Employee.ID"><img src="~/Content/mail.png" width="25" height="25" style="float: right;" /> </a>
+
+        <hr style="margin-top:35px"/>
+
+    </div>
+
+
+</div>
+
+
+
+

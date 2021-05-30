@@ -1,0 +1,135 @@
+﻿@model WebApplication2.Models.ViewModels.InstitutionProfileModel
+
+
+
+
+
+
+
+@if (!Model.Institution.Active)
+{
+    <h2 class="text-danger">This Institution Has Been Deactivated</h2>
+    <hr/>
+}
+
+<div class="col-md-3">
+    <div class="card-group" style="margin-top:10px">
+
+        <img class="img-rounded" width="170" height="170" src="data:image/jpg;base64,@(Model.Institution.ImageURL)">
+
+        <div class="card-body">
+
+
+
+            <h2 class="card-title">
+                <a href="@(Model.Institution.Website)">@Model.Institution.ArabicName</a>
+            </h2>
+
+
+
+            <h4 class="card-title">
+                @Model.Institution.PrimaryPhone
+            </h4>
+
+            <h4 class="card-title">
+                @Model.Institution.SecondaryPhone
+            </h4>
+
+            <h4 class="card-title">
+                @Model.Institution.Fax
+            </h4>
+
+            <h4 class="card-title">
+                @Model.Institution.Email
+            </h4>
+
+
+            @if (Model.canActive || Model.canDeactive || Model.canEditInfo)
+            {
+            <hr />
+            <h4>Options</h4>
+            <ul>
+
+                @if (((Model.Institution.Active) && Model.canEditInfo))
+                {
+                    <li>@Html.ActionLink("Edit", "Edit", "Institutions", new { id = Model.Institution.ID },null)</li>
+                }
+                @if (((!Model.Institution.Active) && Model.canActive))
+                {
+                    <li>@Html.ActionLink("Activate", "Active", "Institutions", new { id = Model.Institution.ID }, null)</li>
+                }
+                @if (((Model.Institution.Active) && Model.canDeactive))
+                {
+                    <li>@Html.ActionLink("Deactivate", "Deactive", "Institutions", new { id = Model.Institution.ID }, null)</li>
+                }
+
+
+
+
+            </ul>
+            }
+
+       
+
+
+        </div>
+    </div>
+
+</div>
+
+<div class="col-lg-8">
+    <h2>
+        Employees
+    </h2>
+
+    @foreach (var emp in Model.EmployeeRoles)
+    {
+
+
+        <h4>  @Html.ActionLink(emp.Employee.Name, "PersonProfile","Employees", new { id = emp.Employee.ID },null)               </h4>
+    }
+    <hr />
+
+
+
+    <h2>
+        Related Institutions
+    </h2>
+
+    @foreach (var ins in Model.Children)
+    {
+
+        <h4>@Html.ActionLink(ins.ArabicName, "InstitutionProfile", new { id = ins.ID },null)    </h4>
+
+    }
+    <hr />
+</div>
+
+
+@*<div id="tabs" align="center" class="col-md-8">
+
+        <ul>
+            <li>
+                <a href="#tab1">Employees</a>
+            </li>
+            <li>
+                <a href="#tab2">Folders</a>
+            </li>
+            <li>
+                <a href="#tab1">Associated Institutions</a>
+            </li>
+        </ul>
+
+        <div id="tab1">
+            content1
+        </div>
+        <div id="tab2">
+            content2
+        </div>
+        <div id="tab3">
+                      content3
+        </div>
+
+    </div>*@
+
+

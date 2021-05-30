@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="84afbce07c5a42b3b385cadc1de166dc" Name="Diagram1">
+        <EntityTypeShape EntityType="DMS_dbModel.Bookmark" Width="1.5" PointX="10.5" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DMS_dbModel.City" Width="1.5" PointX="0.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DMS_dbModel.Employee" Width="1.5" PointX="3" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DMS_dbModel.EmployeeCredential" Width="1.5" PointX="5.25" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DMS_dbModel.EmployeeRole" Width="1.5" PointX="8.25" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DMS_dbModel.File" Width="1.5" PointX="13.5" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DMS_dbModel.FileActionLog" Width="1.5" PointX="15.75" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DMS_dbModel.FileContent" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DMS_dbModel.FileLevel" Width="1.5" PointX="11.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DMS_dbModel.FileMention" Width="1.5" PointX="18.75" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DMS_dbModel.FilePermission" Width="1.5" PointX="13.5" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DMS_dbModel.FileType" Width="1.5" PointX="3" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DMS_dbModel.FileVersion" Width="1.5" PointX="15.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DMS_dbModel.Institution" Width="1.5" PointX="6" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DMS_dbModel.InstitutionActionLog" Width="1.5" PointX="10.5" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DMS_dbModel.InstitutionPermission" Width="1.5" PointX="8.25" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DMS_dbModel.InstitutionType" Width="1.5" PointX="3.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DMS_dbModel.Message" Width="1.5" PointX="5.25" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DMS_dbModel.PersonActionLog" Width="1.5" PointX="10.5" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DMS_dbModel.PersonPermission" Width="1.5" PointX="8.25" PointY="20.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DMS_dbModel.Role" Width="1.5" PointX="6" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DMS_dbModel.RoleInstitutionPermission" Width="1.5" PointX="8.25" PointY="23.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DMS_dbModel.RolePersonPermission" Width="1.5" PointX="8.25" PointY="25.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DMS_dbModel.FilesScope" Width="1.5" PointX="18.75" PointY="11.625" IsExpanded="true" />
+        <AssociationConnector Association="DMS_dbModel.FK__Bookmark__Employ__0E591826" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__Bookmark__FileID__0D64F3ED" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__Employee__CityID__2E06CDA9" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__Employee__Primar__379037E3" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__EmployeeC__Emplo__2942188C" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__EmployeeR__Emplo__3B60C8C7" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__Message__Recieve__2354350C" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__Message__SenderI__226010D3" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__PersonAct__Affec__46D27B73" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__EmployeeR__Insti__3D491139" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__EmployeeR__RoleI__3C54ED00" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__File__AuthorID__515009E6" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__File__AuthorID__53385258" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__File__AuthorID__55209ACA" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__File__AuthorID__58F12BAE" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__FileActio__Emplo__72B0FDB1" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__FileActio__Emplo__758D6A5C" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__FileMenti__Creat__09946309" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__FileMenti__Emplo__08A03ED0" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__FileVersi__Autho__673F4B05" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__FileVersi__Autho__6A1BB7B0" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__FileVersi__Autho__6DEC4894" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__Instituti__Emplo__48BAC3E5" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__PersonAct__Condu__45DE573A" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__File__Level__5614BF03" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__File__Level__59E54FE7" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__FileActio__FileI__73A521EA" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__FileActio__FileI__76818E95" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__FileMenti__FileI__07AC1A97" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__FileVersi__FileI__664B26CC" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__FileVersi__FileI__69279377" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__FileVersi__FileI__6CF8245B" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__FileActio__Permi__7775B2CE" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__FileVersi__FileC__6FD49106" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__Message__FileCon__24485945" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__FilesScop__Level__5BCD9859" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__FilesScop__Permi__5DB5E0CB" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__FileVersi__FileT__6B0FDBE9" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__FileVersi__FileT__6EE06CCD" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__Message__FileTyp__253C7D7E" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__Instituti__Insti__40257DE4" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__Instituti__Insti__49AEE81E" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__Instituti__Paren__4119A21D" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__Instituti__Permi__4AA30C57" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__PersonAct__Permi__47C69FAC" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__FilesScop__RoleI__5CC1BC92" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__Role__ParentID__2D12A970" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__RoleInsti__RoleI__33BFA6FF" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__RolePerso__RoleI__32CB82C6" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

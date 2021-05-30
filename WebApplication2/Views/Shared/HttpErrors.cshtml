@@ -1,0 +1,55 @@
+﻿@model WebApplication2.Models.ViewModels.HttpErrors
+
+
+
+
+<h3>@ViewBag.msg</h3>
+
+@if (Model.StatusCode == 401)
+{
+
+    <h1>عملية غير مصرحة</h1>
+    <h2>عذرا. المسمى الوظيفي لا يصلح لإكمال هذا الطلب</h2>
+    <br />
+    <h5> @Html.ActionLink("تغيير الوظيفة؟ ", "ChooseDefault", "Roles")</h5>
+    <h5>
+        أو تواصل مع أحد المشرفين
+    </h5>
+
+
+}
+
+
+
+@if (Model.StatusCode == 400)
+{
+
+    <h1>طلب خاطئ </h1>
+    <br />
+    <h5>لم نستطع تفسير طلبك بصورة صحيحة @Html.ActionLink("الرجوع للصفحة الرئيسية؟", "Index", "Home")</h5>
+
+}
+
+@if (Model.StatusCode == 404)
+{
+
+    <h1>غير موجود</h1>
+    <h2>عذرا. لم نستطع إيجاد ما تبحث عنه</h2>
+    <br />
+    <h5>  @Html.ActionLink("الرجوع للصفحة الرئيسية؟", "Index", "Home")</h5>
+
+
+}
+
+@if (Model.StatusCode == 500)
+{
+
+    <h1>خطأ</h1>
+    <h2>حدث خطأ في الخادم</h2>
+    <br />
+    <h5>برجاء إبلاغ أحد المشرفين عن هذه المشكلة </h5>
+
+}
+
+
+

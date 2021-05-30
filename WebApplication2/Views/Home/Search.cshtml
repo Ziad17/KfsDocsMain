@@ -1,0 +1,66 @@
+﻿@model WebApplication2.Models.ViewModels.SearchModel
+
+
+
+<h2>
+    Search Results
+</h2>
+
+
+
+
+<h4>Employees</h4>
+@if (Model.Employees.Count > 0)
+{
+
+    <table class="table">
+        <tr>
+            <th>Name</th>
+        </tr>
+
+        @foreach (var item in Model.Employees)
+        {
+            <tr>
+                <td>
+
+                    @Html.ActionLink(item.Name, "PersonProfile", "Employees", new { id = item.ID },null)
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+else
+{ <h5>No Results</h5>}
+
+<br />
+
+<h4>Institutions</h4>
+@if (Model.Institutions.Count > 0)
+{
+
+    <table class="table">
+        <tr>
+            <th>Name</th>
+        </tr>
+
+        @foreach (var item in Model.Institutions)
+        {
+            <tr>
+                <td>
+
+                    @Html.ActionLink(item.ArabicName, "InstitutionProfile", "Institutions", new { id = item.ID },null)
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+else
+{ <h5>No Results</h5>}
+
+
+
+
+
+

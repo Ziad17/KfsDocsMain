@@ -1,0 +1,79 @@
+﻿
+
+@model  WebApplication2.Models.ViewModels.Messages.InboxModel
+
+@{
+    ViewBag.Title = "صندوق المرسل";
+}
+
+<h2>صندوق المرسل</h2>
+
+
+
+@if (Model.MyMessages.Count > 0)
+{
+
+    <table class="table">
+        <tr>
+
+            <th>
+                المستلم
+            </th>
+            <th>
+                عنوان الرسالة
+            </th>
+
+            <th>
+                التاريخ
+            </th>
+
+
+
+        </tr>
+
+        @foreach (var item in Model.MyMessages)
+        {
+
+            string style = "";
+
+            if (item.Seen != true)
+            {
+                style = "background-color:#e2e2e1;";
+
+            }
+
+
+            <tr style="@style">
+
+
+                <td>
+                    @Html.ActionLink(item.Employee.Name, "PersonProfile", "Employees", new { id = item.RecieverID }, null)
+
+                </td>
+                <td>
+                    @Html.ActionLink(item.HeaderText, "View", "Messages", new { id = item.ID }, null)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCreated)
+                </td>
+
+
+
+            </tr>
+
+
+        }
+
+
+
+
+    </table>
+}
+else
+{
+    <hr />
+    <h4> لا يوجد رسائل مرسلة           </h4>
+}
+
+
