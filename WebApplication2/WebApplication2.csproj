@@ -268,6 +268,7 @@
     <Compile Include="Models\RolePersonPermission.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TestModel.cs" />
     <Compile Include="Models\ViewModels\ActiveDeactiveInstitutionModel.cs" />
     <Compile Include="Models\ViewModels\AddVersionModel.cs" />
     <Compile Include="Models\ViewModels\EmployeeProfileModel.cs" />
@@ -275,12 +276,13 @@
     <Compile Include="Models\ViewModels\FirstLoginModel.cs" />
     <Compile Include="Models\ViewModels\HttpErrors.cs" />
     <Compile Include="Models\ViewModels\InstitutionProfileModel.cs" />
+    <Compile Include="Models\ViewModels\MenuModel.cs" />
     <Compile Include="Models\ViewModels\Messages\InboxModel.cs" />
     <Compile Include="Models\ViewModels\Messages\ViewMessageModel.cs" />
     <Compile Include="Models\ViewModels\MyProfileModel.cs" />
     <Compile Include="Models\ViewModels\RolesChooseDefaultModel.cs" />
-    <Compile Include="Models\ViewModels\SearchModel.cs" />
     <Compile Include="Models\ViewModels\Messages\SendMessageModel.cs" />
+    <Compile Include="Models\ViewModels\SearchModel.cs" />
     <Compile Include="Models\ViewModels\ViewEmployeeRoleModel.cs" />
     <Compile Include="Models\ViewModels\ViewFileLevelsModel.cs" />
     <Compile Include="Models\ViewModels\ViewFileModel.cs" />
@@ -350,7 +352,6 @@
     <Content Include="Views\Employees\Delete.cshtml" />
     <Content Include="Views\Roles\Create.cshtml" />
     <Content Include="Views\Roles\Delete.cshtml" />
-    <Content Include="Views\Roles\Details.cshtml" />
     <Content Include="Views\Roles\Edit.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\Employees\MyProfile.cshtml" />
@@ -363,9 +364,7 @@
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Files\Create.cshtml" />
     <Content Include="Views\Files\Delete.cshtml" />
-    <Content Include="Views\Files\Details.cshtml" />
     <Content Include="Views\Files\Edit.cshtml" />
-    <Content Include="Views\Files\Index.cshtml" />
     <Content Include="Views\Files\View.cshtml" />
     <Content Include="Views\Files\AddVersion.cshtml" />
     <Content Include="Views\Home\SetupAccount.cshtml" />
@@ -382,6 +381,8 @@
     <Content Include="Views\Messages\View.cshtml" />
     <Content Include="Views\Messages\Inbox.cshtml" />
     <Content Include="Views\Messages\Sent.cshtml" />
+    <Content Include="Views\Shared\_MenuBar.cshtml" />
+    <Content Include="Views\Employees\CannotDelete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

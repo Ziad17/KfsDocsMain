@@ -60,8 +60,12 @@ namespace WebApplication2.Controllers
                         
                         EmployeeCredential cred = new EmployeeCredential() { Email = firstLoginModel.Email, Password = enc_pass, EmployeeID = emp.ID };
                         db.EmployeeCredentials.Add(cred);
+                   
                         db.SaveChanges();
-                        return Login(cred);
+                        cred.Password = firstLoginModel.Password;
+
+                        return RedirectToAction("Login");
+
                     }
                     ModelState.AddModelError("", "You Already Have Email And Password");
                     return View();
@@ -136,8 +140,6 @@ namespace WebApplication2.Controllers
 
 
 
-
-
             var emp = getEmployeeRef();
             if (emp == null)
             { return getErrorView(HttpStatusCode.Unauthorized); }
@@ -146,11 +148,13 @@ namespace WebApplication2.Controllers
                 return getErrorView(HttpStatusCode.BadRequest);
             }
 
-    
+
+            var empRole = getPrimaryRole();
 
             SearchModel viewModel = new SearchModel();
             viewModel.Employees = db.Employees.Where(x => x.Name.Contains(query)).ToList<Employee>();
             viewModel.Institutions = db.Institutions.Where(x => x.ArabicName.Contains(query)).ToList<Institution>();
+            viewModel.Files = getAvaiableFilesForMe().Where(x => x.Name.Contains(query)).OrderBy(x => x.DateCreated).ToList <File>();
 
             return View(viewModel);
 
@@ -158,6 +162,9 @@ namespace WebApplication2.Controllers
 
 
         }
+
+
+
 
 
     

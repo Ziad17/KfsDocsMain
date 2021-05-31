@@ -1,0 +1,56 @@
+﻿ @model  WebApplication2.Models.ViewModels.MenuModel
+
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            @Html.ActionLink(Model.Name, "PersonProfile", "Employees", new { id = Model.ID, area = "" }, new { @class = "navbar-brand" })
+
+            <img class="img-circle" height="35" width="35" src="data:image/jpg;base64,@Model.Img">
+
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+
+                
+
+                    <li>@Html.ActionLink("العاملين", "Index", "Employees")</li>
+
+
+                    <li>@Html.ActionLink("المؤسسات", "Index", "Institutions")</li>
+                    <li>@Html.ActionLink("الوظائف", "Index", "Roles")</li>
+                    <li>@Html.ActionLink("الملفات", "Index", "Files")</li>
+                    <li>@Html.ActionLink("تسجيل الخروج", "Logout", "Home")</li>
+                 
+                    <li>
+                        @using (Html.BeginForm("Search", "Home", FormMethod.Post, htmlAttributes: new { @class = "form-inline my-2 my-lg-0", @style = "margin-top:10px;" }))
+                        {
+                            @Html.TextBox("query")
+
+                            <button type="submit"> بحث</button>
+
+                        }
+
+
+
+                    </li>
+                
+
+               
+                    @*<li>@Html.ActionLink("تسجيل الدخول", "Login", "Home")</li>
+                    <li>@Html.ActionLink("إنشاء حساب", "SetupAccount", "Home")</li>*@
+
+                
+            </ul>
+
+
+        </div>
+    </div>
+</div>
+

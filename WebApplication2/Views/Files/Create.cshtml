@@ -1,7 +1,7 @@
 ﻿@model WebApplication2.Models.File
 
 @{
-    ViewBag.Title = "CreateFile";
+    ViewBag.Title = "إنشاء ملف";
 
     string InstitutionName = ViewBag.InstitutionName;
     string AuthorName = ViewBag.AuthorName;
@@ -12,9 +12,9 @@
 }
 
 
-<h2>hello @AuthorName</h2>
+<h2>@ViewBag.Title</h2>
 
-<h3>Create File In @InstitutionName as @RoleName</h3>
+<h3>@InstitutionName كا @RoleName</h3>
 <hr />
 
 
@@ -28,30 +28,33 @@
 
 
 
-        <div class="col-lg-6">
+        
             <div class="form-group">
-                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                 </div>
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+
             </div>
 
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Level, "Level", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.DropDownList("Level", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Level, "", new { @class = "text-danger" })
                 </div>
+                @Html.LabelFor(model => model.Level, "Level", htmlAttributes: new { @class = "control-label col-md-2" })
+
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.DateCreated, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.DateCreated, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.DateCreated, "", new { @class = "text-danger" })
                 </div>
+                @Html.LabelFor(model => model.DateCreated, htmlAttributes: new { @class = "control-label col-md-2" })
+
             </div>
 
     
@@ -59,18 +62,14 @@
 
    
 
-        </div>
-
+      
 
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="إنشاء" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

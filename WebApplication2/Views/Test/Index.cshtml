@@ -1,21 +1,33 @@
-﻿
+﻿@model WebApplication2.Models.TestModel
 
 @{
     string img = ViewBag.Img;
+    var roles = ViewBag.Roles;
+    var files = ViewBag.Files;
+
 }
 
+@foreach (var instit in Model.institutions)
+{
+    <h2>@instit.ArabicName</h2>
+    <br/>
+
+}
+
+@ViewBag.RolesCount
+<br />
+@ViewBag.Count
 
 
 
+@*<div class="col-md-3">
+        <div class="card-group" style="margin-top:10px">
 
-<div class="col-md-3">
-    <div class="card-group" style="margin-top:10px">
+            <img class="img-rounded" width="170" height="170" src="data:image/jpg;base64,@(img)">
+        </div>
+    </div>*@
 
-        <img class="img-rounded" width="170" height="170" src="data:image/jpg;base64,@(img)">
-    </div>
-</div>
-
- @*   <p>@img</p>*@
+@*   <p>@img</p>*@
 
 
 

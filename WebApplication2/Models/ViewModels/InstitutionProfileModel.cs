@@ -9,7 +9,9 @@ namespace WebApplication2.Models.ViewModels
     {
         public List<Institution> Children { get; set; }
         public Institution Institution { get; set; }
-        public List<EmployeeRole> EmployeeRoles { get; set; }
+        public List<Employee> Employees { get; set;}
+        public List<File> Files { get; set; }
+
         public bool canEditInfo { get; set; }
         public bool canDeactive { get; set; }
         public bool canActive { get; set; }

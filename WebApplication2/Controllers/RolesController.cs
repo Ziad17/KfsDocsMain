@@ -75,7 +75,7 @@ namespace WebApplication2.Controllers
             {
                 return getErrorView(HttpStatusCode.NotFound);
             }
-            if (hasPersonPermission(role.ID, PersonPermissions.DEACTIVATE_PERSON_WITHIN_INSTITUTION) && (employeeRole.Active) && isRolePriorityValid(EmpRole.Role.ID,employeeRole.Role.ID))
+            if (hasPersonPermission(role.ID, PersonPermissions.DEACTIVATE_PERSON_WITHIN_INSTITUTION) && operationValidInInstitution(EmpRole.ID,employeeRole.InstitutionID) && (employeeRole.Active) && isRolePriorityValid(EmpRole.Role.ID,employeeRole.Role.ID))
             {
 
                 return View(employeeRole);
@@ -106,7 +106,7 @@ namespace WebApplication2.Controllers
             {
                 return getErrorView(HttpStatusCode.NotFound);
             }
-            if (hasPersonPermission(role.ID, PersonPermissions.DEACTIVATE_PERSON_WITHIN_INSTITUTION) && (employeeRole.Active) && isRolePriorityValid(EmpRole.Role.ID, employeeRole.Role.ID))
+            if (hasPersonPermission(role.ID, PersonPermissions.DEACTIVATE_PERSON_WITHIN_INSTITUTION) && operationValidInInstitution(EmpRole.ID,employeeRole.InstitutionID) && (employeeRole.Active) && isRolePriorityValid(EmpRole.Role.ID, employeeRole.Role.ID))
             {
 
                 db.EmployeeRoles.Find(employeeRole.ID).Active = false;
@@ -147,7 +147,7 @@ namespace WebApplication2.Controllers
             {
                 return getErrorView(HttpStatusCode.NotFound);
             }
-            if (hasPersonPermission(role.ID, PersonPermissions.ACTIVATE_PERSON_WITHIN_INSTITUTION) && (!employeeRole.Active) && isRolePriorityValid(EmpRole.Role.ID, employeeRole.Role.ID))
+            if (hasPersonPermission(role.ID, PersonPermissions.ACTIVATE_PERSON_WITHIN_INSTITUTION)&& operationValidInInstitution(EmpRole.ID,employeeRole.InstitutionID) && (!employeeRole.Active) && isRolePriorityValid(EmpRole.Role.ID, employeeRole.Role.ID))
             {
 
                 return View(employeeRole);
@@ -178,7 +178,7 @@ namespace WebApplication2.Controllers
             {
                 return getErrorView(HttpStatusCode.NotFound);
             }
-            if (hasPersonPermission(role.ID, PersonPermissions.ACTIVATE_PERSON_WITHIN_INSTITUTION) && (!employeeRole.Active) && isRolePriorityValid(EmpRole.Role.ID, employeeRole.Role.ID))
+            if (hasPersonPermission(role.ID, PersonPermissions.ACTIVATE_PERSON_WITHIN_INSTITUTION) && operationValidInInstitution(EmpRole.ID, employeeRole.InstitutionID) && (!employeeRole.Active) && isRolePriorityValid(EmpRole.Role.ID, employeeRole.Role.ID))
             {
 
                 db.EmployeeRoles.Find(employeeRole.ID).Active = true;
@@ -220,7 +220,7 @@ namespace WebApplication2.Controllers
         }
         
 
-            public ActionResult ChooseDefault()
+        public ActionResult ChooseDefault()
         {
             var myEmpRef = getEmployeeRef();
             if (myEmpRef == null)
@@ -266,9 +266,12 @@ namespace WebApplication2.Controllers
             }
             var role = EmpRole.Role;
 
+            
 
             if (hasPersonPermission(role.ID, PersonPermissions.ATTACH_ROLE_TO_PERSON))
             {
+
+
                 if (id != null)
                 {
                     Employee employee = db.Employees.Find(id);
@@ -286,7 +289,12 @@ namespace WebApplication2.Controllers
                     ViewBag.EmployeeID = new SelectList(db.Employees, "ID", "Name");
 
                 }
-                ViewBag.InstitutionName = EmpRole.Institution.ArabicName;
+
+
+                var availableInstitutions = getChildrenInstitutionWithParent(EmpRole.InstitutionID).ToList<Institution>();
+                
+                   ViewBag.InstitutionID = new SelectList(availableInstitutions, "ID", "ArabicName");
+
                 ViewBag.RoleID = new SelectList(db.Roles.Where(x => x.PriorityOrder > EmpRole.Role.PriorityOrder), "ID", "ArabicName");
                 return View();
             }
@@ -296,10 +304,12 @@ namespace WebApplication2.Controllers
 
         }
 
+       
+
         // POST: Roles/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EmployeeID,RoleID,ArabicJobDesc,HiringDate")] EmployeeRole employeeRole)
+        public ActionResult Create([Bind(Include = "EmployeeID,RoleID,ArabicJobDesc,InstitutionID,HiringDate")] EmployeeRole employeeRole)
         {
 
             var EmpRole = getPrimaryRole();
@@ -313,9 +323,9 @@ namespace WebApplication2.Controllers
             {
                 var role = EmpRole.Role;
 
-                if (hasPersonPermission(role.ID, PersonPermissions.ATTACH_ROLE_TO_PERSON) && isRolePriorityValid(role.ID,employeeRole.RoleID))
+
+                if (hasPersonPermission(role.ID, PersonPermissions.ATTACH_ROLE_TO_PERSON) && operationValidInInstitution(EmpRole.ID,employeeRole.InstitutionID)  && isRolePriorityValid(role.ID,employeeRole.RoleID))
                 {
-                    employeeRole.InstitutionID = EmpRole.InstitutionID;
                     employeeRole.Active = true;
                     db.EmployeeRoles.Add(employeeRole);
                     PersonActionLog log = new PersonActionLog()
@@ -338,11 +348,12 @@ namespace WebApplication2.Controllers
             return View(employeeRole);
         }
 
+    
 
 
 
 
-      
+
 
         // GET: Roles/Delete/5
         public ActionResult Delete(int? id)

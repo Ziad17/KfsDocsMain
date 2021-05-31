@@ -7,8 +7,10 @@ namespace WebApplication2.Models.ViewModels
 {
     public class SearchModel
     {
+
         public List<Employee> Employees { get; set; }
         public List<Institution> Institutions { get; set; }
+        public List<File> Files { get; set; }
 
     }
 }

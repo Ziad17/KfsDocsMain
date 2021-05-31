@@ -116,17 +116,9 @@ namespace WebApplication2.Controllers
    
 
 
-        // GET: Employees
-        public ActionResult Index()
-        {
+  
     
 
-            var employees = db.Employees.Include(e => e.City);
-            return View(employees.ToList());
-        }
-
-    
-        // GET: Employees/Create
         public ActionResult Create()
         {
 
@@ -148,10 +140,10 @@ namespace WebApplication2.Controllers
        
         }
 
-        // POST: Employees/Create
+    
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Gender,UserPassword,AcadmicNumber,CityID,Email")] Employee employee)
+        public ActionResult Create([Bind(Include = "ID,Name,Gender,AcadmicNumber,CityID,Email")] Employee employee)
         {
             var EmpRole = getPrimaryRole();
 
@@ -226,17 +218,88 @@ namespace WebApplication2.Controllers
         // GET: Employees/Delete/5
         public ActionResult Delete(int? id)
         {
+
             if (id == null)
             {
+
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            var myEmpRole = getPrimaryRole();
+
+            if (myEmpRole == null)
+            {
+                return getErrorView(HttpStatusCode.Unauthorized);
+            }
+
+
             Employee employee = db.Employees.Find(id);
             if (employee == null)
             {
-                return HttpNotFound();
+                return getErrorView(HttpStatusCode.NotFound);
             }
-            return View(employee);
+
+            if (hasPersonPermission(myEmpRole.RoleID, PersonPermissions.DELETE_PERSON))
+            {
+                var roles = db.EmployeeRoles.Where(x => x.EmployeeID == employee.ID);
+                if (roles.Count() == 0)
+                {
+                    return View(employee);
+
+                }
+                return View("CannotDelete");
+            }
+            return getErrorView(HttpStatusCode.Unauthorized);
+
+
         }
+
+
+
+        // POST: Employees/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+         
+
+            var myEmpRole = getPrimaryRole();
+
+            if (myEmpRole == null)
+            {
+                return getErrorView(HttpStatusCode.Unauthorized);
+            }
+
+
+            Employee employee = db.Employees.Find(id);
+            if (employee == null)
+            {
+                return getErrorView(HttpStatusCode.NotFound);
+            }
+
+            var roles = db.EmployeeRoles.Where(x => x.EmployeeID == employee.ID);
+            if (roles.Count() == 0 && hasPersonPermission(myEmpRole.RoleID, PersonPermissions.DELETE_PERSON))
+            {
+                try
+                {
+                    db.Employees.Remove(employee);
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "Home");
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("", "لا يمكن مسح موظف مفعل");
+                    return View(employee);
+                }
+
+            }
+            return getErrorView(HttpStatusCode.Unauthorized);
+
+        }
+
+
+
+
 
         public ActionResult MyProfile()
         {
@@ -253,6 +316,9 @@ namespace WebApplication2.Controllers
 
 
 
+
+
+
         
 
 
@@ -265,6 +331,7 @@ namespace WebApplication2.Controllers
             MyProfileModel viewModel = new MyProfileModel() { Employee = employee,
                 Roles = employeeRoles
         };
+            viewModel.Files = getMyFiles().ToList<Models.File>();
             return View(viewModel);
         }
 
@@ -287,7 +354,8 @@ namespace WebApplication2.Controllers
             return View(employee);
 
         }
-        //Example /Employees/PersonProfile/2
+
+
         public ActionResult PersonProfile(int? id)
         {
 
@@ -330,6 +398,12 @@ namespace WebApplication2.Controllers
                 ViewBag.Img = filMg.getImageStream(employee.ImageURL);
 
 
+
+
+                var personFile = getSomeoneFiles(employee.ID);
+                viewModel.Files = getAvaiableFilesForMe().Intersect(personFile).ToList<Models.File>();
+
+
                 viewModel.Roles = employee.EmployeeRoles.ToList<EmployeeRole>();
 
                 return View(viewModel);
@@ -345,16 +419,6 @@ namespace WebApplication2.Controllers
 
 
 
-        // POST: Employees/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Employee employee = db.Employees.Find(id);
-            db.Employees.Remove(employee);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
 
         protected override void Dispose(bool disposing)
         {

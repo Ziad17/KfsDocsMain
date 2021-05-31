@@ -508,7 +508,7 @@ namespace WebApplication2.Controllers
                     
                     db.Files.Remove(acutalFile);
                     db.SaveChanges();
-                    return RedirectToAction("View", new { id = acutalFile.ID });
+                    return RedirectToAction("Index", "Home");
 
                 }
                 return getErrorView(HttpStatusCode.Unauthorized);

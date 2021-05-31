@@ -1,19 +1,12 @@
 ﻿@model WebApplication2.Models.ViewModels.MyProfileModel
 
-
-
 @{
     string img = ViewBag.Img;
 }
 
-
-
-
 <div class="col-md-3">
     <div class="card-group" style="margin-top:10px">
         <div class="card" style="padding: 20px;border-top: 3px  solid #f8b739;border-bottom: 3px  solid #f8b739" border-left: 3px solid #f8b739">
-
-
 
             <img class="img-rounded" width="170" height="170" src="data:image/jpg;base64,@(img)">
             @Html.ActionLink("Change Photo", "ChangePhoto")
@@ -48,5 +41,54 @@
 
     </div>
 
+</div>
+<div class="col-lg-9">
+    @if (Model.Files.Count > 0)
+    {
+
+        <table class="table">
+            <tr>
+
+                <th>
+                    إسم الملف
+                </th>
+                <th>
+                    المؤسسة
+                </th>
+
+                <th>
+                    التاريخ
+                </th>
+            </tr>
+
+            @foreach (var item in Model.Files)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(item.Name, "View", "Files", new { id = item.ID }, null)
+
+                    </td>
+                    <td>
+                        @Html.ActionLink(item.EmployeeRole.Institution.ArabicName, "InstitutionProfile", "Institutions", new { id = item.EmployeeRole.InstitutionID }, null)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateCreated)
+                    </td>
+
+
+
+                </tr>
+
+
+            }
+        </table>
+
+    }
+    else
+    {
+        <hr />
+        <h4>لم تقم بنشر أي ملف           </h4>
+    }
 
 </div>

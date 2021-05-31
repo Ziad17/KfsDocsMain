@@ -8,68 +8,10 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("KfsDocs", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+       @*@{ 
+        Html.RenderAction("RenderMenu");
+           }*@
 
-                    @if (User.Identity.IsAuthenticated)
-                    {
-
-                        <li>@Html.ActionLink("العاملين", "Index", "Employees")</li>
-
-                        <li>@Html.ActionLink("المؤسسات", "Index", "Institutions")</li>
-                        <li>@Html.ActionLink("الوظائف", "Index", "Roles")</li>
-                        <li>@Html.ActionLink("الملفات", "Index", "Files")</li>
-                        <li>@Html.ActionLink("تسجيل الخروج", "Logout", "Home")</li>
-                        @*<li>
-                            <div class="dropdown mr-1">
-                                <button style="margin: auto;" type="button" class="btn btn-sm dropdown-toggle" id="dropdownNotif" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
-                                    <i style="font-size: 20px" class="fas fa-bell"></i>
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownNotif">
-                                    <a class="dropdown-item" href="#">Notification 1</a>
-                                    <a class="dropdown-item" href="#">Notification 2</a>
-                                    <a class="dropdown-item" href="#">Notification 3</a>
-                                    <a class="dropdown-item" href="#">Notification 4</a>
-                                </div>
-                            </div>
-
-                        </li>*@
-                        <li>
-                            @using (Html.BeginForm("Search", "Home", FormMethod.Post, htmlAttributes: new { @class = "form-inline my-2 my-lg-0", @style = "margin-top:10px;" }))
-                            {
-                                @Html.TextBox("query")
-
-                                <button type="submit"> بحث</button>
-
-                            }
-
-
-
-                        </li>
-                    }
-
-                    else
-                    {
-                        <li>@Html.ActionLink("تسجيل الدخول", "Login", "Home")</li>
-                        <li>@Html.ActionLink("إنشاء حساب", "SetupAccount", "Home")</li>
-
-                    }
-                </ul>
-
-
-            </div>
-        </div>
-    </div>
     <div class="container body-content">
         @RenderBody()
 

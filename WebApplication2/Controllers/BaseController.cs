@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
@@ -15,7 +16,7 @@ namespace WebApplication2.Controllers
 {
     public abstract class BaseController : Controller
     {
-
+                                                                                         
 
         protected Employee UserRefrence;
         protected DMS_dbEntities8 db = new DMS_dbEntities8();
@@ -35,11 +36,25 @@ namespace WebApplication2.Controllers
             }
             if (emp.PrimaryRoleID > 0)
             {
-                return db.EmployeeRoles.Find(emp.PrimaryRoleID);
-
+                var emprole= db.EmployeeRoles.Where(x=>x.ID==emp.PrimaryRoleID&& x.Active==true&&x.Institution.Active==true).FirstOrDefault();
+                return emprole;
             }
             return null;
 
+        }
+
+        [ChildActionOnly]
+        public ActionResult RenderMenu()
+        {
+            var emp = getEmployeeRef();
+            FileManager fileMg = new FileManager();
+            MenuModel viewModel = new MenuModel()
+            {
+                ID = emp.ID,
+                Name = emp.Name,
+                Img = fileMg.getImageStream(emp.ImageURL)
+            };
+            return PartialView("_MenuBar",viewModel);
         }
 
         public Employee getEmployeeRef()
@@ -67,68 +82,51 @@ namespace WebApplication2.Controllers
         }
 
 
+        protected bool isPartOfInstitution(int EmployeeRoleID, int InstitutionID)
+        {
+            if (db.EmployeeRoles.Find(EmployeeRoleID).InstitutionID == InstitutionID)
+            { return true; }
+            return false;
+        }
 
-        //protected string validateFile(HttpPostedFileBase file_content)
-        //{
-        //    var FileSizeInKb = 512;
-        //    var supportedFiles = db.FileTypes.Select(x => x.Extension);
-        //    var fileExt = System.IO.Path.GetExtension(file_content.FileName).Substring(1).ToLower();
-        //    if (!supportedFiles.Contains(fileExt))
-        //    {
-        //        var err_msg = "Only File Format Is Allowed (";
-        //        foreach (string ext in supportedFiles)
-        //        {
-        //            err_msg += ext + ",";
-        //        }
-        //        err_msg += ")";
-        //        return err_msg;
-        //    }
-        //    if (file_content != null)
-        //    {
+        protected IQueryable<File> getMyFiles()
+        {
+            var emp = getEmployeeRef();
+            var myroles = db.EmployeeRoles.Where(x => x.EmployeeID == emp.ID && x.Active == true).Select(x => x.ID);
 
-        //        if (file_content.ContentLength > FileSizeInKb * 1024)
-        //        {
-        //            return "The File Size Should Not Exceeding " + FileSizeInKb + " Kb");
+            return db.Files.Where(x => myroles.Contains(x.AuthorID) && x.Active == true);
 
-        //        }
-        //        System.IO.StreamReader st = new System.IO.StreamReader(file_content.InputStream);
-        //        FileManager filMG = new FileManager();
-        //        EncryptionManager encryptionManager = new EncryptionManager(this);
+       
+        }
+
+        protected IQueryable<File> getSomeoneFiles(int id)
+        {
+            var emp = db.Employees.Find(id);
+            var myroles = db.EmployeeRoles.Where(x => x.EmployeeID == emp.ID && x.Active == true).Select(x => x.ID);
+
+            return db.Files.Where(x => myroles.Contains(x.AuthorID) && x.Active == true);
 
 
-        //        string fileName = FileManager.RandomString(1) + encryptionManager.Encrypt(file_content.FileName);
-        //        if (fileName.Length > 10)
-        //        {
-        //            fileName = fileName.Substring(0, 10) + "." + fileExt;
-        //        }
-        //        if (filMG.uploadFile(fileName, st.BaseStream))
-        //        {
-
-                  
-
-
-        //        }
-        //        else
-        //        {
-        //           return "Uploading Failed";
-               
-
-        //        }
+        }
 
 
 
-        //    }
-        //    else
-        //    {
-        //        return "File Is Empty";
-               
-
-        //    }
-
-        //}
 
 
+        protected IQueryable<File> getAvaiableFilesForMe()
+        {
+            var myRole = getPrimaryRole();
+            //
+            var myFiles = getMyFiles();
+            List<String> levels = db.FilesScopes.Where(x => x.RoleID == myRole.Role.ID).Select(x => x.Level).Distinct().ToList();
+            
+              var AvailableFiles= db.Files.Where(x => levels.Contains(x.Level) && x.EmployeeRole.InstitutionID == myRole.InstitutionID);
+            
+            var Mentions=db.FileMentions.Where(x=>x.EmployeeID==myRole.ID).Select(x=>x.File);
+            return AvailableFiles.Concat(myFiles).Concat(Mentions).Distinct();
 
+
+        }
 
 
 
@@ -183,6 +181,42 @@ namespace WebApplication2.Controllers
                 return true;
             }
             return false;
+        }
+
+
+         protected bool operationValidInInstitution(int EmpRoleID, int institutionToCompareID)
+        {
+
+            var myInstitution = db.EmployeeRoles.Find(EmpRoleID).Institution;
+            if (myInstitution.Active == false)
+            {
+                return false;
+
+            }
+            var availableInstitutions = getChildrenInstitutionWithParent(myInstitution.ID);
+            if (availableInstitutions.Contains(db.Institutions.Find(institutionToCompareID)))
+                { return true; }
+            return false;
+           
+        }
+
+
+        protected IEnumerable<Institution> getChildrenInstitutionWithParent(int institutionID)
+        {
+
+            var myInstitution = db.Institutions.Find(institutionID);
+
+            var availableInstitutions = getChildrenInstitution(institutionID);
+            return availableInstitutions.Append(myInstitution);
+
+
+
+        }
+
+        protected IQueryable<Institution> getChildrenInstitution(int institutionID)
+        {
+
+            return db.Institutions.Where(x=>x.ParentID==institutionID && x.Active==true).OrderBy(x=>x.ArabicName);
         }
 
         protected bool hasInstitutionPermission(int roleID, string permissionName)
@@ -251,6 +285,7 @@ namespace WebApplication2.Controllers
         {
             
             public static string VIEW_PERSON_ROLE = "VIEW_PERSON_ROLE";
+            public static string DELETE_PERSON = "DELETE_PERSON";
 
             public static string CREATE_PERSON_WITHIN_INSTITUTION = "CREATE_PERSON_WITHIN_INSTITUTION";
             public static string VIEW_PERSON_PROFILE = "VIEW_PERSON_PROFILE";

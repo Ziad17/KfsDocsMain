@@ -9,9 +9,59 @@
 @if (!Model.Institution.Active)
 {
     <h2 class="text-danger">This Institution Has Been Deactivated</h2>
-    <hr/>
+    <hr />
 }
 
+
+<div class="col-md-9">
+    <h2>
+        العاملين
+    </h2>
+
+    @foreach (var emp in Model.Employees)
+    {
+
+
+        <h4>  @Html.ActionLink(emp.Name, "PersonProfile", "Employees", new { id = emp.ID }, null) </h4>
+    }
+    <hr />
+
+    <h2>
+        الملفات
+    </h2>
+
+    @foreach (var file in Model.Files)
+    {
+
+
+        <h4>  @Html.ActionLink(file.Name, "View", "Files", new { id = file.ID }, null) </h4>
+    }
+    <hr />
+
+    <h2>
+        المؤسسات التابعة
+    </h2>
+
+    @foreach (var ins in Model.Children)
+    {
+
+        <h4>@Html.ActionLink(ins.ArabicName, "InstitutionProfile", new { id = ins.ID }, null)    </h4>
+
+    }
+    <hr />
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
 <div class="col-md-3">
     <div class="card-group" style="margin-top:10px">
 
@@ -46,63 +96,35 @@
 
             @if (Model.canActive || Model.canDeactive || Model.canEditInfo)
             {
-            <hr />
-            <h4>Options</h4>
-            <ul>
+                <hr />
+                <h4>الخيارات</h4>
+                <ul>
 
-                @if (((Model.Institution.Active) && Model.canEditInfo))
-                {
-                    <li>@Html.ActionLink("Edit", "Edit", "Institutions", new { id = Model.Institution.ID },null)</li>
-                }
-                @if (((!Model.Institution.Active) && Model.canActive))
-                {
-                    <li>@Html.ActionLink("Activate", "Active", "Institutions", new { id = Model.Institution.ID }, null)</li>
-                }
-                @if (((Model.Institution.Active) && Model.canDeactive))
-                {
-                    <li>@Html.ActionLink("Deactivate", "Deactive", "Institutions", new { id = Model.Institution.ID }, null)</li>
-                }
-
-
+                    @if (((Model.Institution.Active) && Model.canEditInfo))
+                    {
+                        <li>@Html.ActionLink("تعديل", "Edit", "Institutions", new { id = Model.Institution.ID }, null)</li>
+                    }
+                    @if (((!Model.Institution.Active) && Model.canActive))
+                    {
+                        <li>@Html.ActionLink("تفعيل", "Active", "Institutions", new { id = Model.Institution.ID }, null)</li>
+                    }
+                    @if (((Model.Institution.Active) && Model.canDeactive))
+                    {
+                        <li>@Html.ActionLink("إلغاء التفعيل", "Deactive", "Institutions", new { id = Model.Institution.ID }, null)</li>
+                    }
 
 
-            </ul>
+
+
+                </ul>
             }
 
-       
+
 
 
         </div>
     </div>
 
-</div>
-
-<div class="col-lg-8">
-    <h2>
-        Employees
-    </h2>
-
-    @foreach (var emp in Model.EmployeeRoles)
-    {
-
-
-        <h4>  @Html.ActionLink(emp.Employee.Name, "PersonProfile","Employees", new { id = emp.Employee.ID },null)               </h4>
-    }
-    <hr />
-
-
-
-    <h2>
-        Related Institutions
-    </h2>
-
-    @foreach (var ins in Model.Children)
-    {
-
-        <h4>@Html.ActionLink(ins.ArabicName, "InstitutionProfile", new { id = ins.ID },null)    </h4>
-
-    }
-    <hr />
 </div>
 
 

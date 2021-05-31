@@ -1,21 +1,21 @@
 ﻿@model WebApplication2.Models.ViewModels.SearchModel
 
 
-
+@{ ViewBag.Title = "نتائج البحث";}
 <h2>
-    Search Results
+    @ViewBag.Title
 </h2>
 
 
 
 
-<h4>Employees</h4>
+<h4>الموظفين</h4>
 @if (Model.Employees.Count > 0)
 {
 
     <table class="table">
         <tr>
-            <th>Name</th>
+            <th>الإسم</th>
         </tr>
 
         @foreach (var item in Model.Employees)
@@ -23,7 +23,7 @@
             <tr>
                 <td>
 
-                    @Html.ActionLink(item.Name, "PersonProfile", "Employees", new { id = item.ID },null)
+                    @Html.ActionLink(item.Name, "PersonProfile", "Employees", new { id = item.ID }, null)
                 </td>
             </tr>
         }
@@ -31,17 +31,17 @@
     </table>
 }
 else
-{ <h5>No Results</h5>}
+{ <h5>لا يوجد نتائج </h5>}
 
 <br />
 
-<h4>Institutions</h4>
+<h4>المؤسسات</h4>
 @if (Model.Institutions.Count > 0)
 {
 
     <table class="table">
         <tr>
-            <th>Name</th>
+            <th>الإسم</th>
         </tr>
 
         @foreach (var item in Model.Institutions)
@@ -49,7 +49,7 @@ else
             <tr>
                 <td>
 
-                    @Html.ActionLink(item.ArabicName, "InstitutionProfile", "Institutions", new { id = item.ID },null)
+                    @Html.ActionLink(item.ArabicName, "InstitutionProfile", "Institutions", new { id = item.ID }, null)
                 </td>
             </tr>
         }
@@ -57,7 +57,35 @@ else
     </table>
 }
 else
-{ <h5>No Results</h5>}
+{ <h5>لا يوجد نتائج</h5>}
+
+
+<br />
+
+<h4>الملفات</h4>
+@if (Model.Files.Count > 0)
+{
+
+    <table class="table">
+        <tr>
+            <th>الإسم</th>
+        </tr>
+
+        @foreach (var item in Model.Files)
+        {
+            <tr>
+                <td>
+
+                    @Html.ActionLink(item.Name, "View", "Files", new { id = item.ID }, null)
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+else
+{ <h5>لا يوجد نتائج</h5>}
+
 
 
 
