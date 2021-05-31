@@ -16,37 +16,83 @@
 
         </div>
         <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-
-                
-
-                    <li>@Html.ActionLink("العاملين", "Index", "Employees")</li>
-
-
-                    <li>@Html.ActionLink("المؤسسات", "Index", "Institutions")</li>
-                    <li>@Html.ActionLink("الوظائف", "Index", "Roles")</li>
-                    <li>@Html.ActionLink("الملفات", "Index", "Files")</li>
-                    <li>@Html.ActionLink("تسجيل الخروج", "Logout", "Home")</li>
-                 
-                    <li>
-                        @using (Html.BeginForm("Search", "Home", FormMethod.Post, htmlAttributes: new { @class = "form-inline my-2 my-lg-0", @style = "margin-top:10px;" }))
-                        {
-                            @Html.TextBox("query")
-
-                            <button type="submit"> بحث</button>
-
-                        }
+            <ul class="nav navbar-nav navbar-right">
 
 
 
-                    </li>
-                
+       
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">العاملين <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li> 
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">المؤسسات <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">الوظائف <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">الملفات <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>
+                <li>@Html.ActionLink("تسجيل الخروج", "Logout", "Home")</li>
 
-               
-                    @*<li>@Html.ActionLink("تسجيل الدخول", "Login", "Home")</li>
-                    <li>@Html.ActionLink("إنشاء حساب", "SetupAccount", "Home")</li>*@
 
-                
+
+
+                <li>
+                    @using (Html.BeginForm("Search", "Home", FormMethod.Post, htmlAttributes: new { @class = "form-inline my-3 my-lg-5 navbar-right", @style = "margin-top:10px;margin-left:170px;direction: ltr;" }))
+                    {
+                        @Html.TextBox("query")
+
+                        <button type="submit" class="btn btn-default"> بحث</button>
+
+                    }
+
+
+
+                </li>
+
+
+
+                @*<li>@Html.ActionLink("تسجيل الدخول", "Login", "Home")</li>
+        <li>@Html.ActionLink("إنشاء حساب", "SetupAccount", "Home")</li>*@
+
+
             </ul>
 
 
