@@ -54,6 +54,37 @@ namespace WebApplication2.Controllers
                 Name = emp.Name,
                 Img = fileMg.getImageStream(emp.ImageURL)
             };
+
+            var EmpRole = getPrimaryRole();
+            if (EmpRole != null)
+            {
+                viewModel.canCreateEmployee = hasPersonPermission(EmpRole.RoleID, PersonPermissions.CREATE_PERSON_WITHIN_INSTITUTION);
+              //  viewModel.canDeleteEmployee = hasPersonPermission(EmpRole.RoleID, PersonPermissions.DELETE_PERSON);
+
+
+
+                viewModel.canCreateInstitution = hasInstitutionPermission(EmpRole.RoleID, InstitutionPermissions.CREATE_INSTITUTION);
+                viewModel.canCreateFile = hasInstitutionPermission(EmpRole.RoleID, InstitutionPermissions.CREATE_FILE);
+
+
+                viewModel.canViewAllRoles = hasInstitutionPermission(EmpRole.RoleID, InstitutionPermissions.VIEW_ROLES);
+                viewModel.canAttachRole = hasPersonPermission(EmpRole.RoleID, PersonPermissions.ATTACH_ROLE_TO_PERSON);
+                viewModel.canCreateRole = hasInstitutionPermission(EmpRole.RoleID, InstitutionPermissions.CREATE_ROLE);
+
+
+
+
+
+
+
+
+            }
+
+
+
+
+
+
             return PartialView("_MenuBar",viewModel);
         }
 

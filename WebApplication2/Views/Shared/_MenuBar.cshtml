@@ -1,0 +1,126 @@
+﻿
+@model  WebApplication2.Models.ViewModels.MenuModel
+
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            @Html.ActionLink(Model.Name, "PersonProfile", "Employees", new { id = Model.ID, area = "" }, new { @class = "navbar-brand" })
+
+            <img class="img-circle" height="35" width="35" src="data:image/jpg;base64,@Model.Img">
+
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+
+
+
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">المؤسسات <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="~/Institutions">عرض كل المؤسسات</a></li>
+
+                        <li role="separator" class="divider"></li>
+                        @if (Model.canCreateInstitution)
+                        {
+                            <li><a href="~/Institutions/Create">إنشاء جديد</a></li>
+                        }
+
+
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">الوظائف <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="~/Roles/ChooseDefault">تغيير وظيفتي</a></li>
+
+                        <li role="separator" class="divider"></li>
+                        @if (Model.canCreateEmployee)
+                        {
+                            <li><a href="~/Employees/Create">إنشاء شخص</a></li>
+                        }
+                     
+                        @if (Model.canAttachRole)
+                        {
+                            <li><a href="~/Roles/Create">تعيين شخص</a></li>
+                        }
+                        @if (Model.canCreateRole)
+                        {
+                            <li><a href="~/Roles/Create">إنشاء وظيفة</a></li>
+                        }
+
+
+                        @if (Model.canViewAllRoles)
+                        {
+                            <li><a href="~/Roles">عرض الوظائف</a></li>
+                        }
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">الملفات <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+
+                        <li><a href="~/Mentions">إلاشارات</a></li>
+
+                        <li><a href="~/Bookmarks">المفضلة</a></li>
+
+                        <li><a href="~/Files/FileLevels">مستويات الخصوصية</a></li>
+
+                        <li role="separator" class="divider"></li>
+                        @if (Model.canCreateFile)
+                        {
+                            <li><a href="~/Files/Create">إنشاء ملف</a></li>
+                        }
+
+                    </ul>
+                </li>
+
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">الرسائل <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="~/Messages/Inbox">الواردة</a></li>
+                        <li><a href="~/Messages/Sent">المرسلة</a></li>
+
+                    </ul>
+                </li>
+
+
+
+                <li>@Html.ActionLink("تسجيل الخروج", "Logout", "Home")</li>
+
+
+
+
+                <li>
+                    @using (Html.BeginForm("Search", "Home", FormMethod.Post, htmlAttributes: new { @class = "form-inline my-3 my-lg-5 navbar-right", @style = "margin-top:10px;margin-left:170px;direction: ltr;" }))
+                    {
+                        @Html.TextBox("query")
+
+                        <button type="submit" class="btn btn-default"> بحث</button>
+
+                    }
+
+
+
+                </li>
+
+
+
+                @*<li>@Html.ActionLink("تسجيل الدخول", "Login", "Home")</li>
+        <li>@Html.ActionLink("إنشاء حساب", "SetupAccount", "Home")</li>*@
+
+
+            </ul>
+
+
+        </div>
+    </div>
+</div>

@@ -383,8 +383,8 @@
     <Content Include="Views\Messages\View.cshtml" />
     <Content Include="Views\Messages\Inbox.cshtml" />
     <Content Include="Views\Messages\Sent.cshtml" />
-    <Content Include="Views\Shared\_MenuBar.cshtml" />
     <Content Include="Views\Employees\CannotDelete.cshtml" />
+    <Content Include="Views\Shared\_MenuBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

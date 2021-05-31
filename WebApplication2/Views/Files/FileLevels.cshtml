@@ -14,23 +14,26 @@
 
     </tr>
 <h2>
-  @Model.LevelsDictionary.Count;
+  المستوى A
 </h2>
     @foreach (var item in Model.LevelsDictionary[level])
     {
         <tr>
             <td>
-                @Html.Display(item.Key)
+             @item.Key
             </td>
 
             <td>
                 <ul>
-                    <li>
-                        @foreach (var permission in item.Value)
-                        {
-                            @Html.Display(permission)
+                    @foreach (var permission in item.Value)
+                    {
+                        <li>
+
+                            @permission
+                            </li>
+
+
                         }
-                    </li>
                 </ul>
             </td>
 

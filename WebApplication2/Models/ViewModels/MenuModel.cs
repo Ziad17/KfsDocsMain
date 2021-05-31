@@ -10,17 +10,29 @@ namespace WebApplication2.Models.ViewModels
 
         //employees
         public bool canCreateEmployee
+
         { get; set; }
+     
 
 
 
 
         //institutions
         public bool canCreateInstitution { get; set; }
-        public bool canViewAllInstitutions { get; set; }
 
         //files
         public bool canCreateFile { get; set; }
+
+
+
+        //roles
+        public bool canViewAllRoles { get; set; }
+        public bool canAttachRole { get; set; }
+        public bool canCreateRole { get; set; }
+
+
+
+
 
 
         public int ID { get; set; }
