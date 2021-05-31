@@ -17,13 +17,31 @@ namespace WebApplication2.Controllers
         // GET: Roles
         public ActionResult Index()
         {
-            getEmployeeRef();
+            var EmpRole = getPrimaryRole();
+            if (EmpRole == null || !hasInstitutionPermission(EmpRole.RoleID,InstitutionPermissions.VIEW_ROLES))
+            {
+                return getErrorView(HttpStatusCode.Unauthorized);
+                
+            }
 
-            var employeeRoles = db.EmployeeRoles.Include(e => e.Employee).Include(e => e.Institution).Include(e => e.Role);
-            return View(employeeRoles.ToList());
+
+            
+            var employeeRoles = db.Roles.Include(e=>e.EmployeeRoles).ToList();
+
+
+
+            IndexViewRolesModel viewModel = new IndexViewRolesModel()
+            {
+                Roles = employeeRoles,
+                canAdd = hasInstitutionPermission(EmpRole.RoleID, InstitutionPermissions.CREATE_ROLE),
+                canDelete = hasInstitutionPermission(EmpRole.RoleID, InstitutionPermissions.DELETE_ROLE),
+                canEdit = hasInstitutionPermission(EmpRole.RoleID, InstitutionPermissions.EDIT_ROLE),
+
+            };
+            return View(viewModel);
         }
 
-
+        
 
         public ActionResult View(int id)
         {

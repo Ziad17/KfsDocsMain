@@ -6,6 +6,9 @@
 <h3>هل أنت متأكد أنك تريد المسح؟</h3>
 <div>
     <hr />
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
     <div class="data_labels">
         @Html.LabelFor(model => model.Name)
 
@@ -34,7 +37,7 @@
             @Html.DisplayFor(model => model.City.Name)
         </h5>
 
- 
+
 
     </div>
 
@@ -43,8 +46,12 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="تأكيد المسح" class="btn btn-default" /> 
+            <input type="submit" value="تأكيد المسح" class="btn btn-default" />
 
         </div>
+
+
+
+
     }
 </div>

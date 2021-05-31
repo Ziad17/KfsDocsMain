@@ -306,6 +306,16 @@ namespace WebApplication2.Controllers
             public static string DEACTIVATE_INSTITUTION = "DEACTIVATE_INSTITUTION";
 
             public static string ACTIVATE_INSTITUTION = "ACTIVATE_INSTITUTION";
+
+
+
+            public static string VIEW_ROLES = "VIEW_ROLES";
+            public static string CREATE_ROLE = "CREATE_ROLE";
+            public static string DELETE_ROLE = "DELETE_ROLE";
+            public static string EDIT_ROLE = "EDIT_ROLE";
+
+
+
         }
 
         protected static class FilePermissions

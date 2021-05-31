@@ -1,55 +1,57 @@
-﻿@model IEnumerable<WebApplication2.Models.EmployeeRole>
+﻿@model WebApplication2.Models.IndexViewRolesModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "الوظائف";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("إضافة وظيفة", "Add")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ArabicJobDesc)
+            المسمى الوظيفي
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.HiringDate)
+            عدد العاملين به
+
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Employee.Name)
+           تابع لـ
+
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Institution.ArabicName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Role.ArabicName)
-        </th>
+    
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.Roles) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.ArabicJobDesc)
+             @item.ArabicName
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.HiringDate)
+            @item.EmployeeRoles.Count().ToString()
+
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Employee.Name)
+             @if (item.Role2 != null)
+             {
+                 @item.Role2.ArabicName
+             }
         </td>
+
         <td>
-            @Html.DisplayFor(modelItem => item.Institution.ArabicName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Role.ArabicName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @if (Model.canEdit)
+            {
+            @Html.ActionLink("تعديل", "Edit", new { id = item.ID }) <span>|</span>
+            }
+            @if (Model.canDelete)
+            {
+
+            @Html.ActionLink("مسح", "Delete", new { id = item.ID })
+            }
         </td>
     </tr>
 }

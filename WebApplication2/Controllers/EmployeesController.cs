@@ -281,7 +281,18 @@ namespace WebApplication2.Controllers
             if (roles.Count() == 0 && hasPersonPermission(myEmpRole.RoleID, PersonPermissions.DELETE_PERSON))
             {
                 try
-                {
+                { 
+                    var cred = db.EmployeeCredentials.Where(x => x.EmployeeID == employee.ID).FirstOrDefault();
+                   if (cred!=null)
+                    {
+                        db.EmployeeCredentials.Remove(cred);
+                    }
+                    var log = db.PersonActionLogs.Where(x => x.AffectedEmployeeID == employee.ID && x.PermissionName==PersonPermissions.CREATE_PERSON_WITHIN_INSTITUTION).FirstOrDefault();
+                    if (log != null)
+                    {
+                        db.PersonActionLogs.Remove(log);
+                    }
+
                     db.Employees.Remove(employee);
                     db.SaveChanges();
                     return RedirectToAction("Index", "Home");
@@ -403,6 +414,7 @@ namespace WebApplication2.Controllers
                 var personFile = getSomeoneFiles(employee.ID);
                 viewModel.Files = getAvaiableFilesForMe().Intersect(personFile).ToList<Models.File>();
 
+                viewModel.canDelete = hasPersonPermission(role.ID, PersonPermissions.DELETE_PERSON);
 
                 viewModel.Roles = employee.EmployeeRoles.ToList<EmployeeRole>();
 

@@ -60,11 +60,18 @@
 <div class="col-md-8">
 
     <div class="navbar" style="margin-top: 20px;">
-        <a href="~/Messages/Send/@Model.Employee.ID"><img src="~/Content/mail.png" width="25" height="25" style="float: right;" /> </a>
+        <a href="~/Messages/Send/@Model.Employee.ID"><img src="~/Content/mail.png" width="25" height="25" style="float: right;margin-right:10px;margin-left:10px" /> </a>
+        @if (Model.canDelete)
+        {
+            <a href="~/Employees/Delete/@Model.Employee.ID"><img src="~/Content/x-mark.png" width="25" height="25" style="float: right;margin-right:10px;margin-left:10px" /> </a>
 
-        <hr style="margin-top:35px"/>
+        }
+        <hr style="margin-top:35px" />
 
-    </div>                                         
+    </div>
+
+
+
 
 
 </div>
