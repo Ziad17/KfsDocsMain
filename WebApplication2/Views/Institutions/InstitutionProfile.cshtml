@@ -12,47 +12,72 @@
     <hr />
 }
 
-
+<br />
+<br />
+<br />
 <div class="col-md-9">
-    <h2>
-        العاملين
-    </h2>
 
-    @foreach (var emp in Model.Employees)
-    {
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a class="tabs" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        العاملين
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    @foreach (var emp in Model.Employees)
+                    {
 
+                        <ul>
+                        <li>  @Html.ActionLink(emp.Name, "PersonProfile", "Employees", new { id = emp.ID }, null) </li>
+                            </ul>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingTwo">
+                <h4 class="panel-title">
+                    <a  class="collapsed tabs" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        الملفات
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body">
+                    @foreach (var file in Model.Files)
+                    {
 
-        <h4>  @Html.ActionLink(emp.Name, "PersonProfile", "Employees", new { id = emp.ID }, null) </h4>
-    }
-    <hr />
-
-    <h2>
-        الملفات
-    </h2>
-
-    @foreach (var file in Model.Files)
-    {
-
-
-        <h4>  @Html.ActionLink(file.Name, "View", "Files", new { id = file.ID }, null) </h4>
-    }
-    <hr />
-
-    <h2>
-        المؤسسات التابعة
-    </h2>
-
-    @foreach (var ins in Model.Children)
-    {
-
-        <h4>@Html.ActionLink(ins.ArabicName, "InstitutionProfile", new { id = ins.ID }, null)    </h4>
-
-    }
-    <hr />
-
-
-
-
+                        <ul>
+                            <li>  @Html.ActionLink(file.Name, "View", "Files", new { id = file.ID }, null) </li>
+                            </ul>
+                            }
+                    </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingThree">
+                <h4 class="panel-title">
+                    <a class="collapsed tabs" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        المؤسسات التابعة
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                <div class="panel-body">
+                    @foreach (var ins in Model.Children)
+                    {
+                    <ul>
+                        <li>@Html.ActionLink(ins.ArabicName, "InstitutionProfile", new { id = ins.ID }, null)    </li>
+                        </ul>
+                            }
+</div>
+            </div>
+        </div>
+    </div>
 
 
 
