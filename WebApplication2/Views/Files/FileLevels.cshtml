@@ -1,43 +1,45 @@
 ﻿@model WebApplication2.Models.ViewModels.ViewFileLevelsModel
 
 @{
+    <h2 style="display:inline-block;padding-bottom:10px">  المستوي</h2>
+    <img style="display:inline-block;padding-bottom:10px;padding-top:10px" src="~/Content/a.png" width="80" height="80" />
     string level = "A";
 }
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayName("الوظيفة")
-        </th>
-        <th>
-            @Html.DisplayName("العمليات")
-        </th>
+<div class="table-responsive">
+    <table border="0" class="table table-hover">
+        <tr style="color:white;background-color:black">
+            <th>
+                @Html.DisplayName("الوظيفة")
+            </th>
+            <th>
+                @Html.DisplayName("العمليات")
+            </th>
 
-    </tr>
-<h2>
-  المستوى A
-</h2>
-    @foreach (var item in Model.LevelsDictionary[level])
-    {
-        <tr>
-            <td>
-             @item.Key
-            </td>
+        </tr>
 
-            <td>
-                <ul>
-                    @foreach (var permission in item.Value)
-                    {
-                        <li>
+        @foreach (var item in Model.LevelsDictionary[level])
+        {
+            <tr>
+                <td>
+                    @item.Key
+                </td>
 
-                            @permission
+                <td>
+                    <ul>
+                        @foreach (var permission in item.Value)
+                        {
+                            <li>
+
+                                @permission
                             </li>
 
 
                         }
-                </ul>
-            </td>
+                    </ul>
+                </td>
 
-        </tr>
-    }
+            </tr>
+        }
 
-</table>
+    </table>
+</div>
