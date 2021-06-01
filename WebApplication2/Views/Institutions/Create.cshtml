@@ -4,8 +4,8 @@
     ViewBag.Title = "Create";
     string institutionName = ViewBag.Parent;
 }
-
-<h2>Create</h2>
+<img style="display:inline-block;padding-bottom:10px;" src="~/Content/add.png" width="50" height="50" />
+<h2 style="display: inline-block; padding-bottom: 10px; position: relative; top: 9px; left: -15px;">Create</h2>
 <h4>@institutionName</h4>
 
 @using (Html.BeginForm())
@@ -89,5 +89,6 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <img style="display:inline-block;padding-bottom:10px;" src="~/Content/go-back-arrow.png" width="50" height="50" />
+    @Html.ActionLink("Back", "Index")
 </div>
