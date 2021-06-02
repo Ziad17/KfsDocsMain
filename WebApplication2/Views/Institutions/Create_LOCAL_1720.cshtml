@@ -4,11 +4,8 @@
     ViewBag.Title = "إضافة مؤسسة";
     string institutionName = ViewBag.Parent;
 }
-  
-<img style="display:inline-block;padding-bottom:10px;" src="~/Content/add.png" width="50" height="50" />
-<h2 style="display: inline-block; padding-bottom: 10px; position: relative; top: 9px; left: -15px;">Create</h2>
 
-<h2>Create</h2>
+<h2>@ViewBag.Title</h2>
 <h4>@institutionName</h4>
 
 @using (Html.BeginForm())
@@ -97,7 +94,3 @@
     </div>
 }
 
-<div>
-    <img style="display:inline-block;padding-bottom:10px;" src="~/Content/go-back-arrow.png" width="50" height="50" />
-    @Html.ActionLink("Back", "Index")
-</div>

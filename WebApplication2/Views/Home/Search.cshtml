@@ -9,82 +9,133 @@
 
 
 
-<h4>الموظفين</h4>
-@if (Model.Employees.Count > 0)
-{
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+            <h4 class="panel-title">
+                <a class="tabs" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    الأشخاص
+                </a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
 
-    <table class="table">
-        <tr>
-            <th>الإسم</th>
-        </tr>
+                @if (Model.Employees.Count > 0)
+                {
 
-        @foreach (var item in Model.Employees)
-        {
-            <tr>
-                <td>
+                    <table class="table">
+                        <tr>
+                            <th>الإسم</th>
+                        </tr>
 
-                    @Html.ActionLink(item.Name, "PersonProfile", "Employees", new { id = item.ID }, null)
-                </td>
-            </tr>
-        }
+                        @foreach (var item in Model.Employees)
+                        {
+                            <tr>
+                                <td>
 
-    </table>
-}
-else
-{ <h5>لا يوجد نتائج </h5>}
+                                    @Html.ActionLink(item.Name, "PersonProfile", "Employees", new { id = item.ID }, null)
+                                </td>
+                            </tr>
+                        }
 
-<br />
+                    </table>
+                }
+                else
+                { <h5>لا يوجد نتائج </h5>}
 
-<h4>المؤسسات</h4>
-@if (Model.Institutions.Count > 0)
-{
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTwo">
+            <h4 class="panel-title">
+                <a class="collapsed tabs" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    المؤسسات
+                </a>
+            </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+            <div class="panel-body">
 
-    <table class="table">
-        <tr>
-            <th>الإسم</th>
-        </tr>
+                @if (Model.Institutions.Count > 0)
+                {
 
-        @foreach (var item in Model.Institutions)
-        {
-            <tr>
-                <td>
+                    <table class="table">
+                        <tr>
+                            <th>الإسم</th>
+                        </tr>
 
-                    @Html.ActionLink(item.ArabicName, "InstitutionProfile", "Institutions", new { id = item.ID }, null)
-                </td>
-            </tr>
-        }
+                        @foreach (var item in Model.Institutions)
+                        {
+                            <tr>
+                                <td>
 
-    </table>
-}
-else
-{ <h5>لا يوجد نتائج</h5>}
+                                    @Html.ActionLink(item.ArabicName, "InstitutionProfile", "Institutions", new { id = item.ID }, null)
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                }
+                else
+                { <h5>لا يوجد نتائج</h5>}
+
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingThree">
+            <h4 class="panel-title">
+                <a class="collapsed tabs" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    الملفات
+                </a>
+            </h4>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+            <div class="panel-body">
+                @if (Model.Files.Count > 0)
+                {
+
+                    <table class="table">
+                        <tr>
+                            <th>الإسم</th>
+                        </tr>
+
+                        @foreach (var item in Model.Files)
+                        {
+                            <tr>
+                                <td>
+
+                                    @Html.ActionLink(item.Name, "View", "Files", new { id = item.ID }, null)
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                }
+                else
+                { <h5>لا يوجد نتائج</h5>}
 
 
-<br />
 
-<h4>الملفات</h4>
-@if (Model.Files.Count > 0)
-{
 
-    <table class="table">
-        <tr>
-            <th>الإسم</th>
-        </tr>
 
-        @foreach (var item in Model.Files)
-        {
-            <tr>
-                <td>
+            </div>
+        </div>
+    </div>
+</div>
 
-                    @Html.ActionLink(item.Name, "View", "Files", new { id = item.ID }, null)
-                </td>
-            </tr>
-        }
 
-    </table>
-}
-else
-{ <h5>لا يوجد نتائج</h5>}
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,22 +1,18 @@
 ﻿@model IEnumerable<WebApplication2.Models.Institution>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "المؤسسات";
 }
+<br/>
 <img style="display:inline-block;padding-bottom:10px;" src="~/Content/university.png" width="80" height="80" />
-<h2 style="display: inline-block; padding-bottom: 10px; position: relative; top: 9px; left: -15px;">Institutions</h2>
-<br />
-<p class="btn btn-default ">
-    @Html.ActionLink("Create New", "Create")
-</p>
-<br />
+<h2 style="display: inline-block; padding-bottom: 10px; position: relative; top: 9px; left: -15px;">@ViewBag.Title</h2>
 <br />
 <br />
 <div class="table-responsive">
     <table class="table table-hover ">
-        <tr style="color:white;background-color:black">
+        <tr style="color:white;background-color:gray">
             <th>
-                @Html.DisplayNameFor(model => model.ArabicName)
+                الإسم
             </th>
 
 
@@ -25,10 +21,10 @@
 
 
             <th>
-                Institution Type
+               نوع المؤسسة
             </th>
             <th>
-                Parent Institution
+                تابعة لـ
             </th>
             <th></th>
         </tr>
@@ -40,26 +36,25 @@
                     @Html.ActionLink(item.ArabicName, "InstitutionProfile", new { id = item.ID })
                 </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.InstitutionType.ArabicName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Institution2.ArabicName)
-                </td>
-                <td class="btn btn-default">
 
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ID })
-                </td>
-                <td style="color:#ffff" class="btn btn-default">
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                </td>
-            </tr>
+        
+                
+                
+                
+                <td>
+            @Html.DisplayFor(modelItem => item.InstitutionType.ArabicName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Institution2.ArabicName)
+        </td>
+      
+    </tr>
         }
-        <tr style="color:white;background-color:black">
+        @*<tr style="color:white;background-color:grey">
             <td></td>
             <td></td>
             <td></td>
             <td></td>
-        </tr>
+        </tr>*@
     </table>
 </div>

@@ -7,6 +7,7 @@ namespace WebApplication2.Models.ViewModels
 {
     public class ViewFileModel
     {
+        public bool isBookmarked { get; set; }
         public File File { get; set; }
         public FileVersion CurrentVersion { get; set; }
         public List<FileVersion> Versions { get; set; }

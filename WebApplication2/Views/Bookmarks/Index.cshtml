@@ -1,0 +1,53 @@
+﻿@model IEnumerable<WebApplication2.Models.Bookmark>
+
+@{
+    ViewBag.Title = "المحفوظات";
+}
+
+<h2>@ViewBag.Title</h2>
+                 <br/>
+ @if (Model.Count()>0)
+ {
+<table class="table">
+    <tr>
+        <th>
+            إسم الملف
+        </th>
+        <th>
+            المالك
+        </th>
+        <th>
+            مستوى الملف
+        </th>
+        <th>
+            تاريخ الحفظ
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.ActionLink(item.File.Name, "View", "Files", new { id = item.FileID }, null)
+    </td>
+    <td>
+        @Html.ActionLink(item.File.EmployeeRole.Employee.Name, "PersonProfile", "Employees", new { id = item.File.AuthorID }, null)
+    </td>
+    <td>
+        @Html.ActionLink(item.File.Level, "FileLevels", "Files", new { level = item.File.Level }, null)
+
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DateCreated)
+    </td>
+    <td>
+
+        @Html.ActionLink("مسح", "Delete", new { id = item.ID })
+    </td>
+</tr>
+}
+
+</table>
+ }
+ else { 
+     <h4>لم تفم بحفظ أي ملف</h4>}
