@@ -291,14 +291,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\a.png" />
+    <Content Include="Content\add.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\businessman.png" />
     <Content Include="Content\delete.png" />
+    <Content Include="Content\go-back-arrow.png" />
     <Content Include="Content\inbox %281%29.png" />
     <Content Include="Content\inbox.png" />
-    <Content Include="Content\logo %281%29.png" />
     <Content Include="Content\mail.png" />
     <Content Include="Content\star-clicked.png" />
     <Content Include="Content\star.png" />

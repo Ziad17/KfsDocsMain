@@ -1,6 +1,6 @@
 ﻿@model WebApplication2.Models.ViewModels.RolesChooseDefaultModel
-
-<h2>@Model.Employee.Name</h2>
+<img style="display:inline-block;padding-bottom:10px;" src="~/Content/name.png" width="80" height="80" />
+<h2  style="display: inline-block; padding-bottom: 10px; position: relative; top: 9px; left: -15px;">@Model.Employee.Name</h2>
 
 
 <br/>
@@ -17,7 +17,8 @@ else
 <hr />
 
 
-   <h5>وظائفي</h5>
+   
+ <h5>وظائفي</h5>
 <table class="table">
     <tr>
         <th>
@@ -35,6 +36,7 @@ else
      
         <th></th>
     </tr>
+
 
     @foreach (var item in Model.EmployeeRoles)
     {

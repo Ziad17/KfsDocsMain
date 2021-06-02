@@ -4,44 +4,7 @@
     string img = ViewBag.Img;
 }
 
-<div class="col-md-3">
-    <div class="card-group" style="margin-top:10px">
-        <div class="card" style="padding: 20px;border-top: 3px  solid #f8b739;border-bottom: 3px  solid #f8b739" border-left: 3px solid #f8b739">
 
-            <img class="img-rounded" width="170" height="170" src="data:image/jpg;base64,@(img)">
-            @Html.ActionLink("Change Photo", "ChangePhoto")
-
-            <div class="card-body">
-                @Html.ActionLink("Edit Info", "EditMyProfile")
-                <h2>
-                    @Html.DisplayFor(model => model.Employee.Name, new { htmlAttributes = new { @class = "card-title" } })
-
-                </h2>
-                @for (int i = 0; i < Model.Roles.Count; i++)
-                {
-                    <h4 class="card-text">
-                        @Html.ActionLink(Model.Roles[i].Role.ArabicName + " لدى " + Model.Roles[i].Institution.ArabicName, "InstitutionProfile", "Institutions", new { id = Model.Roles[i].Institution.ID },null)
-                    </h4>
-
-                }
-                <h4>
-                    @Html.DisplayFor(model => model.Employee.PHD, new { htmlAttributes = new { @class = "card-title" } })
-
-                </h4>
-                <h5>
-                    @Html.DisplayFor(model => model.Employee.Bio, new { htmlAttributes = new { @class = "card-title" } })
-
-                </h5>
-                <h5>
-                </h5>
-
-
-            </div>
-        </div>
-
-    </div>
-
-</div>
 <div class="col-lg-9">
     @if (Model.Files.Count > 0)
     {
@@ -90,5 +53,43 @@
         <hr />
         <h4>لم تقم بنشر أي ملف           </h4>
     }
+
+</div>
+<div class="col-md-3">
+    <div class="card-group" style="margin-top:10px">
+        <div class="card" style="padding: 20px;border-top: 3px  solid #f8b739;border-bottom: 3px  solid #f8b739" border-left: 3px solid #f8b739">
+
+            <img class="img-rounded" width="170" height="170" src="data:image/jpg;base64,@(img)">
+            @Html.ActionLink("Change Photo", "ChangePhoto")
+
+            <div class="card-body">
+                @Html.ActionLink("Edit Info", "EditMyProfile")
+                <h2>
+                    @Html.DisplayFor(model => model.Employee.Name, new { htmlAttributes = new { @class = "card-title" } })
+
+                </h2>
+                @for (int i = 0; i < Model.Roles.Count; i++)
+                {
+                    <h4 class="card-text">
+                        @Html.ActionLink(Model.Roles[i].Role.ArabicName + " لدى " + Model.Roles[i].Institution.ArabicName, "InstitutionProfile", "Institutions", new { id = Model.Roles[i].Institution.ID }, null)
+                    </h4>
+
+                }
+                <h4>
+                    @Html.DisplayFor(model => model.Employee.PHD, new { htmlAttributes = new { @class = "card-title" } })
+
+                </h4>
+                <h5>
+                    @Html.DisplayFor(model => model.Employee.Bio, new { htmlAttributes = new { @class = "card-title" } })
+
+                </h5>
+                <h5>
+                </h5>
+
+
+            </div>
+        </div>
+
+    </div>
 
 </div>
