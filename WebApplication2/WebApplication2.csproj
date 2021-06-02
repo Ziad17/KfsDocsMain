@@ -167,6 +167,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BookmarksController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\FilesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -297,7 +298,10 @@
     <Content Include="Content\delete.png" />
     <Content Include="Content\inbox %281%29.png" />
     <Content Include="Content\inbox.png" />
+    <Content Include="Content\logo %281%29.png" />
     <Content Include="Content\mail.png" />
+    <Content Include="Content\star-clicked.png" />
+    <Content Include="Content\star.png" />
     <Content Include="Content\x-mark.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -385,6 +389,7 @@
     <Content Include="Views\Messages\Sent.cshtml" />
     <Content Include="Views\Employees\CannotDelete.cshtml" />
     <Content Include="Views\Shared\_MenuBar.cshtml" />
+    <Content Include="Views\Bookmarks\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

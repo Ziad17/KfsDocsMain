@@ -10,9 +10,12 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-       @{ 
-        Html.RenderAction("RenderMenu");
-           }
+
+    @{ if (User.Identity.IsAuthenticated)
+        {
+            Html.RenderAction("RenderMenu");
+
+        } }
 
     <div class="container body-content">
         @RenderBody()

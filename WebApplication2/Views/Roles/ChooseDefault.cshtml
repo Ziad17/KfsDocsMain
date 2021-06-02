@@ -6,31 +6,31 @@
 <br/>
 @if (Model.DefaultRole != null)
 {
-    <h4>Your Default Role Is @Model.DefaultRole.Role.ArabicName at @Model.DefaultRole.Institution.ArabicName</h4>
+    <h4>وظيفتك الأساسية هي @Html.ActionLink(Model.DefaultRole.Role.ArabicName,"View","Roles",new { id=Model.DefaultRole.RoleID},null) لدى @Html.ActionLink(Model.DefaultRole.Institution.ArabicName,"InstitutionProfile","Institutions",new { id= Model.DefaultRole.InstitutionID},null)</h4>
   
 }
 else
-{ <h4 class="text-danger">No Default Role Found Please Choose One.</h4>}
+{ <h4 class="text-danger">لم يتم أختيار أي وظيفة أساسية</h4>}
 
 
 
 <hr />
 
 
-   <h5>My Roles</h5>
+   <h5>وظائفي</h5>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.DefaultRole.Role.ArabicName)
+           الوظيفة
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DefaultRole.Institution.ArabicName)
+            المؤسسة
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DefaultRole.Active)
+            متاحة
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DefaultRole.HiringDate)
+            تاريخ التعيين
         </th>
      
         <th></th>
@@ -40,10 +40,11 @@ else
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Role.ArabicName)
+                @Html.ActionLink(item.Role.ArabicName,"View","Roles",new { id=item.RoleID},null)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Institution.ArabicName)
+                @Html.ActionLink(item.Institution.ArabicName, "InstitutionProfile", "Institutions", new { id = item.InstitutionID }, null)
+
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Active)
@@ -59,7 +60,7 @@ else
             {     @Html.AntiForgeryToken()
                 <input type="hidden" name="id"  value="@item.ID" />
 
-                <input type="submit" class="btn btn-default" value="ChooseDefault" />
+                <input type="submit" class="btn btn-default" value="إختيار" />
             }
         </td>
             }

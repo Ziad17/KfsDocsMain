@@ -47,6 +47,11 @@ namespace WebApplication2.Controllers
         public ActionResult RenderMenu()
         {
             var emp = getEmployeeRef();
+            if (emp == null)
+            {
+                signOut();
+                return null;
+            }
             FileManager fileMg = new FileManager();
             MenuModel viewModel = new MenuModel()
             {

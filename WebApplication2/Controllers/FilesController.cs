@@ -15,14 +15,8 @@ namespace WebApplication2.Controllers
     public class FilesController : BaseController
     {
 
-        // GET: Files
-        public ActionResult Index()
-        {
-            var files = db.Files.Include(f => f.EmployeeRole).Include(f => f.EmployeeRole1).Include(f => f.EmployeeRole2).Include(f => f.EmployeeRole3).Include(f => f.FileLevel).Include(f => f.FileLevel1);
-            return View(files.ToList());
-        }
+      
 
-        // GET: Files/Details/5
         public ActionResult View(int? id)
         {
 
@@ -68,6 +62,11 @@ namespace WebApplication2.Controllers
                     
                 };
 
+                var bookmark = db.Bookmarks.Where(x => x.EmployeeID == EmpRole.ID && x.FileID == file.ID).FirstOrDefault();
+                if (bookmark != null)
+                {
+                    viewModel.isBookmarked = true;
+                }
                 viewModel.isAuthor = isFileAuthor(file.ID, EmpRole.ID);
                 viewModel.canEdit = hasFileLevelPermission(EmpRole.Role.ID, file.Level, FilePermissions.EDIT_FILE) || isFileAuthor(file.ID, EmpRole.ID);
                 viewModel.canAddVersion = hasFileLevelPermission(EmpRole.Role.ID, file.Level, FilePermissions.ADD_VERSION) || isFileAuthor(file.ID, EmpRole.ID);

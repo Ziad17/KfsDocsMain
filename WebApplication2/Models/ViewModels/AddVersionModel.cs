@@ -22,14 +22,26 @@ namespace WebApplication2.Models.ViewModels
 
         public int FileID { get; set; }
 
+        [Display(Name = "رقم النسخة")]
         public string Number { get; set; }
 
-
+        [Display(Name = "الملاحظات")]
         public string Notes { get; set; }
+
+        [Required(ErrorMessage = "لا يمكن أن يكون الملف فارغا")]
+
+        [Display(Name ="أختيار ملف")]
         [DataType(DataType.Upload)]
         public HttpPostedFileBase file_content { get; set; }
+
+        [Required]
+        [Display(Name = "تاريخ الإنشاء")]
         [DataType(DataType.DateTime)]
         public System.DateTime DateCreated { get; set; }
+
+        [Required(ErrorMessage = "برجاء كتابة أسم النسخة")]
+
+        [Display(Name = "أسم النسخة")]
         public string Name { get; set; }
         public string AuthorName { get; set; }
     }
