@@ -18,6 +18,25 @@ namespace WebApplication2.Controllers
     {
 
 
+        public ActionResult SearchEmployees(string search)
+        {
+            var myEmp = getEmployeeRef();
+            if (myEmp == null)
+            {
+                return new HttpNotFoundResult();
+            }
+
+            List<EmployeeMentionJSONModel> emps = db.Employees.Where(x => x.Name.Contains(search) && x.Active == true).Select(x => new EmployeeMentionJSONModel()
+            {
+               ID=x.ID,
+               Name=x.Name
+            }).ToList();
+
+            return new JsonResult { Data = emps, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
+
+
 
 
         public ActionResult ChangePhoto()

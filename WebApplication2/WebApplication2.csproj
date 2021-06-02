@@ -273,6 +273,8 @@
     <Compile Include="Models\TestModel.cs" />
     <Compile Include="Models\ViewModels\ActiveDeactiveInstitutionModel.cs" />
     <Compile Include="Models\ViewModels\AddVersionModel.cs" />
+    <Compile Include="Models\ViewModels\CreateFileModel.cs" />
+    <Compile Include="Models\ViewModels\EmployeeMentionJSONModel.cs" />
     <Compile Include="Models\ViewModels\EmployeeProfileModel.cs" />
     <Compile Include="Models\ViewModels\FileUploadModel.cs" />
     <Compile Include="Models\ViewModels\FirstLoginModel.cs" />
@@ -302,6 +304,7 @@
     <Content Include="Content\go-back-arrow.png" />
     <Content Include="Content\inbox %281%29.png" />
     <Content Include="Content\inbox.png" />
+    <Content Include="Content\logo.png" />
     <Content Include="Content\mail.png" />
     <Content Include="Content\star-clicked.png" />
     <Content Include="Content\star.png" />
