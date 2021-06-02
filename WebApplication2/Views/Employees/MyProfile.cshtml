@@ -5,12 +5,12 @@
 }
 
 
-<div class="col-lg-9">
+<div style="margin-top:65px" class="col-lg-8">
     @if (Model.Files.Count > 0)
     {
-
-        <table class="table">
-            <tr>
+    <div class="table-responsive">
+        <table class="table table-hover ">
+            <tr style="color:white;background-color:black">
 
                 <th>
                     إسم الملف
@@ -46,22 +46,24 @@
 
             }
         </table>
-
-    }
-    else
-    {
+    </div>
+        }
+        else
+        {
         <hr />
         <h4>لم تقم بنشر أي ملف           </h4>
-    }
-
-</div>
+        }
+        
+    </div>
+<div class="col-md-1"></div>
 <div class="col-md-3">
     <div class="card-group" style="margin-top:10px">
         <div class="card" style="padding: 20px;border-top: 3px  solid #f8b739;border-bottom: 3px  solid #f8b739" border-left: 3px solid #f8b739">
 
-            <img class="img-rounded" width="170" height="170" src="data:image/jpg;base64,@(img)">
-            @Html.ActionLink("Change Photo", "ChangePhoto")
-
+            <img class="img-circle" width="170" height="170" src="data:image/jpg;base64,@(img)">
+           
+            <a href="ChangePhoto">Change Photo</a>
+            
             <div class="card-body">
                 @Html.ActionLink("Edit Info", "EditMyProfile")
                 <h2>
@@ -70,10 +72,11 @@
                 </h2>
                 @for (int i = 0; i < Model.Roles.Count; i++)
                 {
-                    <h4 class="card-text">
-                        @Html.ActionLink(Model.Roles[i].Role.ArabicName + " لدى " + Model.Roles[i].Institution.ArabicName, "InstitutionProfile", "Institutions", new { id = Model.Roles[i].Institution.ID }, null)
-                    </h4>
-
+            <ul>
+                <li class="card-text">
+                    @Html.ActionLink(Model.Roles[i].Role.ArabicName + " لدى " + Model.Roles[i].Institution.ArabicName, "InstitutionProfile", "Institutions", new { id = Model.Roles[i].Institution.ID }, null)
+                </li>
+            </ul>
                 }
                 <h4>
                     @Html.DisplayFor(model => model.Employee.PHD, new { htmlAttributes = new { @class = "card-title" } })
