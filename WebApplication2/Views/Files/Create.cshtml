@@ -1,8 +1,9 @@
 ﻿@model WebApplication2.Models.File
 
 @{
-    ViewBag.Title = "إنشاء ملف";
 
+    ViewBag.Title = "إنشاء ملف";
+    
     string InstitutionName = ViewBag.InstitutionName;
     string AuthorName = ViewBag.AuthorName;
 
@@ -12,72 +13,90 @@
 
 }
 
-
-<h2>@ViewBag.Title</h2>
-
-<h3>@represent</h3>
+<img style="display:inline-block;padding-bottom:10px;margin-top:10px" src="~/Content/new-document.png" width="80" height="80" />
+<h2 style="display: inline-block; padding-bottom: 10px; position: relative; top: 9px; left: -15px;">@ViewBag.Title</h2><br />
+<img style="display:inline-block;padding-bottom:10px;margin-top:10px" src="~/Content/manager.png" width="50" height="50" />
+<h3 style="display: inline-block; padding-bottom: 10px; position: relative; top: 9px; left: -15px;">@represent</h3><br />
 <hr />
 
-<div class="col-lg-8">
-    <h3>الإشارات</h3>
+<div class="col-md-7">
+    <img style="display:inline-block;padding-bottom:10px;" src="~/Content/contact.png" width="50" height="50" />
+    <h3 style="display: inline-block; padding-bottom: 10px; position: relative; top: 9px; left: -15px;">الإشارات</h3>
 
 
 
 
-    <h5>قائمة الأشارات</h5>
+    <h5> قائمة الأشارات</h5>
 
-    <table class="table">
-        <tr>
-
-            <th>
-            </th>
-
-            <th>
-            </th>
-            <th>
-            </th>
-            <th>
-            </th>
-            <th>
-            </th>
-
-
-        </tr>
-
-
-        @*<tr>
-
-                <td>
-                    @Html.DisplayFor(model => model.CurrentVersion.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.CurrentVersion.DateCreated)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.CurrentVersion.FileType.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.CurrentVersion.FileContent.FileSize)
-                </td>
-                <td>
-                    @Html.ActionLink(Model.CurrentVersion.EmployeeRole.Employee.Name, "PersonProfile", "Employees", new { id = Model.CurrentVersion.EmployeeRole.Employee.ID }, null)
-                </td>
-                <td>
-                    @Html.ActionLink("Download", "Download", new { id = @Model.CurrentVersion.ID })
-                </td>
+    <table id="table" class="display table table-responsive">
+        <thead>
+            <tr>
+                <th>Column 1</th>
+                <th>Column 2</th>
+                <th>Column 3</th>
+                <th>Column 2</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Row 1</td>
+                <td>Ahmed</td>
+                <td>1000</td>
+                <td>Kfs</td>
+            </tr>
+            <tr>
+                <td>Row 2</td>
+                <td>hesham</td>
+                <td>2000</td>
+                <td>Ciro</td>
+            </tr>
+            <tr>
+                <td>Row 3</td>
+                <td>esmail</td>
+                <td>3000</td>
+                <td>Suiz</td>
+            </tr>
+            <tr>
+                <td>Row 4</td>
+                <td>ziad</td>
+                <td>4000</td>
+                <td>Alx</td>
+            </tr>
 
 
-            </tr>*@
+
+            @*<tr>
+
+                    <td>
+                        @Html.DisplayFor(model => model.CurrentVersion.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.CurrentVersion.DateCreated)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.CurrentVersion.FileType.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.CurrentVersion.FileContent.FileSize)
+                    </td>
+                    <td>
+                        @Html.ActionLink(Model.CurrentVersion.EmployeeRole.Employee.Name, "PersonProfile", "Employees", new { id = Model.CurrentVersion.EmployeeRole.Employee.ID }, null)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Download", "Download", new { id = @Model.CurrentVersion.ID })
+                    </td>
 
 
+                </tr>*@
+
+        </tbody>
     </table>
-
 
 
 
 </div>
 
-<div class="col-lg-4">
+<div class="col-md-5">
     <h3>المعلومات</h3>
 
 
@@ -137,22 +156,35 @@
     }
 
 </div>
-@*<script>
-    $("#searchBox").autocomplete({
-        source: function (request, response) {
-            $.ajax({
-                url: '@Url.Action("SearchEmployees","Employees")',
-                dataType: "json",
-                data: { search: $("#searchBox").val() },
-                success: function (data) {
-                    response($.map(data, function (item) {
-                        return {label:item.Name,value:item.Name}
-                    }))
-                },
-                error: function (xhr, status, error) {
-                    alert("Error")
+
+    @section scripts{
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+                $('#table').DataTable();
+            });
+
+        </script>
+    }
+
+
+    @*<script>
+            $("#searchBox").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '@Url.Action("SearchEmployees","Employees")',
+                        dataType: "json",
+                        data: { search: $("#searchBox").val() },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return {label:item.Name,value:item.Name}
+                            }))
+                        },
+                        error: function (xhr, status, error) {
+                            alert("Error")
+                        }
+                    });
                 }
             });
-        }
-    });
-</script>*@
+        </script>*@
+

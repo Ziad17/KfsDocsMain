@@ -3,29 +3,27 @@
 @{
     ViewBag.Title = "المؤسسات";
 }
-<br/>
+<br />
 <img style="display:inline-block;padding-bottom:10px;" src="~/Content/university.png" width="80" height="80" />
 <h2 style="display: inline-block; padding-bottom: 10px; position: relative; top: 9px; left: -15px;">@ViewBag.Title</h2>
 <br />
 <br />
-<div class="table table-responsive mt-3">
-    <table class="table table-hover ">
-        <tr style="color:white;background-color:gray">
+<table id="table" class="display table table-responsive">
+    <thead>
+        <tr style="color:white;background-color:#333333">
             <th>
                 الإسم
             </th>
-
-
-
             <th>
-               نوع المؤسسة
+                نوع المؤسسة
             </th>
             <th>
                 تابعة لـ
             </th>
             <th></th>
         </tr>
-
+    </thead>
+    <tbody>
         @foreach (var item in Model)
         {
             <tr>
@@ -34,24 +32,28 @@
                 </td>
 
 
-        
-                
-                
-                
+
+
+
+
                 <td>
-            @Html.DisplayFor(modelItem => item.InstitutionType.ArabicName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Institution2.ArabicName)
-        </td>
-      
-    </tr>
+                    @Html.DisplayFor(modelItem => item.InstitutionType.ArabicName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Institution2.ArabicName)
+                </td>
+
+            </tr>
         }
-        @*<tr style="color:white;background-color:grey">
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>*@
-    </table>
-</div>
+    </tbody>
+</table>
+
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#table').DataTable();
+        });
+
+    </script>
+}
