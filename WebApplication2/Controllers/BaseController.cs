@@ -19,7 +19,7 @@ namespace WebApplication2.Controllers
                                                                                          
 
         protected Employee UserRefrence;
-        protected DMS_dbEntities8 db = new DMS_dbEntities8();
+        protected DMS_dbEntities9 db = new DMS_dbEntities9();
 
 
 
