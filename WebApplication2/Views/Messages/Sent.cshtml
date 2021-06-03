@@ -12,67 +12,76 @@
 
 @if (Model.MyMessages.Count > 0)
 {
-<div class="table-responsive">
-    <table class="table table-hover">
-        <tr style="color:white;background-color:black">
+    <table style="border-radius: 10px" id="table" class="display  table-responsive">
+        <thead>
+            <tr style="color: #000; background-color: #f5f5f5;">
 
-            <th>
-                المستلم
-            </th>
-            <th>
-                عنوان الرسالة
-            </th>
+                <th>
+                    المستلم
+                </th>
+                <th>
+                    عنوان الرسالة
+                </th>
 
-            <th>
-                التاريخ
-            </th>
-
-
-
-        </tr>
-
-        @foreach (var item in Model.MyMessages)
-        {
-
-            string style = "";
-
-            if (item.Seen != true)
-            {
-                style = "background-color:#e2e2e1;";
-
-            }
-
-
-            <tr style="@style">
-
-
-                <td>
-                    @Html.ActionLink(item.Employee.Name, "PersonProfile", "Employees", new { id = item.RecieverID }, null)
-
-                </td>
-                <td>
-                    @Html.ActionLink(item.HeaderText, "View", "Messages", new { id = item.ID }, null)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateCreated)
-                </td>
+                <th>
+                    التاريخ
+                </th>
 
 
 
             </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.MyMessages)
+            {
+
+                string style = "";
+
+                if (item.Seen != true)
+                {
+                    style = "background-color:#e2e2e1;";
+
+                }
 
 
-        }
+                <tr style="@style">
+
+
+                    <td>
+                        @Html.ActionLink(item.Employee.Name, "PersonProfile", "Employees", new { id = item.RecieverID }, null)
+
+                    </td>
+                    <td>
+                        @Html.ActionLink(item.HeaderText, "View", "Messages", new { id = item.ID }, null)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateCreated)
+                    </td>
 
 
 
+                </tr>
 
+
+            }
+
+
+
+        </tbody>
     </table>
-    </div>
-    }
-    else
-    {
+}
+else
+{
     <hr />
     <h4> لا يوجد رسائل مرسلة           </h4>
-    }
+}
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#table').DataTable();
+        });
+
+    </script>
+}
