@@ -152,7 +152,8 @@ namespace WebApplication2.Controllers
                 viewModel.RoleName = EmpRole.Role.ArabicName;
                 viewModel.AuthorName = EmpRole.Employee.Name;
                 viewModel.DateCreated = DateTime.Now;
-                return View();
+                viewModel.AvailableEmployees = db.Employees.Where(x => x.ID != EmpRole.EmployeeID && x.Active == true).ToList();
+                return View(viewModel);
             }
             return getErrorView(HttpStatusCode.Unauthorized);
 

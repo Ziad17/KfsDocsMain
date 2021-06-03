@@ -14,6 +14,8 @@ namespace WebApplication2.Models.ViewModels
         public List<int> MentionedIDs { get; set; }
         public string AuthorName { get; set; }
         public DateTime DateCreated { get; set; }
+        public List<Employee> AvailableEmployees { get; set; }
+
 
 
     }
