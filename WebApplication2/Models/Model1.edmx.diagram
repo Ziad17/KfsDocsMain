@@ -4,12 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="84afbce07c5a42b3b385cadc1de166dc" Name="Diagram1">
+      <Diagram DiagramId="2bf0520bd6fd401386308bdf06b63c43" Name="Diagram1">
         <EntityTypeShape EntityType="DMS_dbModel.Bookmark" Width="1.5" PointX="10.5" PointY="15.625" IsExpanded="true" />
         <EntityTypeShape EntityType="DMS_dbModel.City" Width="1.5" PointX="0.75" PointY="15.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DMS_dbModel.Employee" Width="1.5" PointX="3" PointY="14.375" IsExpanded="true" />
         <EntityTypeShape EntityType="DMS_dbModel.EmployeeCredential" Width="1.5" PointX="5.25" PointY="15.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DMS_dbModel.EmployeeRole" Width="1.5" PointX="8.25" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DMS_dbModel.EmployeeRole" Width="1.5" PointX="8.25" PointY="13.875" IsExpanded="true" />
         <EntityTypeShape EntityType="DMS_dbModel.File" Width="1.5" PointX="13.5" PointY="13.875" IsExpanded="true" />
         <EntityTypeShape EntityType="DMS_dbModel.FileActionLog" Width="1.5" PointX="15.75" PointY="15.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DMS_dbModel.FileContent" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
@@ -35,6 +35,7 @@
         <AssociationConnector Association="DMS_dbModel.FK__Employee__Primar__379037E3" ManuallyRouted="false" />
         <AssociationConnector Association="DMS_dbModel.FK__EmployeeC__Emplo__2942188C" ManuallyRouted="false" />
         <AssociationConnector Association="DMS_dbModel.FK__EmployeeR__Emplo__3B60C8C7" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__FileMenti__Emplo__2A01329B" ManuallyRouted="false" />
         <AssociationConnector Association="DMS_dbModel.FK__Message__Recieve__2354350C" ManuallyRouted="false" />
         <AssociationConnector Association="DMS_dbModel.FK__Message__SenderI__226010D3" ManuallyRouted="false" />
         <AssociationConnector Association="DMS_dbModel.FK__PersonAct__Affec__46D27B73" ManuallyRouted="false" />
@@ -46,8 +47,7 @@
         <AssociationConnector Association="DMS_dbModel.FK__File__AuthorID__58F12BAE" ManuallyRouted="false" />
         <AssociationConnector Association="DMS_dbModel.FK__FileActio__Emplo__72B0FDB1" ManuallyRouted="false" />
         <AssociationConnector Association="DMS_dbModel.FK__FileActio__Emplo__758D6A5C" ManuallyRouted="false" />
-        <AssociationConnector Association="DMS_dbModel.FK__FileMenti__Creat__09946309" ManuallyRouted="false" />
-        <AssociationConnector Association="DMS_dbModel.FK__FileMenti__Emplo__08A03ED0" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__FileMenti__Creat__2AF556D4" ManuallyRouted="false" />
         <AssociationConnector Association="DMS_dbModel.FK__FileVersi__Autho__673F4B05" ManuallyRouted="false" />
         <AssociationConnector Association="DMS_dbModel.FK__FileVersi__Autho__6A1BB7B0" ManuallyRouted="false" />
         <AssociationConnector Association="DMS_dbModel.FK__FileVersi__Autho__6DEC4894" ManuallyRouted="false" />
@@ -57,7 +57,7 @@
         <AssociationConnector Association="DMS_dbModel.FK__File__Level__59E54FE7" ManuallyRouted="false" />
         <AssociationConnector Association="DMS_dbModel.FK__FileActio__FileI__73A521EA" ManuallyRouted="false" />
         <AssociationConnector Association="DMS_dbModel.FK__FileActio__FileI__76818E95" ManuallyRouted="false" />
-        <AssociationConnector Association="DMS_dbModel.FK__FileMenti__FileI__07AC1A97" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__FileMenti__FileI__290D0E62" ManuallyRouted="false" />
         <AssociationConnector Association="DMS_dbModel.FK__FileVersi__FileI__664B26CC" ManuallyRouted="false" />
         <AssociationConnector Association="DMS_dbModel.FK__FileVersi__FileI__69279377" ManuallyRouted="false" />
         <AssociationConnector Association="DMS_dbModel.FK__FileVersi__FileI__6CF8245B" ManuallyRouted="false" />

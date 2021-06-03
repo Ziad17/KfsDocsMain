@@ -26,7 +26,6 @@ namespace WebApplication2.Models
             this.FileActionLogs = new HashSet<FileActionLog>();
             this.FileActionLogs1 = new HashSet<FileActionLog>();
             this.FileMentions = new HashSet<FileMention>();
-            this.FileMentions1 = new HashSet<FileMention>();
             this.FileVersions = new HashSet<FileVersion>();
             this.FileVersions1 = new HashSet<FileVersion>();
             this.FileVersions2 = new HashSet<FileVersion>();
@@ -63,8 +62,6 @@ namespace WebApplication2.Models
         public virtual ICollection<FileActionLog> FileActionLogs1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FileMention> FileMentions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FileMention> FileMentions1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FileVersion> FileVersions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

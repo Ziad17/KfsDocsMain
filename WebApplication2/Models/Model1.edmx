@@ -480,7 +480,7 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileMenti__Creat__09946309">
+        <Association Name="FK__FileMenti__Creat__2AF556D4">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="FileMention" Type="Self.FileMention" Multiplicity="*" />
           <ReferentialConstraint>
@@ -492,11 +492,11 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileMenti__Emplo__08A03ED0">
-          <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
+        <Association Name="FK__FileMenti__Emplo__2A01329B">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="FileMention" Type="Self.FileMention" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="EmployeeRole">
+            <Principal Role="Employee">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="FileMention">
@@ -504,7 +504,7 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileMenti__FileI__07AC1A97">
+        <Association Name="FK__FileMenti__FileI__290D0E62">
           <End Role="File" Type="Self.File" Multiplicity="1" />
           <End Role="FileMention" Type="Self.FileMention" Multiplicity="*" />
           <ReferentialConstraint>
@@ -947,15 +947,15 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
             <End Role="FilePermission" EntitySet="FilePermission" />
             <End Role="FileActionLog" EntitySet="FileActionLog" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileMenti__Creat__09946309" Association="Self.FK__FileMenti__Creat__09946309">
+          <AssociationSet Name="FK__FileMenti__Creat__2AF556D4" Association="Self.FK__FileMenti__Creat__2AF556D4">
             <End Role="EmployeeRole" EntitySet="EmployeeRole" />
             <End Role="FileMention" EntitySet="FileMention" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileMenti__Emplo__08A03ED0" Association="Self.FK__FileMenti__Emplo__08A03ED0">
-            <End Role="EmployeeRole" EntitySet="EmployeeRole" />
+          <AssociationSet Name="FK__FileMenti__Emplo__2A01329B" Association="Self.FK__FileMenti__Emplo__2A01329B">
+            <End Role="Employee" EntitySet="Employee" />
             <End Role="FileMention" EntitySet="FileMention" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileMenti__FileI__07AC1A97" Association="Self.FK__FileMenti__FileI__07AC1A97">
+          <AssociationSet Name="FK__FileMenti__FileI__290D0E62" Association="Self.FK__FileMenti__FileI__290D0E62">
             <End Role="File" EntitySet="File" />
             <End Role="FileMention" EntitySet="FileMention" />
           </AssociationSet>
@@ -1112,6 +1112,7 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
           <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__Employee__Primar__379037E3" FromRole="Employee" ToRole="EmployeeRole" />
           <NavigationProperty Name="EmployeeCredentials" Relationship="Self.FK__EmployeeC__Emplo__2942188C" FromRole="Employee" ToRole="EmployeeCredentials" />
           <NavigationProperty Name="EmployeeRoles" Relationship="Self.FK__EmployeeR__Emplo__3B60C8C7" FromRole="Employee" ToRole="EmployeeRole" />
+          <NavigationProperty Name="FileMentions" Relationship="Self.FK__FileMenti__Emplo__2A01329B" FromRole="Employee" ToRole="FileMention" />
           <NavigationProperty Name="Messages" Relationship="Self.FK__Message__Recieve__2354350C" FromRole="Employee" ToRole="Message" />
           <NavigationProperty Name="Messages1" Relationship="Self.FK__Message__SenderI__226010D3" FromRole="Employee" ToRole="Message" />
           <NavigationProperty Name="PersonActionLogs" Relationship="Self.FK__PersonAct__Affec__46D27B73" FromRole="Employee" ToRole="PersonActionLog" />
@@ -1148,8 +1149,7 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
           <NavigationProperty Name="Files3" Relationship="Self.FK__File__AuthorID__58F12BAE" FromRole="EmployeeRole" ToRole="File" />
           <NavigationProperty Name="FileActionLogs" Relationship="Self.FK__FileActio__Emplo__72B0FDB1" FromRole="EmployeeRole" ToRole="FileActionLog" />
           <NavigationProperty Name="FileActionLogs1" Relationship="Self.FK__FileActio__Emplo__758D6A5C" FromRole="EmployeeRole" ToRole="FileActionLog" />
-          <NavigationProperty Name="FileMentions" Relationship="Self.FK__FileMenti__Creat__09946309" FromRole="EmployeeRole" ToRole="FileMention" />
-          <NavigationProperty Name="FileMentions1" Relationship="Self.FK__FileMenti__Emplo__08A03ED0" FromRole="EmployeeRole" ToRole="FileMention" />
+          <NavigationProperty Name="FileMentions" Relationship="Self.FK__FileMenti__Creat__2AF556D4" FromRole="EmployeeRole" ToRole="FileMention" />
           <NavigationProperty Name="FileVersions" Relationship="Self.FK__FileVersi__Autho__673F4B05" FromRole="EmployeeRole" ToRole="FileVersion" />
           <NavigationProperty Name="FileVersions1" Relationship="Self.FK__FileVersi__Autho__6A1BB7B0" FromRole="EmployeeRole" ToRole="FileVersion" />
           <NavigationProperty Name="FileVersions2" Relationship="Self.FK__FileVersi__Autho__6DEC4894" FromRole="EmployeeRole" ToRole="FileVersion" />
@@ -1179,7 +1179,7 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
           <NavigationProperty Name="FileLevel1" Relationship="Self.FK__File__Level__59E54FE7" FromRole="File" ToRole="FileLevel" />
           <NavigationProperty Name="FileActionLogs" Relationship="Self.FK__FileActio__FileI__73A521EA" FromRole="File" ToRole="FileActionLog" />
           <NavigationProperty Name="FileActionLogs1" Relationship="Self.FK__FileActio__FileI__76818E95" FromRole="File" ToRole="FileActionLog" />
-          <NavigationProperty Name="FileMentions" Relationship="Self.FK__FileMenti__FileI__07AC1A97" FromRole="File" ToRole="FileMention" />
+          <NavigationProperty Name="FileMentions" Relationship="Self.FK__FileMenti__FileI__290D0E62" FromRole="File" ToRole="FileMention" />
           <NavigationProperty Name="FileVersions" Relationship="Self.FK__FileVersi__FileI__664B26CC" FromRole="File" ToRole="FileVersion" />
           <NavigationProperty Name="FileVersions1" Relationship="Self.FK__FileVersi__FileI__69279377" FromRole="File" ToRole="FileVersion" />
           <NavigationProperty Name="FileVersions2" Relationship="Self.FK__FileVersi__FileI__6CF8245B" FromRole="File" ToRole="FileVersion" />
@@ -1229,9 +1229,9 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
           <Property Name="EmployeeID" Type="Int32" Nullable="false" />
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Seen" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__FileMenti__Creat__09946309" FromRole="FileMention" ToRole="EmployeeRole" />
-          <NavigationProperty Name="EmployeeRole1" Relationship="Self.FK__FileMenti__Emplo__08A03ED0" FromRole="FileMention" ToRole="EmployeeRole" />
-          <NavigationProperty Name="File" Relationship="Self.FK__FileMenti__FileI__07AC1A97" FromRole="FileMention" ToRole="File" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__FileMenti__Emplo__2A01329B" FromRole="FileMention" ToRole="Employee" />
+          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__FileMenti__Creat__2AF556D4" FromRole="FileMention" ToRole="EmployeeRole" />
+          <NavigationProperty Name="File" Relationship="Self.FK__FileMenti__FileI__290D0E62" FromRole="FileMention" ToRole="File" />
         </EntityType>
         <EntityType Name="FilePermission">
           <Key>
@@ -1488,6 +1488,18 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__FileMenti__Emplo__2A01329B">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="FileMention" Type="Self.FileMention" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FileMention">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Message__Recieve__2354350C">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
@@ -1620,7 +1632,7 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileMenti__Creat__09946309">
+        <Association Name="FK__FileMenti__Creat__2AF556D4">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="FileMention" Type="Self.FileMention" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1629,18 +1641,6 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
             </Principal>
             <Dependent Role="FileMention">
               <PropertyRef Name="CreatorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__FileMenti__Emplo__08A03ED0">
-          <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
-          <End Role="FileMention" Type="Self.FileMention" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeeRole">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="FileMention">
-              <PropertyRef Name="EmployeeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1752,7 +1752,7 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileMenti__FileI__07AC1A97">
+        <Association Name="FK__FileMenti__FileI__290D0E62">
           <End Role="File" Type="Self.File" Multiplicity="1" />
           <End Role="FileMention" Type="Self.FileMention" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2004,7 +2004,7 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DMS_dbEntities8" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="DMS_dbEntities9" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Bookmarks" EntityType="Self.Bookmark" />
           <EntitySet Name="Cities" EntityType="Self.City" />
           <EntitySet Name="Employees" EntityType="Self.Employee" />
@@ -2053,6 +2053,10 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
             <End Role="Employee" EntitySet="Employees" />
             <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
           </AssociationSet>
+          <AssociationSet Name="FK__FileMenti__Emplo__2A01329B" Association="Self.FK__FileMenti__Emplo__2A01329B">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="FileMention" EntitySet="FileMentions" />
+          </AssociationSet>
           <AssociationSet Name="FK__Message__Recieve__2354350C" Association="Self.FK__Message__Recieve__2354350C">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="Message" EntitySet="Messages" />
@@ -2097,11 +2101,7 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
             <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
             <End Role="FileActionLog" EntitySet="FileActionLogs" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileMenti__Creat__09946309" Association="Self.FK__FileMenti__Creat__09946309">
-            <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
-            <End Role="FileMention" EntitySet="FileMentions" />
-          </AssociationSet>
-          <AssociationSet Name="FK__FileMenti__Emplo__08A03ED0" Association="Self.FK__FileMenti__Emplo__08A03ED0">
+          <AssociationSet Name="FK__FileMenti__Creat__2AF556D4" Association="Self.FK__FileMenti__Creat__2AF556D4">
             <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
             <End Role="FileMention" EntitySet="FileMentions" />
           </AssociationSet>
@@ -2141,7 +2141,7 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
             <End Role="File" EntitySet="Files" />
             <End Role="FileActionLog" EntitySet="FileActionLogs" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileMenti__FileI__07AC1A97" Association="Self.FK__FileMenti__FileI__07AC1A97">
+          <AssociationSet Name="FK__FileMenti__FileI__290D0E62" Association="Self.FK__FileMenti__FileI__290D0E62">
             <End Role="File" EntitySet="Files" />
             <End Role="FileMention" EntitySet="FileMentions" />
           </AssociationSet>
@@ -2231,7 +2231,7 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DMS_dbModelStoreContainer" CdmEntityContainer="DMS_dbEntities8">
+        <EntityContainerMapping StorageEntityContainer="DMS_dbModelStoreContainer" CdmEntityContainer="DMS_dbEntities9">
           <EntitySetMapping Name="Bookmarks">
             <EntityTypeMapping TypeName="DMS_dbModel.Bookmark">
               <MappingFragment StoreEntitySet="Bookmark">

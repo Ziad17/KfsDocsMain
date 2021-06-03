@@ -19,6 +19,7 @@ namespace WebApplication2.Models
         {
             this.EmployeeCredentials = new HashSet<EmployeeCredential>();
             this.EmployeeRoles = new HashSet<EmployeeRole>();
+            this.FileMentions = new HashSet<FileMention>();
             this.Messages = new HashSet<Message>();
             this.Messages1 = new HashSet<Message>();
             this.PersonActionLogs = new HashSet<PersonActionLog>();
@@ -42,6 +43,8 @@ namespace WebApplication2.Models
         public virtual ICollection<EmployeeCredential> EmployeeCredentials { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeRole> EmployeeRoles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FileMention> FileMentions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Message> Messages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

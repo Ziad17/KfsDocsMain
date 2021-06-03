@@ -13,10 +13,10 @@ namespace WebApplication2.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DMS_dbEntities8 : DbContext
+    public partial class DMS_dbEntities9 : DbContext
     {
-        public DMS_dbEntities8()
-            : base("name=DMS_dbEntities8")
+        public DMS_dbEntities9()
+            : base("name=DMS_dbEntities9")
         {
         }
     

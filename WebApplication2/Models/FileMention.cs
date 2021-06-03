@@ -21,8 +21,8 @@ namespace WebApplication2.Models
         public System.DateTime DateCreated { get; set; }
         public bool Seen { get; set; }
     
+        public virtual Employee Employee { get; set; }
         public virtual EmployeeRole EmployeeRole { get; set; }
-        public virtual EmployeeRole EmployeeRole1 { get; set; }
         public virtual File File { get; set; }
     }
 }

@@ -144,10 +144,14 @@ namespace WebApplication2.Controllers
             }
             if (hasInstitutionPermission(EmpRole.Role.ID, InstitutionPermissions.CREATE_FILE))
             {
+
+
+                CreateFileModel viewModel = new CreateFileModel();
                 ViewBag.Level = new SelectList(db.FileLevels, "Level", "Level");
-                ViewBag.InstitutionName = EmpRole.Institution.ArabicName;
-                ViewBag.RoleName = EmpRole.Role.ArabicName;
-                ViewBag.AuthorName = EmpRole.Employee.Name;
+                viewModel.InstitutionName = EmpRole.Institution.ArabicName;
+                viewModel.RoleName = EmpRole.Role.ArabicName;
+                viewModel.AuthorName = EmpRole.Employee.Name;
+                viewModel.DateCreated = DateTime.Now;
                 return View();
             }
             return getErrorView(HttpStatusCode.Unauthorized);
@@ -156,7 +160,7 @@ namespace WebApplication2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DateCreated,Level,Name")] File file)
+        public ActionResult Create(CreateFileModel viewModel)
         {
 
 
@@ -171,6 +175,13 @@ namespace WebApplication2.Controllers
 
                 if (hasInstitutionPermission(EmpRole.Role.ID, FilePermissions.CREATE_FILE))
                 {
+                    File file = new File()
+                    {
+                        Name=viewModel.Name,
+                        Level=viewModel.Level,
+                        DateCreated=viewModel.DateCreated
+
+                    };
                     file.Active = true;
                     file.Locked = false;
                     file.DateCreatedSys = DateTime.Now;
@@ -183,6 +194,21 @@ namespace WebApplication2.Controllers
 
                     db.FileActionLogs.Add(log);
 
+
+                    foreach (var ID in viewModel.MentionedIDs)
+                    {
+                        FileMention mention = new FileMention()
+                        {
+                            FileID=file.ID,
+                            EmployeeID=ID,
+                            CreatorID=EmpRole.ID,
+                            DateCreated=DateTime.Now,
+                            Seen=false
+                        };
+                        db.FileMentions.Add(mention);
+                    }
+
+
                     db.SaveChanges();
                     return RedirectToAction("AddVersion", new { id = file.ID });
 
@@ -193,7 +219,7 @@ namespace WebApplication2.Controllers
             }
 
 
-            ViewBag.Level = new SelectList(db.FileLevels, "Level", "Level", file.Level);
+            ViewBag.Level = new SelectList(db.FileLevels, "Level", "Level", viewModel.Level);
             return View();
         }
 
