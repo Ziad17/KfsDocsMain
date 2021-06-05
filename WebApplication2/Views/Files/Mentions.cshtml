@@ -1,0 +1,58 @@
+﻿@model IEnumerable<WebApplication2.Models.FileMention>
+
+
+
+@{
+    ViewBag.Title = "الإشارات";
+}
+@*<img style="display:inline-block;padding-bottom:10px;margin-top:10px" src="~/Content/archives.png" width="50" height="50" />*@
+<h2 style="display: inline-block; padding-bottom: 10px; position: relative; top: 9px; left: -15px;">@ViewBag.Title</h2>
+<br />
+@if (Model.Count() > 0)
+{
+    <table id="table" class="display table table-hover  table-responsive">
+        <tr style="background-color: #120d0d1c ">
+            <th>
+                إسم الملف
+            </th>
+            <th>
+                المالك
+            </th>
+            <th>
+                مستوى الملف
+            </th>
+            <th>
+                التاريخ 
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.File.Name, "View", "Files", new { id = item.FileID }, null)
+                </td>
+                <td>
+                    @Html.ActionLink(item.File.EmployeeRole.Employee.Name, "PersonProfile", "Employees", new { id = item.File.AuthorID }, null)
+                </td>
+                <td>
+                    @Html.ActionLink(item.File.Level, "FileLevels", "Files", new { level = item.File.Level }, null)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCreated)
+                </td>
+             
+            </tr>
+        }
+
+    </table>
+}
+else
+{
+    <h4>لم يقم أي شخص بذكرك في أي ملف</h4>}
+
+
+
+
+

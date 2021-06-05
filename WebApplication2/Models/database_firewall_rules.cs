@@ -12,13 +12,13 @@ namespace WebApplication2.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class RoleInstitutionPermission
+    public partial class database_firewall_rules
     {
-        public int ID { get; set; }
-        public int RoleID { get; set; }
-        public string PermissionName { get; set; }
-    
-        public virtual InstitutionPermission InstitutionPermission { get; set; }
-        public virtual Role Role { get; set; }
+        public int id { get; set; }
+        public string name { get; set; }
+        public string start_ip_address { get; set; }
+        public string end_ip_address { get; set; }
+        public System.DateTime create_date { get; set; }
+        public System.DateTime modify_date { get; set; }
     }
 }

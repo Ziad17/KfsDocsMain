@@ -7,6 +7,8 @@ namespace WebApplication2.Models
 {
     public class IndexViewRolesModel
     {
+
+
         public List<Role> Roles { get; set; }
         public bool canAdd { get; set; }
         public bool canDelete { get; set; }

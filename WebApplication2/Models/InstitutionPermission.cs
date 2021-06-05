@@ -18,6 +18,7 @@ namespace WebApplication2.Models
         public InstitutionPermission()
         {
             this.InstitutionActionLogs = new HashSet<InstitutionActionLog>();
+            this.RoleInstitutionPermissions = new HashSet<RoleInstitutionPermission>();
         }
     
         public string Name { get; set; }
@@ -25,5 +26,7 @@ namespace WebApplication2.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InstitutionActionLog> InstitutionActionLogs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RoleInstitutionPermission> RoleInstitutionPermissions { get; set; }
     }
 }

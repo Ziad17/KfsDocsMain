@@ -12,6 +12,7 @@ namespace WebApplication2.Models.ViewModels
         public FileVersion CurrentVersion { get; set; }
         public List<FileVersion> Versions { get; set; }
         public EmployeeRole Owner { get; set; }
+        public EmployeeRole MyRef { get; set; }
         public bool canEdit { get; set; }
         public bool hasCurrentVersion { get; set; }
         public bool canDelete { get; set; }

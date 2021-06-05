@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace WebApplication2.Models.ViewModels
 {
@@ -11,10 +12,9 @@ namespace WebApplication2.Models.ViewModels
         public string Level { get; set; }
         public string InstitutionName { get; set; }
         public string RoleName { get; set; }
-        public List<int> MentionedIDs { get; set; }
         public string AuthorName { get; set; }
         public DateTime DateCreated { get; set; }
-        public List<Employee> AvailableEmployees { get; set; }
+        public List<SelectListItem> AvailableEmployees { get; set; }
 
 
 

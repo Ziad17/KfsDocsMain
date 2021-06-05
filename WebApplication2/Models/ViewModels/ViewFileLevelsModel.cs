@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace WebApplication2.Models.ViewModels
 {
@@ -10,10 +11,12 @@ namespace WebApplication2.Models.ViewModels
 
         public ViewFileLevelsModel()
         {
-            LevelsDictionary=new Dictionary<String, Dictionary<String, List<String>>>();
+            RolesDirectory=new Dictionary<String, List<String>>();
         }
 
-        public Dictionary<String,Dictionary<String,List<String>>> LevelsDictionary { get; set; }
+        public Dictionary<String,List<String>> RolesDirectory { get; set; }
+        public FileLevel Level { get; set; }
+        public SelectList Levels { get; set; }
 
     }
 }

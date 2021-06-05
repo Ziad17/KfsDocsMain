@@ -11,53 +11,7 @@
 
 
 
-
-
-
-<div class="col-md-3">
-   
-        <div class="card-group" style="margin-top:10px">
-
-            <img class="img-rounded" width="170" height="170" src="data:image/jpg;base64,@(img)">
-
-                                                                                                                                                    
-
-            <div class="card-body">
-
-                <h2>
-                    @Html.DisplayFor(model => model.Employee.Name, new { htmlAttributes = new { @class = "card-title" } })
-
-                </h2>
-                @for (int i = 0; i < Model.Roles.Count; i++)
-                {
-                    <h4 class="card-text">
-                        @Html.ActionLink(Model.Roles[i].Role.ArabicName + " لدى " + Model.Roles[i].Institution.ArabicName, "View", "Roles", new { id = Model.Roles[i].ID }, null)
-                    </h4>
-
-                }
-                <h4>
-                    @Html.DisplayFor(model => model.Employee.PHD, new { htmlAttributes = new { @class = "card-title" } })
-
-                </h4>
-                <h5>
-                    @Html.DisplayFor(model => model.Employee.Bio, new { htmlAttributes = new { @class = "card-title" } })
-
-                </h5>
-                <h5>
-                </h5>
-
-
-            </div>
-        </div>
-
-    </div>
-
-
-
-
-
-
-<div class="col-md-8">
+<div  class="col-lg-8">
 
     <div class="navbar" style="margin-top: 20px;">
         <a href="~/Messages/Send/@Model.Employee.ID"><img src="~/Content/mail.png" width="25" height="25" style="float: right;margin-right:10px;margin-left:10px" /> </a>
@@ -69,12 +23,99 @@
         <hr style="margin-top:35px" />
 
     </div>
+    @if (Model.Files.Count > 0)
+    {
+        <div class="table-responsive">
+            <table class="table table-hover ">
+                <tr style="color:white;background-color:black">
+
+                    <th>
+                        إسم الملف
+                    </th>
+                    <th>
+                        المؤسسة
+                    </th>
+
+                    <th>
+                        التاريخ
+                    </th>
+                </tr>
+
+                @foreach (var item in Model.Files)
+                {
+                    <tr>
+                        <td>
+                            @Html.ActionLink(item.Name, "View", "Files", new { id = item.ID }, null)
+
+                        </td>
+                        <td>
+                            @Html.ActionLink(item.EmployeeRole.Institution.ArabicName, "InstitutionProfile", "Institutions", new { id = item.EmployeeRole.InstitutionID }, null)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateCreated)
+                        </td>
 
 
 
+                    </tr>
 
+
+                }
+            </table>
+        </div>
+    }
+    else
+    {
+        <hr />
+        <h4>لا يوجد أي ملفات للعرض           </h4>
+    }
 
 </div>
+<div class="col-md-1"></div>
+
+
+<div class="col-md-3">
+
+    <div class="card-group" style="margin-top:10px">
+
+        <img class="img-rounded" width="170" height="170" src="data:image/jpg;base64,@(img)">
+
+
+
+        <div class="card-body">
+
+            <h2>
+                @Html.DisplayFor(model => model.Employee.Name, new { htmlAttributes = new { @class = "card-title" } })
+
+            </h2>
+            @for (int i = 0; i < Model.Roles.Count; i++)
+            {
+                <h4 class="card-text">
+                    @Html.ActionLink(Model.Roles[i].Role.ArabicName + " لدى " + Model.Roles[i].Institution.ArabicName, "View", "Roles", new { id = Model.Roles[i].ID }, null)
+                </h4>
+
+            }
+            <h4>
+                @Html.DisplayFor(model => model.Employee.PHD, new { htmlAttributes = new { @class = "card-title" } })
+
+            </h4>
+            <h5>
+                @Html.DisplayFor(model => model.Employee.Bio, new { htmlAttributes = new { @class = "card-title" } })
+
+            </h5>
+            <h5>
+            </h5>
+
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
 
 
 

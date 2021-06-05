@@ -238,19 +238,37 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
         </EntityType>
         <EntityType Name="RoleInstitutionPermission">
           <Key>
-            <PropertyRef Name="RoleID" />
-            <PropertyRef Name="PermissionName" />
+            <PropertyRef Name="ID" />
           </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RoleID" Type="int" Nullable="false" />
           <Property Name="PermissionName" Type="varchar" MaxLength="200" Nullable="false" />
         </EntityType>
         <EntityType Name="RolePersonPermission">
           <Key>
-            <PropertyRef Name="RoleID" />
-            <PropertyRef Name="PermissionName" />
+            <PropertyRef Name="ID" />
           </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RoleID" Type="int" Nullable="false" />
           <Property Name="PermissionName" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="database_firewall_rules">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="start_ip_address" />
+            <PropertyRef Name="end_ip_address" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="modify_date" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="start_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="end_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="create_date" Type="datetime" Nullable="false" />
+          <Property Name="modify_date" Type="datetime" Nullable="false" />
         </EntityType>
         <Association Name="FK__Bookmark__Employ__0E591826">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
@@ -816,7 +834,19 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RoleInsti__RoleI__33BFA6FF">
+        <Association Name="FK__RoleInsti__Permi__3D14070F">
+          <End Role="InstitutionPermission" Type="Self.InstitutionPermission" Multiplicity="1" />
+          <End Role="RoleInstitutionPermission" Type="Self.RoleInstitutionPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InstitutionPermission">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="RoleInstitutionPermission">
+              <PropertyRef Name="PermissionName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RoleInsti__RoleI__3C1FE2D6">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="RoleInstitutionPermission" Type="Self.RoleInstitutionPermission" Multiplicity="*" />
           <ReferentialConstraint>
@@ -828,7 +858,19 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RolePerso__RoleI__32CB82C6">
+        <Association Name="FK__RolePerso__Permi__3B2BBE9D">
+          <End Role="PersonPermission" Type="Self.PersonPermission" Multiplicity="1" />
+          <End Role="RolePersonPermission" Type="Self.RolePersonPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonPermission">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="RolePersonPermission">
+              <PropertyRef Name="PermissionName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RolePerso__RoleI__3A379A64">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="RolePersonPermission" Type="Self.RolePersonPermission" Multiplicity="*" />
           <ReferentialConstraint>
@@ -870,6 +912,16 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
     [FilesScope].[RoleID] AS [RoleID], 
     [FilesScope].[Permission] AS [Permission]
     FROM [dbo].[FilesScope] AS [FilesScope]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
+            <DefiningQuery>SELECT 
+    [database_firewall_rules].[id] AS [id], 
+    [database_firewall_rules].[name] AS [name], 
+    [database_firewall_rules].[start_ip_address] AS [start_ip_address], 
+    [database_firewall_rules].[end_ip_address] AS [end_ip_address], 
+    [database_firewall_rules].[create_date] AS [create_date], 
+    [database_firewall_rules].[modify_date] AS [modify_date]
+    FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK__Bookmark__Employ__0E591826" Association="Self.FK__Bookmark__Employ__0E591826">
             <End Role="EmployeeRole" EntitySet="EmployeeRole" />
@@ -1059,11 +1111,19 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
             <End Role="Role" EntitySet="Role" />
             <End Role="Role1" EntitySet="Role" />
           </AssociationSet>
-          <AssociationSet Name="FK__RoleInsti__RoleI__33BFA6FF" Association="Self.FK__RoleInsti__RoleI__33BFA6FF">
+          <AssociationSet Name="FK__RoleInsti__Permi__3D14070F" Association="Self.FK__RoleInsti__Permi__3D14070F">
+            <End Role="InstitutionPermission" EntitySet="InstitutionPermission" />
+            <End Role="RoleInstitutionPermission" EntitySet="RoleInstitutionPermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RoleInsti__RoleI__3C1FE2D6" Association="Self.FK__RoleInsti__RoleI__3C1FE2D6">
             <End Role="Role" EntitySet="Role" />
             <End Role="RoleInstitutionPermission" EntitySet="RoleInstitutionPermission" />
           </AssociationSet>
-          <AssociationSet Name="FK__RolePerso__RoleI__32CB82C6" Association="Self.FK__RolePerso__RoleI__32CB82C6">
+          <AssociationSet Name="FK__RolePerso__Permi__3B2BBE9D" Association="Self.FK__RolePerso__Permi__3B2BBE9D">
+            <End Role="PersonPermission" EntitySet="PersonPermission" />
+            <End Role="RolePersonPermission" EntitySet="RolePersonPermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RolePerso__RoleI__3A379A64" Association="Self.FK__RolePerso__RoleI__3A379A64">
             <End Role="Role" EntitySet="Role" />
             <End Role="RolePersonPermission" EntitySet="RolePersonPermission" />
           </AssociationSet>
@@ -1319,6 +1379,7 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
           <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ArabicName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="InstitutionActionLogs" Relationship="Self.FK__Instituti__Permi__4AA30C57" FromRole="InstitutionPermission" ToRole="InstitutionActionLog" />
+          <NavigationProperty Name="RoleInstitutionPermissions" Relationship="Self.FK__RoleInsti__Permi__3D14070F" FromRole="InstitutionPermission" ToRole="RoleInstitutionPermission" />
         </EntityType>
         <EntityType Name="InstitutionType">
           <Key>
@@ -1369,6 +1430,7 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
           <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ArabicName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="PersonActionLogs" Relationship="Self.FK__PersonAct__Permi__47C69FAC" FromRole="PersonPermission" ToRole="PersonActionLog" />
+          <NavigationProperty Name="RolePersonPermissions" Relationship="Self.FK__RolePerso__Permi__3B2BBE9D" FromRole="PersonPermission" ToRole="RolePersonPermission" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -1382,26 +1444,28 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
           <NavigationProperty Name="FilesScopes" Relationship="Self.FK__FilesScop__RoleI__5CC1BC92" FromRole="Role" ToRole="FilesScope" />
           <NavigationProperty Name="Role1" Relationship="Self.FK__Role__ParentID__2D12A970" FromRole="Role" ToRole="Role1" />
           <NavigationProperty Name="Role2" Relationship="Self.FK__Role__ParentID__2D12A970" FromRole="Role1" ToRole="Role" />
-          <NavigationProperty Name="RoleInstitutionPermissions" Relationship="Self.FK__RoleInsti__RoleI__33BFA6FF" FromRole="Role" ToRole="RoleInstitutionPermission" />
-          <NavigationProperty Name="RolePersonPermissions" Relationship="Self.FK__RolePerso__RoleI__32CB82C6" FromRole="Role" ToRole="RolePersonPermission" />
+          <NavigationProperty Name="RoleInstitutionPermissions" Relationship="Self.FK__RoleInsti__RoleI__3C1FE2D6" FromRole="Role" ToRole="RoleInstitutionPermission" />
+          <NavigationProperty Name="RolePersonPermissions" Relationship="Self.FK__RolePerso__RoleI__3A379A64" FromRole="Role" ToRole="RolePersonPermission" />
         </EntityType>
         <EntityType Name="RoleInstitutionPermission">
           <Key>
-            <PropertyRef Name="RoleID" />
-            <PropertyRef Name="PermissionName" />
+            <PropertyRef Name="ID" />
           </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoleID" Type="Int32" Nullable="false" />
           <Property Name="PermissionName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Role" Relationship="Self.FK__RoleInsti__RoleI__33BFA6FF" FromRole="RoleInstitutionPermission" ToRole="Role" />
+          <NavigationProperty Name="InstitutionPermission" Relationship="Self.FK__RoleInsti__Permi__3D14070F" FromRole="RoleInstitutionPermission" ToRole="InstitutionPermission" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__RoleInsti__RoleI__3C1FE2D6" FromRole="RoleInstitutionPermission" ToRole="Role" />
         </EntityType>
         <EntityType Name="RolePersonPermission">
           <Key>
-            <PropertyRef Name="RoleID" />
-            <PropertyRef Name="PermissionName" />
+            <PropertyRef Name="ID" />
           </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoleID" Type="Int32" Nullable="false" />
           <Property Name="PermissionName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Role" Relationship="Self.FK__RolePerso__RoleI__32CB82C6" FromRole="RolePersonPermission" ToRole="Role" />
+          <NavigationProperty Name="PersonPermission" Relationship="Self.FK__RolePerso__Permi__3B2BBE9D" FromRole="RolePersonPermission" ToRole="PersonPermission" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__RolePerso__RoleI__3A379A64" FromRole="RolePersonPermission" ToRole="Role" />
         </EntityType>
         <EntityType Name="FilesScope">
           <Key>
@@ -1415,6 +1479,22 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
           <NavigationProperty Name="FileLevel" Relationship="Self.FK__FilesScop__Level__5BCD9859" FromRole="FilesScope" ToRole="FileLevel" />
           <NavigationProperty Name="FilePermission" Relationship="Self.FK__FilesScop__Permi__5DB5E0CB" FromRole="FilesScope" ToRole="FilePermission" />
           <NavigationProperty Name="Role" Relationship="Self.FK__FilesScop__RoleI__5CC1BC92" FromRole="FilesScope" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="database_firewall_rules">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="start_ip_address" />
+            <PropertyRef Name="end_ip_address" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="modify_date" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="start_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="end_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <Association Name="FK__Bookmark__Employ__0E591826">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
@@ -1944,6 +2024,18 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__RoleInsti__Permi__3D14070F">
+          <End Role="InstitutionPermission" Type="Self.InstitutionPermission" Multiplicity="1" />
+          <End Role="RoleInstitutionPermission" Type="Self.RoleInstitutionPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InstitutionPermission">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="RoleInstitutionPermission">
+              <PropertyRef Name="PermissionName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__PersonAct__Permi__47C69FAC">
           <End Role="PersonPermission" Type="Self.PersonPermission" Multiplicity="1" />
           <End Role="PersonActionLog" Type="Self.PersonActionLog" Multiplicity="*" />
@@ -1952,6 +2044,18 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
               <PropertyRef Name="Name" />
             </Principal>
             <Dependent Role="PersonActionLog">
+              <PropertyRef Name="PermissionName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RolePerso__Permi__3B2BBE9D">
+          <End Role="PersonPermission" Type="Self.PersonPermission" Multiplicity="1" />
+          <End Role="RolePersonPermission" Type="Self.RolePersonPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonPermission">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="RolePersonPermission">
               <PropertyRef Name="PermissionName" />
             </Dependent>
           </ReferentialConstraint>
@@ -1980,7 +2084,7 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RoleInsti__RoleI__33BFA6FF">
+        <Association Name="FK__RoleInsti__RoleI__3C1FE2D6">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="RoleInstitutionPermission" Type="Self.RoleInstitutionPermission" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1992,7 +2096,7 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RolePerso__RoleI__32CB82C6">
+        <Association Name="FK__RolePerso__RoleI__3A379A64">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="RolePersonPermission" Type="Self.RolePersonPermission" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2004,7 +2108,7 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DMS_dbEntities9" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="DMS_dbEntities12" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Bookmarks" EntityType="Self.Bookmark" />
           <EntitySet Name="Cities" EntityType="Self.City" />
           <EntitySet Name="Employees" EntityType="Self.Employee" />
@@ -2029,6 +2133,7 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
           <EntitySet Name="RoleInstitutionPermissions" EntityType="Self.RoleInstitutionPermission" />
           <EntitySet Name="RolePersonPermissions" EntityType="Self.RolePersonPermission" />
           <EntitySet Name="FilesScopes" EntityType="Self.FilesScope" />
+          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" />
           <AssociationSet Name="FK__Bookmark__Employ__0E591826" Association="Self.FK__Bookmark__Employ__0E591826">
             <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
             <End Role="Bookmark" EntitySet="Bookmarks" />
@@ -2205,9 +2310,17 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
             <End Role="InstitutionPermission" EntitySet="InstitutionPermissions" />
             <End Role="InstitutionActionLog" EntitySet="InstitutionActionLogs" />
           </AssociationSet>
+          <AssociationSet Name="FK__RoleInsti__Permi__3D14070F" Association="Self.FK__RoleInsti__Permi__3D14070F">
+            <End Role="InstitutionPermission" EntitySet="InstitutionPermissions" />
+            <End Role="RoleInstitutionPermission" EntitySet="RoleInstitutionPermissions" />
+          </AssociationSet>
           <AssociationSet Name="FK__PersonAct__Permi__47C69FAC" Association="Self.FK__PersonAct__Permi__47C69FAC">
             <End Role="PersonPermission" EntitySet="PersonPermissions" />
             <End Role="PersonActionLog" EntitySet="PersonActionLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RolePerso__Permi__3B2BBE9D" Association="Self.FK__RolePerso__Permi__3B2BBE9D">
+            <End Role="PersonPermission" EntitySet="PersonPermissions" />
+            <End Role="RolePersonPermission" EntitySet="RolePersonPermissions" />
           </AssociationSet>
           <AssociationSet Name="FK__FilesScop__RoleI__5CC1BC92" Association="Self.FK__FilesScop__RoleI__5CC1BC92">
             <End Role="Role" EntitySet="Roles" />
@@ -2217,11 +2330,11 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
             <End Role="Role" EntitySet="Roles" />
             <End Role="Role1" EntitySet="Roles" />
           </AssociationSet>
-          <AssociationSet Name="FK__RoleInsti__RoleI__33BFA6FF" Association="Self.FK__RoleInsti__RoleI__33BFA6FF">
+          <AssociationSet Name="FK__RoleInsti__RoleI__3C1FE2D6" Association="Self.FK__RoleInsti__RoleI__3C1FE2D6">
             <End Role="Role" EntitySet="Roles" />
             <End Role="RoleInstitutionPermission" EntitySet="RoleInstitutionPermissions" />
           </AssociationSet>
-          <AssociationSet Name="FK__RolePerso__RoleI__32CB82C6" Association="Self.FK__RolePerso__RoleI__32CB82C6">
+          <AssociationSet Name="FK__RolePerso__RoleI__3A379A64" Association="Self.FK__RolePerso__RoleI__3A379A64">
             <End Role="Role" EntitySet="Roles" />
             <End Role="RolePersonPermission" EntitySet="RolePersonPermissions" />
           </AssociationSet>
@@ -2231,7 +2344,7 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DMS_dbModelStoreContainer" CdmEntityContainer="DMS_dbEntities9">
+        <EntityContainerMapping StorageEntityContainer="DMS_dbModelStoreContainer" CdmEntityContainer="DMS_dbEntities12">
           <EntitySetMapping Name="Bookmarks">
             <EntityTypeMapping TypeName="DMS_dbModel.Bookmark">
               <MappingFragment StoreEntitySet="Bookmark">
@@ -2475,6 +2588,7 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
           <EntitySetMapping Name="RoleInstitutionPermissions">
             <EntityTypeMapping TypeName="DMS_dbModel.RoleInstitutionPermission">
               <MappingFragment StoreEntitySet="RoleInstitutionPermission">
+                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="PermissionName" ColumnName="PermissionName" />
               </MappingFragment>
@@ -2483,6 +2597,7 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
           <EntitySetMapping Name="RolePersonPermissions">
             <EntityTypeMapping TypeName="DMS_dbModel.RolePersonPermission">
               <MappingFragment StoreEntitySet="RolePersonPermission">
+                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="PermissionName" ColumnName="PermissionName" />
               </MappingFragment>
@@ -2494,6 +2609,18 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
                 <ScalarProperty Name="Level" ColumnName="Level" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="Permission" ColumnName="Permission" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="database_firewall_rules">
+            <EntityTypeMapping TypeName="DMS_dbModel.database_firewall_rules">
+              <MappingFragment StoreEntitySet="database_firewall_rules">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="start_ip_address" ColumnName="start_ip_address" />
+                <ScalarProperty Name="end_ip_address" ColumnName="end_ip_address" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

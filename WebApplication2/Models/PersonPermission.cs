@@ -18,6 +18,7 @@ namespace WebApplication2.Models
         public PersonPermission()
         {
             this.PersonActionLogs = new HashSet<PersonActionLog>();
+            this.RolePersonPermissions = new HashSet<RolePersonPermission>();
         }
     
         public string Name { get; set; }
@@ -25,5 +26,7 @@ namespace WebApplication2.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PersonActionLog> PersonActionLogs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RolePersonPermission> RolePersonPermissions { get; set; }
     }
 }

@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "الوظائف";
 }
-<img style="display:inline-block;padding-bottom:10px" src="~/Content/businessman.png" width="80" height="80" />
+@*<img style="display:inline-block;padding-bottom:10px" src="~/Content/businessman.png" width="80" height="80" />*@
 <h2 style="display: inline-block; padding-bottom: 10px; position: relative; top: 15px; left: -15px;">@ViewBag.Title</h2>
 <br />
 <br />
@@ -19,6 +19,13 @@
             <th>
                 المسمى الوظيفي
             </th>
+
+            <th>
+                الصلاحيات على العاملين
+            </th>
+            <th>
+                الصلاحيات على المؤسسات
+            </th>
             <th>
                 عدد العاملين به
 
@@ -33,38 +40,61 @@
 
         @foreach (var item in Model.Roles)
         {
-            <tr>
-                <td>
-                    @item.ArabicName
-                </td>
-                <td>
-                    @item.EmployeeRoles.Count().ToString()
+    <tr>
+        <td>
+            @item.ArabicName
+        </td>
+        <td>
+            <ul>
+                @foreach (var i in item.RolePersonPermissions)
+                {
+                    <li>
+                        @i.PersonPermission.ArabicName
+                    </li>
+                }
+            </ul>
 
-                </td>
-                <td>
-                    @if (item.Role2 != null)
-                    {
-                        @item.Role2.ArabicName
-                    }
-                </td>
+        </td>
+        <td>
+            <ul>
+                @foreach (var i in item.RoleInstitutionPermissions)
+                {
+                    <li>
+                        @i.InstitutionPermission.ArabicName
+                    </li>
+                }
+            </ul>
 
-                <td>
-                    @if (Model.canEdit)
-                    {
-                        <i class="btn btn-default">
-                            @Html.ActionLink("تعديل", "Edit", new { id = item.ID })
-                        </i>
-                        <span>|</span>
-                    }
-                    @if (Model.canDelete)
-                    {
-                        <i class="btn btn-default">
-                            @Html.ActionLink("مسح", "Delete", new { id = item.ID })
-                            </i>
-                            }
-                    </td>
-            </tr>
+        </td>
+
+        <td>
+            @item.EmployeeRoles.Count().ToString()
+
+        </td>
+        <td>
+            @if (item.Role2 != null)
+            {
+                @item.Role2.ArabicName
+            }
+        </td>
+
+        <td>
+            @if (Model.canEdit)
+            {
+                <i class="btn btn-default">
+                    @Html.ActionLink("تعديل", "Edit", new { id = item.ID })
+                </i>
+
+            }
+            @if (Model.canDelete && item.EmployeeRoles.Count == 0)
+            {
+                <i class="btn btn-default">
+                    @Html.ActionLink("مسح", "Delete", new { id = item.ID })
+                </i>
+            }
+        </td>
+    </tr>
         }
 
     </table>
-    </div>
+</div>

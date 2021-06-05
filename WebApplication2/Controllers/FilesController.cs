@@ -72,7 +72,7 @@ namespace WebApplication2.Controllers
                 viewModel.canAddVersion = hasFileLevelPermission(EmpRole.Role.ID, file.Level, FilePermissions.ADD_VERSION) || isFileAuthor(file.ID, EmpRole.ID);
                 viewModel.canDelete = hasFileLevelPermission(EmpRole.Role.ID, file.Level, FilePermissions.DELETE_FILE) || isFileAuthor(file.ID, EmpRole.ID);
                 viewModel.canSetCurrentVersion = hasFileLevelPermission(EmpRole.Role.ID, file.Level, FilePermissions.SET_CURRENT_VERSION) || isFileAuthor(file.ID, EmpRole.ID);
-
+                viewModel.MyRef = EmpRole;
                 return View(viewModel);
 
             }
@@ -115,6 +115,7 @@ namespace WebApplication2.Controllers
             }
             return getErrorView(HttpStatusCode.Unauthorized);
 
+
         }
 
 
@@ -152,7 +153,7 @@ namespace WebApplication2.Controllers
                 viewModel.RoleName = EmpRole.Role.ArabicName;
                 viewModel.AuthorName = EmpRole.Employee.Name;
                 viewModel.DateCreated = DateTime.Now;
-                viewModel.AvailableEmployees = db.Employees.Where(x => x.ID != EmpRole.EmployeeID && x.Active == true).ToList();
+                viewModel.AvailableEmployees = db.Employees.Where(x => x.ID != EmpRole.EmployeeID && x.Active == true).Select(x=>new SelectListItem() {Text=x.Name,Value=x.ID.ToString()  }).ToList();
                 return View(viewModel);
             }
             return getErrorView(HttpStatusCode.Unauthorized);
@@ -178,9 +179,9 @@ namespace WebApplication2.Controllers
                 {
                     File file = new File()
                     {
-                        Name=viewModel.Name,
-                        Level=viewModel.Level,
-                        DateCreated=viewModel.DateCreated
+                        Name = viewModel.Name,
+                        Level = viewModel.Level,
+                        DateCreated = viewModel.DateCreated
 
                     };
                     file.Active = true;
@@ -195,16 +196,25 @@ namespace WebApplication2.Controllers
 
                     db.FileActionLogs.Add(log);
 
+                    List<int> MentionedIDs = new List<int>();
+                    foreach (var emp in viewModel.AvailableEmployees)
+                    {
+                        if (emp.Selected)
+                        {
+                            MentionedIDs.Add(int.Parse(emp.Value));
+                        }
+                    }
 
-                    foreach (var ID in viewModel.MentionedIDs)
+
+                    foreach (var ID in MentionedIDs)
                     {
                         FileMention mention = new FileMention()
                         {
-                            FileID=file.ID,
-                            EmployeeID=ID,
-                            CreatorID=EmpRole.ID,
-                            DateCreated=DateTime.Now,
-                            Seen=false
+                            FileID = file.ID,
+                            EmployeeID = ID,
+                            CreatorID = EmpRole.ID,
+                            DateCreated = DateTime.Now,
+                            Seen = false
                         };
                         db.FileMentions.Add(mention);
                     }
@@ -538,12 +548,11 @@ namespace WebApplication2.Controllers
 
                 }
                 return getErrorView(HttpStatusCode.Unauthorized);
-            
-           
+
+
         }
 
-
-        public ActionResult FileLevels()
+        public ActionResult FileLevels(string level)
         {
             var emp = getEmployeeRef();
             if (emp == null)
@@ -551,30 +560,95 @@ namespace WebApplication2.Controllers
                 signOut();
                 return null;
             }
+
+
+            var level_from_db = db.FileLevels.Find(level);
+            if (level_from_db == null)
+            {
+                level_from_db = db.FileLevels.FirstOrDefault();
+            }
+
             ViewFileLevelsModel viewModel = new ViewFileLevelsModel();
             List<String> levels = db.FileLevels.Select(x => x.Level).ToList<String>();
-            Dictionary<String, Dictionary<String, List<String>>> DICT = new Dictionary<string, Dictionary<string, List<string>>>();
-            foreach (var level in levels)
-            {
+             Dictionary<String, List<String>> DICT = new  Dictionary<string, List<string>>();
+          
                 List<Role> roles = db.Roles.OrderBy(x=>x.PriorityOrder).ToList<Role>();
 
                 Dictionary<String, List<String>> rolesAndPermissions = new Dictionary<string, List<string>>();
 
                 foreach (var role in roles)
                 {
-                    List<String> permissions = db.FilesScopes.Where(x => x.RoleID == role.ID).Select(x => x.FilePermission.ArabicName).ToList<String>();
+                    List<String> permissions = db.FilesScopes.Where(x => x.RoleID == role.ID && x.Level== level_from_db.Level).Select(x => x.FilePermission.ArabicName).ToList<String>();
                     rolesAndPermissions.Add(role.ArabicName, permissions);
 
                 }
-                DICT.Add(level, rolesAndPermissions);
 
-            }
-            viewModel.LevelsDictionary = DICT;
+
+                
+            ViewBag.Levels = new SelectList( db.FileLevels,"Level","Level",level_from_db.Level);
+
+            viewModel.Level = level_from_db;
+            viewModel.RolesDirectory = rolesAndPermissions;
+
             return View(viewModel);
             
         }
 
 
+        public ActionResult DeleteVersion(int id)
+        {
+            var EmpRole = getPrimaryRole();
+            if (EmpRole == null)
+            {
+                return getErrorView(HttpStatusCode.Unauthorized);
+            }
+            var Version = db.FileVersions.Find(id);
+            if (Version == null)
+            {
+                return getErrorView(HttpStatusCode.NotFound);
+
+            }
+            if (Version.AuthorID == EmpRole.ID || Version.File.AuthorID == EmpRole.ID)
+            {
+                try 
+                {
+                    int fileID = (int)Version.FileID;
+                    db.Files.Find( Version.FileID).CurrentVersion = null;
+                    db.FileVersions.Remove(Version);
+                    db.SaveChanges();
+                    return RedirectToAction("View", new { id = fileID });
+                }
+                catch (Exception e) {
+                    return getErrorView(HttpStatusCode.InternalServerError);
+
+                }
+
+            }
+                return getErrorView(HttpStatusCode.Unauthorized);
+            
+
+        }
+
+        public ActionResult Mentions()
+        {
+            var myEmp = getEmployeeRef();
+            if (myEmp == null)
+            {
+                return getErrorView(HttpStatusCode.Unauthorized);
+            }
+
+            var Files=db.FileMentions.Where(x => x.EmployeeID == myEmp.ID && x.CreatorID != myEmp.ID);
+            foreach (var file in Files)
+            {
+                if (!file.Seen)
+                {
+                    file.Seen = true;
+                }
+            }
+            db.SaveChanges();
+            return View(Files);
+
+        }
 
 
         public ActionResult Download(int? id)//version ID

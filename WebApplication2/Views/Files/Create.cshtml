@@ -7,146 +7,157 @@
 
     string RoleName = Model.RoleName;
 
-    string represent = "في "+InstitutionName + " " + "ك" + RoleName; }
+    string represent = "في " + InstitutionName + " " + "ك" + RoleName; }
 
 @*<img style="display:inline-block;padding-bottom:10px;margin-top:10px" src="~/Content/new-document.png" width="25" height="25" />*@
 <h3 style="">@ViewBag.Title @represent</h3>
 @*<img style="display:inline-block;padding-bottom:10px;margin-top:10px" src="~/Content/manager.png" width="50" height="50" />*@
 <hr />
+@*@if(@ViewBag.IDS!=null)
+{
+foreach (var id in ViewBag.IDS)
+{
+<h1>@id</h1>}
+   }*@
 
-<div class="col-md-7">
-    @*<img style="display:inline-block;padding-bottom:10px;" src="~/Content/contact.png" width="25" height="25" />
-        <h3 style="display: inline-block; padding-bottom: 10px; position: relative; top: 9px; left: -15px;">الإشارات</h3>*@
+@using (Html.BeginForm("Create", "Files", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+@Html.AntiForgeryToken()
+                <div class="col-md-7">
+                    @*<img style="display:inline-block;padding-bottom:10px;" src="~/Content/contact.png" width="25" height="25" />
+                        <h3 style="display: inline-block; padding-bottom: 10px; position: relative; top: 9px; left: -15px;">الإشارات</h3>*@
 
 
 
 
-    <h3> قائمة الأشارات</h3>
+                    <h3> قائمة الأشارات</h3>
 
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingOne">
-                <h4 class="panel-title">
-                    <a class="tabs" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                        الأشخاص
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                <div class="panel-body">
-                    <table id="table" class="display table table-responsive">
-                        <thead>
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingOne">
+                                <h4 class="panel-title">
+                                    <a class="tabs" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                        الأشخاص
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                    <table id="table" class="display table table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>إسم الشخص</th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for (var i = 0; i < Model.AvailableEmployees.Count; i++)
+                                            {
                             <tr>
-                                <th></th>
-                                <th>إسم الشخص</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var person in Model.AvailableEmployees)
-                            {
-                <tr>
-                    <td>img</td>
-                    <td><a href="~/Employees/PersonProfile/@person.ID">@person.Name</a></td>
-                    <td></td>
-                    <td><button class="btn btn-default">إختيار</button></td>
-                </tr>
-}
-                        </tbody>
+                                <td>img</td>
+                                <td><a href="~/Employees/PersonProfile/@Model.AvailableEmployees[i].Value">@Model.AvailableEmployees[i].Text</a></td>
+                                <td></td>
+                                <td>
+                                    @Html.CheckBoxFor(model => Model.AvailableEmployees[i].Selected)
+                                    @Html.HiddenFor(m => m.AvailableEmployees[i].Text)
+                                    @Html.HiddenFor(m => m.AvailableEmployees[i].Value)
+                                </td>
+                            </tr>                }
+                                        </tbody>
 
 
-                    </table>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                    @*<div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingTwo">
+                                <h4 class="panel-title">
+                                    <a class="collapsed tabs" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        المشار إليهم
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                <div class="panel-body">
+                                    <table id="table" class="display table table-responsive">
+                                        <thead>
+                                            <tr>
+
+                                                <th></th>
+                                                <th>إسم الشخص</th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                           @foreach (var person in Model.AvailableEmployees)
+                                            {
+                                            <tr>
+                                                <td>img</td>
+                                                <td><a href="~/Employees/PersonProfile/@person.ID">@person.Name</a></td>
+                                                @{ Model.MentionedIDs.Add(person.ID);}
+
+                                                <td><button class="btn btn-default">مسح</button></td>
+                                            </tr>}
+                                        </tbody>
+
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>*@
+
 
                 </div>
-            </div>
-        </div>
 
-
-    </div>
-
-
-    <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingTwo">
-            <h4 class="panel-title">
-                <a class="collapsed tabs" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    المشار إليهم
-                </a>
-            </h4>
-        </div>
-        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-            <div class="panel-body">
-                <table id="table" class="display table table-responsive">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>إسم الشخص</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @*@foreach (var person in Model.AvailableEmployees)
-                        {
-            <tr>
-                <td>img</td>
-                <td><a href="~/Employees/PersonProfile/@person.ID">@person.Name</a></td>
-                <td></td>
-                <td><button class="btn btn-default">إختيار</button></td>
-            </tr>}*@
-                    </tbody>
-
-
-                </table>
-            </div>
-        </div>
-    </div>
-
-
-</div>
-
-    <div class="col-md-5">
-        <h3>المعلومات</h3>
-
-
-        @using (Html.BeginForm("Create", "Files", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-@Html.AntiForgeryToken()
-
-                <div class="form-horizontal">
-
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="col-md-5">
+                                    <h3>المعلومات</h3>
 
 
 
+                                    <div class="form-horizontal">
 
-                    <div class="form-group">
-                        <div class="col-md-9">
-                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                        </div>
-                        @Html.Label("إسم الملف", htmlAttributes: new { @class = "control-label col-md-3" })
-
-                    </div>
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
-                    <div class="form-group">
-                        <div class="col-md-9">
-                            @Html.DropDownList("Level", null, htmlAttributes: new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.Level, "", new { @class = "text-danger" })
-                        </div>
-                        @Html.Label("المستوى", "المستوى", htmlAttributes: new { @class = "control-label col-md-3" })
+                                        @*@Html.ListBoxFor(m => m.MentionedIDs,  Model.AvailableEmployees)*@
 
-                    </div>
+                                        <div class="form-group">
+                                            <div class="col-md-9">
+                                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                            </div>
+                                            @Html.Label("إسم الملف", htmlAttributes: new { @class = "control-label col-md-3" })
 
-                    <div class="form-group">
-                        <div class="col-md-9">
-                            @Html.EditorFor(model => model.DateCreated, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.DateCreated, "", new { @class = "text-danger" })
-                        </div>
-                        @Html.Label("تاريخ الإنشاء", htmlAttributes: new { @class = "control-label col-md-3" })
+                                        </div>
 
-                    </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-9">
+                                                @Html.DropDownList("Level", null, htmlAttributes: new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.Level, "", new { @class = "text-danger" })
+                                            </div>
+                                            @Html.Label("المستوى", "المستوى", htmlAttributes: new { @class = "control-label col-md-3" })
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-9">
+                                                @Html.EditorFor(model => model.DateCreated, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.DateCreated, "", new { @class = "text-danger" })
+                                            </div>
+                                            @Html.Label("تاريخ الإنشاء", htmlAttributes: new { @class = "control-label col-md-3" })
+
+                                        </div>
 
 
 
@@ -156,43 +167,43 @@
 
 
 
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="إنشاء" class="btn btn-default" />
-                        </div>
-                    </div>
-                </div>}
+                                        <div class="form-group">
+                                            <div class="col-md-offset-2 col-md-10">
+                                                <input type="submit" value="إنشاء" class="btn btn-default" />
+                                            </div>
+                                        </div>
+                                    </div>
 
-    </div>
+                                </div>}
 
-    @section scripts{
-        <script type="text/javascript">
+@section scripts{
+    <script type="text/javascript">
 
-            $(document).ready(function () {
-                $('#table').DataTable();
-            });
+        $(document).ready(function () {
+            $('#table').DataTable();
+        });
 
-        </script>
-    }
+    </script>
+}
 
 
-    @*<script>
-            $("#searchBox").autocomplete({
-                source: function (request, response) {
-                    $.ajax({
-                        url: '@Url.Action("SearchEmployees","Employees")',
-                        dataType: "json",
-                        data: { search: $("#searchBox").val() },
-                        success: function (data) {
-                            response($.map(data, function (item) {
-                                return {label:item.Name,value:item.Name}
-                            }))
-                        },
-                        error: function (xhr, status, error) {
-                            alert("Error")
-                        }
-                    });
-                }
-            });
-        </script>*@
+@*<script>
+        $("#searchBox").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '@Url.Action("SearchEmployees","Employees")',
+                    dataType: "json",
+                    data: { search: $("#searchBox").val() },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return {label:item.Name,value:item.Name}
+                        }))
+                    },
+                    error: function (xhr, status, error) {
+                        alert("Error")
+                    }
+                });
+            }
+        });
+    </script>*@
 

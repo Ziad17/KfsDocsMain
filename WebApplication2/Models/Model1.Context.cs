@@ -13,10 +13,10 @@ namespace WebApplication2.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DMS_dbEntities9 : DbContext
+    public partial class DMS_dbEntities12 : DbContext
     {
-        public DMS_dbEntities9()
-            : base("name=DMS_dbEntities9")
+        public DMS_dbEntities12()
+            : base("name=DMS_dbEntities12")
         {
         }
     
@@ -49,5 +49,6 @@ namespace WebApplication2.Models
         public virtual DbSet<RoleInstitutionPermission> RoleInstitutionPermissions { get; set; }
         public virtual DbSet<RolePersonPermission> RolePersonPermissions { get; set; }
         public virtual DbSet<FilesScope> FilesScopes { get; set; }
+        public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
     }
 }

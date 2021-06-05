@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2bf0520bd6fd401386308bdf06b63c43" Name="Diagram1">
+      <Diagram DiagramId="117a335e0bd1438da9f55060c4b23bbd" Name="Diagram1">
         <EntityTypeShape EntityType="DMS_dbModel.Bookmark" Width="1.5" PointX="10.5" PointY="15.625" IsExpanded="true" />
         <EntityTypeShape EntityType="DMS_dbModel.City" Width="1.5" PointX="0.75" PointY="15.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DMS_dbModel.Employee" Width="1.5" PointX="3" PointY="14.375" IsExpanded="true" />
@@ -20,15 +20,16 @@
         <EntityTypeShape EntityType="DMS_dbModel.FileVersion" Width="1.5" PointX="15.75" PointY="9.375" IsExpanded="true" />
         <EntityTypeShape EntityType="DMS_dbModel.Institution" Width="1.5" PointX="6" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="DMS_dbModel.InstitutionActionLog" Width="1.5" PointX="10.5" PointY="11.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DMS_dbModel.InstitutionPermission" Width="1.5" PointX="8.25" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DMS_dbModel.InstitutionPermission" Width="1.5" PointX="8.25" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DMS_dbModel.InstitutionType" Width="1.5" PointX="3.75" PointY="6.875" IsExpanded="true" />
         <EntityTypeShape EntityType="DMS_dbModel.Message" Width="1.5" PointX="5.25" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DMS_dbModel.PersonActionLog" Width="1.5" PointX="10.5" PointY="19.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DMS_dbModel.PersonPermission" Width="1.5" PointX="8.25" PointY="20.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DMS_dbModel.PersonPermission" Width="1.5" PointX="8.25" PointY="20.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DMS_dbModel.Role" Width="1.5" PointX="6" PointY="18.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DMS_dbModel.RoleInstitutionPermission" Width="1.5" PointX="8.25" PointY="23.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DMS_dbModel.RolePersonPermission" Width="1.5" PointX="8.25" PointY="25.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DMS_dbModel.RoleInstitutionPermission" Width="1.5" PointX="16.5" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DMS_dbModel.RolePersonPermission" Width="1.5" PointX="13.5" PointY="20.625" IsExpanded="true" />
         <EntityTypeShape EntityType="DMS_dbModel.FilesScope" Width="1.5" PointX="18.75" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DMS_dbModel.database_firewall_rules" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="DMS_dbModel.FK__Bookmark__Employ__0E591826" ManuallyRouted="false" />
         <AssociationConnector Association="DMS_dbModel.FK__Bookmark__FileID__0D64F3ED" ManuallyRouted="false" />
         <AssociationConnector Association="DMS_dbModel.FK__Employee__CityID__2E06CDA9" ManuallyRouted="false" />
@@ -73,11 +74,13 @@
         <AssociationConnector Association="DMS_dbModel.FK__Instituti__Insti__49AEE81E" ManuallyRouted="false" />
         <AssociationConnector Association="DMS_dbModel.FK__Instituti__Paren__4119A21D" ManuallyRouted="false" />
         <AssociationConnector Association="DMS_dbModel.FK__Instituti__Permi__4AA30C57" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__RoleInsti__Permi__3D14070F" ManuallyRouted="false" />
         <AssociationConnector Association="DMS_dbModel.FK__PersonAct__Permi__47C69FAC" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__RolePerso__Permi__3B2BBE9D" ManuallyRouted="false" />
         <AssociationConnector Association="DMS_dbModel.FK__FilesScop__RoleI__5CC1BC92" ManuallyRouted="false" />
         <AssociationConnector Association="DMS_dbModel.FK__Role__ParentID__2D12A970" ManuallyRouted="false" />
-        <AssociationConnector Association="DMS_dbModel.FK__RoleInsti__RoleI__33BFA6FF" ManuallyRouted="false" />
-        <AssociationConnector Association="DMS_dbModel.FK__RolePerso__RoleI__32CB82C6" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__RoleInsti__RoleI__3C1FE2D6" ManuallyRouted="false" />
+        <AssociationConnector Association="DMS_dbModel.FK__RolePerso__RoleI__3A379A64" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -32,6 +32,7 @@ namespace WebApplication2.Controllers
 
             IndexViewRolesModel viewModel = new IndexViewRolesModel()
             {
+
                 Roles = employeeRoles,
                 canAdd = hasInstitutionPermission(EmpRole.RoleID, InstitutionPermissions.CREATE_ROLE),
                 canDelete = hasInstitutionPermission(EmpRole.RoleID, InstitutionPermissions.DELETE_ROLE),

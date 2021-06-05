@@ -14,9 +14,11 @@ namespace WebApplication2.Models
     
     public partial class RolePersonPermission
     {
+        public int ID { get; set; }
         public int RoleID { get; set; }
         public string PermissionName { get; set; }
     
+        public virtual PersonPermission PersonPermission { get; set; }
         public virtual Role Role { get; set; }
     }
 }
