@@ -135,6 +135,17 @@ namespace WebApplication2.Controllers
        
         }
 
+
+        protected IQueryable<File> getMentionsForSomeone(int empID)
+        {
+            var emp = getEmployeeRef();
+            var myroles = db.EmployeeRoles.Where(x => x.EmployeeID == emp.ID && x.Active == true).Select(x => x.ID);
+
+            return db.FileMentions.Where(x => myroles.Contains(x.EmployeeID) ).Select(x=>x.File).Where(x=>x.Active==true);
+
+
+        }
+
         protected IQueryable<File> getSomeoneFiles(int id)
         {
             var emp = db.Employees.Find(id);

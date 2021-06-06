@@ -21,8 +21,14 @@ namespace WebApplication2.Controllers
 
         public ActionResult Index()
         {
-         
-            return View();
+            var myEmp = getEmployeeRef();
+
+            var files = getAvaiableFilesForMe().Union(getMyFiles());
+            MainIndexModel viewModel = new MainIndexModel()
+            {
+                Files = files.ToList()
+            };
+            return View(viewModel);
         }
 
   

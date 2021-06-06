@@ -31,7 +31,7 @@
         @Html.ActionLink(item.File.Name, "View", "Files", new { id = item.FileID }, null)
     </td>
     <td>
-        @Html.ActionLink(item.File.EmployeeRole.Employee.Name, "PersonProfile", "Employees", new { id = item.File.AuthorID }, null)
+        @Html.ActionLink(item.File.EmployeeRole.Employee.Name, "PersonProfile", "Employees", new { id = item.File.EmployeeRole.ID }, null)
     </td>
     <td>
         @Html.ActionLink(item.File.Level, "FileLevels", "Files", new { level = item.File.Level }, null)

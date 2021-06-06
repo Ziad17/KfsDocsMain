@@ -10,7 +10,8 @@
 <div>
     <h4>Institution</h4>
     <hr />
-    <dl class="dl-horizontal">
+    <div class="data_labels">
+
         <dt>
             @Html.DisplayNameFor(model => model.ArabicName)
         </dt>
@@ -99,14 +100,15 @@
             @Html.DisplayFor(model => model.Institution2.ArabicName)
         </dd>
 
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
         </div>
-    }
-</div>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>

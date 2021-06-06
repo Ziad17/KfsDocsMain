@@ -538,15 +538,39 @@ namespace WebApplication2.Controllers
                     return getErrorView(HttpStatusCode.Unauthorized);
                 }
 
-                if (isFileAuthor(acutalFile.ID, EmpRole.ID))
+                if (hasFileLevelPermission(EmpRole.Role.ID, acutalFile.Level, FilePermissions.DELETE_FILE) ||isFileAuthor(acutalFile.ID, EmpRole.ID))
                 {
 
-                    
+                //try
+                //{
+                foreach (var filelog in db.FileActionLogs.Where(x=>x.FileID==acutalFile.ID))
+                {
+                    db.FileActionLogs.Remove(filelog);
+                }
+                foreach (var fileversion in db.FileVersions.Where(x => x.FileID == acutalFile.ID)) 
+                    {
+                        db.FileVersions.Remove(fileversion);
+                    }
+                    foreach (var fileMention in db.FileMentions.Where(x => x.FileID == acutalFile.ID))
+                    {
+                        db.FileMentions.Remove(fileMention);
+                    }
+                 
+                    foreach (var bookmark in db.Bookmarks.Where(x => x.FileID == acutalFile.ID))
+                    {
+                        db.Bookmarks.Remove(bookmark);
+                    }
                     db.Files.Remove(acutalFile);
+                    
                     db.SaveChanges();
                     return RedirectToAction("Index", "Home");
 
-                }
+                //}
+                //catch (Exception e) {
+                //    return getErrorView(HttpStatusCode.InternalServerError);
+
+                //}
+            }
                 return getErrorView(HttpStatusCode.Unauthorized);
 
 

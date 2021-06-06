@@ -166,6 +166,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ActivityLogsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BookmarksController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
@@ -283,6 +284,8 @@
     <Compile Include="Models\ViewModels\FirstLoginModel.cs" />
     <Compile Include="Models\ViewModels\HttpErrors.cs" />
     <Compile Include="Models\ViewModels\InstitutionProfileModel.cs" />
+    <Compile Include="Models\ViewModels\LogsViewModel.cs" />
+    <Compile Include="Models\ViewModels\MainIndexModel.cs" />
     <Compile Include="Models\ViewModels\MenuModel.cs" />
     <Compile Include="Models\ViewModels\Messages\InboxModel.cs" />
     <Compile Include="Models\ViewModels\Messages\ViewMessageModel.cs" />
@@ -310,17 +313,18 @@
     <Content Include="Content\delete.png" />
     <Content Include="Content\download-button.png" />
     <Content Include="Content\go-back-arrow.png" />
-    <Content Include="Content\inbox %281%29.png" />
+    <Content Include="Content\inbox%281%29.png" />
     <Content Include="Content\inbox.png" />
-	  <Content Include="Content\jquery.dataTables.css" />
-	  <Content Include="Content\log-out %281%29.png" />
-	  <Content Include="Content\log-out.png" />
-	  <Content Include="Content\mail.png" />
-	  <Content Include="Content\manager.png" />
-	  <Content Include="Content\new-document.png" /> <Content Include="Content\jquery.dataTables.css" />
-	  <Content Include="Content\mail.png" />
-	  <Content Include="Content\manager.png" />
-	  <Content Include="Content\new-document.png" />
+    <Content Include="Content\jquery.dataTables.css" />
+    <Content Include="Content\log-out %281%29.png" />
+    <Content Include="Content\log-out.png" />
+    <Content Include="Content\mail.png" />
+    <Content Include="Content\manager.png" />
+    <Content Include="Content\new-document.png" />
+    <Content Include="Content\jquery.dataTables.css" />
+    <Content Include="Content\mail.png" />
+    <Content Include="Content\manager.png" />
+    <Content Include="Content\new-document.png" />
     <Content Include="Content\star-clicked.png" />
     <Content Include="Content\star.png" />
     <Content Include="Content\temp.txt" />
@@ -414,6 +418,7 @@
     <Content Include="Views\Shared\_MenuBar.cshtml" />
     <Content Include="Views\Bookmarks\Index.cshtml" />
     <Content Include="Views\Files\Mentions.cshtml" />
+    <Content Include="Views\ActivityLogs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

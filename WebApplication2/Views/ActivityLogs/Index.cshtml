@@ -1,0 +1,179 @@
+﻿@model WebApplication2.Models.ViewModels.LogsViewModel
+
+@{
+    ViewBag.Title = "سجل العمليات";
+  //  string title = "العمليات التي قمت بها بصفة " + "<a href='~/Roles'>" + Model.MyRef.Role.ArabicName + "</a>" + " لدى " + "<a href='~/Institutions/InstitutionProfile/" + Model.MyRef.InstitutionID + "'>" + Model.MyRef.Institution.ArabicName + "</a>";
+    string title = "العمليات التي قمت بها بصفة " + Model.MyRef.Role.ArabicName + " لدى " + Model.MyRef.Institution.ArabicName ;
+}
+
+<h2>@title</h2>
+
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+            <h4 class="panel-title">
+                <a class="tabs" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    الأشخاص
+                </a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
+                @if (Model.PersonActionLogs.Count > 0)
+                {
+
+                    <div class="table-responsive">
+                        <table border="0" class="table table-hover">
+                            <tr>
+                                <th>
+                                    إسم العملية
+                                </th>
+                                <th>
+                                    الشخص
+                                </th>
+                                <th>
+                                    بتاريخ
+                                </th>
+
+                            </tr>
+
+                            @foreach (var item in Model.PersonActionLogs)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.PersonPermission.ArabicName
+                                    </td>
+
+                                    <td>
+                                        @Html.ActionLink(item.Employee.Name, "PersonProfile", "Employees", new { id = item.AffectedEmployeeID }, null)
+                                    </td>
+                                    <td>
+                                        @item.ActionDate
+                                    </td>
+                                </tr>
+                            }
+
+
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <h5>لا يوجد أي عمليات</h5>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTwo">
+            <h4 class="panel-title">
+                <a class="collapsed tabs" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    المؤسسات
+                </a>
+            </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+            <div class="panel-body">
+                @if (Model.InstitutionActionLogs.Count > 0)
+                {
+                    <div class="table-responsive">
+                        <table border="0" class="table table-hover">
+                            <tr>
+                                <th>
+                                    إسم العملية
+                                </th>
+                                <th>
+                                    المؤسسة
+                                </th>
+                                <th>
+                                    بتاريخ
+                                </th>
+
+                            </tr>
+
+                            @foreach (var item in Model.InstitutionActionLogs)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.InstitutionPermission.ArabicName
+                                    </td>
+
+                                    <td>
+
+                                        @Html.ActionLink(item.Institution.ArabicName, "InstitutionProfile", "Institutions", new { id = item.InstitutionID }, null)
+
+                                    </td>
+                                    <td>
+                                        @item.ActionDate
+                                    </td>
+                                </tr>
+                            }
+
+
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <h5>لا يوجد أي عمليات</h5>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingThree">
+            <h4 class="panel-title">
+                <a class="collapsed tabs" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    الملفات
+                </a>
+            </h4>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+            <div class="panel-body">
+                @if (Model.FileActionLogs.Count > 0)
+                {
+
+                    <div class="table-responsive">
+                        <table border="0" class="table table-hover">
+                            <tr>
+                                <th>
+                                    إسم العملية
+                                </th>
+                                <th>
+                                    الملف
+                                </th>
+                                <th>
+                                    بتاريخ
+                                </th>
+
+                            </tr>
+
+                            @foreach (var item in Model.FileActionLogs)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.FilePermission.ArabicName
+                                    </td>
+
+                                    <td>
+                                        @Html.ActionLink(item.File.Name, "View", "Files", new { id = item.FileID }, null)
+                                    </td>
+                                    <td>
+                                        @item.ActionDate
+                                    </td>
+                                </tr>
+                            }
+
+
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <h5>لا يوجد أي عمليات</h5>
+                }
+            </div>
+        </div>
+    </div>
+</div>

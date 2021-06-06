@@ -1,44 +1,46 @@
-﻿@{
+﻿@model WebApplication2.Models.ViewModels.MainIndexModel
+
+@{
     ViewBag.Title = "Home Page";
 }
 
 <div class="jumbotron">
     <h1>KfsDocs</h1>
-    <p class="lead">KfsDocs Is A Web Application Created To Help You Communicate Better With Co Workers</p>
-    <p><a href="#" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+   
 </div>
 <table id="table" class="display">
     <thead>
         <tr>
-            <th>Column 1</th>
-            <th>Column 2</th>
-            <th>Column 3</th>
-            <th>Column 2</th>
+            <th>إسم الملف</th>
+            <th>المستوى</th>
+
+            <th>المالك</th>
+            <th>المؤسسة</th>
+
+            <th>تاريخ الإنشاء</th>
+
         </tr>
     </thead>
     <tbody>
+
+
+
+        @foreach (var file in Model.Files)
+        {
+
         <tr>
-            <td>Row 1</td>
-            <td>Row 2</td>
-            <td>Row 3</td>
-            <td>Row 4</td>
-        </tr>        <tr>
-            <td>Row 1 Data 1</td>
-            <td>Row 1 Data 2</td>
-            <td>Row 1 Data 2</td>
-            <td>Row 1 Data 2</td>
-        </tr>        <tr>
-            <td>Row 1 Data 1</td>
-            <td>Row 1 Data 2</td>
-            <td>Row 1 Data 2</td>
-            <td>Row 1 Data 2</td>
+            <td>@Html.ActionLink(file.Name, "View", "Files", new { id = file.ID }, null)</td>
+            <td>@Html.ActionLink(file.EmployeeRole.Employee.Name, "PersonProfile", "Employeess", new { id = file.EmployeeRole.EmployeeID }, null)</td>
+
+            <td>@Html.ActionLink(file.EmployeeRole.Institution.ArabicName, "InstitutionProfile", "Institutions", new { id = file.EmployeeRole.InstitutionID }, null)</td>
+
+            <td>@file.DateCreated</td>
+
         </tr>
-        <tr>
-            <td>Row 2 Data 1</td>
-            <td>Row 2 Data 2</td>
-            <td>Row 2 Data 2</td>
-            <td>Row 2 Data 2</td>
-        </tr>
+
+
+        }
+
     </tbody>
 </table>
 @section scripts{

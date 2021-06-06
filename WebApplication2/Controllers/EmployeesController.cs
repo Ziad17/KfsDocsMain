@@ -432,7 +432,8 @@ namespace WebApplication2.Controllers
 
                 var personFile = getSomeoneFiles(employee.ID);
                 viewModel.Files = getAvaiableFilesForMe().Intersect(personFile).ToList<Models.File>();
-
+                var filementions = getMentionsForSomeone(employee.ID);
+                viewModel.Mentions = getAvaiableFilesForMe().Intersect(filementions).ToList();
                 viewModel.canDelete = hasPersonPermission(role.ID, PersonPermissions.DELETE_PERSON);
 
                 viewModel.Roles = employee.EmployeeRoles.ToList<EmployeeRole>();
