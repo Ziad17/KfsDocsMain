@@ -6,7 +6,7 @@
 {
     @Html.AntiForgeryToken()
 
-<div style="font-size:25px;margin-top:20px" >
+<div class="col-md-12" style="font-size:25px;margin-top:20px" >
     <input type="hidden" name="id" value="@Model.File.ID">
     <button type="submit" id="Change" name="Change" style="background-color:transparent;border:hidden">
         @if (Model.isBookmarked)
@@ -38,29 +38,15 @@
 
 
 
-<div class="col-lg-9">
+<div  class="col-lg-9">
+    @if (Model.CurrentVersion != null)
+    {
 
-
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingOne">
-                <h4 class="panel-title">
-                    <a class="tabs" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        النسخ
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                <div class="panel-body">
-
-                    @if (Model.CurrentVersion != null)
-                    {
-
-                        <h3>
-                            النسخة الحالية
-                        </h3>
-                        <table class="table">
-                            <tr>
+        <h3>
+            النسخة الحالية
+        </h3>
+        <table class="table table-responsive">
+            <tr>
 
                                 <th>
                                     @Html.DisplayNameFor(model => model.CurrentVersion.Name)
@@ -123,14 +109,13 @@
 
                     <br />
                     <br />
-
-                    @if (!(Model.Versions == null || Model.Versions.Count == 0))
-                    {
-                        <h3>
-                            النسخ الأخرى
-                        </h3>
-                        <table class="table">
-                            <tr>
+       @if (!(Model.Versions == null || Model.Versions.Count == 0))
+    {
+        <h3>
+            النسخ الأخرى
+        </h3>
+        <table class="table table-responsive">
+            <tr>
 
                                 <th>
                                     @Html.DisplayNameFor(model => model.Versions[0].Name)
@@ -272,7 +257,7 @@
 
 </div>
 
-<div class="col-lg-3">
+<div style=" background-color: #9e9e9e38; padding: 22px; border-radius: 20px;" class="col-lg-3">
 
 
     <div class="data_labels">
@@ -324,35 +309,38 @@
     @if (Model.isAuthor)
     {
         <hr />
-        <h4>الخيارات</h4>
-        <ul>
-            <li>@Html.ActionLink("تعديل", "Edit", "Files", new { id = Model.File.ID }, null)</li>
-            <li>@Html.ActionLink("مسح", "Delete", "Files", new { id = Model.File.ID }, null)</li>
-            <li>@Html.ActionLink("إضافة نسخة", "AddVersion", "Files", new { id = Model.File.ID }, null)</li>
+        <div style=" background-color: #fff; padding-right: 20px; padding-top: 5px; padding-bottom: 3px; border-radius: 14px;">
+            <h4>الخيارات</h4>
+            <ul>
+                <li>@Html.ActionLink("تعديل", "Edit", "Files", new { id = Model.File.ID }, null)</li>
+                <li>@Html.ActionLink("مسح", "Delete", "Files", new { id = Model.File.ID }, null)</li>
+                <li>@Html.ActionLink("إضافة نسخة", "AddVersion", "Files", new { id = Model.File.ID }, null)</li>
 
-        </ul>
-
+            </ul>
+        </div>
     }
     else if (Model.canEdit || Model.canDelete || Model.canAddVersion)
     {
         <hr />
-        <h4>الخيارات</h4>
-        <ul>
+        <div style=" background-color: #fff; padding-right: 20px; padding-top: 5px; padding-bottom: 3px; border-radius: 14px;">
+            <h4>الخيارات</h4>
+            <ul>
 
-            @if (Model.canEdit)
-            {
-                <li>@Html.ActionLink("تعديل", "Edit", "Files", new { id = Model.File.ID }, null)</li>
-            }
-            @if (Model.canDelete)
-            {
-                <li>@Html.ActionLink("مسح", "Delete", "Files", new { id = Model.File.ID }, null)</li>
-            }
-            @if (Model.canAddVersion)
-            {
-                <li>@Html.ActionLink("إضافة نسخة", "AddVersion", "Files", new { id = Model.File.ID }, null)</li>
-            }
+                @if (Model.canEdit)
+                {
+                    <li>@Html.ActionLink("تعديل", "Edit", "Files", new { id = Model.File.ID }, null)</li>
+                }
+                @if (Model.canDelete)
+                {
+                    <li>@Html.ActionLink("مسح", "Delete", "Files", new { id = Model.File.ID }, null)</li>
+                }
+                @if (Model.canAddVersion)
+                {
+                    <li>@Html.ActionLink("إضافة نسخة", "AddVersion", "Files", new { id = Model.File.ID }, null)</li>
+                }
 
-        </ul>
+            </ul>
+        </div>
     }
 
 

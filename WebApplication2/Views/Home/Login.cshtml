@@ -3,30 +3,45 @@
 @{
     ViewBag.Title = "Login";
 }
-<div align="center">
-    <img style="" class="mb-4 animate__animated animate__zoomIn img" src="~/Content/logo.png" alt="" width="200" height="80">
-</div>
+
 @using (Html.BeginForm())
 {
 
     @Html.AntiForgeryToken()
-    <div align="center" style="direction:ltr;margin:0px auto;" class="form">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div align="center" style="direction:ltr;margin:0px auto;" class="form">
+  @* <div class="bg-danger alert ">*@
+        @Html.ValidationSummary(true, "", new {@class = "text-info" })
+        @*<button type="button" class="close  " data-dismiss="alert" aria-label="Close">
+            <span style="position: relative; top: -32px; font-size: 30px;" aria-hidden="true">&times;</span>
+        </button>
+    </div>*@
+
+        <br />
+        <br />
+   
+
+
         <div class="form-group">
+            <div style="margin-bottom:20px" align="center">
+                <img style="" class="mb-4 animate__animated animate__zoomIn img" src="~/Content/logo.png" alt="" width="200" height="80">
+            </div>
             <label for="inputEmail" class="col-sm-1 control-label"></label>
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Email, htmlAttributes: new { @class = "form-control", @id = "inputEmail", @placeholder = "Email", @type = "Email" })
+                <i style=" height: 40px; float: left; position: relative; top: -4px; left: 333px; color: #999;" class="icon fa fa-envelope fa-fw "></i>
+
+                @Html.TextBoxFor(model => model.Email, htmlAttributes: new { @class = "form-control", @id = "inputEmail", @placeholder = "Email", @type = "Email", @style = "    padding-left: 29px" })
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
         </div>
         <br />
         <br />
+        <br />
+
         <div class="form-group">
             <label for="inputpass" class="col-sm-1 control-label"></label>
             <div class="col-md-10">
-
-                @Html.TextBoxFor(model => model.Password, htmlAttributes: new { @class = "form-control", @id = "inputpass", @placeholder = "Password", @type = "password" })
+                <i style=" height: 40px; float: left; position: relative; top: -4px; left: 333px; color: #999;" class="fas fa-key fa-fw icon"></i>
+                @Html.TextBoxFor(model => model.Password, htmlAttributes: new { @class = "form-control", @id = "inputpass", @placeholder = "Password", @type = "password", @style = "    padding-left: 29px" })
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -35,10 +50,10 @@
         <br />
         <div class="form-group">
             <div class="col-md-offset-1 col-md-10">
-                <input style=" width: 100%; background-color: #0274b4; color: #fff;" type="submit" value="Login" class="btn btn-default" />
+                <input style=" width: 100%; background-color: #0274b4; color: #fff; margin-left:20px" type="submit" value="Login" class="w-100 btn btn-primary btn-block" />
             </div>
         </div>
     </div>
-}
+    }
 
 

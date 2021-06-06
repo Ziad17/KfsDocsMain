@@ -60,10 +60,51 @@
     <div class="card-group" style="margin-top:10px">
         <div class="card" style="padding: 20px;border-top: 3px  solid #f8b739;border-bottom: 3px  solid #f8b739" border-left: 3px solid #f8b739">
 
-            <img class="img-circle" width="170" height="170" src="data:image/jpg;base64,@(img)">
-           
-            <a href="ChangePhoto">Change Photo</a>
-            
+            <img style="border: 5px solid #333333; padding: 5px" class="img-circle" width="170" height="170" src="data:image/jpg;base64,@(img)">
+    
+            <!-- Button trigger modal -->
+            <button style="border: 0; position: absolute; top: 168px; left: 193px; background-color: #201e1e94; padding: 10px; border-radius: 50%; " type="button" data-toggle="modal" data-target="#myModal">
+                @*<a style="position: relative; top: -46px; left: -4px; background-color:#201e1e94; padding: 10px; border-radius: 50%; " href="ChangePhoto">*@
+                    <i style=" font-size: 32px; color: #ffff; width: 20px; height: 20px;" class="fas fa-camera"></i>
+            </button>
+
+            <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">تحديث الصورة الشخصية</h4>
+                            </div>
+                            <div class="modal-body">
+                                @using (Html.BeginForm("ChangePhoto", "Employees", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <div class="form-horizontal">
+                                        <hr />
+                                        <div class="form-group">
+                                            <div class="col-md-offset-2 col-md-10">
+                                                <input type="file" name="Img" title="أختيار صورة" class="btn btn-primary" />
+                                            </div>
+                                        </div>
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                        <hr />
+                                        <div class="form-group">
+                                            <div class="col-md-offset-2 col-md-10">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <input type="submit" value="حفظ" class="btn btn-primary" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- End Modal -->
             <div class="card-body">
                 @Html.ActionLink("Edit Info", "EditMyProfile")
                 <h2>
@@ -72,11 +113,11 @@
                 </h2>
                 @for (int i = 0; i < Model.Roles.Count; i++)
                 {
-            <ul>
-                <li class="card-text">
-                    @Html.ActionLink(Model.Roles[i].Role.ArabicName + " لدى " + Model.Roles[i].Institution.ArabicName, "InstitutionProfile", "Institutions", new { id = Model.Roles[i].Institution.ID }, null)
-                </li>
-            </ul>
+                    <ul>
+                        <li class="card-text">
+                            @Html.ActionLink(Model.Roles[i].Role.ArabicName + " لدى " + Model.Roles[i].Institution.ArabicName, "InstitutionProfile", "Institutions", new { id = Model.Roles[i].Institution.ID }, null)
+                        </li>
+                    </ul>
                 }
                 <h4>
                     @Html.DisplayFor(model => model.Employee.PHD, new { htmlAttributes = new { @class = "card-title" } })
