@@ -6,8 +6,10 @@
     <title>@ViewBag.Title -KfsDocs</title>
     <title>@ViewBag.Title </title>
     <link rel="icon" type="image/png" href="~/Content/favicon.png" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
-
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/animate.min.css">
+    <link href="~/Content/all.min.css" rel="stylesheet" />
+    <link href="~/Content/fontawesome.min.css" rel="stylesheet" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -26,8 +28,8 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
-
+    <script type="text/javascript" charset="utf8" src="~/Scripts/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="~/Scripts/all.min.js"></script>
     @RenderSection("scripts", required: false)
 
 </body>

@@ -80,3 +80,11 @@ a:hover {
 a:active {
     text-decoration: none;
 }
+.icon {
+    height: 8;
+    float: left;
+    position: relative;
+    top: -27px;
+    left: 5px;
+    color: #999;
+}

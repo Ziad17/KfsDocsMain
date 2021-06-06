@@ -300,6 +300,8 @@
     <Content Include="Content\a.png" />
     <Content Include="Content\add-user.png" />
     <Content Include="Content\add.png" />
+    <Content Include="Content\all.min.css" />
+    <Content Include="Content\animate.min.css" />
     <Content Include="Content\archives.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -309,18 +311,20 @@
     <Content Include="Content\contact.png" />
     <Content Include="Content\delete.png" />
     <Content Include="Content\download-button.png" />
+    <Content Include="Content\fontawesome.min.css" />
     <Content Include="Content\go-back-arrow.png" />
     <Content Include="Content\inbox %281%29.png" />
     <Content Include="Content\inbox.png" />
-	  <Content Include="Content\jquery.dataTables.css" />
-	  <Content Include="Content\log-out %281%29.png" />
-	  <Content Include="Content\log-out.png" />
-	  <Content Include="Content\mail.png" />
-	  <Content Include="Content\manager.png" />
-	  <Content Include="Content\new-document.png" /> <Content Include="Content\jquery.dataTables.css" />
-	  <Content Include="Content\mail.png" />
-	  <Content Include="Content\manager.png" />
-	  <Content Include="Content\new-document.png" />
+    <Content Include="Content\jquery.dataTables.css" />
+    <Content Include="Content\log-out %281%29.png" />
+    <Content Include="Content\log-out.png" />
+    <Content Include="Content\mail.png" />
+    <Content Include="Content\manager.png" />
+    <Content Include="Content\new-document.png" />
+    <Content Include="Content\jquery.dataTables.css" />
+    <Content Include="Content\mail.png" />
+    <Content Include="Content\manager.png" />
+    <Content Include="Content\new-document.png" />
     <Content Include="Content\star-clicked.png" />
     <Content Include="Content\star.png" />
     <Content Include="Content\temp.txt" />
@@ -339,6 +343,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\all.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\Model1.edmx">
