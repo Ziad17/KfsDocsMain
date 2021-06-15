@@ -2,14 +2,10 @@
 
 @{
     ViewBag.Title = "إضافة مؤسسة";
-    string institutionName = ViewBag.Parent;
 }
   
-<img style="display:inline-block;padding-bottom:10px;" src="~/Content/add.png" width="50" height="50" />
-<h2 style="display: inline-block; padding-bottom: 10px; position: relative; top: 9px; left: -15px;">Create</h2>
+<h2 >@ViewBag.Title لدى @Html.ActionLink(Model.ArabicName,"InstitutionProfile","Institutions",new { id=Model.ID},null) </h2>
 
-<h2>Create</h2>
-<h4>@institutionName</h4>
 
 @using (Html.BeginForm())
 {
@@ -23,7 +19,7 @@
             @Html.EditorFor(model => model.ArabicName, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.ArabicName, "", new { @class = "text-danger" })
         </div>
-        @Html.LabelFor(model => model.ArabicName, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.Label("الإسم", htmlAttributes: new { @class = "control-label col-md-2" })
 
     </div>
 
@@ -32,7 +28,7 @@
             @Html.DropDownList("InstitutionTypeID", null, htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.InstitutionTypeID, "", new { @class = "text-danger" })
         </div>
-        @Html.LabelFor(model => model.InstitutionTypeID, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.Label("نوع المؤسسة", htmlAttributes: new { @class = "control-label col-md-2" })
 
     </div>
 
@@ -45,7 +41,7 @@
             @Html.EditorFor(model => model.Website, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Website, "", new { @class = "text-danger" })
         </div>
-        @Html.LabelFor(model => model.Website, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.Label("الموقع الإلكتروني", htmlAttributes: new { @class = "control-label col-md-2" })
 
     </div>
 
@@ -58,7 +54,7 @@
             @Html.EditorFor(model => model.PrimaryPhone, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.PrimaryPhone, "", new { @class = "text-danger" })
         </div>
-        @Html.LabelFor(model => model.PrimaryPhone, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.Label("الهاتف الرئيسي", htmlAttributes: new { @class = "control-label col-md-2" })
 
     </div>
 
@@ -67,7 +63,7 @@
             @Html.EditorFor(model => model.SecondaryPhone, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.SecondaryPhone, "", new { @class = "text-danger" })
         </div>
-        @Html.LabelFor(model => model.SecondaryPhone, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.Label("الهاتف الثانوي", htmlAttributes: new { @class = "control-label col-md-2" })
 
     </div>
 
@@ -76,7 +72,7 @@
             @Html.EditorFor(model => model.Fax, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Fax, "", new { @class = "text-danger" })
         </div>
-        @Html.LabelFor(model => model.Fax, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.Label("الفاكس", htmlAttributes: new { @class = "control-label col-md-2" })
 
     </div>
 
@@ -85,7 +81,7 @@
             @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
         </div>
-        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.Label("البريد الإلكتروني", htmlAttributes: new { @class = "control-label col-md-2" })
 
     </div>
 
@@ -97,7 +93,3 @@
     </div>
 }
 
-<div>
-    <img style="display:inline-block;padding-bottom:10px;" src="~/Content/go-back-arrow.png" width="50" height="50" />
-    @Html.ActionLink("Back", "Index")
-</div>

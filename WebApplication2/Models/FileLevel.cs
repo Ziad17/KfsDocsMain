@@ -18,17 +18,15 @@ namespace WebApplication2.Models
         public FileLevel()
         {
             this.Files = new HashSet<File>();
-            this.Files1 = new HashSet<File>();
             this.FilesScopes = new HashSet<FilesScope>();
         }
     
-        public string Level { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
         public string LevelDesc { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<File> Files { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<File> Files1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FilesScope> FilesScopes { get; set; }
     }

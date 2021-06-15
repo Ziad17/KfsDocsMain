@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication2.Models;
 using WebApplication2.Models.ViewModels;
+using WebApplication2.Models.ViewModels.Institutions;
 
 namespace WebApplication2.Controllers
 {
@@ -37,9 +38,11 @@ namespace WebApplication2.Controllers
             if (hasInstitutionPermission(role.ID, InstitutionPermissions.CREATE_INSTITUTION))
             {
                 ViewBag.InstitutionTypeID = new SelectList(db.InstitutionTypes, "ID", "ArabicName");
-                ViewBag.Parent = EmpRole.Institution.ArabicName;
 
-                return View();
+
+                var institution = db.Institutions.Find(EmpRole.InstitutionID);
+
+                return View(institution);
             }
             else 
             {
@@ -53,6 +56,234 @@ namespace WebApplication2.Controllers
 
 
 
+        public ActionResult Types()
+        {
+
+
+            var myEmp = getPrimaryRole();
+            if (myEmp == null)
+            {
+                return getErrorView(HttpStatusCode.Unauthorized);
+            }
+            if (hasInstitutionPermission(myEmp.RoleID, InstitutionPermissions.VIEW_INSTITUTION_TYPES))
+            {
+                ViewInstitutionTypesModel viewModel = new ViewInstitutionTypesModel();
+                var types = db.InstitutionTypes.ToList();
+                viewModel.Types = types;
+                return View(viewModel);
+ 
+            }
+            return getErrorView(HttpStatusCode.Unauthorized);
+
+
+        }
+
+
+
+        public ActionResult CreateType()
+        {
+
+
+
+            var myEmp = getPrimaryRole();
+            if (myEmp == null)
+            {
+                return getErrorView(HttpStatusCode.Unauthorized);
+
+            }
+            if (hasInstitutionPermission(myEmp.RoleID, InstitutionPermissions.CREATE_INSTITUTION_TYPE))
+            {
+                CreateInstitutionTypeModel viewModel = new CreateInstitutionTypeModel();
+
+
+                return View(viewModel);
+
+
+            }
+            return getErrorView(HttpStatusCode.Unauthorized);
+
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateType(CreateInstitutionTypeModel viewModel)
+        {
+
+            var myEmp = getPrimaryRole();
+            if (myEmp == null)
+            {
+                return getErrorView(HttpStatusCode.Unauthorized);
+
+            }
+            if (hasInstitutionPermission(myEmp.RoleID, InstitutionPermissions.CREATE_INSTITUTION_TYPE))
+            {
+                InstitutionType type = new InstitutionType() { 
+                    ArabicName=viewModel.Name,
+                    Description=viewModel.Desc
+                };
+                db.InstitutionTypes.Add(type);
+                db.SaveChanges();
+
+                return RedirectToAction("Types");
+
+
+            }
+            return getErrorView(HttpStatusCode.Unauthorized);
+
+
+        }
+
+
+        public ActionResult EditType(int? id)
+        {
+
+            if (id == null)
+            {
+                return getErrorView(HttpStatusCode.BadRequest);
+
+            }
+            var myEmp = getPrimaryRole();
+            if (myEmp == null)
+            {
+                return getErrorView(HttpStatusCode.Unauthorized);
+
+            }
+            var type = db.InstitutionTypes.Find(id);
+            if (type == null)
+            {
+                return getErrorView(HttpStatusCode.NotFound);
+            }
+            if (hasInstitutionPermission(myEmp.RoleID, InstitutionPermissions.EDIT_INSTITUTION_TYPE))
+            {
+                EditInstitutionTypeModel viewModel = new EditInstitutionTypeModel();
+
+                viewModel.ID = type.ID;
+                viewModel.Name = type.ArabicName;
+                viewModel.Desc = type.Description;
+
+                return View(viewModel);
+
+
+            }
+            return getErrorView(HttpStatusCode.Unauthorized);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditType(EditInstitutionTypeModel viewModel)
+        {
+
+       
+            var myEmp = getPrimaryRole();
+            if (myEmp == null)
+            {
+                return getErrorView(HttpStatusCode.Unauthorized);
+
+            }
+            var type = db.InstitutionTypes.Find(viewModel.ID);
+            if (type == null)
+            {
+                return getErrorView(HttpStatusCode.NotFound);
+            }
+            if (hasInstitutionPermission(myEmp.RoleID, InstitutionPermissions.EDIT_INSTITUTION_TYPE))
+            {
+
+                db.InstitutionTypes.Find(type.ID).ArabicName=viewModel.Name;
+                db.InstitutionTypes.Find(type.ID).Description=viewModel.Desc;
+
+                db.SaveChanges();
+
+                return RedirectToAction("Types");
+
+
+
+            }
+            return getErrorView(HttpStatusCode.Unauthorized);
+        }
+
+
+        public ActionResult DeleteType(int? id)
+        {
+
+            if (id == null)
+            {
+                return getErrorView(HttpStatusCode.BadRequest);
+
+            }
+            var myEmp = getPrimaryRole();
+            if (myEmp == null)
+            {
+                return getErrorView(HttpStatusCode.Unauthorized);
+
+            }
+            var type = db.InstitutionTypes.Find(id);
+            if (type == null)
+            {
+                return getErrorView(HttpStatusCode.NotFound);
+            }
+            if (hasInstitutionPermission(myEmp.RoleID, InstitutionPermissions.DELETE_INSTITUTION_TYPE) && isInstitutionTypeDeleteable(type.ID))
+            {
+                DeleteInstitutionTypeModel viewModel = new DeleteInstitutionTypeModel();
+
+                viewModel.ID = type.ID;
+                viewModel.Name = type.ArabicName;
+                viewModel.Desc = type.Description;
+                return View(viewModel);
+
+
+            }
+            return getErrorView(HttpStatusCode.Unauthorized);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteType(DeleteInstitutionTypeModel viewModel)
+        {
+
+           
+            var myEmp = getPrimaryRole();
+            if (myEmp == null)
+            {
+                return getErrorView(HttpStatusCode.Unauthorized);
+
+            }
+            var type = db.InstitutionTypes.Find(viewModel.ID);
+            if (type == null)
+            {
+                return getErrorView(HttpStatusCode.NotFound);
+            }
+            if (hasInstitutionPermission(myEmp.RoleID, InstitutionPermissions.DELETE_INSTITUTION_TYPE) && isInstitutionTypeDeleteable(type.ID))
+            {
+
+                db.InstitutionTypes.Remove(type);
+                db.SaveChanges();
+                return RedirectToAction("Types");
+
+
+
+            }
+            return getErrorView(HttpStatusCode.Unauthorized);
+        }
+
+
+
+
+
+
+
+
+
+
+
+        private bool isInstitutionTypeDeleteable(int iD)
+        {
+            var type = db.InstitutionTypes.Find(iD);
+            if(type ==null || type.Institutions.Count>0)
+            {
+                return false;
+            }
+            return true;
+        }
 
 
 
@@ -184,153 +415,11 @@ namespace WebApplication2.Controllers
 
 
 
-        public ActionResult Active(int? id)
-        {
-            if (id == null)
-            {
-                return getErrorView(HttpStatusCode.BadRequest);
-            }
-
-
-            var EmpRole = getPrimaryRole();
-            if (EmpRole == null)
-            {
-                return getErrorView(HttpStatusCode.Unauthorized);
-
-            }
-            var role = EmpRole.Role;
-
-            Institution institution = db.Institutions.Find(id);
-            if (institution == null)
-            {
-                return getErrorView(HttpStatusCode.NotFound);
-            }
-            if (hasInstitutionPermission(role.ID, InstitutionPermissions.ACTIVATE_INSTITUTION) && !(institution.Active))
-            {
-            return View(institution);
-
-            }
-         
-
-            return getErrorView(HttpStatusCode.Unauthorized);
-
-
-        }
 
 
 
-        // POST: Institutions/Delete/5
-        [HttpPost, ActionName("Active")]
-        [ValidateAntiForgeryToken]
-        public ActionResult ActiveConfirmed(int id)
-        {
 
 
-            var EmpRole = getPrimaryRole();
-            if (EmpRole == null)
-            {
-                return getErrorView(HttpStatusCode.Unauthorized);
-
-            }
-            var role = EmpRole.Role;
-
-            Institution institution = db.Institutions.Find(id);
-            if (institution == null)
-            {
-                return getErrorView(HttpStatusCode.NotFound);
-            }
-            if (hasInstitutionPermission(role.ID, InstitutionPermissions.ACTIVATE_INSTITUTION) && !(institution.Active))
-            {
-
-                db.Institutions.Find(institution.ID).Active = true;
-                InstitutionActionLog log = new InstitutionActionLog();
-                log.ActionDate = DateTime.Now;
-                log.EmployeeID = EmpRole.ID;
-                log.InstitutionID = institution.ID;
-                log.PermissionName = InstitutionPermissions.ACTIVATE_INSTITUTION;
-
-                db.InstitutionActionLogs.Add(log);
-
-                db.SaveChanges();
-                return RedirectToAction("InstitutionProfile", new { id = institution.ID });
-
-            }
-            return getErrorView(HttpStatusCode.NotFound);
-
-          
-        }
-
-
-
-        public ActionResult Deactive(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var EmpRole = getPrimaryRole();
-            if (EmpRole == null)
-            {
-                return getErrorView(HttpStatusCode.Unauthorized);
-
-            }
-            var role = EmpRole.Role;
-
-            Institution institution = db.Institutions.Find(id);
-            if (institution == null)
-            {
-                return getErrorView(HttpStatusCode.NotFound);
-            }
-            if (hasInstitutionPermission(role.ID, InstitutionPermissions.DEACTIVATE_INSTITUTION) && (institution.Active))
-            {
-          
-            return View(institution);
-
-            }
-
-            return getErrorView(HttpStatusCode.Unauthorized);
-
-        }
-
-
-        [HttpPost, ActionName("Deactive")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeactiveConfirmed(int id)
-        {
-
-
-            var EmpRole = getPrimaryRole();
-            if (EmpRole == null)
-            {
-                return getErrorView(HttpStatusCode.Unauthorized);
-
-            }
-            var role = EmpRole.Role;
-
-            Institution institution = db.Institutions.Find(id);
-            if (institution == null)
-            {
-                return getErrorView(HttpStatusCode.NotFound);
-            }
-            if (hasInstitutionPermission(role.ID, InstitutionPermissions.DEACTIVATE_INSTITUTION) && (institution.Active))
-            {
-
-                db.Institutions.Find(institution.ID).Active = false;
-                InstitutionActionLog log = new InstitutionActionLog();
-                log.ActionDate = DateTime.Now;
-                log.EmployeeID = EmpRole.ID;
-                log.InstitutionID = institution.ID;
-                log.PermissionName = InstitutionPermissions.DEACTIVATE_INSTITUTION;
-
-                db.InstitutionActionLogs.Add(log);
-
-                db.SaveChanges();
-                return RedirectToAction("InstitutionProfile", new { id = institution.ID });
-
-            }
-            return getErrorView(HttpStatusCode.NotFound);
-
-        }
 
         protected override void Dispose(bool disposing)
         {
@@ -345,7 +434,6 @@ namespace WebApplication2.Controllers
 
       
 
-        //Example /Employees/PersonProfile/2
         public ActionResult InstitutionProfile(int? id)
         {
 
@@ -369,6 +457,10 @@ namespace WebApplication2.Controllers
                 return getErrorView(HttpStatusCode.NotFound);
             }
 
+            if (institution.ParentID == null)
+            {
+                return getErrorView(HttpStatusCode.NotFound);
+            }
             Role role = EmpRole.Role;
          
             if (hasInstitutionPermission(role.ID, InstitutionPermissions.VIEW_INSTITUTION))
@@ -380,17 +472,17 @@ namespace WebApplication2.Controllers
                 
                 viewModel.Employees = db.EmployeeRoles.Where(x => x.InstitutionID == institution.ID).Select(x=>x.Employee).Distinct().ToList<Employee>();
 
+                var avilableFiles= getAvaiableFilesForMeByScope().Where(x => x.EmployeeRole.InstitutionID == institution.ID);
+                var myMentions = getMyMentions().Where(x => x.EmployeeRole.InstitutionID == institution.ID);
+                var MyFiles = getMyFiles().Where(x => x.EmployeeRole.InstitutionID == institution.ID);
+
+                viewModel.Files = avilableFiles.Union(myMentions).Union(MyFiles).OrderBy(x => x.DateCreatedSys).ToList(); 
 
 
 
-                viewModel.Files = getAvaiableFilesForMe().Where(x => x.EmployeeRole.InstitutionID == institution.ID).ToList<File>();
-                
-                
-                
                 viewModel.Children = db.Institutions.Where(x => x.ParentID == institution.ID).ToList<Institution>();
                 viewModel.canEditInfo = hasInstitutionPermission(role.ID, InstitutionPermissions.EDIT_INSTITUTION_INFO);
-                viewModel.canActive = hasInstitutionPermission(role.ID, InstitutionPermissions.ACTIVATE_INSTITUTION);
-                viewModel.canDeactive = hasInstitutionPermission(role.ID, InstitutionPermissions.DEACTIVATE_INSTITUTION);
+   
 
 
                 return View(viewModel);
@@ -399,6 +491,153 @@ namespace WebApplication2.Controllers
             //IMPLMENT UNAUTHORIZED VIEW
             return getErrorView(HttpStatusCode.Unauthorized);
         }
+
+
+
+        //public ActionResult Active(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return getErrorView(HttpStatusCode.BadRequest);
+        //    }
+
+
+        //    var EmpRole = getPrimaryRole();
+        //    if (EmpRole == null)
+        //    {
+        //        return getErrorView(HttpStatusCode.Unauthorized);
+
+        //    }
+        //    var role = EmpRole.Role;
+
+        //    Institution institution = db.Institutions.Find(id);
+        //    if (institution == null)
+        //    {
+        //        return getErrorView(HttpStatusCode.NotFound);
+        //    }
+        //    if (hasInstitutionPermission(role.ID, InstitutionPermissions.ACTIVATE_INSTITUTION) && !(institution.Active))
+        //    {
+        //        return View(institution);
+
+        //    }
+
+
+        //    return getErrorView(HttpStatusCode.Unauthorized);
+
+
+        //}
+
+        //// POST: Institutions/Delete/5
+        //[HttpPost, ActionName("Active")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult ActiveConfirmed(int id)
+        //{
+
+
+        //    var EmpRole = getPrimaryRole();
+        //    if (EmpRole == null)
+        //    {
+        //        return getErrorView(HttpStatusCode.Unauthorized);
+
+        //    }
+        //    var role = EmpRole.Role;
+
+        //    Institution institution = db.Institutions.Find(id);
+        //    if (institution == null)
+        //    {
+        //        return getErrorView(HttpStatusCode.NotFound);
+        //    }
+        //    if (hasInstitutionPermission(role.ID, InstitutionPermissions.ACTIVATE_INSTITUTION) && !(institution.Active))
+        //    {
+
+        //        db.Institutions.Find(institution.ID).Active = true;
+        //        InstitutionActionLog log = new InstitutionActionLog();
+        //        log.ActionDate = DateTime.Now;
+        //        log.EmployeeID = EmpRole.ID;
+        //        log.InstitutionID = institution.ID;
+        //        log.PermissionName = InstitutionPermissions.ACTIVATE_INSTITUTION;
+
+        //        db.InstitutionActionLogs.Add(log);
+
+        //        db.SaveChanges();
+        //        return RedirectToAction("InstitutionProfile", new { id = institution.ID });
+
+        //    }
+        //    return getErrorView(HttpStatusCode.NotFound);
+
+
+        //}
+
+        //public ActionResult Deactive(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    var EmpRole = getPrimaryRole();
+        //    if (EmpRole == null)
+        //    {
+        //        return getErrorView(HttpStatusCode.Unauthorized);
+
+        //    }
+        //    var role = EmpRole.Role;
+
+        //    Institution institution = db.Institutions.Find(id);
+        //    if (institution == null)
+        //    {
+        //        return getErrorView(HttpStatusCode.NotFound);
+        //    }
+        //    if (hasInstitutionPermission(role.ID, InstitutionPermissions.DEACTIVATE_INSTITUTION) && (institution.Active))
+        //    {
+
+        //        return View(institution);
+
+        //    }
+
+        //    return getErrorView(HttpStatusCode.Unauthorized);
+
+        //}
+
+        //[HttpPost, ActionName("Deactive")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeactiveConfirmed(int id)
+        //{
+
+
+        //    var EmpRole = getPrimaryRole();
+        //    if (EmpRole == null)
+        //    {
+        //        return getErrorView(HttpStatusCode.Unauthorized);
+
+        //    }
+        //    var role = EmpRole.Role;
+
+        //    Institution institution = db.Institutions.Find(id);
+        //    if (institution == null)
+        //    {
+        //        return getErrorView(HttpStatusCode.NotFound);
+        //    }
+        //    if (hasInstitutionPermission(role.ID, InstitutionPermissions.DEACTIVATE_INSTITUTION) && (institution.Active))
+        //    {
+
+        //        db.Institutions.Find(institution.ID).Active = false;
+        //        InstitutionActionLog log = new InstitutionActionLog();
+        //        log.ActionDate = DateTime.Now;
+        //        log.EmployeeID = EmpRole.ID;
+        //        log.InstitutionID = institution.ID;
+        //        log.PermissionName = InstitutionPermissions.DEACTIVATE_INSTITUTION;
+
+        //        db.InstitutionActionLogs.Add(log);
+
+        //        db.SaveChanges();
+        //        return RedirectToAction("InstitutionProfile", new { id = institution.ID });
+
+        //    }
+        //    return getErrorView(HttpStatusCode.NotFound);
+
+        //}
+
+
 
     }
 }

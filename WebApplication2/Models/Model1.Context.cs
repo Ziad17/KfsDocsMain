@@ -13,10 +13,10 @@ namespace WebApplication2.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DMS_dbEntities12 : DbContext
+    public partial class DMS_dbEntities15 : DbContext
     {
-        public DMS_dbEntities12()
-            : base("name=DMS_dbEntities12")
+        public DMS_dbEntities15()
+            : base("name=DMS_dbEntities15")
         {
         }
     
@@ -36,6 +36,7 @@ namespace WebApplication2.Models
         public virtual DbSet<FileLevel> FileLevels { get; set; }
         public virtual DbSet<FileMention> FileMentions { get; set; }
         public virtual DbSet<FilePermission> FilePermissions { get; set; }
+        public virtual DbSet<FilesScope> FilesScopes { get; set; }
         public virtual DbSet<FileType> FileTypes { get; set; }
         public virtual DbSet<FileVersion> FileVersions { get; set; }
         public virtual DbSet<Institution> Institutions { get; set; }
@@ -48,7 +49,9 @@ namespace WebApplication2.Models
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<RoleInstitutionPermission> RoleInstitutionPermissions { get; set; }
         public virtual DbSet<RolePersonPermission> RolePersonPermissions { get; set; }
-        public virtual DbSet<FilesScope> FilesScopes { get; set; }
-        public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
+
+        public System.Data.Entity.DbSet<WebApplication2.Models.ViewModels.Institutions.EditInstitutionTypeModel> EditInstitutionTypeModels { get; set; }
+
+        public System.Data.Entity.DbSet<WebApplication2.Models.ViewModels.Institutions.DeleteInstitutionTypeModel> DeleteInstitutionTypeModels { get; set; }
     }
 }

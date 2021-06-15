@@ -9,26 +9,15 @@
 
     string represent = "في " + InstitutionName + " " + "ك" + RoleName; }
 
-@*<img style="display:inline-block;padding-bottom:10px;margin-top:10px" src="~/Content/new-document.png" width="25" height="25" />*@
-<h3 style="">@ViewBag.Title @represent</h3>
-@*<img style="display:inline-block;padding-bottom:10px;margin-top:10px" src="~/Content/manager.png" width="50" height="50" />*@
+<h2>@ViewBag.Title بصفة @Html.ActionLink(RoleName, "View", "Roles", new { id = Model.RoleID }, null) لدى @Html.ActionLink(InstitutionName,  "InstitutionProfile", "Institutions", new { id = Model.InstitutionID }, null)</h2>
 <hr />
-@*@if(@ViewBag.IDS!=null)
-{
-foreach (var id in ViewBag.IDS)
-{
-<h1>@id</h1>}
-   }*@
+
 
 @using (Html.BeginForm("Create", "Files", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
 @Html.AntiForgeryToken()
                 <div class="col-md-7">
-                    @*<img style="display:inline-block;padding-bottom:10px;" src="~/Content/contact.png" width="25" height="25" />
-                        <h3 style="display: inline-block; padding-bottom: 10px; position: relative; top: 9px; left: -15px;">الإشارات</h3>*@
-
-
-
+   
 
                     <h3> قائمة الأشارات</h3>
 
@@ -78,44 +67,7 @@ foreach (var id in ViewBag.IDS)
                     </div>
 
 
-                    @*<div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingTwo">
-                                <h4 class="panel-title">
-                                    <a class="collapsed tabs" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        المشار إليهم
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                                <div class="panel-body">
-                                    <table id="table" class="display table table-responsive">
-                                        <thead>
-                                            <tr>
-
-                                                <th></th>
-                                                <th>إسم الشخص</th>
-                                                <th></th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                           @foreach (var person in Model.AvailableEmployees)
-                                            {
-                                            <tr>
-                                                <td>img</td>
-                                                <td><a href="~/Employees/PersonProfile/@person.ID">@person.Name</a></td>
-                                                @{ Model.MentionedIDs.Add(person.ID);}
-
-                                                <td><button class="btn btn-default">مسح</button></td>
-                                            </tr>}
-                                        </tbody>
-
-
-                                    </table>
-                                </div>
-                            </div>
-                        </div>*@
-
+ 
 
                 </div>
 
@@ -129,7 +81,6 @@ foreach (var id in ViewBag.IDS)
                                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
-                                        @*@Html.ListBoxFor(m => m.MentionedIDs,  Model.AvailableEmployees)*@
 
                                         <div class="form-group">
                                             <div class="col-md-9">
@@ -143,10 +94,10 @@ foreach (var id in ViewBag.IDS)
 
                                         <div class="form-group">
                                             <div class="col-md-9">
-                                                @Html.DropDownList("Level", null, htmlAttributes: new { @class = "form-control" })
-                                                @Html.ValidationMessageFor(model => model.Level, "", new { @class = "text-danger" })
+                                                @Html.DropDownListFor(x=>x.LevelID, Model.Levels, htmlAttributes: new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.LevelID, "", new { @class = "text-danger" })
                                             </div>
-                                            @Html.Label("المستوى", "المستوى", htmlAttributes: new { @class = "control-label col-md-3" })
+                                            @Html.Label("المستوى", htmlAttributes: new { @class = "control-label col-md-3" })
 
                                         </div>
 
@@ -158,7 +109,6 @@ foreach (var id in ViewBag.IDS)
                                             @Html.Label("تاريخ الإنشاء", htmlAttributes: new { @class = "control-label col-md-3" })
 
                                         </div>
-
 
 
 
@@ -186,24 +136,4 @@ foreach (var id in ViewBag.IDS)
     </script>
 }
 
-
-@*<script>
-        $("#searchBox").autocomplete({
-            source: function (request, response) {
-                $.ajax({
-                    url: '@Url.Action("SearchEmployees","Employees")',
-                    dataType: "json",
-                    data: { search: $("#searchBox").val() },
-                    success: function (data) {
-                        response($.map(data, function (item) {
-                            return {label:item.Name,value:item.Name}
-                        }))
-                    },
-                    error: function (xhr, status, error) {
-                        alert("Error")
-                    }
-                });
-            }
-        });
-    </script>*@
 

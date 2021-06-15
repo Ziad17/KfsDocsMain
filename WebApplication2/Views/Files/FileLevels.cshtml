@@ -1,19 +1,31 @@
 ﻿@model WebApplication2.Models.ViewModels.ViewFileLevelsModel
 
 @{
-    @*<h2 style="display:inline-block;padding-bottom:10px">  المستوي</h2>
-        <img style="display:inline-block;padding-bottom:10px;padding-top:10px" src="~/Content/a.png" width="80" height="80" />*@
+      @ViewBag.Title= "مستويات الملفات";
 }
 @try
 {
 
-    <br />
-    <br />
 
-    @Html.DropDownList("Levels", null, htmlAttributes: new { @id="drop" ,@class = "form-control" })
+
+
+  <h2>@ViewBag.Title</h2>
+
+    @Html.DropDownList("Levels", null, htmlAttributes: new { @id = "drop", @class = "form-control" })
+
+
 
 
     <h2>@Model.Level.LevelDesc</h2>
+
+    if (Model.canEdit)
+    {
+        @Html.ActionLink(" تعديل ", "EditLevel", "Files", new { id = Model.Level.ID }, null)
+    }
+    if (Model.canEdit)
+    {
+        @Html.ActionLink(" مسح ", "DeleteLevel", "Files", new { id = Model.Level.ID }, null)
+    }
     <div class="table-responsive">
         <table border="0" class="table table-hover">
             <tr>
@@ -63,11 +75,12 @@ catch (Exception e)
 
 
 @section scripts{
-   <script> $("#drop").change(function () {
-     var end = this.value;
-     window.location.href = '/Files/FileLevels?level=' + end;
-    });
-          </script>
+    <script>
+    $("#drop").change(function () {
+            var end = this.value;
+            window.location.href = '/Files/FileLevels?id=' + end;
+        });
+    </script>
 
     <script type="text/javascript">
         $(document).ready(function () {

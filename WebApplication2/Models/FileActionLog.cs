@@ -21,9 +21,7 @@ namespace WebApplication2.Models
         public string PermissionName { get; set; }
     
         public virtual EmployeeRole EmployeeRole { get; set; }
-        public virtual EmployeeRole EmployeeRole1 { get; set; }
         public virtual File File { get; set; }
-        public virtual File File1 { get; set; }
         public virtual FilePermission FilePermission { get; set; }
     }
 }

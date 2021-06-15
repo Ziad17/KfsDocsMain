@@ -1,7 +1,7 @@
-﻿@model WebApplication2.Models.EmployeeRole
+﻿@model WebApplication2.Models.Role
 
 @{
-    ViewBag.Title = "مسح";
+    ViewBag.Title = "مسح وظيفة";
 }
 
 <h2>@ViewBag.Title </h2>
@@ -9,54 +9,40 @@
 <h3>هل أنت متأكد من المسح؟</h3>
 <div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ArabicJobDesc)
-        </dt>
+    <div class="data_labels">
 
-        <dd>
-            @Html.DisplayFor(model => model.ArabicJobDesc)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.HiringDate)
-        </dt>
+        @Html.Label("المسمى")
 
-        <dd>
-            @Html.DisplayFor(model => model.HiringDate)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Employee.Name)
-        </dt>
+        <h5>
+            @Html.DisplayFor(model => model.ArabicName)
+        </h5>
 
-        <dd>
-            @Html.DisplayFor(model => model.Employee.Name)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Institution.ArabicName)
-        </dt>
+        @Html.Label("عدد أذونات الأشخاص")
 
-        <dd>
-            @Html.DisplayFor(model => model.Institution.ArabicName)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Role.ArabicName)
-        </dt>
+        <h5>
+            @Html.DisplayFor(model => model.RolePersonPermissions.Count)
+        </h5>
 
-        <dd>
-            @Html.DisplayFor(model => model.Role.ArabicName)
-        </dd>
 
-    </dl>
+        @Html.Label("عدد أذونات المؤسسات")
+
+
+        <h5>
+            @Html.DisplayFor(model => model.RoleInstitutionPermissions.Count)
+        </h5>
+
+     
+    </div>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="مسح" class="btn btn-default" /> |
+            <input type="submit" value="مسح" class="btn btn-default" /> 
         </div>
     }
 </div>

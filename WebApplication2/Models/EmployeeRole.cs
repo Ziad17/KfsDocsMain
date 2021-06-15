@@ -20,15 +20,9 @@ namespace WebApplication2.Models
             this.Bookmarks = new HashSet<Bookmark>();
             this.Employees = new HashSet<Employee>();
             this.Files = new HashSet<File>();
-            this.Files1 = new HashSet<File>();
-            this.Files2 = new HashSet<File>();
-            this.Files3 = new HashSet<File>();
             this.FileActionLogs = new HashSet<FileActionLog>();
-            this.FileActionLogs1 = new HashSet<FileActionLog>();
             this.FileMentions = new HashSet<FileMention>();
             this.FileVersions = new HashSet<FileVersion>();
-            this.FileVersions1 = new HashSet<FileVersion>();
-            this.FileVersions2 = new HashSet<FileVersion>();
             this.InstitutionActionLogs = new HashSet<InstitutionActionLog>();
             this.PersonActionLogs = new HashSet<PersonActionLog>();
         }
@@ -51,23 +45,11 @@ namespace WebApplication2.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<File> Files { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<File> Files1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<File> Files2 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<File> Files3 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FileActionLog> FileActionLogs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FileActionLog> FileActionLogs1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FileMention> FileMentions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FileVersion> FileVersions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FileVersion> FileVersions1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FileVersion> FileVersions2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InstitutionActionLog> InstitutionActionLogs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

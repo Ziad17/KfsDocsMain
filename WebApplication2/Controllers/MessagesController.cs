@@ -125,7 +125,10 @@ namespace WebApplication2.Controllers
                 SenderID = myEmp.ID,
                 RecieverID = emp.ID,
                 Reciever = emp
+                
             };
+            FileManager fileMG = new FileManager();
+            ViewBag.Img = fileMG.getImageStream(emp.ImageURL);
             return View(viewModel);
 
 

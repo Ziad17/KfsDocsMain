@@ -19,7 +19,7 @@ namespace WebApplication2.Controllers
                                                                                          
 
         protected Employee UserRefrence;
-        protected DMS_dbEntities12 db = new DMS_dbEntities12();
+        protected DMS_dbEntities15 db = new DMS_dbEntities15();
 
 
 
@@ -70,6 +70,7 @@ namespace WebApplication2.Controllers
 
                 viewModel.canCreateInstitution = hasInstitutionPermission(EmpRole.RoleID, InstitutionPermissions.CREATE_INSTITUTION);
                 viewModel.canCreateFile = hasInstitutionPermission(EmpRole.RoleID, InstitutionPermissions.CREATE_FILE);
+                viewModel.canCreateLevel = hasInstitutionPermission(EmpRole.RoleID, InstitutionPermissions.CREATE_FILE_LEVEL);
 
 
                 viewModel.canViewAllRoles = hasInstitutionPermission(EmpRole.RoleID, InstitutionPermissions.VIEW_ROLES);
@@ -125,53 +126,73 @@ namespace WebApplication2.Controllers
             return false;
         }
 
+
+        
         protected IQueryable<File> getMyFiles()
         {
             var emp = getEmployeeRef();
-            var myroles = db.EmployeeRoles.Where(x => x.EmployeeID == emp.ID && x.Active == true).Select(x => x.ID);
+            var myrole = getPrimaryRole();
+            if (myrole == null)
+            {
+                return Enumerable.Empty<File>().AsQueryable();
+            }
 
-            return db.Files.Where(x => myroles.Contains(x.AuthorID) && x.Active == true);
+            return db.Files.Where(x => x.AuthorID==myrole.ID && x.Active == true);
 
        
         }
 
+        protected IQueryable<File> getMyMentions()
+        {
+            var emp = getEmployeeRef();
+            return db.FileMentions.Where(x => x.EmployeeID == emp.ID).Select(x => x.File).Where(x => x.Active == true);
+        }
+
+
+
 
         protected IQueryable<File> getMentionsForSomeone(int empID)
         {
+
+            //return SomoneMentions.Intersect(MyMentions+getAvaiableFilesForMeByScope+getMyFiles)
+
             var emp = getEmployeeRef();
-            var myroles = db.EmployeeRoles.Where(x => x.EmployeeID == emp.ID && x.Active == true).Select(x => x.ID);
 
-            return db.FileMentions.Where(x => myroles.Contains(x.EmployeeID) ).Select(x=>x.File).Where(x=>x.Active==true);
-
-
-        }
-
-        protected IQueryable<File> getSomeoneFiles(int id)
-        {
-            var emp = db.Employees.Find(id);
-            var myroles = db.EmployeeRoles.Where(x => x.EmployeeID == emp.ID && x.Active == true).Select(x => x.ID);
-
-            return db.Files.Where(x => myroles.Contains(x.AuthorID) && x.Active == true);
+            return db.FileMentions.Where(x => x.EmployeeID==empID ).Select(x=>x.File).Where(x=>x.Active==true);
 
 
         }
 
+        //protected IQueryable<File> getSomeoneFiles(int id)
+        //{
+        //    //return getSomeoneFiles.Intersect(MyMentions+getAvaiableFilesForMeByScope)
+
+        //    var emp = db.Employees.Find(id);
+
+        //    return db.Files.Where(x => myroles.Contains(x.AuthorID) && x.Active == true);
+
+        //}
 
 
 
 
-        protected IQueryable<File> getAvaiableFilesForMe()
+
+        protected IQueryable<File> getAvaiableFilesForMeByScope()
         {
-            var myRole = getPrimaryRole();
-            //
-            var myFiles = getMyFiles();
-            List<String> levels = db.FilesScopes.Where(x => x.RoleID == myRole.Role.ID).Select(x => x.Level).Distinct().ToList();
             
-              var AvailableFiles= db.Files.Where(x => levels.Contains(x.Level) && x.EmployeeRole.InstitutionID == myRole.InstitutionID);
-            
-            var Mentions=db.FileMentions.Where(x=>x.EmployeeID==myRole.ID).Select(x=>x.File);
-            return AvailableFiles.Concat(myFiles).Concat(Mentions).Distinct();
+            //return files that available in the scope
+                var myRole = getPrimaryRole();
+                //
+                if (myRole == null)
+                {
+                return Enumerable.Empty<File>().AsQueryable();
+                }
+               
+                List<int> levels = db.FilesScopes.Where(x => x.RoleID ==myRole.RoleID).Select(x => x.LevelID).Distinct().ToList();
 
+                var AvailableFiles = db.Files.Where(x => levels.Contains(x.LevelID) && x.EmployeeRole.InstitutionID == myRole.InstitutionID);
+
+                return AvailableFiles;
 
         }
 
@@ -211,15 +232,34 @@ namespace WebApplication2.Controllers
 
 
 
-        protected bool hasFileLevelPermission(int roleID, string fileLevel, string permissionName)
+        protected bool hasFileLevelPermission(int roleID, int fileLevelID, string permissionName,int EmpRoleID,int FileID)
         {
 
-            if ((db.FilesScopes.Where(s => s.RoleID == roleID && s.Level == fileLevel && s.Permission.Equals(permissionName)).Count() == 1))
+            if ((db.FilesScopes.Where(s => s.RoleID == roleID && s.LevelID == fileLevelID && s.Permission.Equals(permissionName)).Count() == 1))
+            {
+                return isFileinTheSameInstitution(EmpRoleID,FileID);
+            }
+            return false;
+        }
+
+        protected bool isFileinTheSameInstitution(int EmproleID, int fileID)
+        {
+
+            var File = db.Files.Find(fileID);
+            var EmpRole = db.EmployeeRoles.Where(x=>x.ID==EmproleID && x.Active==true).FirstOrDefault();
+            if (File == null || EmpRole==null)
+            {
+            return false;
+
+            }
+            if (File.EmployeeRole.InstitutionID==EmpRole.InstitutionID)
             {
                 return true;
             }
             return false;
         }
+
+
         protected bool isFileAuthor(int fileID,int empID)
         {
 
@@ -345,15 +385,21 @@ namespace WebApplication2.Controllers
 
         protected static class InstitutionPermissions
         {
+            public static string EDIT_FILE_LEVEL = "EDIT_FILE_LEVEL";
+            public static string DELETE_FILE_LEVEL = "DELETE_FILE_LEVEL";
+            public static string CREATE_FILE_LEVEL = "CREATE_FILE_LEVEL";
             public static string CREATE_FILE = "CREATE_FILE";
-
+            
             public static string CREATE_INSTITUTION = "CREATE_INSTITUTION";
             public static string VIEW_INSTITUTION = "VIEW_INSTITUTION";
             public static string EDIT_INSTITUTION_INFO = "EDIT_INSTITUTION_INFO";
-            public static string DEACTIVATE_INSTITUTION = "DEACTIVATE_INSTITUTION";
 
-            public static string ACTIVATE_INSTITUTION = "ACTIVATE_INSTITUTION";
 
+
+            public static string VIEW_INSTITUTION_TYPES = "VIEW_INSTITUTION_TYPES";
+            public static string CREATE_INSTITUTION_TYPE = "CREATE_INSTITUTION_TYPE";
+            public static string DELETE_INSTITUTION_TYPE = "DELETE_INSTITUTION_TYPE";
+            public static string EDIT_INSTITUTION_TYPE = "EDIT_INSTITUTION_TYPE";
 
 
             public static string VIEW_ROLES = "VIEW_ROLES";

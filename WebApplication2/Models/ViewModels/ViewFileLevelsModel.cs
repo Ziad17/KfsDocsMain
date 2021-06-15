@@ -14,6 +14,8 @@ namespace WebApplication2.Models.ViewModels
             RolesDirectory=new Dictionary<String, List<String>>();
         }
 
+        public bool canEdit { get; set; }
+        public bool canDelete { get; set; }
         public Dictionary<String,List<String>> RolesDirectory { get; set; }
         public FileLevel Level { get; set; }
         public SelectList Levels { get; set; }

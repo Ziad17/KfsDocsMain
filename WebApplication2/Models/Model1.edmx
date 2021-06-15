@@ -64,6 +64,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="400" Nullable="false" />
           <Property Name="DateCreatedSys" Type="datetime" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
           <Property Name="AuthorID" Type="int" Nullable="false" />
@@ -71,8 +72,7 @@
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="Locked" Type="bit" Nullable="false" />
           <Property Name="LockedUntil" Type="datetime" />
-          <Property Name="Level" Type="varchar" MaxLength="2" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="400" Nullable="false" />
+          <Property Name="LevelID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="FileActionLog">
           <Key>
@@ -94,9 +94,10 @@
         </EntityType>
         <EntityType Name="FileLevel">
           <Key>
-            <PropertyRef Name="Level" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="Level" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" Nullable="false" />
           <Property Name="LevelDesc" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="FileMention">
@@ -116,16 +117,14 @@
           </Key>
           <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="ArabicName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Grantable" Type="bit" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="FilesScope">
           <Key>
-            <PropertyRef Name="Level" />
-            <PropertyRef Name="RoleID" />
-            <PropertyRef Name="Permission" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="Level" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LevelID" Type="int" Nullable="false" />
           <Property Name="RoleID" Type="int" Nullable="false" />
           <Property Name="Permission" Type="varchar" MaxLength="200" Nullable="false" />
         </EntityType>
@@ -149,7 +148,7 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
           <Property Name="DateCreatedSys" Type="datetime" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
           <Property Name="AuthorID" Type="int" Nullable="false" />
-          <Property Name="FileTypeName" Type="varchar" MaxLength="50" />
+          <Property Name="FileTypeName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="FileContentID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Institution">
@@ -185,6 +184,8 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
           </Key>
           <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="ArabicName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Grantable" Type="bit" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="InstitutionType">
           <Key>
@@ -226,6 +227,8 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
           </Key>
           <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="ArabicName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Grantable" Type="bit" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -252,25 +255,7 @@ warning 6002: The table/view 'DMS_db.dbo.FilesScope' does not have a primary key
           <Property Name="RoleID" Type="int" Nullable="false" />
           <Property Name="PermissionName" Type="varchar" MaxLength="200" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="database_firewall_rules">
-          <Key>
-            <PropertyRef Name="id" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="start_ip_address" />
-            <PropertyRef Name="end_ip_address" />
-            <PropertyRef Name="create_date" />
-            <PropertyRef Name="modify_date" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="start_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="end_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="create_date" Type="datetime" Nullable="false" />
-          <Property Name="modify_date" Type="datetime" Nullable="false" />
-        </EntityType>
-        <Association Name="FK__Bookmark__Employ__0E591826">
+        <Association Name="FK__Bookmark__Employ__3E923B2D">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="Bookmark" Type="Self.Bookmark" Multiplicity="*" />
           <ReferentialConstraint>
@@ -282,7 +267,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Bookmark__FileID__0D64F3ED">
+        <Association Name="FK__Bookmark__FileID__3D9E16F4">
           <End Role="File" Type="Self.File" Multiplicity="1" />
           <End Role="Bookmark" Type="Self.Bookmark" Multiplicity="*" />
           <ReferentialConstraint>
@@ -294,7 +279,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Employee__CityID__2E06CDA9">
+        <Association Name="FK__Employee__CityID__75235608">
           <End Role="City" Type="Self.City" Multiplicity="1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
@@ -306,7 +291,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Employee__Primar__379037E3">
+        <Association Name="FK__Employee__Primar__027D5126">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="0..1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
@@ -318,7 +303,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EmployeeC__Emplo__2942188C">
+        <Association Name="FK__EmployeeC__Emplo__705EA0EB">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="EmployeeCredentials" Type="Self.EmployeeCredentials" Multiplicity="*" />
           <ReferentialConstraint>
@@ -330,7 +315,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EmployeeR__Emplo__3B60C8C7">
+        <Association Name="FK__EmployeeR__Emplo__064DE20A">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -342,7 +327,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EmployeeR__Insti__3D491139">
+        <Association Name="FK__EmployeeR__Insti__08362A7C">
           <End Role="Institution" Type="Self.Institution" Multiplicity="1" />
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -354,7 +339,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EmployeeR__RoleI__3C54ED00">
+        <Association Name="FK__EmployeeR__RoleI__07420643">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -366,7 +351,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__File__AuthorID__515009E6">
+        <Association Name="FK__File__AuthorID__1C3D2329">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="File" Type="Self.File" Multiplicity="*" />
           <ReferentialConstraint>
@@ -378,67 +363,31 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__File__AuthorID__53385258">
-          <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
+        <Association Name="FK__File__CurrentVer__2B7F66B9">
+          <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="0..1" />
           <End Role="File" Type="Self.File" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="EmployeeRole">
+            <Principal Role="FileVersion">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="File">
-              <PropertyRef Name="AuthorID" />
+              <PropertyRef Name="CurrentVersion" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__File__AuthorID__55209ACA">
-          <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
-          <End Role="File" Type="Self.File" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeeRole">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="File">
-              <PropertyRef Name="AuthorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__File__AuthorID__58F12BAE">
-          <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
-          <End Role="File" Type="Self.File" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeeRole">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="File">
-              <PropertyRef Name="AuthorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__File__Level__5614BF03">
+        <Association Name="FK__File__LevelID__1D314762">
           <End Role="FileLevel" Type="Self.FileLevel" Multiplicity="1" />
           <End Role="File" Type="Self.File" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FileLevel">
-              <PropertyRef Name="Level" />
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="File">
-              <PropertyRef Name="Level" />
+              <PropertyRef Name="LevelID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__File__Level__59E54FE7">
-          <End Role="FileLevel" Type="Self.FileLevel" Multiplicity="1" />
-          <End Role="File" Type="Self.File" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FileLevel">
-              <PropertyRef Name="Level" />
-            </Principal>
-            <Dependent Role="File">
-              <PropertyRef Name="Level" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__FileActio__Emplo__72B0FDB1">
+        <Association Name="FK__FileActio__Emplo__322C6448">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="FileActionLog" Type="Self.FileActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -450,19 +399,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileActio__Emplo__758D6A5C">
-          <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
-          <End Role="FileActionLog" Type="Self.FileActionLog" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeeRole">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="FileActionLog">
-              <PropertyRef Name="EmployeeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__FileActio__FileI__73A521EA">
+        <Association Name="FK__FileActio__FileI__33208881">
           <End Role="File" Type="Self.File" Multiplicity="1" />
           <End Role="FileActionLog" Type="Self.FileActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -474,19 +411,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileActio__FileI__76818E95">
-          <End Role="File" Type="Self.File" Multiplicity="1" />
-          <End Role="FileActionLog" Type="Self.FileActionLog" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="File">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="FileActionLog">
-              <PropertyRef Name="FileID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__FileActio__Permi__7775B2CE">
+        <Association Name="FK__FileActio__Permi__3414ACBA">
           <End Role="FilePermission" Type="Self.FilePermission" Multiplicity="1" />
           <End Role="FileActionLog" Type="Self.FileActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -498,7 +423,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileMenti__Creat__2AF556D4">
+        <Association Name="FK__FileMenti__Creat__39CD8610">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="FileMention" Type="Self.FileMention" Multiplicity="*" />
           <ReferentialConstraint>
@@ -510,7 +435,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileMenti__Emplo__2A01329B">
+        <Association Name="FK__FileMenti__Emplo__38D961D7">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="FileMention" Type="Self.FileMention" Multiplicity="*" />
           <ReferentialConstraint>
@@ -522,7 +447,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileMenti__FileI__290D0E62">
+        <Association Name="FK__FileMenti__FileI__37E53D9E">
           <End Role="File" Type="Self.File" Multiplicity="1" />
           <End Role="FileMention" Type="Self.FileMention" Multiplicity="*" />
           <ReferentialConstraint>
@@ -534,19 +459,19 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FilesScop__Level__5BCD9859">
+        <Association Name="FK__FilesScop__Level__2101D846">
           <End Role="FileLevel" Type="Self.FileLevel" Multiplicity="1" />
           <End Role="FilesScope" Type="Self.FilesScope" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FileLevel">
-              <PropertyRef Name="Level" />
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="FilesScope">
-              <PropertyRef Name="Level" />
+              <PropertyRef Name="LevelID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FilesScop__Permi__5DB5E0CB">
+        <Association Name="FK__FilesScop__Permi__22EA20B8">
           <End Role="FilePermission" Type="Self.FilePermission" Multiplicity="1" />
           <End Role="FilesScope" Type="Self.FilesScope" Multiplicity="*" />
           <ReferentialConstraint>
@@ -558,7 +483,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FilesScop__RoleI__5CC1BC92">
+        <Association Name="FK__FilesScop__RoleI__21F5FC7F">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="FilesScope" Type="Self.FilesScope" Multiplicity="*" />
           <ReferentialConstraint>
@@ -570,7 +495,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileVersi__Autho__673F4B05">
+        <Association Name="FK__FileVersi__Autho__2D67AF2B">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -582,31 +507,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileVersi__Autho__6A1BB7B0">
-          <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
-          <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeeRole">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="FileVersion">
-              <PropertyRef Name="AuthorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__FileVersi__Autho__6DEC4894">
-          <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
-          <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeeRole">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="FileVersion">
-              <PropertyRef Name="AuthorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__FileVersi__FileC__6FD49106">
+        <Association Name="FK__FileVersi__FileC__2F4FF79D">
           <End Role="FileContent" Type="Self.FileContent" Multiplicity="1" />
           <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -618,7 +519,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileVersi__FileI__664B26CC">
+        <Association Name="FK__FileVersi__FileI__2C738AF2">
           <End Role="File" Type="Self.File" Multiplicity="0..1" />
           <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -630,32 +531,8 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileVersi__FileI__69279377">
-          <End Role="File" Type="Self.File" Multiplicity="0..1" />
-          <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="File">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="FileVersion">
-              <PropertyRef Name="FileID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__FileVersi__FileI__6CF8245B">
-          <End Role="File" Type="Self.File" Multiplicity="0..1" />
-          <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="File">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="FileVersion">
-              <PropertyRef Name="FileID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__FileVersi__FileT__6B0FDBE9">
-          <End Role="FileType" Type="Self.FileType" Multiplicity="0..1" />
+        <Association Name="FK__FileVersi__FileT__2E5BD364">
+          <End Role="FileType" Type="Self.FileType" Multiplicity="1" />
           <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FileType">
@@ -666,19 +543,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileVersi__FileT__6EE06CCD">
-          <End Role="FileType" Type="Self.FileType" Multiplicity="0..1" />
-          <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FileType">
-              <PropertyRef Name="Name" />
-            </Principal>
-            <Dependent Role="FileVersion">
-              <PropertyRef Name="FileTypeName" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Instituti__Emplo__48BAC3E5">
+        <Association Name="FK__Instituti__Emplo__13A7DD28">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="InstitutionActionLog" Type="Self.InstitutionActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -690,7 +555,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Instituti__Insti__40257DE4">
+        <Association Name="FK__Instituti__Insti__0B129727">
           <End Role="InstitutionType" Type="Self.InstitutionType" Multiplicity="1" />
           <End Role="Institution" Type="Self.Institution" Multiplicity="*" />
           <ReferentialConstraint>
@@ -702,7 +567,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Instituti__Insti__49AEE81E">
+        <Association Name="FK__Instituti__Insti__149C0161">
           <End Role="Institution" Type="Self.Institution" Multiplicity="1" />
           <End Role="InstitutionActionLog" Type="Self.InstitutionActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -714,7 +579,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Instituti__Paren__4119A21D">
+        <Association Name="FK__Instituti__Paren__0C06BB60">
           <End Role="Institution" Type="Self.Institution" Multiplicity="0..1" />
           <End Role="Institution1" Type="Self.Institution" Multiplicity="*" />
           <ReferentialConstraint>
@@ -726,7 +591,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Instituti__Permi__4AA30C57">
+        <Association Name="FK__Instituti__Permi__1590259A">
           <End Role="InstitutionPermission" Type="Self.InstitutionPermission" Multiplicity="1" />
           <End Role="InstitutionActionLog" Type="Self.InstitutionActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -738,7 +603,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Message__FileCon__24485945">
+        <Association Name="FK__Message__FileCon__4356F04A">
           <End Role="FileContent" Type="Self.FileContent" Multiplicity="1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
@@ -750,7 +615,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Message__FileTyp__253C7D7E">
+        <Association Name="FK__Message__FileTyp__444B1483">
           <End Role="FileType" Type="Self.FileType" Multiplicity="1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
@@ -762,7 +627,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Message__Recieve__2354350C">
+        <Association Name="FK__Message__Recieve__4262CC11">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
@@ -774,7 +639,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Message__SenderI__226010D3">
+        <Association Name="FK__Message__SenderI__416EA7D8">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
@@ -786,7 +651,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PersonAct__Affec__46D27B73">
+        <Association Name="FK__PersonAct__Affec__11BF94B6">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="PersonActionLog" Type="Self.PersonActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -798,7 +663,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PersonAct__Condu__45DE573A">
+        <Association Name="FK__PersonAct__Condu__10CB707D">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="PersonActionLog" Type="Self.PersonActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -810,7 +675,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PersonAct__Permi__47C69FAC">
+        <Association Name="FK__PersonAct__Permi__12B3B8EF">
           <End Role="PersonPermission" Type="Self.PersonPermission" Multiplicity="1" />
           <End Role="PersonActionLog" Type="Self.PersonActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -822,7 +687,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Role__ParentID__2D12A970">
+        <Association Name="FK__Role__ParentID__742F31CF">
           <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
           <End Role="Role1" Type="Self.Role" Multiplicity="*" />
           <ReferentialConstraint>
@@ -834,7 +699,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RoleInsti__Permi__3D14070F">
+        <Association Name="FK__RoleInsti__Permi__7EACC042">
           <End Role="InstitutionPermission" Type="Self.InstitutionPermission" Multiplicity="1" />
           <End Role="RoleInstitutionPermission" Type="Self.RoleInstitutionPermission" Multiplicity="*" />
           <ReferentialConstraint>
@@ -846,7 +711,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RoleInsti__RoleI__3C1FE2D6">
+        <Association Name="FK__RoleInsti__RoleI__7DB89C09">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="RoleInstitutionPermission" Type="Self.RoleInstitutionPermission" Multiplicity="*" />
           <ReferentialConstraint>
@@ -858,7 +723,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RolePerso__Permi__3B2BBE9D">
+        <Association Name="FK__RolePerso__Permi__7CC477D0">
           <End Role="PersonPermission" Type="Self.PersonPermission" Multiplicity="1" />
           <End Role="RolePersonPermission" Type="Self.RolePersonPermission" Multiplicity="*" />
           <ReferentialConstraint>
@@ -870,7 +735,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RolePerso__RoleI__3A379A64">
+        <Association Name="FK__RolePerso__RoleI__7BD05397">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="RolePersonPermission" Type="Self.RolePersonPermission" Multiplicity="*" />
           <ReferentialConstraint>
@@ -894,6 +759,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
           <EntitySet Name="FileLevel" EntityType="Self.FileLevel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FileMention" EntityType="Self.FileMention" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FilePermission" EntityType="Self.FilePermission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FilesScope" EntityType="Self.FilesScope" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FileType" EntityType="Self.FileType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FileVersion" EntityType="Self.FileVersion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Institution" EntityType="Self.Institution" Schema="dbo" store:Type="Tables" />
@@ -906,224 +772,167 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoleInstitutionPermission" EntityType="Self.RoleInstitutionPermission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RolePersonPermission" EntityType="Self.RolePersonPermission" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="FilesScope" EntityType="Self.FilesScope" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [FilesScope].[Level] AS [Level], 
-    [FilesScope].[RoleID] AS [RoleID], 
-    [FilesScope].[Permission] AS [Permission]
-    FROM [dbo].[FilesScope] AS [FilesScope]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
-            <DefiningQuery>SELECT 
-    [database_firewall_rules].[id] AS [id], 
-    [database_firewall_rules].[name] AS [name], 
-    [database_firewall_rules].[start_ip_address] AS [start_ip_address], 
-    [database_firewall_rules].[end_ip_address] AS [end_ip_address], 
-    [database_firewall_rules].[create_date] AS [create_date], 
-    [database_firewall_rules].[modify_date] AS [modify_date]
-    FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
-          </EntitySet>
-          <AssociationSet Name="FK__Bookmark__Employ__0E591826" Association="Self.FK__Bookmark__Employ__0E591826">
+          <AssociationSet Name="FK__Bookmark__Employ__3E923B2D" Association="Self.FK__Bookmark__Employ__3E923B2D">
             <End Role="EmployeeRole" EntitySet="EmployeeRole" />
             <End Role="Bookmark" EntitySet="Bookmark" />
           </AssociationSet>
-          <AssociationSet Name="FK__Bookmark__FileID__0D64F3ED" Association="Self.FK__Bookmark__FileID__0D64F3ED">
+          <AssociationSet Name="FK__Bookmark__FileID__3D9E16F4" Association="Self.FK__Bookmark__FileID__3D9E16F4">
             <End Role="File" EntitySet="File" />
             <End Role="Bookmark" EntitySet="Bookmark" />
           </AssociationSet>
-          <AssociationSet Name="FK__Employee__CityID__2E06CDA9" Association="Self.FK__Employee__CityID__2E06CDA9">
+          <AssociationSet Name="FK__Employee__CityID__75235608" Association="Self.FK__Employee__CityID__75235608">
             <End Role="City" EntitySet="City" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
-          <AssociationSet Name="FK__Employee__Primar__379037E3" Association="Self.FK__Employee__Primar__379037E3">
+          <AssociationSet Name="FK__Employee__Primar__027D5126" Association="Self.FK__Employee__Primar__027D5126">
             <End Role="EmployeeRole" EntitySet="EmployeeRole" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
-          <AssociationSet Name="FK__EmployeeC__Emplo__2942188C" Association="Self.FK__EmployeeC__Emplo__2942188C">
+          <AssociationSet Name="FK__EmployeeC__Emplo__705EA0EB" Association="Self.FK__EmployeeC__Emplo__705EA0EB">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="EmployeeCredentials" EntitySet="EmployeeCredentials" />
           </AssociationSet>
-          <AssociationSet Name="FK__EmployeeR__Emplo__3B60C8C7" Association="Self.FK__EmployeeR__Emplo__3B60C8C7">
+          <AssociationSet Name="FK__EmployeeR__Emplo__064DE20A" Association="Self.FK__EmployeeR__Emplo__064DE20A">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="EmployeeRole" EntitySet="EmployeeRole" />
           </AssociationSet>
-          <AssociationSet Name="FK__EmployeeR__Insti__3D491139" Association="Self.FK__EmployeeR__Insti__3D491139">
+          <AssociationSet Name="FK__EmployeeR__Insti__08362A7C" Association="Self.FK__EmployeeR__Insti__08362A7C">
             <End Role="Institution" EntitySet="Institution" />
             <End Role="EmployeeRole" EntitySet="EmployeeRole" />
           </AssociationSet>
-          <AssociationSet Name="FK__EmployeeR__RoleI__3C54ED00" Association="Self.FK__EmployeeR__RoleI__3C54ED00">
+          <AssociationSet Name="FK__EmployeeR__RoleI__07420643" Association="Self.FK__EmployeeR__RoleI__07420643">
             <End Role="Role" EntitySet="Role" />
             <End Role="EmployeeRole" EntitySet="EmployeeRole" />
           </AssociationSet>
-          <AssociationSet Name="FK__File__AuthorID__515009E6" Association="Self.FK__File__AuthorID__515009E6">
+          <AssociationSet Name="FK__File__AuthorID__1C3D2329" Association="Self.FK__File__AuthorID__1C3D2329">
             <End Role="EmployeeRole" EntitySet="EmployeeRole" />
             <End Role="File" EntitySet="File" />
           </AssociationSet>
-          <AssociationSet Name="FK__File__AuthorID__53385258" Association="Self.FK__File__AuthorID__53385258">
-            <End Role="EmployeeRole" EntitySet="EmployeeRole" />
+          <AssociationSet Name="FK__File__CurrentVer__2B7F66B9" Association="Self.FK__File__CurrentVer__2B7F66B9">
+            <End Role="FileVersion" EntitySet="FileVersion" />
             <End Role="File" EntitySet="File" />
           </AssociationSet>
-          <AssociationSet Name="FK__File__AuthorID__55209ACA" Association="Self.FK__File__AuthorID__55209ACA">
-            <End Role="EmployeeRole" EntitySet="EmployeeRole" />
-            <End Role="File" EntitySet="File" />
-          </AssociationSet>
-          <AssociationSet Name="FK__File__AuthorID__58F12BAE" Association="Self.FK__File__AuthorID__58F12BAE">
-            <End Role="EmployeeRole" EntitySet="EmployeeRole" />
-            <End Role="File" EntitySet="File" />
-          </AssociationSet>
-          <AssociationSet Name="FK__File__Level__5614BF03" Association="Self.FK__File__Level__5614BF03">
+          <AssociationSet Name="FK__File__LevelID__1D314762" Association="Self.FK__File__LevelID__1D314762">
             <End Role="FileLevel" EntitySet="FileLevel" />
             <End Role="File" EntitySet="File" />
           </AssociationSet>
-          <AssociationSet Name="FK__File__Level__59E54FE7" Association="Self.FK__File__Level__59E54FE7">
-            <End Role="FileLevel" EntitySet="FileLevel" />
-            <End Role="File" EntitySet="File" />
-          </AssociationSet>
-          <AssociationSet Name="FK__FileActio__Emplo__72B0FDB1" Association="Self.FK__FileActio__Emplo__72B0FDB1">
+          <AssociationSet Name="FK__FileActio__Emplo__322C6448" Association="Self.FK__FileActio__Emplo__322C6448">
             <End Role="EmployeeRole" EntitySet="EmployeeRole" />
             <End Role="FileActionLog" EntitySet="FileActionLog" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileActio__Emplo__758D6A5C" Association="Self.FK__FileActio__Emplo__758D6A5C">
-            <End Role="EmployeeRole" EntitySet="EmployeeRole" />
-            <End Role="FileActionLog" EntitySet="FileActionLog" />
-          </AssociationSet>
-          <AssociationSet Name="FK__FileActio__FileI__73A521EA" Association="Self.FK__FileActio__FileI__73A521EA">
+          <AssociationSet Name="FK__FileActio__FileI__33208881" Association="Self.FK__FileActio__FileI__33208881">
             <End Role="File" EntitySet="File" />
             <End Role="FileActionLog" EntitySet="FileActionLog" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileActio__FileI__76818E95" Association="Self.FK__FileActio__FileI__76818E95">
-            <End Role="File" EntitySet="File" />
-            <End Role="FileActionLog" EntitySet="FileActionLog" />
-          </AssociationSet>
-          <AssociationSet Name="FK__FileActio__Permi__7775B2CE" Association="Self.FK__FileActio__Permi__7775B2CE">
+          <AssociationSet Name="FK__FileActio__Permi__3414ACBA" Association="Self.FK__FileActio__Permi__3414ACBA">
             <End Role="FilePermission" EntitySet="FilePermission" />
             <End Role="FileActionLog" EntitySet="FileActionLog" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileMenti__Creat__2AF556D4" Association="Self.FK__FileMenti__Creat__2AF556D4">
+          <AssociationSet Name="FK__FileMenti__Creat__39CD8610" Association="Self.FK__FileMenti__Creat__39CD8610">
             <End Role="EmployeeRole" EntitySet="EmployeeRole" />
             <End Role="FileMention" EntitySet="FileMention" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileMenti__Emplo__2A01329B" Association="Self.FK__FileMenti__Emplo__2A01329B">
+          <AssociationSet Name="FK__FileMenti__Emplo__38D961D7" Association="Self.FK__FileMenti__Emplo__38D961D7">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="FileMention" EntitySet="FileMention" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileMenti__FileI__290D0E62" Association="Self.FK__FileMenti__FileI__290D0E62">
+          <AssociationSet Name="FK__FileMenti__FileI__37E53D9E" Association="Self.FK__FileMenti__FileI__37E53D9E">
             <End Role="File" EntitySet="File" />
             <End Role="FileMention" EntitySet="FileMention" />
           </AssociationSet>
-          <AssociationSet Name="FK__FilesScop__Level__5BCD9859" Association="Self.FK__FilesScop__Level__5BCD9859">
+          <AssociationSet Name="FK__FilesScop__Level__2101D846" Association="Self.FK__FilesScop__Level__2101D846">
             <End Role="FileLevel" EntitySet="FileLevel" />
             <End Role="FilesScope" EntitySet="FilesScope" />
           </AssociationSet>
-          <AssociationSet Name="FK__FilesScop__Permi__5DB5E0CB" Association="Self.FK__FilesScop__Permi__5DB5E0CB">
+          <AssociationSet Name="FK__FilesScop__Permi__22EA20B8" Association="Self.FK__FilesScop__Permi__22EA20B8">
             <End Role="FilePermission" EntitySet="FilePermission" />
             <End Role="FilesScope" EntitySet="FilesScope" />
           </AssociationSet>
-          <AssociationSet Name="FK__FilesScop__RoleI__5CC1BC92" Association="Self.FK__FilesScop__RoleI__5CC1BC92">
+          <AssociationSet Name="FK__FilesScop__RoleI__21F5FC7F" Association="Self.FK__FilesScop__RoleI__21F5FC7F">
             <End Role="Role" EntitySet="Role" />
             <End Role="FilesScope" EntitySet="FilesScope" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileVersi__Autho__673F4B05" Association="Self.FK__FileVersi__Autho__673F4B05">
+          <AssociationSet Name="FK__FileVersi__Autho__2D67AF2B" Association="Self.FK__FileVersi__Autho__2D67AF2B">
             <End Role="EmployeeRole" EntitySet="EmployeeRole" />
             <End Role="FileVersion" EntitySet="FileVersion" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileVersi__Autho__6A1BB7B0" Association="Self.FK__FileVersi__Autho__6A1BB7B0">
-            <End Role="EmployeeRole" EntitySet="EmployeeRole" />
-            <End Role="FileVersion" EntitySet="FileVersion" />
-          </AssociationSet>
-          <AssociationSet Name="FK__FileVersi__Autho__6DEC4894" Association="Self.FK__FileVersi__Autho__6DEC4894">
-            <End Role="EmployeeRole" EntitySet="EmployeeRole" />
-            <End Role="FileVersion" EntitySet="FileVersion" />
-          </AssociationSet>
-          <AssociationSet Name="FK__FileVersi__FileC__6FD49106" Association="Self.FK__FileVersi__FileC__6FD49106">
+          <AssociationSet Name="FK__FileVersi__FileC__2F4FF79D" Association="Self.FK__FileVersi__FileC__2F4FF79D">
             <End Role="FileContent" EntitySet="FileContent" />
             <End Role="FileVersion" EntitySet="FileVersion" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileVersi__FileI__664B26CC" Association="Self.FK__FileVersi__FileI__664B26CC">
+          <AssociationSet Name="FK__FileVersi__FileI__2C738AF2" Association="Self.FK__FileVersi__FileI__2C738AF2">
             <End Role="File" EntitySet="File" />
             <End Role="FileVersion" EntitySet="FileVersion" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileVersi__FileI__69279377" Association="Self.FK__FileVersi__FileI__69279377">
-            <End Role="File" EntitySet="File" />
-            <End Role="FileVersion" EntitySet="FileVersion" />
-          </AssociationSet>
-          <AssociationSet Name="FK__FileVersi__FileI__6CF8245B" Association="Self.FK__FileVersi__FileI__6CF8245B">
-            <End Role="File" EntitySet="File" />
-            <End Role="FileVersion" EntitySet="FileVersion" />
-          </AssociationSet>
-          <AssociationSet Name="FK__FileVersi__FileT__6B0FDBE9" Association="Self.FK__FileVersi__FileT__6B0FDBE9">
+          <AssociationSet Name="FK__FileVersi__FileT__2E5BD364" Association="Self.FK__FileVersi__FileT__2E5BD364">
             <End Role="FileType" EntitySet="FileType" />
             <End Role="FileVersion" EntitySet="FileVersion" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileVersi__FileT__6EE06CCD" Association="Self.FK__FileVersi__FileT__6EE06CCD">
-            <End Role="FileType" EntitySet="FileType" />
-            <End Role="FileVersion" EntitySet="FileVersion" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Instituti__Emplo__48BAC3E5" Association="Self.FK__Instituti__Emplo__48BAC3E5">
+          <AssociationSet Name="FK__Instituti__Emplo__13A7DD28" Association="Self.FK__Instituti__Emplo__13A7DD28">
             <End Role="EmployeeRole" EntitySet="EmployeeRole" />
             <End Role="InstitutionActionLog" EntitySet="InstitutionActionLog" />
           </AssociationSet>
-          <AssociationSet Name="FK__Instituti__Insti__40257DE4" Association="Self.FK__Instituti__Insti__40257DE4">
+          <AssociationSet Name="FK__Instituti__Insti__0B129727" Association="Self.FK__Instituti__Insti__0B129727">
             <End Role="InstitutionType" EntitySet="InstitutionType" />
             <End Role="Institution" EntitySet="Institution" />
           </AssociationSet>
-          <AssociationSet Name="FK__Instituti__Insti__49AEE81E" Association="Self.FK__Instituti__Insti__49AEE81E">
+          <AssociationSet Name="FK__Instituti__Insti__149C0161" Association="Self.FK__Instituti__Insti__149C0161">
             <End Role="Institution" EntitySet="Institution" />
             <End Role="InstitutionActionLog" EntitySet="InstitutionActionLog" />
           </AssociationSet>
-          <AssociationSet Name="FK__Instituti__Paren__4119A21D" Association="Self.FK__Instituti__Paren__4119A21D">
+          <AssociationSet Name="FK__Instituti__Paren__0C06BB60" Association="Self.FK__Instituti__Paren__0C06BB60">
             <End Role="Institution" EntitySet="Institution" />
             <End Role="Institution1" EntitySet="Institution" />
           </AssociationSet>
-          <AssociationSet Name="FK__Instituti__Permi__4AA30C57" Association="Self.FK__Instituti__Permi__4AA30C57">
+          <AssociationSet Name="FK__Instituti__Permi__1590259A" Association="Self.FK__Instituti__Permi__1590259A">
             <End Role="InstitutionPermission" EntitySet="InstitutionPermission" />
             <End Role="InstitutionActionLog" EntitySet="InstitutionActionLog" />
           </AssociationSet>
-          <AssociationSet Name="FK__Message__FileCon__24485945" Association="Self.FK__Message__FileCon__24485945">
+          <AssociationSet Name="FK__Message__FileCon__4356F04A" Association="Self.FK__Message__FileCon__4356F04A">
             <End Role="FileContent" EntitySet="FileContent" />
             <End Role="Message" EntitySet="Message" />
           </AssociationSet>
-          <AssociationSet Name="FK__Message__FileTyp__253C7D7E" Association="Self.FK__Message__FileTyp__253C7D7E">
+          <AssociationSet Name="FK__Message__FileTyp__444B1483" Association="Self.FK__Message__FileTyp__444B1483">
             <End Role="FileType" EntitySet="FileType" />
             <End Role="Message" EntitySet="Message" />
           </AssociationSet>
-          <AssociationSet Name="FK__Message__Recieve__2354350C" Association="Self.FK__Message__Recieve__2354350C">
+          <AssociationSet Name="FK__Message__Recieve__4262CC11" Association="Self.FK__Message__Recieve__4262CC11">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Message" EntitySet="Message" />
           </AssociationSet>
-          <AssociationSet Name="FK__Message__SenderI__226010D3" Association="Self.FK__Message__SenderI__226010D3">
+          <AssociationSet Name="FK__Message__SenderI__416EA7D8" Association="Self.FK__Message__SenderI__416EA7D8">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Message" EntitySet="Message" />
           </AssociationSet>
-          <AssociationSet Name="FK__PersonAct__Affec__46D27B73" Association="Self.FK__PersonAct__Affec__46D27B73">
+          <AssociationSet Name="FK__PersonAct__Affec__11BF94B6" Association="Self.FK__PersonAct__Affec__11BF94B6">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="PersonActionLog" EntitySet="PersonActionLog" />
           </AssociationSet>
-          <AssociationSet Name="FK__PersonAct__Condu__45DE573A" Association="Self.FK__PersonAct__Condu__45DE573A">
+          <AssociationSet Name="FK__PersonAct__Condu__10CB707D" Association="Self.FK__PersonAct__Condu__10CB707D">
             <End Role="EmployeeRole" EntitySet="EmployeeRole" />
             <End Role="PersonActionLog" EntitySet="PersonActionLog" />
           </AssociationSet>
-          <AssociationSet Name="FK__PersonAct__Permi__47C69FAC" Association="Self.FK__PersonAct__Permi__47C69FAC">
+          <AssociationSet Name="FK__PersonAct__Permi__12B3B8EF" Association="Self.FK__PersonAct__Permi__12B3B8EF">
             <End Role="PersonPermission" EntitySet="PersonPermission" />
             <End Role="PersonActionLog" EntitySet="PersonActionLog" />
           </AssociationSet>
-          <AssociationSet Name="FK__Role__ParentID__2D12A970" Association="Self.FK__Role__ParentID__2D12A970">
+          <AssociationSet Name="FK__Role__ParentID__742F31CF" Association="Self.FK__Role__ParentID__742F31CF">
             <End Role="Role" EntitySet="Role" />
             <End Role="Role1" EntitySet="Role" />
           </AssociationSet>
-          <AssociationSet Name="FK__RoleInsti__Permi__3D14070F" Association="Self.FK__RoleInsti__Permi__3D14070F">
+          <AssociationSet Name="FK__RoleInsti__Permi__7EACC042" Association="Self.FK__RoleInsti__Permi__7EACC042">
             <End Role="InstitutionPermission" EntitySet="InstitutionPermission" />
             <End Role="RoleInstitutionPermission" EntitySet="RoleInstitutionPermission" />
           </AssociationSet>
-          <AssociationSet Name="FK__RoleInsti__RoleI__3C1FE2D6" Association="Self.FK__RoleInsti__RoleI__3C1FE2D6">
+          <AssociationSet Name="FK__RoleInsti__RoleI__7DB89C09" Association="Self.FK__RoleInsti__RoleI__7DB89C09">
             <End Role="Role" EntitySet="Role" />
             <End Role="RoleInstitutionPermission" EntitySet="RoleInstitutionPermission" />
           </AssociationSet>
-          <AssociationSet Name="FK__RolePerso__Permi__3B2BBE9D" Association="Self.FK__RolePerso__Permi__3B2BBE9D">
+          <AssociationSet Name="FK__RolePerso__Permi__7CC477D0" Association="Self.FK__RolePerso__Permi__7CC477D0">
             <End Role="PersonPermission" EntitySet="PersonPermission" />
             <End Role="RolePersonPermission" EntitySet="RolePersonPermission" />
           </AssociationSet>
-          <AssociationSet Name="FK__RolePerso__RoleI__3A379A64" Association="Self.FK__RolePerso__RoleI__3A379A64">
+          <AssociationSet Name="FK__RolePerso__RoleI__7BD05397" Association="Self.FK__RolePerso__RoleI__7BD05397">
             <End Role="Role" EntitySet="Role" />
             <End Role="RolePersonPermission" EntitySet="RolePersonPermission" />
           </AssociationSet>
@@ -1141,8 +950,8 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
           <Property Name="FileID" Type="Int32" Nullable="false" />
           <Property Name="EmployeeID" Type="Int32" Nullable="false" />
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__Bookmark__Employ__0E591826" FromRole="Bookmark" ToRole="EmployeeRole" />
-          <NavigationProperty Name="File" Relationship="Self.FK__Bookmark__FileID__0D64F3ED" FromRole="Bookmark" ToRole="File" />
+          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__Bookmark__Employ__3E923B2D" FromRole="Bookmark" ToRole="EmployeeRole" />
+          <NavigationProperty Name="File" Relationship="Self.FK__Bookmark__FileID__3D9E16F4" FromRole="Bookmark" ToRole="File" />
         </EntityType>
         <EntityType Name="City">
           <Key>
@@ -1151,7 +960,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PostalCode" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Employees" Relationship="Self.FK__Employee__CityID__2E06CDA9" FromRole="City" ToRole="Employee" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK__Employee__CityID__75235608" FromRole="City" ToRole="Employee" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -1168,14 +977,14 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
           <Property Name="PHD" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="ImageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="City" Relationship="Self.FK__Employee__CityID__2E06CDA9" FromRole="Employee" ToRole="City" />
-          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__Employee__Primar__379037E3" FromRole="Employee" ToRole="EmployeeRole" />
-          <NavigationProperty Name="EmployeeCredentials" Relationship="Self.FK__EmployeeC__Emplo__2942188C" FromRole="Employee" ToRole="EmployeeCredentials" />
-          <NavigationProperty Name="EmployeeRoles" Relationship="Self.FK__EmployeeR__Emplo__3B60C8C7" FromRole="Employee" ToRole="EmployeeRole" />
-          <NavigationProperty Name="FileMentions" Relationship="Self.FK__FileMenti__Emplo__2A01329B" FromRole="Employee" ToRole="FileMention" />
-          <NavigationProperty Name="Messages" Relationship="Self.FK__Message__Recieve__2354350C" FromRole="Employee" ToRole="Message" />
-          <NavigationProperty Name="Messages1" Relationship="Self.FK__Message__SenderI__226010D3" FromRole="Employee" ToRole="Message" />
-          <NavigationProperty Name="PersonActionLogs" Relationship="Self.FK__PersonAct__Affec__46D27B73" FromRole="Employee" ToRole="PersonActionLog" />
+          <NavigationProperty Name="City" Relationship="Self.FK__Employee__CityID__75235608" FromRole="Employee" ToRole="City" />
+          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__Employee__Primar__027D5126" FromRole="Employee" ToRole="EmployeeRole" />
+          <NavigationProperty Name="EmployeeCredentials" Relationship="Self.FK__EmployeeC__Emplo__705EA0EB" FromRole="Employee" ToRole="EmployeeCredentials" />
+          <NavigationProperty Name="EmployeeRoles" Relationship="Self.FK__EmployeeR__Emplo__064DE20A" FromRole="Employee" ToRole="EmployeeRole" />
+          <NavigationProperty Name="FileMentions" Relationship="Self.FK__FileMenti__Emplo__38D961D7" FromRole="Employee" ToRole="FileMention" />
+          <NavigationProperty Name="Messages" Relationship="Self.FK__Message__Recieve__4262CC11" FromRole="Employee" ToRole="Message" />
+          <NavigationProperty Name="Messages1" Relationship="Self.FK__Message__SenderI__416EA7D8" FromRole="Employee" ToRole="Message" />
+          <NavigationProperty Name="PersonActionLogs" Relationship="Self.FK__PersonAct__Affec__11BF94B6" FromRole="Employee" ToRole="PersonActionLog" />
         </EntityType>
         <EntityType Name="EmployeeCredential">
           <Key>
@@ -1185,7 +994,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
           <Property Name="Email" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK__EmployeeC__Emplo__2942188C" FromRole="EmployeeCredentials" ToRole="Employee" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__EmployeeC__Emplo__705EA0EB" FromRole="EmployeeCredentials" ToRole="Employee" />
         </EntityType>
         <EntityType Name="EmployeeRole">
           <Key>
@@ -1198,29 +1007,24 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
           <Property Name="ArabicJobDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="HiringDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Bookmarks" Relationship="Self.FK__Bookmark__Employ__0E591826" FromRole="EmployeeRole" ToRole="Bookmark" />
-          <NavigationProperty Name="Employees" Relationship="Self.FK__Employee__Primar__379037E3" FromRole="EmployeeRole" ToRole="Employee" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK__EmployeeR__Emplo__3B60C8C7" FromRole="EmployeeRole" ToRole="Employee" />
-          <NavigationProperty Name="Institution" Relationship="Self.FK__EmployeeR__Insti__3D491139" FromRole="EmployeeRole" ToRole="Institution" />
-          <NavigationProperty Name="Role" Relationship="Self.FK__EmployeeR__RoleI__3C54ED00" FromRole="EmployeeRole" ToRole="Role" />
-          <NavigationProperty Name="Files" Relationship="Self.FK__File__AuthorID__515009E6" FromRole="EmployeeRole" ToRole="File" />
-          <NavigationProperty Name="Files1" Relationship="Self.FK__File__AuthorID__53385258" FromRole="EmployeeRole" ToRole="File" />
-          <NavigationProperty Name="Files2" Relationship="Self.FK__File__AuthorID__55209ACA" FromRole="EmployeeRole" ToRole="File" />
-          <NavigationProperty Name="Files3" Relationship="Self.FK__File__AuthorID__58F12BAE" FromRole="EmployeeRole" ToRole="File" />
-          <NavigationProperty Name="FileActionLogs" Relationship="Self.FK__FileActio__Emplo__72B0FDB1" FromRole="EmployeeRole" ToRole="FileActionLog" />
-          <NavigationProperty Name="FileActionLogs1" Relationship="Self.FK__FileActio__Emplo__758D6A5C" FromRole="EmployeeRole" ToRole="FileActionLog" />
-          <NavigationProperty Name="FileMentions" Relationship="Self.FK__FileMenti__Creat__2AF556D4" FromRole="EmployeeRole" ToRole="FileMention" />
-          <NavigationProperty Name="FileVersions" Relationship="Self.FK__FileVersi__Autho__673F4B05" FromRole="EmployeeRole" ToRole="FileVersion" />
-          <NavigationProperty Name="FileVersions1" Relationship="Self.FK__FileVersi__Autho__6A1BB7B0" FromRole="EmployeeRole" ToRole="FileVersion" />
-          <NavigationProperty Name="FileVersions2" Relationship="Self.FK__FileVersi__Autho__6DEC4894" FromRole="EmployeeRole" ToRole="FileVersion" />
-          <NavigationProperty Name="InstitutionActionLogs" Relationship="Self.FK__Instituti__Emplo__48BAC3E5" FromRole="EmployeeRole" ToRole="InstitutionActionLog" />
-          <NavigationProperty Name="PersonActionLogs" Relationship="Self.FK__PersonAct__Condu__45DE573A" FromRole="EmployeeRole" ToRole="PersonActionLog" />
+          <NavigationProperty Name="Bookmarks" Relationship="Self.FK__Bookmark__Employ__3E923B2D" FromRole="EmployeeRole" ToRole="Bookmark" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK__Employee__Primar__027D5126" FromRole="EmployeeRole" ToRole="Employee" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__EmployeeR__Emplo__064DE20A" FromRole="EmployeeRole" ToRole="Employee" />
+          <NavigationProperty Name="Institution" Relationship="Self.FK__EmployeeR__Insti__08362A7C" FromRole="EmployeeRole" ToRole="Institution" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__EmployeeR__RoleI__07420643" FromRole="EmployeeRole" ToRole="Role" />
+          <NavigationProperty Name="Files" Relationship="Self.FK__File__AuthorID__1C3D2329" FromRole="EmployeeRole" ToRole="File" />
+          <NavigationProperty Name="FileActionLogs" Relationship="Self.FK__FileActio__Emplo__322C6448" FromRole="EmployeeRole" ToRole="FileActionLog" />
+          <NavigationProperty Name="FileMentions" Relationship="Self.FK__FileMenti__Creat__39CD8610" FromRole="EmployeeRole" ToRole="FileMention" />
+          <NavigationProperty Name="FileVersions" Relationship="Self.FK__FileVersi__Autho__2D67AF2B" FromRole="EmployeeRole" ToRole="FileVersion" />
+          <NavigationProperty Name="InstitutionActionLogs" Relationship="Self.FK__Instituti__Emplo__13A7DD28" FromRole="EmployeeRole" ToRole="InstitutionActionLog" />
+          <NavigationProperty Name="PersonActionLogs" Relationship="Self.FK__PersonAct__Condu__10CB707D" FromRole="EmployeeRole" ToRole="PersonActionLog" />
         </EntityType>
         <EntityType Name="File">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DateCreatedSys" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="AuthorID" Type="Int32" Nullable="false" />
@@ -1228,21 +1032,14 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <Property Name="Locked" Type="Boolean" Nullable="false" />
           <Property Name="LockedUntil" Type="DateTime" Precision="3" />
-          <Property Name="Level" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Bookmarks" Relationship="Self.FK__Bookmark__FileID__0D64F3ED" FromRole="File" ToRole="Bookmark" />
-          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__File__AuthorID__515009E6" FromRole="File" ToRole="EmployeeRole" />
-          <NavigationProperty Name="EmployeeRole1" Relationship="Self.FK__File__AuthorID__53385258" FromRole="File" ToRole="EmployeeRole" />
-          <NavigationProperty Name="EmployeeRole2" Relationship="Self.FK__File__AuthorID__55209ACA" FromRole="File" ToRole="EmployeeRole" />
-          <NavigationProperty Name="EmployeeRole3" Relationship="Self.FK__File__AuthorID__58F12BAE" FromRole="File" ToRole="EmployeeRole" />
-          <NavigationProperty Name="FileLevel" Relationship="Self.FK__File__Level__5614BF03" FromRole="File" ToRole="FileLevel" />
-          <NavigationProperty Name="FileLevel1" Relationship="Self.FK__File__Level__59E54FE7" FromRole="File" ToRole="FileLevel" />
-          <NavigationProperty Name="FileActionLogs" Relationship="Self.FK__FileActio__FileI__73A521EA" FromRole="File" ToRole="FileActionLog" />
-          <NavigationProperty Name="FileActionLogs1" Relationship="Self.FK__FileActio__FileI__76818E95" FromRole="File" ToRole="FileActionLog" />
-          <NavigationProperty Name="FileMentions" Relationship="Self.FK__FileMenti__FileI__290D0E62" FromRole="File" ToRole="FileMention" />
-          <NavigationProperty Name="FileVersions" Relationship="Self.FK__FileVersi__FileI__664B26CC" FromRole="File" ToRole="FileVersion" />
-          <NavigationProperty Name="FileVersions1" Relationship="Self.FK__FileVersi__FileI__69279377" FromRole="File" ToRole="FileVersion" />
-          <NavigationProperty Name="FileVersions2" Relationship="Self.FK__FileVersi__FileI__6CF8245B" FromRole="File" ToRole="FileVersion" />
+          <Property Name="LevelID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bookmarks" Relationship="Self.FK__Bookmark__FileID__3D9E16F4" FromRole="File" ToRole="Bookmark" />
+          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__File__AuthorID__1C3D2329" FromRole="File" ToRole="EmployeeRole" />
+          <NavigationProperty Name="FileVersion" Relationship="Self.FK__File__CurrentVer__2B7F66B9" FromRole="File" ToRole="FileVersion" />
+          <NavigationProperty Name="FileLevel" Relationship="Self.FK__File__LevelID__1D314762" FromRole="File" ToRole="FileLevel" />
+          <NavigationProperty Name="FileActionLogs" Relationship="Self.FK__FileActio__FileI__33208881" FromRole="File" ToRole="FileActionLog" />
+          <NavigationProperty Name="FileMentions" Relationship="Self.FK__FileMenti__FileI__37E53D9E" FromRole="File" ToRole="FileMention" />
+          <NavigationProperty Name="FileVersions" Relationship="Self.FK__FileVersi__FileI__2C738AF2" FromRole="File" ToRole="FileVersion" />
         </EntityType>
         <EntityType Name="FileActionLog">
           <Key>
@@ -1253,11 +1050,9 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
           <Property Name="FileID" Type="Int32" Nullable="false" />
           <Property Name="ActionDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PermissionName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__FileActio__Emplo__72B0FDB1" FromRole="FileActionLog" ToRole="EmployeeRole" />
-          <NavigationProperty Name="EmployeeRole1" Relationship="Self.FK__FileActio__Emplo__758D6A5C" FromRole="FileActionLog" ToRole="EmployeeRole" />
-          <NavigationProperty Name="File" Relationship="Self.FK__FileActio__FileI__73A521EA" FromRole="FileActionLog" ToRole="File" />
-          <NavigationProperty Name="File1" Relationship="Self.FK__FileActio__FileI__76818E95" FromRole="FileActionLog" ToRole="File" />
-          <NavigationProperty Name="FilePermission" Relationship="Self.FK__FileActio__Permi__7775B2CE" FromRole="FileActionLog" ToRole="FilePermission" />
+          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__FileActio__Emplo__322C6448" FromRole="FileActionLog" ToRole="EmployeeRole" />
+          <NavigationProperty Name="File" Relationship="Self.FK__FileActio__FileI__33208881" FromRole="FileActionLog" ToRole="File" />
+          <NavigationProperty Name="FilePermission" Relationship="Self.FK__FileActio__Permi__3414ACBA" FromRole="FileActionLog" ToRole="FilePermission" />
         </EntityType>
         <EntityType Name="FileContent">
           <Key>
@@ -1266,18 +1061,18 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Href" Type="String" MaxLength="3000" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="FileSize" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="FileVersions" Relationship="Self.FK__FileVersi__FileC__6FD49106" FromRole="FileContent" ToRole="FileVersion" />
-          <NavigationProperty Name="Messages" Relationship="Self.FK__Message__FileCon__24485945" FromRole="FileContent" ToRole="Message" />
+          <NavigationProperty Name="FileVersions" Relationship="Self.FK__FileVersi__FileC__2F4FF79D" FromRole="FileContent" ToRole="FileVersion" />
+          <NavigationProperty Name="Messages" Relationship="Self.FK__Message__FileCon__4356F04A" FromRole="FileContent" ToRole="Message" />
         </EntityType>
         <EntityType Name="FileLevel">
           <Key>
-            <PropertyRef Name="Level" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="Level" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="LevelDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Files" Relationship="Self.FK__File__Level__5614BF03" FromRole="FileLevel" ToRole="File" />
-          <NavigationProperty Name="Files1" Relationship="Self.FK__File__Level__59E54FE7" FromRole="FileLevel" ToRole="File" />
-          <NavigationProperty Name="FilesScopes" Relationship="Self.FK__FilesScop__Level__5BCD9859" FromRole="FileLevel" ToRole="FilesScope" />
+          <NavigationProperty Name="Files" Relationship="Self.FK__File__LevelID__1D314762" FromRole="FileLevel" ToRole="File" />
+          <NavigationProperty Name="FilesScopes" Relationship="Self.FK__FilesScop__Level__2101D846" FromRole="FileLevel" ToRole="FilesScope" />
         </EntityType>
         <EntityType Name="FileMention">
           <Key>
@@ -1289,9 +1084,9 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
           <Property Name="EmployeeID" Type="Int32" Nullable="false" />
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Seen" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK__FileMenti__Emplo__2A01329B" FromRole="FileMention" ToRole="Employee" />
-          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__FileMenti__Creat__2AF556D4" FromRole="FileMention" ToRole="EmployeeRole" />
-          <NavigationProperty Name="File" Relationship="Self.FK__FileMenti__FileI__290D0E62" FromRole="FileMention" ToRole="File" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__FileMenti__Emplo__38D961D7" FromRole="FileMention" ToRole="Employee" />
+          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__FileMenti__Creat__39CD8610" FromRole="FileMention" ToRole="EmployeeRole" />
+          <NavigationProperty Name="File" Relationship="Self.FK__FileMenti__FileI__37E53D9E" FromRole="FileMention" ToRole="File" />
         </EntityType>
         <EntityType Name="FilePermission">
           <Key>
@@ -1299,8 +1094,21 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
           </Key>
           <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ArabicName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="FileActionLogs" Relationship="Self.FK__FileActio__Permi__7775B2CE" FromRole="FilePermission" ToRole="FileActionLog" />
-          <NavigationProperty Name="FilesScopes" Relationship="Self.FK__FilesScop__Permi__5DB5E0CB" FromRole="FilePermission" ToRole="FilesScope" />
+          <Property Name="Grantable" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="FileActionLogs" Relationship="Self.FK__FileActio__Permi__3414ACBA" FromRole="FilePermission" ToRole="FileActionLog" />
+          <NavigationProperty Name="FilesScopes" Relationship="Self.FK__FilesScop__Permi__22EA20B8" FromRole="FilePermission" ToRole="FilesScope" />
+        </EntityType>
+        <EntityType Name="FilesScope">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LevelID" Type="Int32" Nullable="false" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="Permission" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="FileLevel" Relationship="Self.FK__FilesScop__Level__2101D846" FromRole="FilesScope" ToRole="FileLevel" />
+          <NavigationProperty Name="FilePermission" Relationship="Self.FK__FilesScop__Permi__22EA20B8" FromRole="FilesScope" ToRole="FilePermission" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__FilesScop__RoleI__21F5FC7F" FromRole="FilesScope" ToRole="Role" />
         </EntityType>
         <EntityType Name="FileType">
           <Key>
@@ -1309,9 +1117,8 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Extension" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ArabicName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="FileVersions" Relationship="Self.FK__FileVersi__FileT__6B0FDBE9" FromRole="FileType" ToRole="FileVersion" />
-          <NavigationProperty Name="FileVersions1" Relationship="Self.FK__FileVersi__FileT__6EE06CCD" FromRole="FileType" ToRole="FileVersion" />
-          <NavigationProperty Name="Messages" Relationship="Self.FK__Message__FileTyp__253C7D7E" FromRole="FileType" ToRole="Message" />
+          <NavigationProperty Name="FileVersions" Relationship="Self.FK__FileVersi__FileT__2E5BD364" FromRole="FileType" ToRole="FileVersion" />
+          <NavigationProperty Name="Messages" Relationship="Self.FK__Message__FileTyp__444B1483" FromRole="FileType" ToRole="Message" />
         </EntityType>
         <EntityType Name="FileVersion">
           <Key>
@@ -1325,17 +1132,13 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
           <Property Name="DateCreatedSys" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="AuthorID" Type="Int32" Nullable="false" />
-          <Property Name="FileTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FileTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="FileContentID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__FileVersi__Autho__673F4B05" FromRole="FileVersion" ToRole="EmployeeRole" />
-          <NavigationProperty Name="EmployeeRole1" Relationship="Self.FK__FileVersi__Autho__6A1BB7B0" FromRole="FileVersion" ToRole="EmployeeRole" />
-          <NavigationProperty Name="EmployeeRole2" Relationship="Self.FK__FileVersi__Autho__6DEC4894" FromRole="FileVersion" ToRole="EmployeeRole" />
-          <NavigationProperty Name="File" Relationship="Self.FK__FileVersi__FileI__664B26CC" FromRole="FileVersion" ToRole="File" />
-          <NavigationProperty Name="File1" Relationship="Self.FK__FileVersi__FileI__69279377" FromRole="FileVersion" ToRole="File" />
-          <NavigationProperty Name="File2" Relationship="Self.FK__FileVersi__FileI__6CF8245B" FromRole="FileVersion" ToRole="File" />
-          <NavigationProperty Name="FileContent" Relationship="Self.FK__FileVersi__FileC__6FD49106" FromRole="FileVersion" ToRole="FileContent" />
-          <NavigationProperty Name="FileType" Relationship="Self.FK__FileVersi__FileT__6B0FDBE9" FromRole="FileVersion" ToRole="FileType" />
-          <NavigationProperty Name="FileType1" Relationship="Self.FK__FileVersi__FileT__6EE06CCD" FromRole="FileVersion" ToRole="FileType" />
+          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__FileVersi__Autho__2D67AF2B" FromRole="FileVersion" ToRole="EmployeeRole" />
+          <NavigationProperty Name="Files" Relationship="Self.FK__File__CurrentVer__2B7F66B9" FromRole="FileVersion" ToRole="File" />
+          <NavigationProperty Name="File" Relationship="Self.FK__FileVersi__FileI__2C738AF2" FromRole="FileVersion" ToRole="File" />
+          <NavigationProperty Name="FileContent" Relationship="Self.FK__FileVersi__FileC__2F4FF79D" FromRole="FileVersion" ToRole="FileContent" />
+          <NavigationProperty Name="FileType" Relationship="Self.FK__FileVersi__FileT__2E5BD364" FromRole="FileVersion" ToRole="FileType" />
         </EntityType>
         <EntityType Name="Institution">
           <Key>
@@ -1353,11 +1156,11 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
           <Property Name="SecondaryPhone" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="Fax" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="EmployeeRoles" Relationship="Self.FK__EmployeeR__Insti__3D491139" FromRole="Institution" ToRole="EmployeeRole" />
-          <NavigationProperty Name="InstitutionType" Relationship="Self.FK__Instituti__Insti__40257DE4" FromRole="Institution" ToRole="InstitutionType" />
-          <NavigationProperty Name="InstitutionActionLogs" Relationship="Self.FK__Instituti__Insti__49AEE81E" FromRole="Institution" ToRole="InstitutionActionLog" />
-          <NavigationProperty Name="Institution1" Relationship="Self.FK__Instituti__Paren__4119A21D" FromRole="Institution" ToRole="Institution1" />
-          <NavigationProperty Name="Institution2" Relationship="Self.FK__Instituti__Paren__4119A21D" FromRole="Institution1" ToRole="Institution" />
+          <NavigationProperty Name="EmployeeRoles" Relationship="Self.FK__EmployeeR__Insti__08362A7C" FromRole="Institution" ToRole="EmployeeRole" />
+          <NavigationProperty Name="InstitutionType" Relationship="Self.FK__Instituti__Insti__0B129727" FromRole="Institution" ToRole="InstitutionType" />
+          <NavigationProperty Name="InstitutionActionLogs" Relationship="Self.FK__Instituti__Insti__149C0161" FromRole="Institution" ToRole="InstitutionActionLog" />
+          <NavigationProperty Name="Institution1" Relationship="Self.FK__Instituti__Paren__0C06BB60" FromRole="Institution" ToRole="Institution1" />
+          <NavigationProperty Name="Institution2" Relationship="Self.FK__Instituti__Paren__0C06BB60" FromRole="Institution1" ToRole="Institution" />
         </EntityType>
         <EntityType Name="InstitutionActionLog">
           <Key>
@@ -1368,9 +1171,9 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
           <Property Name="InstitutionID" Type="Int32" Nullable="false" />
           <Property Name="ActionDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PermissionName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__Instituti__Emplo__48BAC3E5" FromRole="InstitutionActionLog" ToRole="EmployeeRole" />
-          <NavigationProperty Name="Institution" Relationship="Self.FK__Instituti__Insti__49AEE81E" FromRole="InstitutionActionLog" ToRole="Institution" />
-          <NavigationProperty Name="InstitutionPermission" Relationship="Self.FK__Instituti__Permi__4AA30C57" FromRole="InstitutionActionLog" ToRole="InstitutionPermission" />
+          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__Instituti__Emplo__13A7DD28" FromRole="InstitutionActionLog" ToRole="EmployeeRole" />
+          <NavigationProperty Name="Institution" Relationship="Self.FK__Instituti__Insti__149C0161" FromRole="InstitutionActionLog" ToRole="Institution" />
+          <NavigationProperty Name="InstitutionPermission" Relationship="Self.FK__Instituti__Permi__1590259A" FromRole="InstitutionActionLog" ToRole="InstitutionPermission" />
         </EntityType>
         <EntityType Name="InstitutionPermission">
           <Key>
@@ -1378,8 +1181,10 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
           </Key>
           <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ArabicName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="InstitutionActionLogs" Relationship="Self.FK__Instituti__Permi__4AA30C57" FromRole="InstitutionPermission" ToRole="InstitutionActionLog" />
-          <NavigationProperty Name="RoleInstitutionPermissions" Relationship="Self.FK__RoleInsti__Permi__3D14070F" FromRole="InstitutionPermission" ToRole="RoleInstitutionPermission" />
+          <Property Name="Grantable" Type="Boolean" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="InstitutionActionLogs" Relationship="Self.FK__Instituti__Permi__1590259A" FromRole="InstitutionPermission" ToRole="InstitutionActionLog" />
+          <NavigationProperty Name="RoleInstitutionPermissions" Relationship="Self.FK__RoleInsti__Permi__7EACC042" FromRole="InstitutionPermission" ToRole="RoleInstitutionPermission" />
         </EntityType>
         <EntityType Name="InstitutionType">
           <Key>
@@ -1388,7 +1193,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ArabicName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Institutions" Relationship="Self.FK__Instituti__Insti__40257DE4" FromRole="InstitutionType" ToRole="Institution" />
+          <NavigationProperty Name="Institutions" Relationship="Self.FK__Instituti__Insti__0B129727" FromRole="InstitutionType" ToRole="Institution" />
         </EntityType>
         <EntityType Name="Message">
           <Key>
@@ -1405,10 +1210,10 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
           <Property Name="Seen" Type="Boolean" Nullable="false" />
           <Property Name="DeletedFromSender" Type="Boolean" Nullable="false" />
           <Property Name="DeletedFromReciever" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK__Message__Recieve__2354350C" FromRole="Message" ToRole="Employee" />
-          <NavigationProperty Name="Employee1" Relationship="Self.FK__Message__SenderI__226010D3" FromRole="Message" ToRole="Employee" />
-          <NavigationProperty Name="FileContent" Relationship="Self.FK__Message__FileCon__24485945" FromRole="Message" ToRole="FileContent" />
-          <NavigationProperty Name="FileType" Relationship="Self.FK__Message__FileTyp__253C7D7E" FromRole="Message" ToRole="FileType" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__Message__Recieve__4262CC11" FromRole="Message" ToRole="Employee" />
+          <NavigationProperty Name="Employee1" Relationship="Self.FK__Message__SenderI__416EA7D8" FromRole="Message" ToRole="Employee" />
+          <NavigationProperty Name="FileContent" Relationship="Self.FK__Message__FileCon__4356F04A" FromRole="Message" ToRole="FileContent" />
+          <NavigationProperty Name="FileType" Relationship="Self.FK__Message__FileTyp__444B1483" FromRole="Message" ToRole="FileType" />
         </EntityType>
         <EntityType Name="PersonActionLog">
           <Key>
@@ -1419,9 +1224,9 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
           <Property Name="AffectedEmployeeID" Type="Int32" Nullable="false" />
           <Property Name="ActionDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PermissionName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK__PersonAct__Affec__46D27B73" FromRole="PersonActionLog" ToRole="Employee" />
-          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__PersonAct__Condu__45DE573A" FromRole="PersonActionLog" ToRole="EmployeeRole" />
-          <NavigationProperty Name="PersonPermission" Relationship="Self.FK__PersonAct__Permi__47C69FAC" FromRole="PersonActionLog" ToRole="PersonPermission" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__PersonAct__Affec__11BF94B6" FromRole="PersonActionLog" ToRole="Employee" />
+          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__PersonAct__Condu__10CB707D" FromRole="PersonActionLog" ToRole="EmployeeRole" />
+          <NavigationProperty Name="PersonPermission" Relationship="Self.FK__PersonAct__Permi__12B3B8EF" FromRole="PersonActionLog" ToRole="PersonPermission" />
         </EntityType>
         <EntityType Name="PersonPermission">
           <Key>
@@ -1429,8 +1234,10 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
           </Key>
           <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ArabicName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="PersonActionLogs" Relationship="Self.FK__PersonAct__Permi__47C69FAC" FromRole="PersonPermission" ToRole="PersonActionLog" />
-          <NavigationProperty Name="RolePersonPermissions" Relationship="Self.FK__RolePerso__Permi__3B2BBE9D" FromRole="PersonPermission" ToRole="RolePersonPermission" />
+          <Property Name="Grantable" Type="Boolean" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PersonActionLogs" Relationship="Self.FK__PersonAct__Permi__12B3B8EF" FromRole="PersonPermission" ToRole="PersonActionLog" />
+          <NavigationProperty Name="RolePersonPermissions" Relationship="Self.FK__RolePerso__Permi__7CC477D0" FromRole="PersonPermission" ToRole="RolePersonPermission" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -1440,12 +1247,12 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
           <Property Name="ParentID" Type="Int32" />
           <Property Name="PriorityOrder" Type="Int32" Nullable="false" />
           <Property Name="ArabicName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="EmployeeRoles" Relationship="Self.FK__EmployeeR__RoleI__3C54ED00" FromRole="Role" ToRole="EmployeeRole" />
-          <NavigationProperty Name="FilesScopes" Relationship="Self.FK__FilesScop__RoleI__5CC1BC92" FromRole="Role" ToRole="FilesScope" />
-          <NavigationProperty Name="Role1" Relationship="Self.FK__Role__ParentID__2D12A970" FromRole="Role" ToRole="Role1" />
-          <NavigationProperty Name="Role2" Relationship="Self.FK__Role__ParentID__2D12A970" FromRole="Role1" ToRole="Role" />
-          <NavigationProperty Name="RoleInstitutionPermissions" Relationship="Self.FK__RoleInsti__RoleI__3C1FE2D6" FromRole="Role" ToRole="RoleInstitutionPermission" />
-          <NavigationProperty Name="RolePersonPermissions" Relationship="Self.FK__RolePerso__RoleI__3A379A64" FromRole="Role" ToRole="RolePersonPermission" />
+          <NavigationProperty Name="EmployeeRoles" Relationship="Self.FK__EmployeeR__RoleI__07420643" FromRole="Role" ToRole="EmployeeRole" />
+          <NavigationProperty Name="FilesScopes" Relationship="Self.FK__FilesScop__RoleI__21F5FC7F" FromRole="Role" ToRole="FilesScope" />
+          <NavigationProperty Name="Role1" Relationship="Self.FK__Role__ParentID__742F31CF" FromRole="Role" ToRole="Role1" />
+          <NavigationProperty Name="Role2" Relationship="Self.FK__Role__ParentID__742F31CF" FromRole="Role1" ToRole="Role" />
+          <NavigationProperty Name="RoleInstitutionPermissions" Relationship="Self.FK__RoleInsti__RoleI__7DB89C09" FromRole="Role" ToRole="RoleInstitutionPermission" />
+          <NavigationProperty Name="RolePersonPermissions" Relationship="Self.FK__RolePerso__RoleI__7BD05397" FromRole="Role" ToRole="RolePersonPermission" />
         </EntityType>
         <EntityType Name="RoleInstitutionPermission">
           <Key>
@@ -1454,8 +1261,8 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoleID" Type="Int32" Nullable="false" />
           <Property Name="PermissionName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="InstitutionPermission" Relationship="Self.FK__RoleInsti__Permi__3D14070F" FromRole="RoleInstitutionPermission" ToRole="InstitutionPermission" />
-          <NavigationProperty Name="Role" Relationship="Self.FK__RoleInsti__RoleI__3C1FE2D6" FromRole="RoleInstitutionPermission" ToRole="Role" />
+          <NavigationProperty Name="InstitutionPermission" Relationship="Self.FK__RoleInsti__Permi__7EACC042" FromRole="RoleInstitutionPermission" ToRole="InstitutionPermission" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__RoleInsti__RoleI__7DB89C09" FromRole="RoleInstitutionPermission" ToRole="Role" />
         </EntityType>
         <EntityType Name="RolePersonPermission">
           <Key>
@@ -1464,39 +1271,10 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoleID" Type="Int32" Nullable="false" />
           <Property Name="PermissionName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="PersonPermission" Relationship="Self.FK__RolePerso__Permi__3B2BBE9D" FromRole="RolePersonPermission" ToRole="PersonPermission" />
-          <NavigationProperty Name="Role" Relationship="Self.FK__RolePerso__RoleI__3A379A64" FromRole="RolePersonPermission" ToRole="Role" />
+          <NavigationProperty Name="PersonPermission" Relationship="Self.FK__RolePerso__Permi__7CC477D0" FromRole="RolePersonPermission" ToRole="PersonPermission" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__RolePerso__RoleI__7BD05397" FromRole="RolePersonPermission" ToRole="Role" />
         </EntityType>
-        <EntityType Name="FilesScope">
-          <Key>
-            <PropertyRef Name="Level" />
-            <PropertyRef Name="RoleID" />
-            <PropertyRef Name="Permission" />
-          </Key>
-          <Property Name="Level" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="RoleID" Type="Int32" Nullable="false" />
-          <Property Name="Permission" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="FileLevel" Relationship="Self.FK__FilesScop__Level__5BCD9859" FromRole="FilesScope" ToRole="FileLevel" />
-          <NavigationProperty Name="FilePermission" Relationship="Self.FK__FilesScop__Permi__5DB5E0CB" FromRole="FilesScope" ToRole="FilePermission" />
-          <NavigationProperty Name="Role" Relationship="Self.FK__FilesScop__RoleI__5CC1BC92" FromRole="FilesScope" ToRole="Role" />
-        </EntityType>
-        <EntityType Name="database_firewall_rules">
-          <Key>
-            <PropertyRef Name="id" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="start_ip_address" />
-            <PropertyRef Name="end_ip_address" />
-            <PropertyRef Name="create_date" />
-            <PropertyRef Name="modify_date" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="start_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="end_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <Association Name="FK__Bookmark__Employ__0E591826">
+        <Association Name="FK__Bookmark__Employ__3E923B2D">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="Bookmark" Type="Self.Bookmark" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1508,7 +1286,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Bookmark__FileID__0D64F3ED">
+        <Association Name="FK__Bookmark__FileID__3D9E16F4">
           <End Role="File" Type="Self.File" Multiplicity="1" />
           <End Role="Bookmark" Type="Self.Bookmark" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1520,7 +1298,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Employee__CityID__2E06CDA9">
+        <Association Name="FK__Employee__CityID__75235608">
           <End Role="City" Type="Self.City" Multiplicity="1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1532,7 +1310,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Employee__Primar__379037E3">
+        <Association Name="FK__Employee__Primar__027D5126">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="0..1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1544,7 +1322,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EmployeeC__Emplo__2942188C">
+        <Association Name="FK__EmployeeC__Emplo__705EA0EB">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="EmployeeCredentials" Type="Self.EmployeeCredential" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1556,7 +1334,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EmployeeR__Emplo__3B60C8C7">
+        <Association Name="FK__EmployeeR__Emplo__064DE20A">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1568,7 +1346,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileMenti__Emplo__2A01329B">
+        <Association Name="FK__FileMenti__Emplo__38D961D7">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="FileMention" Type="Self.FileMention" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1580,7 +1358,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Message__Recieve__2354350C">
+        <Association Name="FK__Message__Recieve__4262CC11">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1592,7 +1370,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Message__SenderI__226010D3">
+        <Association Name="FK__Message__SenderI__416EA7D8">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1604,7 +1382,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PersonAct__Affec__46D27B73">
+        <Association Name="FK__PersonAct__Affec__11BF94B6">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="PersonActionLog" Type="Self.PersonActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1616,7 +1394,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EmployeeR__Insti__3D491139">
+        <Association Name="FK__EmployeeR__Insti__08362A7C">
           <End Role="Institution" Type="Self.Institution" Multiplicity="1" />
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1628,7 +1406,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EmployeeR__RoleI__3C54ED00">
+        <Association Name="FK__EmployeeR__RoleI__07420643">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1640,7 +1418,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__File__AuthorID__515009E6">
+        <Association Name="FK__File__AuthorID__1C3D2329">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="File" Type="Self.File" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1652,43 +1430,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__File__AuthorID__53385258">
-          <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
-          <End Role="File" Type="Self.File" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeeRole">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="File">
-              <PropertyRef Name="AuthorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__File__AuthorID__55209ACA">
-          <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
-          <End Role="File" Type="Self.File" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeeRole">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="File">
-              <PropertyRef Name="AuthorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__File__AuthorID__58F12BAE">
-          <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
-          <End Role="File" Type="Self.File" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeeRole">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="File">
-              <PropertyRef Name="AuthorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__FileActio__Emplo__72B0FDB1">
+        <Association Name="FK__FileActio__Emplo__322C6448">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="FileActionLog" Type="Self.FileActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1700,19 +1442,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileActio__Emplo__758D6A5C">
-          <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
-          <End Role="FileActionLog" Type="Self.FileActionLog" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeeRole">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="FileActionLog">
-              <PropertyRef Name="EmployeeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__FileMenti__Creat__2AF556D4">
+        <Association Name="FK__FileMenti__Creat__39CD8610">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="FileMention" Type="Self.FileMention" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1724,7 +1454,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileVersi__Autho__673F4B05">
+        <Association Name="FK__FileVersi__Autho__2D67AF2B">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1736,31 +1466,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileVersi__Autho__6A1BB7B0">
-          <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
-          <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeeRole">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="FileVersion">
-              <PropertyRef Name="AuthorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__FileVersi__Autho__6DEC4894">
-          <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
-          <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeeRole">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="FileVersion">
-              <PropertyRef Name="AuthorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Instituti__Emplo__48BAC3E5">
+        <Association Name="FK__Instituti__Emplo__13A7DD28">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="InstitutionActionLog" Type="Self.InstitutionActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1772,7 +1478,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PersonAct__Condu__45DE573A">
+        <Association Name="FK__PersonAct__Condu__10CB707D">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="PersonActionLog" Type="Self.PersonActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1784,31 +1490,31 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__File__Level__5614BF03">
+        <Association Name="FK__File__CurrentVer__2B7F66B9">
+          <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="0..1" />
+          <End Role="File" Type="Self.File" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FileVersion">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="File">
+              <PropertyRef Name="CurrentVersion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__File__LevelID__1D314762">
           <End Role="FileLevel" Type="Self.FileLevel" Multiplicity="1" />
           <End Role="File" Type="Self.File" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FileLevel">
-              <PropertyRef Name="Level" />
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="File">
-              <PropertyRef Name="Level" />
+              <PropertyRef Name="LevelID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__File__Level__59E54FE7">
-          <End Role="FileLevel" Type="Self.FileLevel" Multiplicity="1" />
-          <End Role="File" Type="Self.File" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FileLevel">
-              <PropertyRef Name="Level" />
-            </Principal>
-            <Dependent Role="File">
-              <PropertyRef Name="Level" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__FileActio__FileI__73A521EA">
+        <Association Name="FK__FileActio__FileI__33208881">
           <End Role="File" Type="Self.File" Multiplicity="1" />
           <End Role="FileActionLog" Type="Self.FileActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1820,19 +1526,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileActio__FileI__76818E95">
-          <End Role="File" Type="Self.File" Multiplicity="1" />
-          <End Role="FileActionLog" Type="Self.FileActionLog" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="File">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="FileActionLog">
-              <PropertyRef Name="FileID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__FileMenti__FileI__290D0E62">
+        <Association Name="FK__FileMenti__FileI__37E53D9E">
           <End Role="File" Type="Self.File" Multiplicity="1" />
           <End Role="FileMention" Type="Self.FileMention" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1844,7 +1538,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileVersi__FileI__664B26CC">
+        <Association Name="FK__FileVersi__FileI__2C738AF2">
           <End Role="File" Type="Self.File" Multiplicity="0..1" />
           <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1856,31 +1550,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileVersi__FileI__69279377">
-          <End Role="File" Type="Self.File" Multiplicity="0..1" />
-          <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="File">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="FileVersion">
-              <PropertyRef Name="FileID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__FileVersi__FileI__6CF8245B">
-          <End Role="File" Type="Self.File" Multiplicity="0..1" />
-          <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="File">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="FileVersion">
-              <PropertyRef Name="FileID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__FileActio__Permi__7775B2CE">
+        <Association Name="FK__FileActio__Permi__3414ACBA">
           <End Role="FilePermission" Type="Self.FilePermission" Multiplicity="1" />
           <End Role="FileActionLog" Type="Self.FileActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1892,7 +1562,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileVersi__FileC__6FD49106">
+        <Association Name="FK__FileVersi__FileC__2F4FF79D">
           <End Role="FileContent" Type="Self.FileContent" Multiplicity="1" />
           <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1904,7 +1574,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Message__FileCon__24485945">
+        <Association Name="FK__Message__FileCon__4356F04A">
           <End Role="FileContent" Type="Self.FileContent" Multiplicity="1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1916,19 +1586,19 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FilesScop__Level__5BCD9859">
+        <Association Name="FK__FilesScop__Level__2101D846">
           <End Role="FileLevel" Type="Self.FileLevel" Multiplicity="1" />
           <End Role="FilesScope" Type="Self.FilesScope" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FileLevel">
-              <PropertyRef Name="Level" />
+              <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="FilesScope">
-              <PropertyRef Name="Level" />
+              <PropertyRef Name="LevelID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FilesScop__Permi__5DB5E0CB">
+        <Association Name="FK__FilesScop__Permi__22EA20B8">
           <End Role="FilePermission" Type="Self.FilePermission" Multiplicity="1" />
           <End Role="FilesScope" Type="Self.FilesScope" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1940,127 +1610,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileVersi__FileT__6B0FDBE9">
-          <End Role="FileType" Type="Self.FileType" Multiplicity="0..1" />
-          <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FileType">
-              <PropertyRef Name="Name" />
-            </Principal>
-            <Dependent Role="FileVersion">
-              <PropertyRef Name="FileTypeName" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__FileVersi__FileT__6EE06CCD">
-          <End Role="FileType" Type="Self.FileType" Multiplicity="0..1" />
-          <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FileType">
-              <PropertyRef Name="Name" />
-            </Principal>
-            <Dependent Role="FileVersion">
-              <PropertyRef Name="FileTypeName" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Message__FileTyp__253C7D7E">
-          <End Role="FileType" Type="Self.FileType" Multiplicity="1" />
-          <End Role="Message" Type="Self.Message" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FileType">
-              <PropertyRef Name="Name" />
-            </Principal>
-            <Dependent Role="Message">
-              <PropertyRef Name="FileTypeName" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Instituti__Insti__40257DE4">
-          <End Role="InstitutionType" Type="Self.InstitutionType" Multiplicity="1" />
-          <End Role="Institution" Type="Self.Institution" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="InstitutionType">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Institution">
-              <PropertyRef Name="InstitutionTypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Instituti__Insti__49AEE81E">
-          <End Role="Institution" Type="Self.Institution" Multiplicity="1" />
-          <End Role="InstitutionActionLog" Type="Self.InstitutionActionLog" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Institution">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="InstitutionActionLog">
-              <PropertyRef Name="InstitutionID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Instituti__Paren__4119A21D">
-          <End Role="Institution" Type="Self.Institution" Multiplicity="0..1" />
-          <End Role="Institution1" Type="Self.Institution" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Institution">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Institution1">
-              <PropertyRef Name="ParentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Instituti__Permi__4AA30C57">
-          <End Role="InstitutionPermission" Type="Self.InstitutionPermission" Multiplicity="1" />
-          <End Role="InstitutionActionLog" Type="Self.InstitutionActionLog" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="InstitutionPermission">
-              <PropertyRef Name="Name" />
-            </Principal>
-            <Dependent Role="InstitutionActionLog">
-              <PropertyRef Name="PermissionName" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__RoleInsti__Permi__3D14070F">
-          <End Role="InstitutionPermission" Type="Self.InstitutionPermission" Multiplicity="1" />
-          <End Role="RoleInstitutionPermission" Type="Self.RoleInstitutionPermission" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="InstitutionPermission">
-              <PropertyRef Name="Name" />
-            </Principal>
-            <Dependent Role="RoleInstitutionPermission">
-              <PropertyRef Name="PermissionName" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__PersonAct__Permi__47C69FAC">
-          <End Role="PersonPermission" Type="Self.PersonPermission" Multiplicity="1" />
-          <End Role="PersonActionLog" Type="Self.PersonActionLog" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PersonPermission">
-              <PropertyRef Name="Name" />
-            </Principal>
-            <Dependent Role="PersonActionLog">
-              <PropertyRef Name="PermissionName" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__RolePerso__Permi__3B2BBE9D">
-          <End Role="PersonPermission" Type="Self.PersonPermission" Multiplicity="1" />
-          <End Role="RolePersonPermission" Type="Self.RolePersonPermission" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PersonPermission">
-              <PropertyRef Name="Name" />
-            </Principal>
-            <Dependent Role="RolePersonPermission">
-              <PropertyRef Name="PermissionName" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__FilesScop__RoleI__5CC1BC92">
+        <Association Name="FK__FilesScop__RoleI__21F5FC7F">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="FilesScope" Type="Self.FilesScope" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2072,7 +1622,115 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Role__ParentID__2D12A970">
+        <Association Name="FK__FileVersi__FileT__2E5BD364">
+          <End Role="FileType" Type="Self.FileType" Multiplicity="1" />
+          <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FileType">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="FileVersion">
+              <PropertyRef Name="FileTypeName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Message__FileTyp__444B1483">
+          <End Role="FileType" Type="Self.FileType" Multiplicity="1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FileType">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="FileTypeName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Instituti__Insti__0B129727">
+          <End Role="InstitutionType" Type="Self.InstitutionType" Multiplicity="1" />
+          <End Role="Institution" Type="Self.Institution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InstitutionType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Institution">
+              <PropertyRef Name="InstitutionTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Instituti__Insti__149C0161">
+          <End Role="Institution" Type="Self.Institution" Multiplicity="1" />
+          <End Role="InstitutionActionLog" Type="Self.InstitutionActionLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Institution">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="InstitutionActionLog">
+              <PropertyRef Name="InstitutionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Instituti__Paren__0C06BB60">
+          <End Role="Institution" Type="Self.Institution" Multiplicity="0..1" />
+          <End Role="Institution1" Type="Self.Institution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Institution">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Institution1">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Instituti__Permi__1590259A">
+          <End Role="InstitutionPermission" Type="Self.InstitutionPermission" Multiplicity="1" />
+          <End Role="InstitutionActionLog" Type="Self.InstitutionActionLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InstitutionPermission">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="InstitutionActionLog">
+              <PropertyRef Name="PermissionName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RoleInsti__Permi__7EACC042">
+          <End Role="InstitutionPermission" Type="Self.InstitutionPermission" Multiplicity="1" />
+          <End Role="RoleInstitutionPermission" Type="Self.RoleInstitutionPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InstitutionPermission">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="RoleInstitutionPermission">
+              <PropertyRef Name="PermissionName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PersonAct__Permi__12B3B8EF">
+          <End Role="PersonPermission" Type="Self.PersonPermission" Multiplicity="1" />
+          <End Role="PersonActionLog" Type="Self.PersonActionLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonPermission">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="PersonActionLog">
+              <PropertyRef Name="PermissionName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RolePerso__Permi__7CC477D0">
+          <End Role="PersonPermission" Type="Self.PersonPermission" Multiplicity="1" />
+          <End Role="RolePersonPermission" Type="Self.RolePersonPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonPermission">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="RolePersonPermission">
+              <PropertyRef Name="PermissionName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Role__ParentID__742F31CF">
           <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
           <End Role="Role1" Type="Self.Role" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2084,7 +1742,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RoleInsti__RoleI__3C1FE2D6">
+        <Association Name="FK__RoleInsti__RoleI__7DB89C09">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="RoleInstitutionPermission" Type="Self.RoleInstitutionPermission" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2096,7 +1754,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RolePerso__RoleI__3A379A64">
+        <Association Name="FK__RolePerso__RoleI__7BD05397">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="RolePersonPermission" Type="Self.RolePersonPermission" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2108,7 +1766,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DMS_dbEntities12" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="DMS_dbEntities15" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Bookmarks" EntityType="Self.Bookmark" />
           <EntitySet Name="Cities" EntityType="Self.City" />
           <EntitySet Name="Employees" EntityType="Self.Employee" />
@@ -2120,6 +1778,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
           <EntitySet Name="FileLevels" EntityType="Self.FileLevel" />
           <EntitySet Name="FileMentions" EntityType="Self.FileMention" />
           <EntitySet Name="FilePermissions" EntityType="Self.FilePermission" />
+          <EntitySet Name="FilesScopes" EntityType="Self.FilesScope" />
           <EntitySet Name="FileTypes" EntityType="Self.FileType" />
           <EntitySet Name="FileVersions" EntityType="Self.FileVersion" />
           <EntitySet Name="Institutions" EntityType="Self.Institution" />
@@ -2132,209 +1791,167 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="RoleInstitutionPermissions" EntityType="Self.RoleInstitutionPermission" />
           <EntitySet Name="RolePersonPermissions" EntityType="Self.RolePersonPermission" />
-          <EntitySet Name="FilesScopes" EntityType="Self.FilesScope" />
-          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" />
-          <AssociationSet Name="FK__Bookmark__Employ__0E591826" Association="Self.FK__Bookmark__Employ__0E591826">
+          <AssociationSet Name="FK__Bookmark__Employ__3E923B2D" Association="Self.FK__Bookmark__Employ__3E923B2D">
             <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
             <End Role="Bookmark" EntitySet="Bookmarks" />
           </AssociationSet>
-          <AssociationSet Name="FK__Bookmark__FileID__0D64F3ED" Association="Self.FK__Bookmark__FileID__0D64F3ED">
+          <AssociationSet Name="FK__Bookmark__FileID__3D9E16F4" Association="Self.FK__Bookmark__FileID__3D9E16F4">
             <End Role="File" EntitySet="Files" />
             <End Role="Bookmark" EntitySet="Bookmarks" />
           </AssociationSet>
-          <AssociationSet Name="FK__Employee__CityID__2E06CDA9" Association="Self.FK__Employee__CityID__2E06CDA9">
+          <AssociationSet Name="FK__Employee__CityID__75235608" Association="Self.FK__Employee__CityID__75235608">
             <End Role="City" EntitySet="Cities" />
             <End Role="Employee" EntitySet="Employees" />
           </AssociationSet>
-          <AssociationSet Name="FK__Employee__Primar__379037E3" Association="Self.FK__Employee__Primar__379037E3">
+          <AssociationSet Name="FK__Employee__Primar__027D5126" Association="Self.FK__Employee__Primar__027D5126">
             <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
             <End Role="Employee" EntitySet="Employees" />
           </AssociationSet>
-          <AssociationSet Name="FK__EmployeeC__Emplo__2942188C" Association="Self.FK__EmployeeC__Emplo__2942188C">
+          <AssociationSet Name="FK__EmployeeC__Emplo__705EA0EB" Association="Self.FK__EmployeeC__Emplo__705EA0EB">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="EmployeeCredentials" EntitySet="EmployeeCredentials" />
           </AssociationSet>
-          <AssociationSet Name="FK__EmployeeR__Emplo__3B60C8C7" Association="Self.FK__EmployeeR__Emplo__3B60C8C7">
+          <AssociationSet Name="FK__EmployeeR__Emplo__064DE20A" Association="Self.FK__EmployeeR__Emplo__064DE20A">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileMenti__Emplo__2A01329B" Association="Self.FK__FileMenti__Emplo__2A01329B">
+          <AssociationSet Name="FK__FileMenti__Emplo__38D961D7" Association="Self.FK__FileMenti__Emplo__38D961D7">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="FileMention" EntitySet="FileMentions" />
           </AssociationSet>
-          <AssociationSet Name="FK__Message__Recieve__2354350C" Association="Self.FK__Message__Recieve__2354350C">
+          <AssociationSet Name="FK__Message__Recieve__4262CC11" Association="Self.FK__Message__Recieve__4262CC11">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="Message" EntitySet="Messages" />
           </AssociationSet>
-          <AssociationSet Name="FK__Message__SenderI__226010D3" Association="Self.FK__Message__SenderI__226010D3">
+          <AssociationSet Name="FK__Message__SenderI__416EA7D8" Association="Self.FK__Message__SenderI__416EA7D8">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="Message" EntitySet="Messages" />
           </AssociationSet>
-          <AssociationSet Name="FK__PersonAct__Affec__46D27B73" Association="Self.FK__PersonAct__Affec__46D27B73">
+          <AssociationSet Name="FK__PersonAct__Affec__11BF94B6" Association="Self.FK__PersonAct__Affec__11BF94B6">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="PersonActionLog" EntitySet="PersonActionLogs" />
           </AssociationSet>
-          <AssociationSet Name="FK__EmployeeR__Insti__3D491139" Association="Self.FK__EmployeeR__Insti__3D491139">
+          <AssociationSet Name="FK__EmployeeR__Insti__08362A7C" Association="Self.FK__EmployeeR__Insti__08362A7C">
             <End Role="Institution" EntitySet="Institutions" />
             <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
           </AssociationSet>
-          <AssociationSet Name="FK__EmployeeR__RoleI__3C54ED00" Association="Self.FK__EmployeeR__RoleI__3C54ED00">
+          <AssociationSet Name="FK__EmployeeR__RoleI__07420643" Association="Self.FK__EmployeeR__RoleI__07420643">
             <End Role="Role" EntitySet="Roles" />
             <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
           </AssociationSet>
-          <AssociationSet Name="FK__File__AuthorID__515009E6" Association="Self.FK__File__AuthorID__515009E6">
+          <AssociationSet Name="FK__File__AuthorID__1C3D2329" Association="Self.FK__File__AuthorID__1C3D2329">
             <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
             <End Role="File" EntitySet="Files" />
           </AssociationSet>
-          <AssociationSet Name="FK__File__AuthorID__53385258" Association="Self.FK__File__AuthorID__53385258">
-            <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
-            <End Role="File" EntitySet="Files" />
-          </AssociationSet>
-          <AssociationSet Name="FK__File__AuthorID__55209ACA" Association="Self.FK__File__AuthorID__55209ACA">
-            <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
-            <End Role="File" EntitySet="Files" />
-          </AssociationSet>
-          <AssociationSet Name="FK__File__AuthorID__58F12BAE" Association="Self.FK__File__AuthorID__58F12BAE">
-            <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
-            <End Role="File" EntitySet="Files" />
-          </AssociationSet>
-          <AssociationSet Name="FK__FileActio__Emplo__72B0FDB1" Association="Self.FK__FileActio__Emplo__72B0FDB1">
+          <AssociationSet Name="FK__FileActio__Emplo__322C6448" Association="Self.FK__FileActio__Emplo__322C6448">
             <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
             <End Role="FileActionLog" EntitySet="FileActionLogs" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileActio__Emplo__758D6A5C" Association="Self.FK__FileActio__Emplo__758D6A5C">
-            <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
-            <End Role="FileActionLog" EntitySet="FileActionLogs" />
-          </AssociationSet>
-          <AssociationSet Name="FK__FileMenti__Creat__2AF556D4" Association="Self.FK__FileMenti__Creat__2AF556D4">
+          <AssociationSet Name="FK__FileMenti__Creat__39CD8610" Association="Self.FK__FileMenti__Creat__39CD8610">
             <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
             <End Role="FileMention" EntitySet="FileMentions" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileVersi__Autho__673F4B05" Association="Self.FK__FileVersi__Autho__673F4B05">
+          <AssociationSet Name="FK__FileVersi__Autho__2D67AF2B" Association="Self.FK__FileVersi__Autho__2D67AF2B">
             <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
             <End Role="FileVersion" EntitySet="FileVersions" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileVersi__Autho__6A1BB7B0" Association="Self.FK__FileVersi__Autho__6A1BB7B0">
-            <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
-            <End Role="FileVersion" EntitySet="FileVersions" />
-          </AssociationSet>
-          <AssociationSet Name="FK__FileVersi__Autho__6DEC4894" Association="Self.FK__FileVersi__Autho__6DEC4894">
-            <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
-            <End Role="FileVersion" EntitySet="FileVersions" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Instituti__Emplo__48BAC3E5" Association="Self.FK__Instituti__Emplo__48BAC3E5">
+          <AssociationSet Name="FK__Instituti__Emplo__13A7DD28" Association="Self.FK__Instituti__Emplo__13A7DD28">
             <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
             <End Role="InstitutionActionLog" EntitySet="InstitutionActionLogs" />
           </AssociationSet>
-          <AssociationSet Name="FK__PersonAct__Condu__45DE573A" Association="Self.FK__PersonAct__Condu__45DE573A">
+          <AssociationSet Name="FK__PersonAct__Condu__10CB707D" Association="Self.FK__PersonAct__Condu__10CB707D">
             <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
             <End Role="PersonActionLog" EntitySet="PersonActionLogs" />
           </AssociationSet>
-          <AssociationSet Name="FK__File__Level__5614BF03" Association="Self.FK__File__Level__5614BF03">
+          <AssociationSet Name="FK__File__CurrentVer__2B7F66B9" Association="Self.FK__File__CurrentVer__2B7F66B9">
+            <End Role="FileVersion" EntitySet="FileVersions" />
+            <End Role="File" EntitySet="Files" />
+          </AssociationSet>
+          <AssociationSet Name="FK__File__LevelID__1D314762" Association="Self.FK__File__LevelID__1D314762">
             <End Role="FileLevel" EntitySet="FileLevels" />
             <End Role="File" EntitySet="Files" />
           </AssociationSet>
-          <AssociationSet Name="FK__File__Level__59E54FE7" Association="Self.FK__File__Level__59E54FE7">
-            <End Role="FileLevel" EntitySet="FileLevels" />
-            <End Role="File" EntitySet="Files" />
-          </AssociationSet>
-          <AssociationSet Name="FK__FileActio__FileI__73A521EA" Association="Self.FK__FileActio__FileI__73A521EA">
+          <AssociationSet Name="FK__FileActio__FileI__33208881" Association="Self.FK__FileActio__FileI__33208881">
             <End Role="File" EntitySet="Files" />
             <End Role="FileActionLog" EntitySet="FileActionLogs" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileActio__FileI__76818E95" Association="Self.FK__FileActio__FileI__76818E95">
-            <End Role="File" EntitySet="Files" />
-            <End Role="FileActionLog" EntitySet="FileActionLogs" />
-          </AssociationSet>
-          <AssociationSet Name="FK__FileMenti__FileI__290D0E62" Association="Self.FK__FileMenti__FileI__290D0E62">
+          <AssociationSet Name="FK__FileMenti__FileI__37E53D9E" Association="Self.FK__FileMenti__FileI__37E53D9E">
             <End Role="File" EntitySet="Files" />
             <End Role="FileMention" EntitySet="FileMentions" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileVersi__FileI__664B26CC" Association="Self.FK__FileVersi__FileI__664B26CC">
+          <AssociationSet Name="FK__FileVersi__FileI__2C738AF2" Association="Self.FK__FileVersi__FileI__2C738AF2">
             <End Role="File" EntitySet="Files" />
             <End Role="FileVersion" EntitySet="FileVersions" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileVersi__FileI__69279377" Association="Self.FK__FileVersi__FileI__69279377">
-            <End Role="File" EntitySet="Files" />
-            <End Role="FileVersion" EntitySet="FileVersions" />
-          </AssociationSet>
-          <AssociationSet Name="FK__FileVersi__FileI__6CF8245B" Association="Self.FK__FileVersi__FileI__6CF8245B">
-            <End Role="File" EntitySet="Files" />
-            <End Role="FileVersion" EntitySet="FileVersions" />
-          </AssociationSet>
-          <AssociationSet Name="FK__FileActio__Permi__7775B2CE" Association="Self.FK__FileActio__Permi__7775B2CE">
+          <AssociationSet Name="FK__FileActio__Permi__3414ACBA" Association="Self.FK__FileActio__Permi__3414ACBA">
             <End Role="FilePermission" EntitySet="FilePermissions" />
             <End Role="FileActionLog" EntitySet="FileActionLogs" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileVersi__FileC__6FD49106" Association="Self.FK__FileVersi__FileC__6FD49106">
+          <AssociationSet Name="FK__FileVersi__FileC__2F4FF79D" Association="Self.FK__FileVersi__FileC__2F4FF79D">
             <End Role="FileContent" EntitySet="FileContents" />
             <End Role="FileVersion" EntitySet="FileVersions" />
           </AssociationSet>
-          <AssociationSet Name="FK__Message__FileCon__24485945" Association="Self.FK__Message__FileCon__24485945">
+          <AssociationSet Name="FK__Message__FileCon__4356F04A" Association="Self.FK__Message__FileCon__4356F04A">
             <End Role="FileContent" EntitySet="FileContents" />
             <End Role="Message" EntitySet="Messages" />
           </AssociationSet>
-          <AssociationSet Name="FK__FilesScop__Level__5BCD9859" Association="Self.FK__FilesScop__Level__5BCD9859">
+          <AssociationSet Name="FK__FilesScop__Level__2101D846" Association="Self.FK__FilesScop__Level__2101D846">
             <End Role="FileLevel" EntitySet="FileLevels" />
             <End Role="FilesScope" EntitySet="FilesScopes" />
           </AssociationSet>
-          <AssociationSet Name="FK__FilesScop__Permi__5DB5E0CB" Association="Self.FK__FilesScop__Permi__5DB5E0CB">
+          <AssociationSet Name="FK__FilesScop__Permi__22EA20B8" Association="Self.FK__FilesScop__Permi__22EA20B8">
             <End Role="FilePermission" EntitySet="FilePermissions" />
             <End Role="FilesScope" EntitySet="FilesScopes" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileVersi__FileT__6B0FDBE9" Association="Self.FK__FileVersi__FileT__6B0FDBE9">
+          <AssociationSet Name="FK__FilesScop__RoleI__21F5FC7F" Association="Self.FK__FilesScop__RoleI__21F5FC7F">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="FilesScope" EntitySet="FilesScopes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FileVersi__FileT__2E5BD364" Association="Self.FK__FileVersi__FileT__2E5BD364">
             <End Role="FileType" EntitySet="FileTypes" />
             <End Role="FileVersion" EntitySet="FileVersions" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileVersi__FileT__6EE06CCD" Association="Self.FK__FileVersi__FileT__6EE06CCD">
-            <End Role="FileType" EntitySet="FileTypes" />
-            <End Role="FileVersion" EntitySet="FileVersions" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Message__FileTyp__253C7D7E" Association="Self.FK__Message__FileTyp__253C7D7E">
+          <AssociationSet Name="FK__Message__FileTyp__444B1483" Association="Self.FK__Message__FileTyp__444B1483">
             <End Role="FileType" EntitySet="FileTypes" />
             <End Role="Message" EntitySet="Messages" />
           </AssociationSet>
-          <AssociationSet Name="FK__Instituti__Insti__40257DE4" Association="Self.FK__Instituti__Insti__40257DE4">
+          <AssociationSet Name="FK__Instituti__Insti__0B129727" Association="Self.FK__Instituti__Insti__0B129727">
             <End Role="InstitutionType" EntitySet="InstitutionTypes" />
             <End Role="Institution" EntitySet="Institutions" />
           </AssociationSet>
-          <AssociationSet Name="FK__Instituti__Insti__49AEE81E" Association="Self.FK__Instituti__Insti__49AEE81E">
+          <AssociationSet Name="FK__Instituti__Insti__149C0161" Association="Self.FK__Instituti__Insti__149C0161">
             <End Role="Institution" EntitySet="Institutions" />
             <End Role="InstitutionActionLog" EntitySet="InstitutionActionLogs" />
           </AssociationSet>
-          <AssociationSet Name="FK__Instituti__Paren__4119A21D" Association="Self.FK__Instituti__Paren__4119A21D">
+          <AssociationSet Name="FK__Instituti__Paren__0C06BB60" Association="Self.FK__Instituti__Paren__0C06BB60">
             <End Role="Institution" EntitySet="Institutions" />
             <End Role="Institution1" EntitySet="Institutions" />
           </AssociationSet>
-          <AssociationSet Name="FK__Instituti__Permi__4AA30C57" Association="Self.FK__Instituti__Permi__4AA30C57">
+          <AssociationSet Name="FK__Instituti__Permi__1590259A" Association="Self.FK__Instituti__Permi__1590259A">
             <End Role="InstitutionPermission" EntitySet="InstitutionPermissions" />
             <End Role="InstitutionActionLog" EntitySet="InstitutionActionLogs" />
           </AssociationSet>
-          <AssociationSet Name="FK__RoleInsti__Permi__3D14070F" Association="Self.FK__RoleInsti__Permi__3D14070F">
+          <AssociationSet Name="FK__RoleInsti__Permi__7EACC042" Association="Self.FK__RoleInsti__Permi__7EACC042">
             <End Role="InstitutionPermission" EntitySet="InstitutionPermissions" />
             <End Role="RoleInstitutionPermission" EntitySet="RoleInstitutionPermissions" />
           </AssociationSet>
-          <AssociationSet Name="FK__PersonAct__Permi__47C69FAC" Association="Self.FK__PersonAct__Permi__47C69FAC">
+          <AssociationSet Name="FK__PersonAct__Permi__12B3B8EF" Association="Self.FK__PersonAct__Permi__12B3B8EF">
             <End Role="PersonPermission" EntitySet="PersonPermissions" />
             <End Role="PersonActionLog" EntitySet="PersonActionLogs" />
           </AssociationSet>
-          <AssociationSet Name="FK__RolePerso__Permi__3B2BBE9D" Association="Self.FK__RolePerso__Permi__3B2BBE9D">
+          <AssociationSet Name="FK__RolePerso__Permi__7CC477D0" Association="Self.FK__RolePerso__Permi__7CC477D0">
             <End Role="PersonPermission" EntitySet="PersonPermissions" />
             <End Role="RolePersonPermission" EntitySet="RolePersonPermissions" />
           </AssociationSet>
-          <AssociationSet Name="FK__FilesScop__RoleI__5CC1BC92" Association="Self.FK__FilesScop__RoleI__5CC1BC92">
-            <End Role="Role" EntitySet="Roles" />
-            <End Role="FilesScope" EntitySet="FilesScopes" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Role__ParentID__2D12A970" Association="Self.FK__Role__ParentID__2D12A970">
+          <AssociationSet Name="FK__Role__ParentID__742F31CF" Association="Self.FK__Role__ParentID__742F31CF">
             <End Role="Role" EntitySet="Roles" />
             <End Role="Role1" EntitySet="Roles" />
           </AssociationSet>
-          <AssociationSet Name="FK__RoleInsti__RoleI__3C1FE2D6" Association="Self.FK__RoleInsti__RoleI__3C1FE2D6">
+          <AssociationSet Name="FK__RoleInsti__RoleI__7DB89C09" Association="Self.FK__RoleInsti__RoleI__7DB89C09">
             <End Role="Role" EntitySet="Roles" />
             <End Role="RoleInstitutionPermission" EntitySet="RoleInstitutionPermissions" />
           </AssociationSet>
-          <AssociationSet Name="FK__RolePerso__RoleI__3A379A64" Association="Self.FK__RolePerso__RoleI__3A379A64">
+          <AssociationSet Name="FK__RolePerso__RoleI__7BD05397" Association="Self.FK__RolePerso__RoleI__7BD05397">
             <End Role="Role" EntitySet="Roles" />
             <End Role="RolePersonPermission" EntitySet="RolePersonPermissions" />
           </AssociationSet>
@@ -2344,7 +1961,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DMS_dbModelStoreContainer" CdmEntityContainer="DMS_dbEntities12">
+        <EntityContainerMapping StorageEntityContainer="DMS_dbModelStoreContainer" CdmEntityContainer="DMS_dbEntities15">
           <EntitySetMapping Name="Bookmarks">
             <EntityTypeMapping TypeName="DMS_dbModel.Bookmark">
               <MappingFragment StoreEntitySet="Bookmark">
@@ -2408,6 +2025,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
             <EntityTypeMapping TypeName="DMS_dbModel.File">
               <MappingFragment StoreEntitySet="File">
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="DateCreatedSys" ColumnName="DateCreatedSys" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
@@ -2415,8 +2033,7 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="Locked" ColumnName="Locked" />
                 <ScalarProperty Name="LockedUntil" ColumnName="LockedUntil" />
-                <ScalarProperty Name="Level" ColumnName="Level" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LevelID" ColumnName="LevelID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2443,7 +2060,8 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
           <EntitySetMapping Name="FileLevels">
             <EntityTypeMapping TypeName="DMS_dbModel.FileLevel">
               <MappingFragment StoreEntitySet="FileLevel">
-                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="LevelDesc" ColumnName="LevelDesc" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2465,6 +2083,17 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
               <MappingFragment StoreEntitySet="FilePermission">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ArabicName" ColumnName="ArabicName" />
+                <ScalarProperty Name="Grantable" ColumnName="Grantable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FilesScopes">
+            <EntityTypeMapping TypeName="DMS_dbModel.FilesScope">
+              <MappingFragment StoreEntitySet="FilesScope">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="LevelID" ColumnName="LevelID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Permission" ColumnName="Permission" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2527,6 +2156,8 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
               <MappingFragment StoreEntitySet="InstitutionPermission">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ArabicName" ColumnName="ArabicName" />
+                <ScalarProperty Name="Grantable" ColumnName="Grantable" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2572,6 +2203,8 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
               <MappingFragment StoreEntitySet="PersonPermission">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ArabicName" ColumnName="ArabicName" />
+                <ScalarProperty Name="Grantable" ColumnName="Grantable" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2600,27 +2233,6 @@ warning 6002: The table/view 'DMS_db.sys.database_firewall_rules' does not have 
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="PermissionName" ColumnName="PermissionName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FilesScopes">
-            <EntityTypeMapping TypeName="DMS_dbModel.FilesScope">
-              <MappingFragment StoreEntitySet="FilesScope">
-                <ScalarProperty Name="Level" ColumnName="Level" />
-                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-                <ScalarProperty Name="Permission" ColumnName="Permission" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="database_firewall_rules">
-            <EntityTypeMapping TypeName="DMS_dbModel.database_firewall_rules">
-              <MappingFragment StoreEntitySet="database_firewall_rules">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="start_ip_address" ColumnName="start_ip_address" />
-                <ScalarProperty Name="end_ip_address" ColumnName="end_ip_address" />
-                <ScalarProperty Name="create_date" ColumnName="create_date" />
-                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

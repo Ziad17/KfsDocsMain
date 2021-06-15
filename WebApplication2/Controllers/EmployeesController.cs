@@ -429,11 +429,16 @@ namespace WebApplication2.Controllers
 
 
 
-
-                var personFile = getSomeoneFiles(employee.ID);
-                viewModel.Files = getAvaiableFilesForMe().Intersect(personFile).ToList<Models.File>();
                 var filementions = getMentionsForSomeone(employee.ID);
-                viewModel.Mentions = getAvaiableFilesForMe().Intersect(filementions).ToList();
+
+                var myMentions = getMyMentions().Where(x => x.EmployeeRole.EmployeeID == employee.ID);
+                var personFile = getAvaiableFilesForMeByScope().Where(x=>x.EmployeeRole.EmployeeID==employee.ID);
+                viewModel.Files = personFile.Union(myMentions).OrderBy(x => x.DateCreatedSys).ToList<Models.File>();
+
+
+                var personMentions = getMentionsForSomeone(employee.ID).Intersect(getAvaiableFilesForMeByScope().Union(getMyFiles()));
+                viewModel.Mentions =personMentions.OrderBy(x=>x.DateCreatedSys).ToList();
+
                 viewModel.canDelete = hasPersonPermission(role.ID, PersonPermissions.DELETE_PERSON);
 
                 viewModel.Roles = employee.EmployeeRoles.ToList<EmployeeRole>();
@@ -441,7 +446,6 @@ namespace WebApplication2.Controllers
                 return View(viewModel);
             }
 
-            //IMPLMENT UNAUTHORIZED VIEW
             return getErrorView(HttpStatusCode.Unauthorized);
         }
       

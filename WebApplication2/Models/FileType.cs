@@ -18,7 +18,6 @@ namespace WebApplication2.Models
         public FileType()
         {
             this.FileVersions = new HashSet<FileVersion>();
-            this.FileVersions1 = new HashSet<FileVersion>();
             this.Messages = new HashSet<Message>();
         }
     
@@ -28,8 +27,6 @@ namespace WebApplication2.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FileVersion> FileVersions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FileVersion> FileVersions1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Message> Messages { get; set; }
     }

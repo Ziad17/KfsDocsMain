@@ -22,6 +22,8 @@ namespace WebApplication2.Models.ViewModels
 
         //files
         public bool canCreateFile { get; set; }
+        public bool canCreateLevel { get; set; }
+
 
 
 

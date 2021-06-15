@@ -43,6 +43,7 @@ namespace WebApplication2.Models.ViewModels
 
         [Display(Name = "أسم النسخة")]
         public string Name { get; set; }
+        public string FileName { get; set; }
         public string AuthorName { get; set; }
     }
 }

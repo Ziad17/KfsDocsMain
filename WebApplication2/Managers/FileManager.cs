@@ -62,17 +62,24 @@ namespace WebApplication2.Managers
         public string getImageStream(string imageURL)
         {
 
-
-            if (imageURL == null)
-            { return NoImageIsFound; }
-            containerClient = blobService.GetBlobContainerClient(IMAGE_CONTAINER);
-            BlobClient blobClient = containerClient.GetBlobClient(imageURL);
-
-            using (var st=new MemoryStream())
+            try
             {
-            blobClient.DownloadTo(st);
 
-                return Convert.ToBase64String(st.GetBuffer());
+                if (imageURL == null)
+                { return NoImageIsFound; }
+                containerClient = blobService.GetBlobContainerClient(IMAGE_CONTAINER);
+                BlobClient blobClient = containerClient.GetBlobClient(imageURL);
+
+                using (var st = new MemoryStream())
+                {
+                    blobClient.DownloadTo(st);
+
+                    return Convert.ToBase64String(st.GetBuffer());
+                }
+            }
+            catch (Exception e)
+            {
+                return NoImageIsFound;
             }
         }
 

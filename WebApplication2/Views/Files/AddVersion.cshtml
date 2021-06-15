@@ -2,7 +2,7 @@
 
 
 
-<h2>إضافة نسخة إلى @ViewBag.FileName</h2>
+<h2>إضافة نسخة إلى @Html.ActionLink(Model.FileName,"Files","View",new { id=Model.FileID},null)</h2>
                                           <hr/>
 
 
@@ -66,7 +66,7 @@
     <div class="form-group">
         <div class="col-md-10">
 
-            @Html.TextBoxFor(m => m.file_content, new { type = "file", name = "file_content" })
+            @Html.TextBoxFor(m => m.file_content, new { type = "file", name = "file_content",text="" })
 
 
 

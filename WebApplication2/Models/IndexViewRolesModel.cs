@@ -13,5 +13,7 @@ namespace WebApplication2.Models
         public bool canAdd { get; set; }
         public bool canDelete { get; set; }
         public bool canEdit { get; set; }
+
+
     }
 }

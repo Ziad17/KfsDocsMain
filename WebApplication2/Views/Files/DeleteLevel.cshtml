@@ -1,0 +1,99 @@
+﻿@model WebApplication2.Models.ViewModels.DeleteFileLevelModel
+
+
+@{  ViewBag.Title = "مسح مستوى ملف"; }
+
+
+<h2>هل أنت متأكد من مسح مستوى ملف؟</h2>
+
+<div class="data_labels">
+
+    @Html.Label("الإسم")
+    <h5>@Model.Name</h5>
+    @Html.Label("الوصف")
+    <h5>@Model.Desc</h5>
+
+    @using (Html.BeginForm())
+    {
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.ID)
+
+
+    <br />
+    <div class="table-responsive">
+        <table border="0" class="table table-hover">
+            <tr>
+                <th>
+                    @Html.DisplayName("الوظيفة")
+                </th>
+                <th>
+                    @Html.DisplayName("العمليات")
+                </th>
+
+            </tr>
+
+            @foreach (var item in Model.RolesDirectory)
+            {
+                <tr>
+                    <td>
+                        <h3>
+                            @item.Key
+                        </h3>
+                    </td>
+
+                    <td>
+                        <ul>
+                            @foreach (var permission in item.Value)
+                            {
+                                <li>
+
+                                    @permission
+                                </li>
+
+
+                            }
+                        </ul>
+                    </td>
+
+                </tr>
+            }
+
+
+        </table>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="form-actions no-color">
+        <input type="submit" value="تأكيد المسح" class="btn btn-default" />
+
+    </div>
+
+
+    }
+
+
+
+</div>
+

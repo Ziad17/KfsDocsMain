@@ -1,0 +1,65 @@
+﻿@model WebApplication2.Models.EmployeeRole
+
+@{
+    ViewBag.Title = "مسح موظف";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3>هل أنت متأكد من المسح؟</h3>
+<div>
+    <hr />
+    <div class="data_labels">
+        @Html.Label("إسم الشخص")
+
+        <h5>
+            @Html.DisplayFor(model => model.Employee.Name)
+        </h5>
+
+        @Html.Label("الوظيفة")
+
+
+        <h5>
+            @Html.DisplayFor(model => model.Role.ArabicName)
+        </h5>
+
+        @Html.Label("المؤسسة")
+
+
+        <h5>
+            @Html.DisplayFor(model => model.Institution.ArabicName)
+        </h5>
+
+
+        @Html.Label("الوصف")
+
+        <h5>
+            @Html.DisplayFor(model => model.ArabicJobDesc)
+        </h5>
+
+        @Html.Label("تاريخ التعيين")
+
+
+        <h5>
+            @Html.DisplayFor(model => model.HiringDate)
+        </h5>
+
+        @Html.Label("نشط")
+
+        <h5>
+            @Html.DisplayFor(model => model.Active)
+        </h5>
+
+
+
+
+    </div>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="مسح" class="btn btn-default" /> |
+        </div>
+    }
+</div>

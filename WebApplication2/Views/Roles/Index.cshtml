@@ -8,7 +8,7 @@
 <br />
 <br />
 <p class="btn btn-default btn-lg">
-    @Html.ActionLink("إضافة وظيفة", "Add")
+    @Html.ActionLink("إضافة وظيفة", "AddRole")
 </p>
 <br />
 <br />
@@ -82,11 +82,11 @@
             @if (Model.canEdit)
             {
                 <i class="btn btn-default">
-                    @Html.ActionLink("تعديل", "Edit", new { id = item.ID })
+                    @Html.ActionLink("تعديل", "EditRole", new { id = item.ID })
                 </i>
 
             }
-            @if (Model.canDelete && item.EmployeeRoles.Count == 0)
+            @if (Model.canDelete && item.EmployeeRoles.Count == 0 &&item.Role1.Count==0)
             {
                 <i class="btn btn-default">
                     @Html.ActionLink("مسح", "Delete", new { id = item.ID })

@@ -4,29 +4,25 @@
 
 @using (Html.BeginForm("Change", "Bookmarks", FormMethod.Post))
 {
-    @Html.AntiForgeryToken()
+@Html.AntiForgeryToken()
 
-<div class="col-md-12" style="font-size:25px;margin-top:20px" >
-    <input type="hidden" name="id" value="@Model.File.ID">
-    <button type="submit" id="Change" name="Change" style="background-color:transparent;border:hidden">
-        @if (Model.isBookmarked)
-        {
+                <div class="col-md-12" style="font-size:25px;margin-top:20px">
+                    <input type="hidden" name="id" value="@Model.File.ID">
+                    <button type="submit" id="Change" name="Change" style="background-color:transparent;border:hidden">
+                        @if (Model.isBookmarked)
+                        {
 
-            <img src="~/Content/star-clicked.png" alt="bookmark icon" height="25" width="25" />
-        }
-        else
-        {
+        <img src="~/Content/star-clicked.png" alt="bookmark icon" height="25" width="25" /> }
+    else
+    {
 
-            <img src="~/Content/star.png" alt="bookmark icon" height="25" width="25" />
-
-        }
+<img src="~/Content/star.png" alt="bookmark icon" height="25" width="25" />}
 
 
 
-    </button>
-    @Model.File.Name
-</div>
-}
+                    </button>
+                    @Model.File.Name
+                </div>}
 
 
 
@@ -38,226 +34,209 @@
 
 
 
-<div  class="col-lg-9">
+<div class="col-lg-9">
     @if (Model.CurrentVersion != null)
     {
 
-        <h3>
-            النسخة الحالية
-        </h3>
-        <table class="table table-responsive">
-            <tr>
+<h3>
+    النسخة الحالية
+</h3>
+                <table class="table table-responsive">
+                    <tr>
 
-                                <th>
-                                    @Html.DisplayNameFor(model => model.CurrentVersion.Name)
-                                </th>
+                        <th>
+                         إسم النسخة
+                        </th>
 
-                                <th>
-                                    @Html.DisplayNameFor(model => model.CurrentVersion.DateCreated)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.CurrentVersion.FileType.Name)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.CurrentVersion.FileContent.FileSize)
-                                </th>
-                                <th>
-                                    @Html.DisplayName("Author")
-                                </th>
-
-
-                            </tr>
+                        <th>
+                            تاريخ الإنشاء
+                        </th>
+                        <th>
+                            نوع الملف
+                        </th>
+                        <th>
+                            الحجم 
+                        </th>
+                        <th>
+                            المالك
+                        </th>
 
 
-                            <tr>
-
-                                <td>
-                                    @Html.DisplayFor(model => model.CurrentVersion.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(model => model.CurrentVersion.DateCreated)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(model => model.CurrentVersion.FileType.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(model => model.CurrentVersion.FileContent.FileSize)
-                                </td>
-                                <td>
-                                    @Html.ActionLink(Model.CurrentVersion.EmployeeRole.Employee.Name, "PersonProfile", "Employees", new { id = Model.CurrentVersion.EmployeeRole.Employee.ID }, null)
-                                </td>
-                                <td>
-                                    @Html.ActionLink("تحميل", "Download", new { id = @Model.CurrentVersion.ID })
-                                </td>
-
-                                @if (Model.isAuthor || Model.CurrentVersion.AuthorID == Model.MyRef.ID)
-                                {
-
-                                    <td>
-                                        @Html.ActionLink("مسح النسخة", "DeleteVersion", new { id = @Model.CurrentVersion.ID })
-
-                                    </td>
-                                }
-
-                            </tr>
+                    </tr>
 
 
-                        </table>
-                    }
-                    else
-                    { <h5>هذا الملف لا يمتلك نسخ حالية</h5>}
+                    <tr>
 
-                    <br />
-                    <br />
-       @if (!(Model.Versions == null || Model.Versions.Count == 0))
+                        <td>
+                            @Html.DisplayFor(model => model.CurrentVersion.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.CurrentVersion.DateCreated)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.CurrentVersion.FileType.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.CurrentVersion.FileContent.FileSize)
+                        </td>
+                        <td>
+                            @Html.ActionLink(Model.CurrentVersion.EmployeeRole.Employee.Name, "PersonProfile", "Employees", new { id = Model.CurrentVersion.EmployeeRole.Employee.ID }, null)
+                        </td>
+                        <td>
+                            @Html.ActionLink("تحميل", "Download", new { id = @Model.CurrentVersion.ID })
+                        </td>
+
+                        @if (Model.isAuthor || Model.CurrentVersion.AuthorID == Model.MyRef.ID)
+                        {
+
+        <td>
+            @Html.ActionLink("مسح النسخة", "DeleteVersion", new { id = @Model.CurrentVersion.ID })
+
+        </td>}
+
+                    </tr>
+
+
+                </table> }
+            else
+            { <h5>هذا الملف لا يمتلك نسخ حالية</h5>}
+
+    <br />
+    <br />
+    @if (!(Model.Versions == null || Model.Versions.Count == 0))
     {
-        <h3>
-            النسخ الأخرى
-        </h3>
-        <table class="table table-responsive">
-            <tr>
+<h3>
+    النسخ الأخرى
+</h3>
+                <table class="table table-responsive">
+                    <tr>
 
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Versions[0].Name)
-                                </th>
+                        <th>
+                            إسم النسخة
+                        </th>
 
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Versions[0].DateCreated)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Versions[0].FileType.Name)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Versions[0].FileContent.FileSize)
-                                </th>
-                                <th>
-                                    @Html.DisplayName("Author")
-                                </th>
+                        <th>
+                            تاريخ الإنشاء
+                        </th>
+                        <th>
+                            نوع الملف
+                        </th>
+                        <th>
+                            الحجم
+                        </th>
+                        <th>
+                            المالك
+                        </th>
 
 
-                            </tr>
-                            @foreach (var item in Model.Versions)
-                            {
 
-                                <tr>
+                    </tr>
+                    @foreach (var item in Model.Versions)
+                    {
 
-                                    <td>
-                                        @item.Name
-                                    </td>
-                                    <td>
-                                        @item.DateCreated
+    <tr>
 
-                                    </td>
-                                    <td>
-                                        @item.FileType.Name
+        <td>
+            @item.Name
+        </td>
+        <td>
+            @item.DateCreated
 
-                                    </td>
-                                    <td>
-                                        @item.FileContent.FileSize
-                                    </td>
-                                    <td>
-                                        @Html.ActionLink(item.EmployeeRole.Employee.Name, "PersonProfile", "Employees", new { id = item.EmployeeRole.Employee.ID }, null)
-                                    </td>
+        </td>
+        <td>
+            @item.FileType.Name
 
-                                    <td>
-                                        @Html.ActionLink("تحميل", "Download", new { id = item.ID })
-                                        @if (Model.canSetCurrentVersion)
-                                        {<span>| </span>@Html.ActionLink("تعيين كأساسية", "SetCurrentVersion", new { id = item.ID })}
-                                    </td>
+        </td>
+        <td>
+            @item.FileContent.FileSize
+        </td>
+        <td>
+            @Html.ActionLink(item.EmployeeRole.Employee.Name, "PersonProfile", "Employees", new { id = item.EmployeeRole.Employee.ID }, null)
+        </td>
 
-                                    @if (Model.isAuthor || Model.CurrentVersion.AuthorID == Model.MyRef.ID)
-                                    {
+        <td>
+            @Html.ActionLink("تحميل", "Download", new { id = item.ID })
+            @if (Model.canSetCurrentVersion)
+            {<span>| </span>@Html.ActionLink("تعيين كأساسية", "SetCurrentVersion", new { id = item.ID })}
+        </td>
 
-                                        <td>
-                                            @Html.ActionLink("مسح النسخة", "DeleteVersion", new { id = item.ID })
+        @if (Model.isAuthor || (Model.CurrentVersion!=null && Model.CurrentVersion.AuthorID == Model.MyRef.ID))
+        {
 
-                                        </td>
-                                    }
+<td>
+    @Html.ActionLink("مسح النسخة", "DeleteVersion", new { id = item.ID })
 
-                                </tr>
+</td>}
 
-                            }
+    </tr>}
 
-                        </table>
+                </table> }
+            else
+            { <h5>هذا الملف لا يمتلك نسخ أخرى</h5>}
 
-                    }
-                    else
-                    { <h5>هذا الملف لا يمتلك نسخ أخرى</h5>}
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTwo">
+            <h4 class="panel-title">
+                <a class="collapsed tabs" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    الإشارات
+                </a>
+            </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+            <div class="panel-body">
+                @if (Model.File.FileMentions.Count > 0)
+                {
+    <div class="table-responsive">
+        <table class="table table-hover ">
+            <tr style="color:white;background-color:black">
 
-                </div>
+
+                <th>
+                    المالك
+                </th>
+
+                <th>
+                    المشار إليه
+                </th>
+
+
+                <th>
+                    التاريخ
+                </th>
+            </tr>
+
+            @foreach (var item in Model.File.FileMentions)
+            {
+<tr>
+    <td>
+        @Html.ActionLink(item.EmployeeRole.Employee.Name, "PersonProfile", "Employees", new { id = item.EmployeeRole.EmployeeID }, null)
+
+    </td>
+    <td>
+        @Html.ActionLink(item.Employee.Name, "PersonProfile", "Employees", new { id = item.EmployeeID }, null)
+
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.DateCreated)
+    </td>
+
+
+
+</tr>}
+        </table>
+    </div> }
+else
+{
+<hr />
+                <h4>لا يوجد أي إشارات للعرض           </h4>}
             </div>
         </div>
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingTwo">
-                <h4 class="panel-title">
-                    <a class="collapsed tabs" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        الإشارات
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                <div class="panel-body">
-                    @if (Model.File.FileMentions.Count > 0)
-                    {
-                        <div class="table-responsive">
-                            <table class="table table-hover ">
-                                <tr style="color:white;background-color:black">
-
-
-                                    <th>
-                                        المالك
-                                    </th>
-
-                                    <th>
-                                        المشار إليه
-                                    </th>
-
-
-                                    <th>
-                                        التاريخ
-                                    </th>
-                                </tr>
-
-                                @foreach (var item in Model.File.FileMentions)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.ActionLink(item.EmployeeRole.Employee.Name, "PersonProfile", "Employees", new { id = item.EmployeeRole.EmployeeID }, null)
-
-                                        </td>
-                                        <td>
-                                            @Html.ActionLink(item.Employee.Name, "PersonProfile", "Employees", new { id = item.EmployeeID }, null)
-
-                                        </td>
-
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.DateCreated)
-                                        </td>
-
-
-
-                                    </tr>
-
-
-                                }
-                            </table>
-                        </div>
-                    }
-                    else
-                    {
-                        <hr />
-                        <h4>لا يوجد أي إشارات للعرض           </h4>
-                    }
-                </div>
-            </div>
-        </div>
-
     </div>
 
 
 </div>
-
-<div style=" background-color: #9e9e9e38; padding: 22px; border-radius: 20px;" class="col-lg-3">
+<div class="col-lg-3">
 
 
     <div class="data_labels">
@@ -290,7 +269,7 @@
 
 
         <h5>
-            @Html.ActionLink(Model.File.FileLevel.Level, "FileLevels", "Files", new { level = Model.File.FileLevel.Level }, null)
+            @Html.ActionLink(Model.File.FileLevel.Name, "FileLevels", "Files", new { id = Model.File.FileLevel.ID }, null)
 
         </h5>
 
@@ -308,44 +287,51 @@
 
     @if (Model.isAuthor)
     {
-        <hr />
-        <div style=" background-color: #fff; padding-right: 20px; padding-top: 5px; padding-bottom: 3px; border-radius: 14px;">
-            <h4>الخيارات</h4>
-            <ul>
-                <li>@Html.ActionLink("تعديل", "Edit", "Files", new { id = Model.File.ID }, null)</li>
-                <li>@Html.ActionLink("مسح", "Delete", "Files", new { id = Model.File.ID }, null)</li>
-                <li>@Html.ActionLink("إضافة نسخة", "AddVersion", "Files", new { id = Model.File.ID }, null)</li>
+<hr />
+                <div style=" background-color: #fff; padding-right: 20px; padding-top: 5px; padding-bottom: 3px; border-radius: 14px;">
+                    <h4>الخيارات</h4>
+                    <ul>
+                        <li>@Html.ActionLink("تعديل", "Edit", "Files", new { id = Model.File.ID }, null)</li>
+                        <li>@Html.ActionLink("مسح", "Delete", "Files", new { id = Model.File.ID }, null)</li>
+                        <li>@Html.ActionLink("إضافة نسخة", "AddVersion", "Files", new { id = Model.File.ID }, null)</li>
 
-            </ul>
-        </div>
-    }
-    else if (Model.canEdit || Model.canDelete || Model.canAddVersion)
-    {
-        <hr />
-        <div style=" background-color: #fff; padding-right: 20px; padding-top: 5px; padding-bottom: 3px; border-radius: 14px;">
-            <h4>الخيارات</h4>
-            <ul>
+                    </ul>
+                </div> }
+            else if (Model.canEdit || Model.canDelete || Model.canAddVersion)
+            {
+<hr />
+                <div style=" background-color: #fff; padding-right: 20px; padding-top: 5px; padding-bottom: 3px; border-radius: 14px;">
+                    <h4>الخيارات</h4>
+                    <ul>
 
-                @if (Model.canEdit)
-                {
-                    <li>@Html.ActionLink("تعديل", "Edit", "Files", new { id = Model.File.ID }, null)</li>
-                }
-                @if (Model.canDelete)
-                {
-                    <li>@Html.ActionLink("مسح", "Delete", "Files", new { id = Model.File.ID }, null)</li>
-                }
-                @if (Model.canAddVersion)
-                {
-                    <li>@Html.ActionLink("إضافة نسخة", "AddVersion", "Files", new { id = Model.File.ID }, null)</li>
-                }
+                        @if (Model.canEdit)
+                        {
+        <li>@Html.ActionLink("تعديل", "Edit", "Files", new { id = Model.File.ID }, null)</li>
+}
+                        @if (Model.canDelete)
+                        {
+        <li>@Html.ActionLink("مسح", "Delete", "Files", new { id = Model.File.ID }, null)</li>
+}
+                        @if (Model.canAddVersion)
+                        {
+        <li>@Html.ActionLink("إضافة نسخة", "AddVersion", "Files", new { id = Model.File.ID }, null)</li>
+}
 
-            </ul>
-        </div>
-    }
+                    </ul>
+                </div>}
 
 
 
 </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
 
 @*@if (item.Active)
     {

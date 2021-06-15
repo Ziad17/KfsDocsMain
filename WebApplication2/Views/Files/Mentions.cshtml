@@ -5,8 +5,7 @@
 @{
     ViewBag.Title = "الإشارات";
 }
-@*<img style="display:inline-block;padding-bottom:10px;margin-top:10px" src="~/Content/archives.png" width="50" height="50" />*@
-<h2 style="display: inline-block; padding-bottom: 10px; position: relative; top: 9px; left: -15px;">@ViewBag.Title</h2>
+<h2 >@ViewBag.Title</h2>
 <br />
 @if (Model.Count() > 0)
 {
@@ -33,10 +32,10 @@
                     @Html.ActionLink(item.File.Name, "View", "Files", new { id = item.FileID }, null)
                 </td>
                 <td>
-                    @Html.ActionLink(item.File.EmployeeRole.Employee.Name, "PersonProfile", "Employees", new { id = item.File.AuthorID }, null)
+                    @Html.ActionLink(item.File.EmployeeRole.Employee.Name, "PersonProfile", "Employees", new { id = item.File.EmployeeRole.EmployeeID }, null)
                 </td>
                 <td>
-                    @Html.ActionLink(item.File.Level, "FileLevels", "Files", new { level = item.File.Level }, null)
+                    @Html.ActionLink(item.File.FileLevel.Name, "FileLevels", "Files", new { id = item.File.LevelID }, null)
 
                 </td>
                 <td>

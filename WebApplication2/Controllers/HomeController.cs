@@ -21,19 +21,25 @@ namespace WebApplication2.Controllers
 
         public ActionResult Index()
         {
+
+
             var myEmp = getEmployeeRef();
 
-            var files = getAvaiableFilesForMe().Union(getMyFiles());
-            MainIndexModel viewModel = new MainIndexModel()
-            {
-                Files = files.ToList()
-            };
-            return View(viewModel);
+            var files = getAvaiableFilesForMeByScope().Union(getMyFiles());
+
+           
+
+                MainIndexModel viewModel = new MainIndexModel()
+                {
+                    Files = files.ToList()
+                };
+                return View(viewModel);
+          
         }
 
-  
 
-  
+
+
 
         [AllowAnonymous]
         public ActionResult SetupAccount()
@@ -160,7 +166,7 @@ namespace WebApplication2.Controllers
             SearchModel viewModel = new SearchModel();
             viewModel.Employees = db.Employees.Where(x => x.Name.Contains(query)).ToList<Employee>();
             viewModel.Institutions = db.Institutions.Where(x => x.ArabicName.Contains(query)).ToList<Institution>();
-            viewModel.Files = getAvaiableFilesForMe().Where(x => x.Name.Contains(query)).OrderBy(x => x.DateCreated).ToList <File>();
+            viewModel.Files = getAvaiableFilesForMeByScope().Where(x => x.Name.Contains(query)).OrderBy(x => x.DateCreated).ToList <File>();
 
             return View(viewModel);
 

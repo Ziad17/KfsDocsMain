@@ -25,6 +25,8 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">المؤسسات <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="~/Institutions">عرض كل المؤسسات</a></li>
+                        <li><a href="~/Institutions/Types">أنواع المؤسسات</a></li>
+
 
                         <li role="separator" class="divider"></li>
                         @if (Model.canCreateInstitution)
@@ -76,6 +78,10 @@
                         @if (Model.canCreateFile)
                         {
                             <li><a href="~/Files/Create">إنشاء ملف</a></li>
+                        }
+                        @if (Model.canCreateLevel)
+                        {
+                            <li><a href="~/Files/CreateLevel">إنشاء مستوى ملف</a></li>
                         }
 
                     </ul>

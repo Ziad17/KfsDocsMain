@@ -14,7 +14,8 @@ namespace WebApplication2.Models
     
     public partial class FilesScope
     {
-        public string Level { get; set; }
+        public int ID { get; set; }
+        public int LevelID { get; set; }
         public int RoleID { get; set; }
         public string Permission { get; set; }
     

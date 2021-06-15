@@ -14,6 +14,12 @@ namespace WebApplication2.Models
     
     public partial class FileVersion
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public FileVersion()
+        {
+            this.Files = new HashSet<File>();
+        }
+    
         public int ID { get; set; }
         public Nullable<int> FileID { get; set; }
         public string Name { get; set; }
@@ -26,13 +32,10 @@ namespace WebApplication2.Models
         public int FileContentID { get; set; }
     
         public virtual EmployeeRole EmployeeRole { get; set; }
-        public virtual EmployeeRole EmployeeRole1 { get; set; }
-        public virtual EmployeeRole EmployeeRole2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<File> Files { get; set; }
         public virtual File File { get; set; }
-        public virtual File File1 { get; set; }
-        public virtual File File2 { get; set; }
         public virtual FileContent FileContent { get; set; }
         public virtual FileType FileType { get; set; }
-        public virtual FileType FileType1 { get; set; }
     }
 }

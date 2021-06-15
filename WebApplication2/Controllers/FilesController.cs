@@ -38,7 +38,7 @@ namespace WebApplication2.Controllers
                 return getErrorView(HttpStatusCode.NotFound);
 
             }
-            if (hasFileLevelPermission(EmpRole.Role.ID, file.Level, FilePermissions.VIEW_FILE) || isFileAuthor(file.ID, EmpRole.ID))
+            if (hasFileLevelPermission(EmpRole.Role.ID, file.LevelID, FilePermissions.VIEW_FILE,EmpRole.ID,file.ID) || isFileAuthor(file.ID, EmpRole.ID))
             {
 
 
@@ -68,10 +68,10 @@ namespace WebApplication2.Controllers
                     viewModel.isBookmarked = true;
                 }
                 viewModel.isAuthor = isFileAuthor(file.ID, EmpRole.ID);
-                viewModel.canEdit = hasFileLevelPermission(EmpRole.Role.ID, file.Level, FilePermissions.EDIT_FILE) || isFileAuthor(file.ID, EmpRole.ID);
-                viewModel.canAddVersion = hasFileLevelPermission(EmpRole.Role.ID, file.Level, FilePermissions.ADD_VERSION) || isFileAuthor(file.ID, EmpRole.ID);
-                viewModel.canDelete = hasFileLevelPermission(EmpRole.Role.ID, file.Level, FilePermissions.DELETE_FILE) || isFileAuthor(file.ID, EmpRole.ID);
-                viewModel.canSetCurrentVersion = hasFileLevelPermission(EmpRole.Role.ID, file.Level, FilePermissions.SET_CURRENT_VERSION) || isFileAuthor(file.ID, EmpRole.ID);
+                viewModel.canEdit = hasFileLevelPermission(EmpRole.Role.ID, file.LevelID, FilePermissions.EDIT_FILE,EmpRole.ID,file.ID) || isFileAuthor(file.ID, EmpRole.ID);
+                viewModel.canAddVersion = hasFileLevelPermission(EmpRole.Role.ID, file.LevelID, FilePermissions.ADD_VERSION, EmpRole.ID, file.ID) || isFileAuthor(file.ID, EmpRole.ID);
+                viewModel.canDelete = hasFileLevelPermission(EmpRole.Role.ID, file.LevelID, FilePermissions.DELETE_FILE, EmpRole.ID, file.ID) || isFileAuthor(file.ID, EmpRole.ID);
+                viewModel.canSetCurrentVersion = hasFileLevelPermission(EmpRole.Role.ID, file.LevelID, FilePermissions.SET_CURRENT_VERSION, EmpRole.ID, file.ID) || isFileAuthor(file.ID, EmpRole.ID);
                 viewModel.MyRef = EmpRole;
                 return View(viewModel);
 
@@ -105,7 +105,7 @@ namespace WebApplication2.Controllers
 
 
                   
-            if (hasFileLevelPermission(EmpRole.Role.ID, file.Level, FilePermissions.SET_CURRENT_VERSION) || isFileAuthor(file.ID, EmpRole.ID))
+            if (hasFileLevelPermission(EmpRole.Role.ID, file.LevelID, FilePermissions.SET_CURRENT_VERSION, EmpRole.ID, file.ID) || isFileAuthor(file.ID, EmpRole.ID))
             {
                 db.Files.Find(file.ID).CurrentVersion = fileVersion.ID;
                 db.FileActionLogs.Add(createFileLog(EmpRole.ID, file.ID, FilePermissions.SET_CURRENT_VERSION));
@@ -148,15 +148,316 @@ namespace WebApplication2.Controllers
 
 
                 CreateFileModel viewModel = new CreateFileModel();
-                ViewBag.Level = new SelectList(db.FileLevels, "Level", "Level");
+                viewModel.Levels = new SelectList(db.FileLevels, "ID", "Name");
+
                 viewModel.InstitutionName = EmpRole.Institution.ArabicName;
                 viewModel.RoleName = EmpRole.Role.ArabicName;
                 viewModel.AuthorName = EmpRole.Employee.Name;
                 viewModel.DateCreated = DateTime.Now;
+                viewModel.RoleID = EmpRole.RoleID;
+                viewModel.InstitutionID = EmpRole.InstitutionID;
                 viewModel.AvailableEmployees = db.Employees.Where(x => x.ID != EmpRole.EmployeeID && x.Active == true).Select(x=>new SelectListItem() {Text=x.Name,Value=x.ID.ToString()  }).ToList();
                 return View(viewModel);
             }
             return getErrorView(HttpStatusCode.Unauthorized);
+
+        }
+        public ActionResult CreateLevel()
+        {
+            var EmpRole = getPrimaryRole();
+            if (EmpRole == null)
+            {
+                return getErrorView(HttpStatusCode.Unauthorized);
+
+            }
+            if (hasInstitutionPermission(EmpRole.RoleID, InstitutionPermissions.CREATE_FILE_LEVEL))
+            {
+
+                var availableRolesIDS = db.Roles.Where(x => x.ParentID != null).Select(x=>x.ID).ToList();
+                var availableRolesNames = db.Roles.Where(x => x.ParentID != null).Select(x => x.ArabicName).ToList();
+
+                //   Dictionary<int, List<SelectListItem>> roleToPermissions = new Dictionary<int, List<SelectListItem>>();
+
+
+                var availablePermissions = db.FilePermissions.Where(x => x.Grantable == true).Select(x => new SelectListItem() { Text = x.ArabicName, Value = x.Name }).ToList();
+                var overAllPermissions = new List<List<SelectListItem>>();
+                for (int i=0;i<availableRolesIDS.Count;i++)
+                {
+                    overAllPermissions.Add(availablePermissions);
+                }
+
+                CreateFileLevelModel viewModel = new CreateFileLevelModel()
+                {
+
+                    RolesIds = availableRolesIDS,
+                    RolesNames= availableRolesNames,
+                    Permissions = overAllPermissions
+
+                };
+
+
+                return View(viewModel);
+            }
+            return getErrorView(HttpStatusCode.Unauthorized);
+
+        }
+
+        public ActionResult DeleteLevel(int? id)
+        {
+            if (id == null)
+            {
+                return getErrorView(HttpStatusCode.BadRequest);
+            }
+            FileLevel level = db.FileLevels.Find(id);
+            if (level == null)
+            {
+                return getErrorView(HttpStatusCode.NotFound);
+
+            }
+            var EmpRole = getPrimaryRole();
+            if (EmpRole == null)
+            {
+                return getErrorView(HttpStatusCode.Unauthorized);
+
+            }
+
+            if (hasInstitutionPermission(EmpRole.RoleID, InstitutionPermissions.DELETE_FILE_LEVEL) && isFileLevelDeleteable(level.ID))
+            {
+
+
+                DeleteFileLevelModel viewModel = new DeleteFileLevelModel();
+                List<Role> roles = db.Roles.Where(x => x.ParentID != null).OrderBy(x => x.PriorityOrder).ToList<Role>();
+
+                Dictionary<String, List<String>> rolesAndPermissions = new Dictionary<string, List<string>>();
+
+                foreach (var role in roles)
+                {
+                    List<String> permissions = db.FilesScopes.Where(x => x.RoleID == role.ID && x.LevelID == level.ID).Select(x => x.FilePermission.ArabicName).ToList<String>();
+                    rolesAndPermissions.Add(role.ArabicName, permissions);
+
+
+
+
+                }
+                viewModel.Name = level.Name;
+                viewModel.Desc = level.LevelDesc;
+
+                viewModel.ID = level.ID;
+                viewModel.RolesDirectory = rolesAndPermissions;
+
+
+
+
+
+
+                return View(viewModel);
+
+
+
+
+
+            }
+            return getErrorView(HttpStatusCode.Unauthorized);
+
+
+
+
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteLevel(DeleteFileLevelModel viewModel)
+        {
+            int id = viewModel.ID;
+            if (id==0)
+            {
+                return getErrorView(HttpStatusCode.BadRequest);
+            }
+            FileLevel level = db.FileLevels.Find(id);
+            if (level == null)
+            {
+                return getErrorView(HttpStatusCode.NotFound);
+
+            }
+            var EmpRole = getPrimaryRole();
+            if (EmpRole == null)
+            {
+                return getErrorView(HttpStatusCode.Unauthorized);
+
+            }
+
+            if (hasInstitutionPermission(EmpRole.RoleID, InstitutionPermissions.DELETE_FILE_LEVEL) && isFileLevelDeleteable(level.ID))
+            {
+
+
+
+
+
+
+
+
+                foreach (var scope in db.FilesScopes.Where(x => x.LevelID == level.ID))
+                {
+                    db.FilesScopes.Remove(scope);
+                }
+
+                db.FileLevels.Remove(level);
+
+
+
+                db.SaveChanges();
+
+
+                return RedirectToAction("FileLevels");
+
+
+
+
+
+            }
+            return getErrorView(HttpStatusCode.Unauthorized);
+
+
+
+
+
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditLevel(EditFileLevelModel viewModel)
+        {
+            int? id = viewModel.ID;
+            if (id == null)
+            {
+                return getErrorView(HttpStatusCode.BadRequest);
+            }
+            FileLevel level = db.FileLevels.Find(id);
+            if (level == null)
+            {
+                return getErrorView(HttpStatusCode.NotFound);
+
+            }
+            var EmpRole = getPrimaryRole();
+            if (EmpRole == null)
+            {
+                return getErrorView(HttpStatusCode.Unauthorized);
+
+            }
+
+            if (hasInstitutionPermission(EmpRole.RoleID, InstitutionPermissions.EDIT_FILE_LEVEL))
+            {
+
+
+
+                db.FileLevels.Find(level.ID).Name = viewModel.levelName;
+                db.FileLevels.Find(level.ID).LevelDesc = viewModel.Desc;
+
+
+
+            
+                foreach (var scopre in db.FilesScopes.Where(x=>x.LevelID==level.ID))
+                {
+                    db.FilesScopes.Remove(scopre);
+                }
+                if (viewModel.Permissions != null)
+                {
+                    for (int i = 0; i < viewModel.Permissions.Count; i++)
+                    {
+                        foreach (var perm in viewModel.Permissions[i])
+                        {
+                            if (perm.Selected)
+                            {
+
+                                FilesScope filesScope = new FilesScope()
+                                {
+                                    RoleID = viewModel.RolesIds[i],
+                                    Permission = perm.Value,
+                                    LevelID = level.ID
+                                };
+                                db.FilesScopes.Add(filesScope);
+
+                            }
+                        }
+                    }
+                }
+                db.SaveChanges();
+
+
+                return RedirectToAction("FileLevels","Files",new { id=level.ID});
+
+
+
+
+            }
+            return getErrorView(HttpStatusCode.Unauthorized);
+
+
+
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateLevel(CreateFileLevelModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var EmpRole = getPrimaryRole();                                                                    
+                if (EmpRole == null)
+                {
+                    return getErrorView(HttpStatusCode.Unauthorized);
+
+                }
+                if (hasInstitutionPermission(EmpRole.RoleID, InstitutionPermissions.CREATE_FILE_LEVEL))
+                {
+
+
+
+
+                    FileLevel fileLevel = new FileLevel();
+                    fileLevel.Name = viewModel.levelName;
+                    fileLevel.LevelDesc = viewModel.Desc;
+
+                    db.FileLevels.Add(fileLevel);
+
+                    if (viewModel.Permissions != null)
+                    {
+                        for (int i = 0; i < viewModel.Permissions.Count; i++)
+                        {
+                            foreach (var perm in viewModel.Permissions[i])
+                            {
+                                if (perm.Selected)
+                                {
+
+                                    FilesScope filesScope = new FilesScope()
+                                    {
+                                        RoleID = viewModel.RolesIds[i],
+                                        Permission = perm.Value,
+                                        LevelID = fileLevel.ID
+                                    };
+                                    db.FilesScopes.Add(filesScope);
+
+                                }
+                            }
+                        }
+                    }
+                    db.SaveChanges();
+
+
+
+                 return RedirectToAction("FileLevels", "Files", new { id = fileLevel.ID });
+
+
+
+
+
+
+                }
+                return getErrorView(HttpStatusCode.Unauthorized);
+            }
+
+            return View(viewModel);
 
         }
 
@@ -180,7 +481,7 @@ namespace WebApplication2.Controllers
                     File file = new File()
                     {
                         Name = viewModel.Name,
-                        Level = viewModel.Level,
+                        LevelID = viewModel.LevelID,
                         DateCreated = viewModel.DateCreated
 
                     };
@@ -230,8 +531,9 @@ namespace WebApplication2.Controllers
             }
 
 
-            ViewBag.Level = new SelectList(db.FileLevels, "Level", "Level", viewModel.Level);
-            return View();
+            viewModel.Levels = new SelectList(db.FileLevels, "ID", "Name");
+
+            return View(viewModel);
         }
 
 
@@ -254,12 +556,12 @@ namespace WebApplication2.Controllers
 
 
             //      
-            if (hasFileLevelPermission(EmpRole.Role.ID, file.Level, FilePermissions.ADD_VERSION) || isFileAuthor(id, EmpRole.ID))
+            if (hasFileLevelPermission(EmpRole.Role.ID, file.LevelID, FilePermissions.ADD_VERSION, EmpRole.ID, file.ID) || isFileAuthor(id, EmpRole.ID))
             {
                 AddVersionModel model = new AddVersionModel()
                 {
                     FileID = id,
-                    Name = file.Name,
+                    FileName = file.Name,
                     DateCreated = DateTime.Now
 
                 };
@@ -312,7 +614,7 @@ namespace WebApplication2.Controllers
 
 
                 //      
-                if (hasFileLevelPermission(EmpRole.Role.ID, file.Level, FilePermissions.ADD_VERSION) || isFileAuthor(id, EmpRole.ID))
+                if (hasFileLevelPermission(EmpRole.Role.ID, file.LevelID, FilePermissions.ADD_VERSION, EmpRole.ID, file.ID) || isFileAuthor(id, EmpRole.ID))
                 {
 
                     try
@@ -440,12 +742,35 @@ namespace WebApplication2.Controllers
                 return getErrorView(HttpStatusCode.NotFound);
 
             }
-            if (hasFileLevelPermission(EmpRole.Role.ID, file.Level, FilePermissions.EDIT_FILE) || isFileAuthor(file.ID, EmpRole.ID))
+            if (hasFileLevelPermission(EmpRole.Role.ID, file.LevelID, FilePermissions.EDIT_FILE, EmpRole.ID, file.ID) || isFileAuthor(file.ID, EmpRole.ID))
             {
 
-                
-                ViewBag.Level = new SelectList(db.FileLevels, "Level", "Level", file.Level);
-                return View(file);
+                var Mentions = db.FileMentions.Where(x => x.FileID == file.ID).Select(x => x.EmployeeID).ToList();
+                var availableEmployees = db.Employees.Where(x => x.ID != EmpRole.EmployeeID && x.Active == true && x.ID!=file.EmployeeRole.EmployeeID).Select(x => new SelectListItem() { Text = x.Name, Value = x.ID.ToString() }).ToList();
+
+                EditFileModel viewModel = new EditFileModel()
+                {
+                     AvailableEmployees=availableEmployees,
+                     ID=file.ID,
+                     FileName=file.Name
+
+            };
+                foreach (var emp in availableEmployees)
+                {
+                    if (Mentions.Contains(int.Parse(emp.Value)))
+                    { emp.Selected = true; }
+                }
+                if (isFileAuthor(file.ID, EmpRole.ID))
+                {
+                    viewModel.Levels = new SelectList(db.FileLevels, "ID", "Name", file.LevelID);
+
+                }
+                else {
+                    var availLevels = db.FilesScopes.Where(x => x.Permission == FilePermissions.EDIT_FILE && x.RoleID == EmpRole.RoleID).Select(x => x.LevelID);
+                viewModel.Levels = new SelectList(db.FileLevels.Where(x=>availLevels.Contains(x.ID)), "ID", "Name", file.LevelID);
+
+                }
+                return View(viewModel);
             }
             return getErrorView(HttpStatusCode.Unauthorized);
 
@@ -453,13 +778,16 @@ namespace WebApplication2.Controllers
         }
 
 
+
+    
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Level,Name")] File file)
+        public ActionResult Edit(EditFileModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                File acutalFile = db.Files.Find(file.ID);
+                File acutalFile = db.Files.Find(viewModel.ID);
                 if (acutalFile == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.NotFound);
@@ -471,19 +799,49 @@ namespace WebApplication2.Controllers
                     return getErrorView(HttpStatusCode.Unauthorized);
                 }
 
-                if (hasFileLevelPermission(EmpRole.Role.ID, acutalFile.Level, FilePermissions.EDIT_FILE) || isFileAuthor(acutalFile.ID, EmpRole.ID))
+                if (hasFileLevelPermission(EmpRole.Role.ID, acutalFile.LevelID, FilePermissions.EDIT_FILE, EmpRole.ID, acutalFile.ID) || isFileAuthor(acutalFile.ID, EmpRole.ID))
                 {
 
-                    db.Files.Find(acutalFile.ID).Name = file.Name;
-                    db.Files.Find(acutalFile.ID).Level = file.Level;
+                    db.Files.Find(acutalFile.ID).Name = viewModel.FileName;
+                    db.Files.Find(acutalFile.ID).LevelID = viewModel.LevelID;
+
+                    foreach (var per in db.FileMentions.Where(x => x.FileID == acutalFile.ID))
+                    {
+                       
+                        db.FileMentions.Remove(per);
+                    }
+
+                    List<int> MentionedIDs = new List<int>();
+                    foreach (var emp in viewModel.AvailableEmployees)
+                    {
+                        if (emp.Selected)
+                        {
+                            MentionedIDs.Add(int.Parse(emp.Value));
+                        }
+                    }
+
+
+                    foreach (var ID in MentionedIDs)
+                    {
+                        FileMention mention = new FileMention()
+                        {
+                            FileID = acutalFile.ID,
+                            EmployeeID = ID,
+                            CreatorID = EmpRole.ID,
+                            DateCreated = DateTime.Now,
+                            Seen = false
+                        };
+                        db.FileMentions.Add(mention);
+                    }
+
                     db.SaveChanges();
                     return RedirectToAction("View", new { id = acutalFile.ID });
 
                 }
                 return getErrorView(HttpStatusCode.Unauthorized);
             }
-            ViewBag.Level = new SelectList(db.FileLevels, "Level", "LevelDesc", file.Level);
-            return View(file);
+            viewModel.Levels = new SelectList(db.FileLevels, "ID", "Name", viewModel.Levels.SelectedValue);
+            return View(viewModel);
         }
 
 
@@ -509,7 +867,7 @@ namespace WebApplication2.Controllers
                 return getErrorView(HttpStatusCode.NotFound);
 
             }
-            if (hasFileLevelPermission(EmpRole.Role.ID, file.Level, FilePermissions.DELETE_FILE) || isFileAuthor(file.ID, EmpRole.ID))
+            if (hasFileLevelPermission(EmpRole.Role.ID, file.LevelID, FilePermissions.DELETE_FILE, EmpRole.ID, file.ID) || isFileAuthor(file.ID, EmpRole.ID))
             {
 
 
@@ -538,7 +896,7 @@ namespace WebApplication2.Controllers
                     return getErrorView(HttpStatusCode.Unauthorized);
                 }
 
-                if (hasFileLevelPermission(EmpRole.Role.ID, acutalFile.Level, FilePermissions.DELETE_FILE) ||isFileAuthor(acutalFile.ID, EmpRole.ID))
+                if (hasFileLevelPermission(EmpRole.Role.ID, acutalFile.LevelID, FilePermissions.DELETE_FILE, EmpRole.ID, acutalFile.ID) ||isFileAuthor(acutalFile.ID, EmpRole.ID))
                 {
 
                 //try
@@ -576,7 +934,7 @@ namespace WebApplication2.Controllers
 
         }
 
-        public ActionResult FileLevels(string level)
+        public ActionResult FileLevels(int?   id)
         {
             var emp = getEmployeeRef();
             if (emp == null)
@@ -586,38 +944,57 @@ namespace WebApplication2.Controllers
             }
 
 
-            var level_from_db = db.FileLevels.Find(level);
+            var level_from_db = db.FileLevels.Find(id);
             if (level_from_db == null)
             {
                 level_from_db = db.FileLevels.FirstOrDefault();
+                if (level_from_db == null)
+                {
+                    return RedirectToAction("CreateLevel");
+                }
             }
 
             ViewFileLevelsModel viewModel = new ViewFileLevelsModel();
-            List<String> levels = db.FileLevels.Select(x => x.Level).ToList<String>();
+            List<String> levels = db.FileLevels.Select(x => x.Name).ToList<String>();
              Dictionary<String, List<String>> DICT = new  Dictionary<string, List<string>>();
           
-                List<Role> roles = db.Roles.OrderBy(x=>x.PriorityOrder).ToList<Role>();
+                List<Role> roles = db.Roles.Where(x => x.ParentID != null).OrderBy(x=>x.PriorityOrder).ToList<Role>();
 
                 Dictionary<String, List<String>> rolesAndPermissions = new Dictionary<string, List<string>>();
 
                 foreach (var role in roles)
                 {
-                    List<String> permissions = db.FilesScopes.Where(x => x.RoleID == role.ID && x.Level== level_from_db.Level).Select(x => x.FilePermission.ArabicName).ToList<String>();
+                    List<String> permissions = db.FilesScopes.Where(x => x.RoleID == role.ID && x.LevelID== level_from_db.ID).Select(x => x.FilePermission.ArabicName).ToList<String>();
                     rolesAndPermissions.Add(role.ArabicName, permissions);
 
                 }
 
 
                 
-            ViewBag.Levels = new SelectList( db.FileLevels,"Level","Level",level_from_db.Level);
+            ViewBag.Levels = new SelectList( db.FileLevels,"ID","Name",level_from_db.ID);
+
+            var EmpRole = getPrimaryRole();
 
             viewModel.Level = level_from_db;
             viewModel.RolesDirectory = rolesAndPermissions;
-
+            if (EmpRole != null)
+            {
+                viewModel.canEdit = hasInstitutionPermission(EmpRole.Role.ID, InstitutionPermissions.EDIT_FILE_LEVEL);
+                viewModel.canDelete = hasInstitutionPermission(EmpRole.Role.ID, InstitutionPermissions.EDIT_FILE_LEVEL) && isFileLevelDeleteable(level_from_db.ID);
+              }
             return View(viewModel);
             
         }
 
+        private bool isFileLevelDeleteable(int fileLevelID)
+        {
+            var files = db.Files.Where(x => x.LevelID == fileLevelID);
+            if (files == null || files.Count() == 0)
+            {
+                return true;
+            }
+            return false;
+        }
 
         public ActionResult DeleteVersion(int id)
         {
@@ -653,6 +1030,8 @@ namespace WebApplication2.Controllers
 
         }
 
+
+ 
         public ActionResult Mentions()
         {
             var myEmp = getEmployeeRef();
@@ -674,6 +1053,101 @@ namespace WebApplication2.Controllers
 
         }
 
+        public ActionResult EditLevel(int? id)
+        {
+
+            if (id == null)
+            {
+                return getErrorView(HttpStatusCode.BadRequest);
+            }
+            FileLevel level = db.FileLevels.Find(id);
+            if (level == null)
+            {
+                return getErrorView(HttpStatusCode.NotFound);
+
+            }
+            var EmpRole = getPrimaryRole();
+            if (EmpRole == null)
+            {
+                return getErrorView(HttpStatusCode.Unauthorized);
+
+            }
+            List<string> list = new List<string>();
+
+            if (hasInstitutionPermission(EmpRole.RoleID, InstitutionPermissions.EDIT_FILE_LEVEL))
+            {
+
+
+                var availableRolesIDS = db.Roles.Where(x => x.ParentID != null).Select(x => x.ID).ToList();
+                var availableRolesNames = db.Roles.Where(x => x.ParentID != null).Select(x => x.ArabicName).ToList();
+
+
+
+                var overAllPermissions = new List<List<SelectListItem>>();
+
+                for (int i = 0; i < availableRolesIDS.Count; i++)
+                {
+                    var availablePermissions = db.FilePermissions.Where(x => x.Grantable == true).Select(x => new SelectListItem() { Text = x.ArabicName, Value = x.Name }).ToList();
+
+                    int roleID = availableRolesIDS[i];
+
+
+                    var alreadyGrantedPerms = db.FilesScopes.Where(x => x.RoleID == roleID && x.LevelID == level.ID).Select(x => x.Permission).ToList();
+                
+                    for (int j=0;j < availablePermissions.Count;j++)
+                    {
+                        if (alreadyGrantedPerms.Contains(availablePermissions[j].Value))
+                        {
+                            availablePermissions[j].Selected = true;
+                        }
+                    }
+                    overAllPermissions.Add(availablePermissions);
+
+
+                }
+
+
+                ViewBag.g = list;
+
+                EditFileLevelModel viewModel = new EditFileLevelModel()
+                {
+
+                    levelName=level.Name,
+                    Desc=level.LevelDesc,
+                    ID=level.ID,
+                    RolesIds = availableRolesIDS,
+                    RolesNames = availableRolesNames,
+                    Permissions = overAllPermissions
+
+                };
+
+            return View(viewModel);
+
+
+            }
+
+
+
+
+            return getErrorView(HttpStatusCode.Unauthorized);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
+
+        }
 
         public ActionResult Download(int? id)//version ID
         {
@@ -693,7 +1167,7 @@ namespace WebApplication2.Controllers
                 return getErrorView(HttpStatusCode.NotFound);
 
             }
-            if (hasFileLevelPermission(EmpRole.Role.ID, fileVersion.File.Level, FilePermissions.VIEW_FILE) || isFileAuthor((int)fileVersion.FileID, EmpRole.ID))
+            if (hasFileLevelPermission(EmpRole.Role.ID, fileVersion.File.LevelID, FilePermissions.VIEW_FILE, EmpRole.ID, fileVersion.File.ID) || isFileAuthor((int)fileVersion.FileID, EmpRole.ID))
             {
                 FileManager fileMG = new FileManager();
                 return File(fileMG.getFileStream(fileVersion.FileContent.Href), "applicatin/force-download", fileVersion.Name+"."+fileVersion.FileType.Extension);

@@ -8,6 +8,8 @@
     <h1>KfsDocs</h1>
    
 </div>
+@if(Model.Files!=null && Model.Files.Count>0)
+{ 
 <table id="table" class="display">
     <thead>
         <tr>
@@ -25,16 +27,16 @@
 
 
 
+
         @foreach (var file in Model.Files)
         {
 
         <tr>
 
              <td>@Html.ActionLink(file.Name, "View", "Files", new { id = file.ID }, null)</td>
+             <td>@Html.ActionLink(file.FileLevel.Name, "FileLevels", "Files", new { id = file.LevelID }, null)</td>
             <td>@Html.ActionLink(file.EmployeeRole.Employee.Name, "PersonProfile", "Employeess", new { id = file.EmployeeRole.EmployeeID }, null)</td>
-
             <td>@Html.ActionLink(file.EmployeeRole.Institution.ArabicName, "InstitutionProfile", "Institutions", new { id = file.EmployeeRole.InstitutionID }, null)</td>
-
             <td>@file.DateCreated</td>
 
         </tr>
@@ -44,7 +46,7 @@
 
     </tbody>
 </table>
-
+                        }
 @section scripts{
     <script type="text/javascript">
 
