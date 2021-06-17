@@ -14,6 +14,51 @@ namespace WebApplication2.Controllers
     public class RolesController : BaseController
     {
 
+        public ActionResult getAvailableRolesForInstitution(int id)
+        {
+            
+            var EmpRole = getPrimaryRole();
+            if (EmpRole == null)
+            {
+                return getErrorView(HttpStatusCode.Unauthorized);
+            }
+            var institution = db.Institutions.Find(id);
+            
+                if (institution == null)
+                {
+                return getErrorView(HttpStatusCode.NotFound);
+
+                }
+            
+            List<RoleJSONmodel> availableRoles;
+            if (institution.ID == EmpRole.InstitutionID)
+            {
+          
+                availableRoles = db.Roles.Where(x => x.PriorityOrder > EmpRole.Role.PriorityOrder).Select(x => new RoleJSONmodel()
+                {
+                    ID = x.ID,
+                    Name = x.ArabicName
+                }).ToList();
+                return new JsonResult { Data = availableRoles, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+
+            }
+           availableRoles = db.Roles.Where(x => x.PriorityOrder >= EmpRole.Role.PriorityOrder).Select(x => new RoleJSONmodel()
+            {
+                ID = x.ID,
+                Name = x.ArabicName
+            }).ToList();
+            return new JsonResult { Data = availableRoles, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+
+        }
+
+
+
+
+
+
+
         // GET: Roles
         public ActionResult Index()
         {
@@ -559,8 +604,7 @@ namespace WebApplication2.Controllers
 
 
                 var availableInstitutions = getChildrenInstitutionWithParent(EmpRole.InstitutionID).ToList<Institution>();
-
-                ViewBag.InstitutionID = new SelectList(availableInstitutions, "ID", "ArabicName");
+                ViewBag.InstitutionID = new SelectList(availableInstitutions, "ID", "ArabicName",EmpRole.InstitutionID);
 
                 ViewBag.RoleID = new SelectList(db.Roles.Where(x => x.PriorityOrder > EmpRole.Role.PriorityOrder), "ID", "ArabicName");
                 return View();

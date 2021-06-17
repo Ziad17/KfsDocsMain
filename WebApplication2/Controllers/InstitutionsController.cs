@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication2.Models;
 using WebApplication2.Models.ViewModels;
+using WebApplication2.Models.ViewModels.InstitutionModels;
 using WebApplication2.Models.ViewModels.Institutions;
 
 namespace WebApplication2.Controllers
@@ -70,6 +71,11 @@ namespace WebApplication2.Controllers
                 ViewInstitutionTypesModel viewModel = new ViewInstitutionTypesModel();
                 var types = db.InstitutionTypes.ToList();
                 viewModel.Types = types;
+                viewModel.canAdd = hasInstitutionPermission(myEmp.RoleID, InstitutionPermissions.CREATE_INSTITUTION_TYPE);
+                viewModel.canEdit = hasInstitutionPermission(myEmp.RoleID, InstitutionPermissions.EDIT_INSTITUTION_TYPE);
+                viewModel.canDelete = hasInstitutionPermission(myEmp.RoleID, InstitutionPermissions.DELETE_INSTITUTION_TYPE);
+
+
                 return View(viewModel);
  
             }

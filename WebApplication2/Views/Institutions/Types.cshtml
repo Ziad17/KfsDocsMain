@@ -1,14 +1,14 @@
-﻿@model  WebApplication2.Models.ViewModels.Institutions.ViewInstitutionTypesModel
+﻿@model WebApplication2.Models.ViewModels.InstitutionModels.ViewInstitutionTypesModel
 
 
-@{ @ViewBag.Title= "أنواع المؤسسات";}
+@{ ViewBag.Title= "أنواع المؤسسات";}
 
 <h2>@ViewBag.Title</h2>
-
+<br/>
 
 @if (Model.canAdd)
 {
-    <a href="~/Institutions/CreateType">أضافة نوع </a>
+<a href="~/Institutions/CreateType">أضافة نوع </a>
 }
 
 <table id="table" class="display table table-responsive">
@@ -29,35 +29,32 @@
     <tbody>
         @foreach (var item in Model.Types)
         {
-            <tr>
-                <td>
-                    @item.ArabicName
-                </td>
+<tr>
+    <td>
+        @item.ArabicName
+    </td>
 
 
-                <td>
-                    @item.Description
+    <td>
+        @item.Description
 
-                </td>
-                <td>
-                    @item.Institutions.Count
-                </td>
-                <td>
-                    @if (Model.canEdit)
-                    {
-                        <a href="~/Institutions/EditType/@item.ID"> تعديل </a>
+    </td>
+    <td>
+        @item.Institutions.Count
+    </td>
+    <td>
+        @if (Model.canEdit)
+        {
+<a href="~/Institutions/EditType/@item.ID">  تعديل  </a>}
+        @if (Model.canEdit && Model.canDelete && item.Institutions.Count == 0)
+        { <span>|</span>}
+        @if (Model.canDelete && item.Institutions.Count == 0)
+        {
+<a href="~/Institutions/DeleteType/@item.ID">  مسح</a>}
 
-                    }
-                    @if (Model.canDelete && item.Institutions.Count==0)
-                    {
-                        <a href="~/Institutions/DeleteType/@item.ID"> مسح  </a>
+    </td>
 
-                    }
-
-                </td>
-
-            </tr>
-        }
+</tr>}
     </tbody>
 </table>
 

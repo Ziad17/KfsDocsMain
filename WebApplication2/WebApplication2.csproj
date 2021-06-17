@@ -63,6 +63,9 @@
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -155,11 +158,6 @@
     <Reference Include="Antlr3.Runtime">
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -278,19 +276,18 @@
     <Compile Include="Models\ViewModels\AddVersionModel.cs" />
     <Compile Include="Models\ViewModels\CreateFileLevelModel.cs" />
     <Compile Include="Models\ViewModels\CreateFileModel.cs" />
+    <Compile Include="Models\ViewModels\CreateInstitutionTypeModel.cs" />
     <Compile Include="Models\ViewModels\DeleteFileLevelModel.cs" />
+    <Compile Include="Models\ViewModels\DeleteInstitutionTypeModel.cs" />
     <Compile Include="Models\ViewModels\EditFileLevelModel.cs" />
     <Compile Include="Models\ViewModels\EditFileModel.cs" />
+    <Compile Include="Models\ViewModels\EditInstitutionTypeModel.cs" />
     <Compile Include="Models\ViewModels\EmployeeMentionJSONModel.cs" />
     <Compile Include="Models\ViewModels\EmployeeProfileModel.cs" />
     <Compile Include="Models\ViewModels\FileUploadModel.cs" />
     <Compile Include="Models\ViewModels\FirstLoginModel.cs" />
     <Compile Include="Models\ViewModels\HttpErrors.cs" />
     <Compile Include="Models\ViewModels\InstitutionProfileModel.cs" />
-    <Compile Include="Models\ViewModels\Institutions\CreateInstitutionTypeModel.cs" />
-    <Compile Include="Models\ViewModels\Institutions\DeleteInstitutionTypeModel.cs" />
-    <Compile Include="Models\ViewModels\Institutions\EditInstitutionTypeModel.cs" />
-    <Compile Include="Models\ViewModels\Institutions\ViewInstitutionTypesModel.cs" />
     <Compile Include="Models\ViewModels\LogsViewModel.cs" />
     <Compile Include="Models\ViewModels\MainIndexModel.cs" />
     <Compile Include="Models\ViewModels\MenuModel.cs" />
@@ -298,12 +295,14 @@
     <Compile Include="Models\ViewModels\Messages\InboxModel.cs" />
     <Compile Include="Models\ViewModels\Messages\ViewMessageModel.cs" />
     <Compile Include="Models\ViewModels\MyProfileModel.cs" />
+    <Compile Include="Models\ViewModels\RoleJSONmodel.cs" />
     <Compile Include="Models\ViewModels\RolesChooseDefaultModel.cs" />
     <Compile Include="Models\ViewModels\Messages\SendMessageModel.cs" />
     <Compile Include="Models\ViewModels\SearchModel.cs" />
     <Compile Include="Models\ViewModels\ViewEmployeeRoleModel.cs" />
     <Compile Include="Models\ViewModels\ViewFileLevelsModel.cs" />
     <Compile Include="Models\ViewModels\ViewFileModel.cs" />
+    <Compile Include="Models\ViewModels\ViewInstitutionTypesModel.cs" />
     <Compile Include="Models\ViewModels\ViewMentionsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -441,9 +440,10 @@
     <Content Include="Views\EmployeeRoles\Details.cshtml" />
     <Content Include="Views\EmployeeRoles\Edit.cshtml" />
     <Content Include="Views\EmployeeRoles\Index.cshtml" />
-    <Content Include="Views\Institutions\Types.cshtml" />
     <Content Include="Views\Institutions\EditType.cshtml" />
     <Content Include="Views\Institutions\DeleteType.cshtml" />
+    <Content Include="Views\Institutions\Types.cshtml" />
+    <Content Include="Views\Institutions\CreateType.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

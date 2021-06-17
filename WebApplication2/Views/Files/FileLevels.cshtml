@@ -1,82 +1,72 @@
 ﻿@model WebApplication2.Models.ViewModels.ViewFileLevelsModel
 
 @{
-      @ViewBag.Title= "مستويات الملفات";
-}
+                ViewBag.Title= "مستويات الملفات"; }
+<h2>@ViewBag.Title</h2>
+
 @try
 {
 
 
 
 
-  <h2>@ViewBag.Title</h2>
 
-    @Html.DropDownList("Levels", null, htmlAttributes: new { @id = "drop", @class = "form-control" })
-
+@Html.DropDownList("Levels", null, htmlAttributes: new { @id = "drop", @class = "form-control" })
 
 
 
-    <h2>@Model.Level.LevelDesc</h2>
 
-    if (Model.canEdit)
-    {
-        @Html.ActionLink(" تعديل ", "EditLevel", "Files", new { id = Model.Level.ID }, null)
-    }
-    if (Model.canEdit)
-    {
-        @Html.ActionLink(" مسح ", "DeleteLevel", "Files", new { id = Model.Level.ID }, null)
-    }
-    <div class="table-responsive">
-        <table border="0" class="table table-hover">
-            <tr>
-                <th>
-                    @Html.DisplayName("الوظيفة")
-                </th>
-                <th>
-                    @Html.DisplayName("العمليات")
-                </th>
+                <h2>@Model.Level.LevelDesc</h2> if (Model.canEdit)
+                                {
+                @Html.ActionLink(" تعديل ", "EditLevel", "Files", new { id = Model.Level.ID }, null) }
+                                if (Model.canEdit)
+                                {
+                @Html.ActionLink(" مسح ", "DeleteLevel", "Files", new { id = Model.Level.ID }, null) }
+                <div class="table-responsive">
+                    <table border="0" class="table table-hover">
+                        <tr>
+                            <th>
+                                @Html.DisplayName("الوظيفة")
+                            </th>
+                            <th>
+                                @Html.DisplayName("العمليات")
+                            </th>
 
-            </tr>
+                        </tr>
 
-            @foreach (var item in Model.RolesDirectory)
-            {
-                <tr>
-                    <td>
-                        <h3>
-                            @item.Key
-                        </h3>
-                    </td>
+                        @foreach (var item in Model.RolesDirectory)
+                        {
+        <tr>
+            <td>
+                <h3>
+                    @item.Key
+                </h3>
+            </td>
 
-                    <td>
-                        <ul>
-                            @foreach (var permission in item.Value)
+            <td>
+                <ul>
+                    @foreach (var permission in item.Value)
+                    {
+<li>
+
+    @permission
+</li>}
+                </ul>
+            </td>
+
+        </tr>}
+
+
+                    </table>
+                </div> }
+                            catch (Exception e)
                             {
-                                <li>
-
-                                    @permission
-                                </li>
-
-
-                            }
-                        </ul>
-                    </td>
-
-                </tr>
-            }
-
-
-        </table>
-    </div>
-}
-catch (Exception e)
-{
-    <h2> مستوى ملف غير موجود</h2>
-}
+                <h2> مستوى ملف غير موجود</h2>}
 
 
 @section scripts{
     <script>
-    $("#drop").change(function () {
+        $("#drop").change(function () {
             var end = this.value;
             window.location.href = '/Files/FileLevels?id=' + end;
         });
