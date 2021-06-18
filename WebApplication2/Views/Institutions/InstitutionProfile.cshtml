@@ -8,175 +8,165 @@
 
 @if (!Model.Institution.Active)
 {
-    <h2 class="text-danger">This Institution Has Been Deactivated</h2>
-    <hr />
-}
+<h2 class="text-danger">This Institution Has Been Deactivated</h2>
+                <hr />}
 
 <br />
 <br />
 <br />
-<div class="col-md-9">
+<div class="row">
+    <div class="col-md-9">
 
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingOne">
-                <h4 class="panel-title">
-                    <a class="tabs" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        العاملين
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                <div class="panel-body">
-                    @foreach (var emp in Model.Employees)
-                    {
-
-                        <ul>
-                        <li>  @Html.ActionLink(emp.Name, "PersonProfile", "Employees", new { id = emp.ID }, null) </li>
-                            </ul>
-                    }
-                </div>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingTwo">
-                <h4 class="panel-title">
-                    <a  class="collapsed tabs" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        الملفات
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                <div class="panel-body">
-                    @foreach (var file in Model.Files)
-                    {
-
-                        <ul>
-                            <li>  @Html.ActionLink(file.Name, "View", "Files", new { id = file.ID }, null) </li>
-                            </ul>
-                            }
-                    </div>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingThree">
-                <h4 class="panel-title">
-                    <a class="collapsed tabs" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        المؤسسات التابعة
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                <div class="panel-body">
-                    @foreach (var ins in Model.Children)
-                    {
-                    <ul>
-                        <li>@Html.ActionLink(ins.ArabicName, "InstitutionProfile", new { id = ins.ID }, null)    </li>
-                        </ul>
-                            }
-</div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-
-
-
-</div>
-<div class="col-md-3">
-    <div class="card-group" style="margin-top:10px">
-
-        <img class="img-rounded" width="170" height="170" src="data:image/jpg;base64,@(Model.Institution.ImageURL)">
-
-        <div class="card-body">
-
-
-
-            <h2 class="card-title">
-                <a href="@(Model.Institution.Website)">@Model.Institution.ArabicName</a>
-            </h2>
-
-
-
-            <h4 class="card-title">
-                @Model.Institution.PrimaryPhone
-            </h4>
-
-            <h4 class="card-title">
-                @Model.Institution.SecondaryPhone
-            </h4>
-
-            <h4 class="card-title">
-                @Model.Institution.Fax
-            </h4>
-
-            <h4 class="card-title">
-                @Model.Institution.Email
-            </h4>
-
-
-            @if (Model.canActive || Model.canDeactive || Model.canEditInfo)
-            {
-                <hr />
-                <h4>الخيارات</h4>
-                <ul>
-
-                    @if (((Model.Institution.Active) && Model.canEditInfo))
-                    {
-                        <li>@Html.ActionLink("تعديل", "Edit", "Institutions", new { id = Model.Institution.ID }, null)</li>
-                    }
-                    @if (((!Model.Institution.Active) && Model.canActive))
-                    {
-                        <li>@Html.ActionLink("تفعيل", "Active", "Institutions", new { id = Model.Institution.ID }, null)</li>
-                    }
-                    @if (((Model.Institution.Active) && Model.canDeactive))
-                    {
-                        <li>@Html.ActionLink("إلغاء التفعيل", "Deactive", "Institutions", new { id = Model.Institution.ID }, null)</li>
-                    }
-
-
-
-
-                </ul>
-            }
-
-
-
-
-        </div>
-    </div>
-
-</div>
-
-
-@*<div id="tabs" align="center" class="col-md-8">
-
-        <ul>
-            <li>
-                <a href="#tab1">Employees</a>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item headtaps" role="presentation">
+                <a class="nav-link active ataps" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">العاملين</a>
             </li>
-            <li>
-                <a href="#tab2">Folders</a>
+            <li class="nav-item headtaps" role="presentation">
+                <a class="nav-link ataps" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">الملفات</a>
             </li>
-            <li>
-                <a href="#tab1">Associated Institutions</a>
+            <li  class="nav-item headtaps" role="presentation">
+                <a class="nav-link ataps" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">المؤسسات التابعة</a>
             </li>
         </ul>
+        <div class="tab-content" id="myTabContent">
+            @*------------------------------------------------------------------------------*@
+            @*------------------------------------------------------------------------------*@
+            <div class="tab-pane fade active in" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <ul>
+                    @if (Model.Employees.Count > 0)
+                    {
+                <div class="taps">
+                    @foreach (var emp in Model.Employees)
+                    {
+                <li style="font-size:18px;font-weight:600">
+                    @Html.ActionLink(emp.Name, "PersonProfile", "Employees", new { id = emp.ID }, null)
+                </li> }
+                </div>
 
-        <div id="tab1">
-            content1
+                }
+                else
+                {
+                <div class="danger taps" style="background-color: #dc3545;color :#fff">
+                    <i style="font-size:18px" class="far fa-times-circle"> &nbsp; &nbsp;</i><h4 style="display:inline-block;font-weight:600;padding-right:5px">لا يوجدعاملين  </h4>
+                </div>}
+                </ul>
+            </div>
+            @*------------------------------------------------------------------------------*@
+            @*------------------------------------------------------------------------------*@
+            <div class="tab-pane fade " id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <ul>
+                    @if (Model.Files.Count > 0)
+                    {
+        <div class="taps">
+            @foreach (var file in Model.Files)
+            {
+        <li>
+            @Html.ActionLink(file.Name, "View", "Files", new { id = file.ID }, null)
+        </li> }
+        </div> }
+                    else
+                    {
+
+        <div class="danger taps" style="background-color: #dc3545;color :#fff">
+            <i style="font-size:18px" class="far fa-times-circle"> &nbsp; &nbsp;</i><h4 style="display:inline-block;font-weight:600;padding-right:5px"> لا يوجد ملفات  </h4>
+        </div>}
+                    </ul>
+                </div>
+            @*------------------------------------------------------------------------------*@
+            @*------------------------------------------------------------------------------*@
+        <div class="tab-pane fade " id="contact" role="tabpanel" aria-labelledby="contact-tab">
+            <ul>
+                @if (Model.Files.Count > 0)
+                {
+            <div class="taps">
+                
+                @foreach (var ins in Model.Children)
+                {
+            <li>
+                                @Html.ActionLink(ins.ArabicName, "InstitutionProfile", new { id = ins.ID }, null)
+                                            </li>            }
+                </div>
+                }
+                else
+                {
+                <div class="danger taps" style="background-color: #dc3545;color :#fff">
+                    <i style="font-size:18px" class="far fa-times-circle"> &nbsp; &nbsp;</i><h4 style="display:inline-block;font-weight:600;padding-right:5px">   لا يوجد مؤسسات تابعة        </h4>
+                </div>
+                }
+            </ul>
         </div>
-        <div id="tab2">
-            content2
-        </div>
-        <div id="tab3">
-                      content3
+            @*------------------------------------------------------------------------------*@
+            @*------------------------------------------------------------------------------*@
         </div>
 
-    </div>*@
+
+    </div>
+    <div style="margin-top: -30px" class="col-md-3">
+        <div class="card-group">
+            <div  class="card">
+                <div align="center">
+                <img class="img-rounded" width="170" height="170" src="data:image/jpg;base64,@(Model.Institution.ImageURL)">
+                    </div>
+                <div class="card-body">
+
+
+
+                    <h2 class="card-title">
+                        <a href="@(Model.Institution.Website)">@Model.Institution.ArabicName</a>
+                    </h2>
+
+
+
+                    <h4 class="card-title">
+                        @Model.Institution.PrimaryPhone
+                    </h4>
+
+                    <h4 class="card-title">
+                        @Model.Institution.SecondaryPhone
+                    </h4>
+
+                    <h4 class="card-title">
+                        @Model.Institution.Fax
+                    </h4>
+
+                    <h4 class="card-title">
+                        @Model.Institution.Email
+                    </h4>
+                </div>
+
+                    @if (Model.canActive || Model.canDeactive || Model.canEditInfo)
+                    {
+        <hr />
+                        <i class="fas fa-circle"></i><h4 style="display:inline-block;padding-right:10px">الخيارات</h4>
+                                        <ul>
+
+                                            @if (((Model.Institution.Active) && Model.canEditInfo))
+                                            {
+                            <li>@Html.ActionLink("تعديل", "Edit", "Institutions", new { id = Model.Institution.ID }, null)</li>
+}
+                                            @if (((!Model.Institution.Active) && Model.canActive))
+                                            {
+                            <li>@Html.ActionLink("تفعيل", "Active", "Institutions", new { id = Model.Institution.ID }, null)</li>
+}
+                                            @if (((Model.Institution.Active) && Model.canDeactive))
+                                            {
+                            <li>@Html.ActionLink("إلغاء التفعيل", "Deactive", "Institutions", new { id = Model.Institution.ID }, null)</li>
+}
+
+
+
+
+                                        </ul>}
+
+
+
+
+                </div>
+            </div>
+            </div>
+        </div>
+</div>
+
+
 
 
