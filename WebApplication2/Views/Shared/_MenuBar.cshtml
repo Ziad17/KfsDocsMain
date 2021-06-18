@@ -14,7 +14,7 @@
             @*@Html.ActionLink(Model.Name, "PersonProfile", "Employees", new { id = Model.ID, area = "" }, new { @class = "navbar-brand" })*@
         <div style="float:right">
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
+                <li style="display: inline-table" class="dropdown">
                     <a style="font-size:20px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Html.Label(Model.Name) <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="~/Roles/ChooseDefault">تغيير وظيفتي</a></li>
@@ -140,15 +140,17 @@
                @* <a style=" position: relative; left: 35px; top: -2px; color: aquamarine;" class="" href="~/Home/Logout">
                     <img style="display:inline-block;padding-bottom:10px;margin-top:15px;position:relative;top:0px;left:8px" src="~/Content/logout.png" width="40" height="40" /> 
                 </a>*@
-                    @using (Html.BeginForm("Search", "Home", FormMethod.Post, htmlAttributes: new { @class = "form-inline my-3 my-lg-5 navbar-right", @style = "margin-top:8px;margin-left:170px;direction: ltr;" }))
+                    @using (Html.BeginForm("Search", "Home", FormMethod.Post, htmlAttributes: new { @class = "form-inline my-3 my-lg-5 navbar-right navbar-form", @style = "margin-top:8px;margin-left:170px;direction: ltr;" }))
                     {
-                        @Html.TextBox("query", null, new { @style = "border-radius:50px;padding-top: 10px;padding-bottom: 9px; padding-right: 33px;padding-left: 38px;background-color: #f0f2f5;border:0;outline: none;direction: rtl;", @placeholder="بحث (أشخاص - ملفات)" })
-
-                        <button type="submit" style="background-color: inherit; border: none; outline: none; position: relative; right: 36px; top: 2px; font-size: 18px; color: #808080fa; "> <i class="fas fa-search"></i></button>
+                <div class="form-group">
+                    @Html.TextBox("query", null, new { @style = "border-radius:50px;padding-top: 10px;padding-bottom: 9px; padding-right: 33px;padding-left: 38px;background-color: #f0f2f5;border:0;outline: none;direction: rtl;", @placeholder = " بحث (أشخاص - ملفات - المؤسسات )" })
+                </div>
+                    <button type="submit" style="background-color: inherit; border: none; outline: none; position: relative; right: 36px; top: 2px; font-size: 18px; color: #808080fa; "> <i class="fas fa-search"></i></button>
 
                     }
-            </div>
-            
+                </div>
+
+
         </div>
     </div>
 </div>

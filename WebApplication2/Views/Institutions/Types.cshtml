@@ -3,15 +3,15 @@
 
 @{ ViewBag.Title= "أنواع المؤسسات";}
 
-<h2>@ViewBag.Title</h2>
-<br/>
+<i style="font-size:50px;padding:5px;margin-top:10px" class="fas fa-university"></i><h2 style="display:inline-block">@ViewBag.Title</h2>
+
 
 @if (Model.canAdd)
 {
-<a href="~/Institutions/CreateType">أضافة نوع </a>
+<a class="btn btn-primary but1" href="~/Institutions/CreateType">أضافة نوع </a>
 }
 
-<table id="table" class="display table table-responsive">
+<table id="table" class="display table table-responsive table-hover">
     <thead>
         <tr style="color:white;background-color:#333333">
             <th>
