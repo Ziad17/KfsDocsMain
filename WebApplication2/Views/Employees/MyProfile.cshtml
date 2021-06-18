@@ -10,41 +10,41 @@
     {
     <div class="table-responsive">
         <table class="table table-hover ">
-            <tr>
+            <thead>
+                <tr style="background-color:#000000;color:#fff;border-radius:50px">
 
-                <th>
-                    إسم الملف
-                </th>
-                <th>
-                    المؤسسة
-                </th>
+                    <th>
+                        إسم الملف
+                    </th>
+                    <th>
+                        المؤسسة
+                    </th>
 
-                <th>
-                    التاريخ
-                </th>
-            </tr>
-
-            @foreach (var item in Model.Files)
-            {
-                <tr>
-                    <td>
-                        @Html.ActionLink(item.Name, "View", "Files", new { id = item.ID }, null)
-
-                    </td>
-                    <td>
-                        @Html.ActionLink(item.EmployeeRole.Institution.ArabicName, "InstitutionProfile", "Institutions", new { id = item.EmployeeRole.InstitutionID }, null)
-                    </td>
-
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateCreated)
-                    </td>
-
-
-
+                    <th>
+                        التاريخ
+                    </th>
                 </tr>
+            </thead>
+            <tbody style=" background-color: #ffff;">
+                @foreach (var item in Model.Files)
+                {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.Name, "View", "Files", new { id = item.ID }, null)
+
+                </td>
+                <td>
+                    @Html.ActionLink(item.EmployeeRole.Institution.ArabicName, "InstitutionProfile", "Institutions", new { id = item.EmployeeRole.InstitutionID }, null)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCreated)
+                </td>
 
 
-            }
+
+            </tr>}
+            </tbody>
         </table>
     </div>
         }
@@ -58,10 +58,10 @@
 <div class="col-md-1"></div>
 <div class="col-md-3">
     <div class="card-group" style="margin-top:10px">
-        <div class="card" style="padding: 20px;border-top: 3px  solid #f8b739;border-bottom: 3px  solid #f8b739" border-left: 3px solid #f8b739">
-
-            <img style="border: 5px solid #333333; padding: 5px" class="img-circle" width="170" height="170" src="data:image/jpg;base64,@(img)">
-    
+        <div  class="card" style="padding: 20px;margin-top:5px; border-top: 4px solid #1877f2; border-bottom: 4px solid #1877f2 ;background-color:#fff">
+            <div align="center">
+                <img style="border: 5px solid #333333; padding: 5px" class="img-circle" width="170" height="170" src="data:image/jpg;base64,@(img)">
+            </div>
             <!-- Button trigger modal -->
             <button style="border: 0; position: absolute; top: 168px; left: 193px; background-color: #201e1e94; padding: 10px; border-radius: 50%; " type="button" data-toggle="modal" data-target="#myModal">
                 @*<a style="position: relative; top: -46px; left: -4px; background-color:#201e1e94; padding: 10px; border-radius: 50%; " href="ChangePhoto">*@
@@ -105,33 +105,38 @@
                     </div>
                 </div>
             <!-- End Modal -->
-            <div class="card-body">
-                @Html.ActionLink("تعديل المعلومات", "EditMyProfile")
-                <h2>
-                    @Html.DisplayFor(model => model.Employee.Name, new { htmlAttributes = new { @class = "card-title" } })
+                <div class="card-body">
+                    <br />
+                    <br />
+                    <br />
+                    <div style="font-size:22px;font-weight:900;">
+                        <i class="far fa-id-card"></i>
+                        @Html.DisplayFor(model => model.Employee.Name, new { htmlAttributes = new { @class = "card-title" } })
+                    </div>
+                    <div style="font-size:20px">
+                        <i class="fas fa-user-edit"></i>
+                        @Html.ActionLink("تعديل المعلومات", "EditMyProfile")
+                    </div>
 
-                </h2>
-                @for (int i = 0; i < Model.Roles.Count; i++)
-                {
-                    <ul>
-                        <li class="card-text">
-                            @Html.ActionLink(Model.Roles[i].Role.ArabicName + " لدى " + Model.Roles[i].Institution.ArabicName, "InstitutionProfile", "Institutions", new { id = Model.Roles[i].Institution.ID }, null)
-                        </li>
-                    </ul>
-                }
-                <h4>
-                    @Html.DisplayFor(model => model.Employee.PHD, new { htmlAttributes = new { @class = "card-title" } })
+                    @for (int i = 0; i < Model.Roles.Count; i++)
+                    {
+                <ul>
+                    <li class="card-text">
+                        @Html.ActionLink(Model.Roles[i].Role.ArabicName + " لدى " + Model.Roles[i].Institution.ArabicName, "InstitutionProfile", "Institutions", new { id = Model.Roles[i].Institution.ID }, null)
+                    </li>
+                </ul>}
+                    <h4>
+                        @Html.DisplayFor(model => model.Employee.PHD, new { htmlAttributes = new { @class = "card-title" } })
 
-                </h4>
-                <h5>
-                    @Html.DisplayFor(model => model.Employee.Bio, new { htmlAttributes = new { @class = "card-title" } })
+                    </h4>
+                    <h5>
+                        @Html.DisplayFor(model => model.Employee.Bio, new { htmlAttributes = new { @class = "card-title" } })
 
-                </h5>
-                <h5>
-                </h5>
+                    </h5>
 
 
-            </div>
+
+                </div>
         </div>
 
     </div>
