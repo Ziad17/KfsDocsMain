@@ -5,7 +5,7 @@ using System.Web;
 
 namespace WebApplication2.Models.ViewModels
 {
-    public class ActiveDeactiveInstitutionModel
+    public class ActiveDeactiveInstitutionModelDESPRECATED
     {
         public Institution Institution { get; set; }
     }

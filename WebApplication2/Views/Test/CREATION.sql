@@ -500,19 +500,25 @@ INSERT INTO FilePermission VALUES('CREATE_FILE',N'إنشاء ملف',0)
 GO;
 
 INSERT INTO PersonPermission
-VALUES ( 'DELETE_PERSON',N'مسح حساب شخص',0,null);
+VALUES ( 'VIEW_EMPLOYEE_ROLE',N'عرض وظيفة شخص',1,null);
 INSERT INTO PersonPermission
-VALUES ( 'VIEW_PERSON_PROFILE',N'عرض حساب شخص',1,null);
+VALUES ( 'DELETE_EMPLOYEE_ROLE',N'مسح وظيفة شخص',1,null);
 INSERT INTO PersonPermission
 VALUES ( 'ATTACH_ROLE_TO_PERSON',N'تعيين وظيفة لشخص',1,null);
 INSERT INTO PersonPermission
-VALUES ( 'VIEW_ALL_PERSONS_HIERARCHY',N'عرض الهرم الوظيفي',1,null);
+VALUES ( 'DEACTIVATE_EMPLOYEE_ROLE',N'تعطيل وظيفة شخص',1,null);
 INSERT INTO PersonPermission
-VALUES ( 'DEACTIVATE_PERSON_WITHIN_INSTITUTION',N'تعطيل حساب شخص',1,null);
+VALUES ( 'ACTIVATE_EMPLOYEE_ROLE',N'تفعيل وظيفة شخص',1,null);
+
+ INSERT INTO PersonPermission
+VALUES ( 'VIEW_ALL_EMPLOYEE_ROLES',N'عرض كافة الوظاثف',1,null);
+
 INSERT INTO PersonPermission
-VALUES ( 'ACTIVATE_PERSON_WITHIN_INSTITUTION',N'تفعيل حساب شخص',1,null);
+VALUES ( 'DELETE_PERSON',N'مسح حساب شخص',1,null);
 INSERT INTO PersonPermission
-VALUES ( 'CREATE_PERSON_WITHIN_INSTITUTION',N'إنشاء حساب شخص',1,null);
+VALUES ( 'VIEW_PERSON_PROFILE',N'عرض حساب شخص',1,null);
+INSERT INTO PersonPermission
+VALUES ( 'CREATE_PERSON',N'إنشاء حساب شخص',1,null);
 Go;
 
 
@@ -556,6 +562,9 @@ VALUES ( 'DELETE_FILE',N'مسح ملف',1);
 
 INSERT INTO FilePermission
 VALUES ( 'SET_CURRENT_VERSION',N'تعيين نسخة لملف',1);
+
+INSERT INTO FilePermission
+VALUES ( 'PUBLIC_FILE',N'ملف عام',1);
 
   
 GO;

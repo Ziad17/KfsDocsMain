@@ -17,6 +17,9 @@
                 <li class="dropdown">
                     <a style="font-size:20px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Html.Label(Model.Name) <span class="caret"></span></a>
                     <ul class="dropdown-menu">
+                        <li><a href="~/Roles/ChooseDefault">تغيير وظيفتي</a></li>
+                        <li><a href="~/ActivityLogs">سجل العمليات</a></li>
+
                         <li><a href="~/Employees/MyProfile">الصفحة الشخصية  <i class="far fa-address-card"></i> </a></li>
                         <li><a href="~/Home/Logout">تسجيل الخروج  <i class="fas fa-sign-out-alt"></i></a></li>
 
@@ -29,7 +32,6 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
 
-                <li><a href="~/ActivityLogs">سجل العمليات</a></li>
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">المؤسسات <span class="caret"></span></a>
@@ -50,7 +52,25 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">الوظائف <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="~/Roles/ChooseDefault">تغيير وظيفتي</a></li>
+
+
+                        @if (Model.canViewAllRoles)
+                        {
+                            <li><a href="~/Roles">عرض الوظائف</a></li>
+                        }
+                        @if (Model.canCreateRole)
+                        {
+                            <li><a href="~/Roles/Create">إنشاء وظيفة</a></li>
+                        }
+
+
+
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">الموظفين <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="~/EmployeeRoles/Index">كافة الموظفين</a></li>
 
                         <li role="separator" class="divider"></li>
                         @if (Model.canCreateEmployee)
@@ -60,20 +80,14 @@
 
                         @if (Model.canAttachRole)
                         {
-                            <li><a href="~/Roles/Create">تعيين شخص</a></li>
+                            <li><a href="~/EmployeeRoles/Create">تعيين شخص</a></li>
                         }
-                        @if (Model.canCreateRole)
-                        {
-                            <li><a href="~/Roles/AddRole">إنشاء وظيفة</a></li>
-                        }
+                    
 
-
-                        @if (Model.canViewAllRoles)
-                        {
-                            <li><a href="~/Roles">عرض الوظائف</a></li>
-                        }
+                      
                     </ul>
                 </li>
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">الملفات <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -101,6 +115,8 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">الرسائل <span class="caret"></span></a>
                     <ul class="dropdown-menu">
+                        <li><a href="~/Messages/Send">إرسال رسالة</a></li>
+
                         <li><a href="~/Messages/Inbox">الواردة</a></li>
                         <li><a href="~/Messages/Sent">المرسلة</a></li>
 

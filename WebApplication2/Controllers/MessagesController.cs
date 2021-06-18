@@ -98,11 +98,33 @@ namespace WebApplication2.Controllers
         }
 
 
+        public ActionResult SelectSend()
+        {
+            var myEmp = getEmployeeRef();
+            if (myEmp == null)
+            {
+                signOut();
+                return null;
+            }
+            SelectSendMessageModel viewModel = new SelectSendMessageModel()
+            {
+                Sender = myEmp,
+                SenderID = myEmp.ID,
+                Employees = db.Employees.Where(x => x.ID != myEmp.ID).OrderBy(x=>x.Name).Select(x => new SelectListItem() { Value = x.ID.ToString(), Text = x.Name }).ToList()
+
+            };
+           
+            return View(viewModel);
+
+        }
+
+
         public ActionResult Send(int? id)
         {
+
             if (id == null)
             {
-                return getErrorView(HttpStatusCode.BadRequest);
+                return RedirectToAction("SelectSend");
             }
             var myEmp = getEmployeeRef();
             if (myEmp == null)
@@ -131,12 +153,11 @@ namespace WebApplication2.Controllers
             ViewBag.Img = fileMG.getImageStream(emp.ImageURL);
             return View(viewModel);
 
-
         }
 
-        [HttpPost, ActionName("Send")]
+        [HttpPost, ActionName("SelectSend")]
         [ValidateAntiForgeryToken]
-        public ActionResult Send(SendMessageModel model)
+        public ActionResult SelectSend(SelectSendMessageModel model)
         {
 
 
@@ -152,9 +173,7 @@ namespace WebApplication2.Controllers
                 HeaderText = model.Header,
                 Text = model.Text
 
-
             };
-
 
             var myEmp = getEmployeeRef();
 
@@ -193,7 +212,8 @@ namespace WebApplication2.Controllers
                     var fileExt = System.IO.Path.GetExtension(file_content.FileName).Substring(1).ToLower();
                     if (!supportedFiles.Contains(fileExt))
                     {
-                        var err_msg = "Only File Format Is Allowed (";
+                        var err_msg = "يجب أن يكون نوع الملف من الأنواع التالية (";
+
                         foreach (string ext in supportedFiles)
                         {
                             err_msg += ext + ",";
@@ -207,7 +227,8 @@ namespace WebApplication2.Controllers
 
                         if (file_content.ContentLength > FileSizeInKb * 1024)
                         {
-                            ModelState.AddModelError("", "The File Size Should Not Exceeding " + FileSizeInKb + " Kb");
+                            ModelState.AddModelError("", "حجم الملف لا يجب أن يتعدى " + FileSizeInKb + " كب ");
+
                             return View(model);
 
                         }
@@ -246,13 +267,13 @@ namespace WebApplication2.Controllers
                             db.SaveChanges();
                             //     return RedirectToAction("Index", new { id = file.ID });
 
-                            return RedirectToAction("Index", "Home");
+                            return RedirectToAction("Sent", "Messages");
 
 
                         }
                         else
                         {
-                            ModelState.AddModelError("", "Uploading Failed");
+                            ModelState.AddModelError("", "فشل الرفع");
                             return View(model);
 
                         }
@@ -262,7 +283,7 @@ namespace WebApplication2.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("", "File Is Empty");
+                        ModelState.AddModelError("", "الملف فارغ");
                         return View(model);
 
                     }
@@ -272,13 +293,168 @@ namespace WebApplication2.Controllers
 
                 catch (Exception e)
                 {
-                    ModelState.AddModelError("", "Internal Error");
+                    ModelState.AddModelError("", "خطأ");
                     return View(model);
                 }
             }
-            ModelState.AddModelError("", "Input Error");
+            ModelState.AddModelError("", "خطأ");
 
             return View(model);
+
+
+
+
+
+        }
+
+
+
+
+        [HttpPost, ActionName("Send")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Send(SendMessageModel model)
+        {
+
+
+            if (model.SenderID == 0 || model.RecieverID == 0)
+            {
+                return getErrorView(HttpStatusCode.BadRequest);
+            }
+
+            Message message = new Message()
+            {
+                SenderID = model.SenderID,
+                RecieverID = model.RecieverID,
+                HeaderText = model.Header,
+                Text = model.Text
+
+            };
+
+            var myEmp = getEmployeeRef();
+
+            if (myEmp == null)
+            {
+                signOut();
+                return null;
+            }
+            if (model.SenderID != myEmp.ID)
+            {
+                return getErrorView(HttpStatusCode.BadRequest);
+
+
+            }
+
+            if (myEmp.ID == model.RecieverID)
+            {
+                RedirectToAction("MyProfile");
+            }
+            var emp = db.Employees.Find(model.RecieverID);
+            if (emp == null)
+            {
+                return getErrorView(HttpStatusCode.NotFound);
+            }
+
+            HttpPostedFileBase file_content = model.File;
+
+
+            if (ModelState.IsValid)
+            {
+
+                try
+                {
+                    var FileSizeInKb = 1024;
+                    var supportedFiles = db.FileTypes.Select(x => x.Extension);
+                    var fileExt = System.IO.Path.GetExtension(file_content.FileName).Substring(1).ToLower();
+                    if (!supportedFiles.Contains(fileExt))
+                    {
+                        var err_msg = "يجب أن يكون نوع الملف من الأنواع التالية (";
+                        foreach (string ext in supportedFiles)
+                        {
+                            err_msg += ext + ",";
+                        }
+                        err_msg += ")";
+                        ModelState.AddModelError("", err_msg);
+                        return View(model);
+                    }
+                    if (file_content != null)
+                    {
+
+                        if (file_content.ContentLength > FileSizeInKb * 1024)
+                        {
+                            ModelState.AddModelError("", "حجم الملف لا يجب أن يتعدى " + FileSizeInKb + " كب ");
+                            return View(model);
+
+                        }
+                        System.IO.StreamReader st = new System.IO.StreamReader(file_content.InputStream);
+                        FileManager filMG = new FileManager();
+                        EncryptionManager encryptionManager = new EncryptionManager(this);
+
+
+                        string fileName = FileManager.RandomString(1) + encryptionManager.Encrypt(file_content.FileName);
+                        if (fileName.Length > 10)
+                        {
+                            fileName = fileName.Substring(0, 10) + "." + fileExt;
+                        }
+                        if (filMG.uploadFile(fileName, st.BaseStream))
+                        {
+
+                            FileContent fileContent = new FileContent()
+                            {
+                                FileSize = file_content.ContentLength,
+                                Href = fileName
+                            };
+                            db.FileContents.Add(fileContent);
+
+
+                            message.Seen = false;
+                            message.DeletedFromSender = false;
+                            message.DeletedFromReciever = false;
+
+                            message.DateCreated = DateTime.Now;
+                            message.FileContentID = fileContent.ID;
+                            message.FileTypeName = db.FileTypes.Where(x => x.Extension.ToLower().Equals(fileExt)).FirstOrDefault().Name;
+
+                            db.Messages.Add(message);
+
+
+                            db.SaveChanges();
+                            //     return RedirectToAction("Index", new { id = file.ID });
+
+                            return RedirectToAction("Sent", "Messages");
+
+
+
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "فشل الرفع");
+                            return View(model);
+
+                        }
+
+
+
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "الملف فارغ");
+                        return View(model);
+
+                    }
+                }
+
+
+
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("", "خطأ");
+                    return View(model);
+                }
+            }
+            ModelState.AddModelError("", "خطأ");
+
+            return View(model);
+
 
 
 

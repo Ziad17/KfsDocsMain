@@ -1,63 +1,83 @@
-﻿@model IEnumerable<WebApplication2.Models.EmployeeRole>
+﻿@model WebApplication2.Models.ViewModels.EmployeeRoles.EmployeeRoleIndexModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "الموظفين";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
+<hr />
+@if (Model.canAdd)
+{
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ArabicJobDesc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HiringDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Active)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Employee.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Institution.ArabicName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Role.ArabicName)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ArabicJobDesc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HiringDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Active)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Employee.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Institution.ArabicName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Role.ArabicName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
+    <p>
+        @Html.ActionLink("تعيين جديد", "Create")
+    </p>
 }
+<table class="table table-hover">
+    <tr>
+        <th>
+            الإسم
+        </th>
+        <th>
+            الوظيفة
+        </th>
+        <th>
+            المؤسسة
+        </th>
+        <th>
+            تاريخ التعيين
+        </th>
+        <th>
+            الحالة
+        </th>
+
+
+    </tr>
+
+    @foreach (var item in Model.EmployeeRoles)
+    {
+<tr>
+    <td>
+        @Html.ActionLink(item.Employee.Name, "PersonProfile", "Employees", new { id = item.EmployeeID })
+    </td>
+    <td>
+        @Html.ActionLink(item.Role.ArabicName, "Index", "Roles", new { id = item.RoleID })
+
+
+    </td>
+    <td>
+        @Html.ActionLink(item.Institution.ArabicName, "InstitutionProfile", "Institutions", new { id = item.InstitutionID })
+
+
+    </td>
+    <td>
+        @Html.Display(item.HiringDate.ToString())
+    </td>
+
+    @if(item.Active==true)
+        {
+            <td>
+                مفعل
+            </td>
+
+        }
+        else
+        {
+            <td>
+
+                معطل
+            </td>
+
+        }
+
+    @if (Model.canView)
+    {
+
+        <td>
+            @Html.ActionLink("عرض", "View", "EmployeeRoles", new { id = item.ID }, null)
+        </td>
+    }
+</tr>
+    }
 
 </table>

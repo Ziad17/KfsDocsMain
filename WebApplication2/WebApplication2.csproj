@@ -271,7 +271,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TestModel.cs" />
-    <Compile Include="Models\ViewModels\ActiveDeactiveInstitutionModel.cs" />
+    <Compile Include="Models\ViewModels\ActiveDeactiveInstitutionModelDESPRECATED.cs" />
     <Compile Include="Models\ViewModels\AddRoleModel.cs" />
     <Compile Include="Models\ViewModels\AddVersionModel.cs" />
     <Compile Include="Models\ViewModels\CreateFileLevelModel.cs" />
@@ -284,6 +284,8 @@
     <Compile Include="Models\ViewModels\EditInstitutionTypeModel.cs" />
     <Compile Include="Models\ViewModels\EmployeeMentionJSONModel.cs" />
     <Compile Include="Models\ViewModels\EmployeeProfileModel.cs" />
+    <Compile Include="Models\ViewModels\EmployeeRoles\EmployeeRoleIndexModel.cs" />
+    <Compile Include="Models\ViewModels\EmployeeRoles\ViewEmployeeRoleModel.cs" />
     <Compile Include="Models\ViewModels\FileUploadModel.cs" />
     <Compile Include="Models\ViewModels\FirstLoginModel.cs" />
     <Compile Include="Models\ViewModels\HttpErrors.cs" />
@@ -293,6 +295,7 @@
     <Compile Include="Models\ViewModels\MenuModel.cs" />
     <Compile Include="Models\ViewModels\EditRoleModel.cs" />
     <Compile Include="Models\ViewModels\Messages\InboxModel.cs" />
+    <Compile Include="Models\ViewModels\Messages\SelectSendMessageModel.cs" />
     <Compile Include="Models\ViewModels\Messages\ViewMessageModel.cs" />
     <Compile Include="Models\ViewModels\MyProfileModel.cs" />
     <Compile Include="Models\ViewModels\RoleJSONmodel.cs" />
@@ -395,9 +398,9 @@
     <Content Include="Views\Institutions\Index.cshtml" />
     <Content Include="Views\Employees\Create.cshtml" />
     <Content Include="Views\Employees\Delete.cshtml" />
-    <Content Include="Views\Roles\Create.cshtml" />
+    <Content Include="Views\EmployeeRoles\Create.cshtml" />
     <Content Include="Views\Roles\Delete.cshtml" />
-    <Content Include="Views\Roles\EditRole.cshtml" />
+    <Content Include="Views\Roles\Edit.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\Employees\MyProfile.cshtml" />
     <Content Include="Views\Employees\PersonProfile.cshtml" />
@@ -415,9 +418,6 @@
     <Content Include="Views\Home\SetupAccount.cshtml" />
     <Content Include="Views\Institutions\ActiveDEPRECATED.cshtml" />
     <Content Include="Views\Institutions\DeactiveDEPRECATED.cshtml" />
-    <Content Include="Views\Roles\View.cshtml" />
-    <Content Include="Views\Roles\Deactive.cshtml" />
-    <Content Include="Views\Roles\Active.cshtml" />
     <Content Include="Views\Roles\ChooseDefault.cshtml" />
     <Content Include="Views\Employees\ChangePhoto.cshtml" />
     <Content Include="Views\Files\FileLevels.cshtml" />
@@ -431,19 +431,18 @@
     <Content Include="Views\Bookmarks\Index.cshtml" />
     <Content Include="Views\Files\Mentions.cshtml" />
     <Content Include="Views\ActivityLogs\Index.cshtml" />
-    <Content Include="Views\Roles\AddRole.cshtml" />
+    <Content Include="Views\Roles\Create.cshtml" />
     <Content Include="Views\Files\CreateLevel.cshtml" />
     <Content Include="Views\Files\EditLevel.cshtml" />
     <Content Include="Views\Files\DeleteLevel.cshtml" />
-    <Content Include="Views\EmployeeRoles\Create.cshtml" />
     <Content Include="Views\EmployeeRoles\Delete.cshtml" />
-    <Content Include="Views\EmployeeRoles\Details.cshtml" />
-    <Content Include="Views\EmployeeRoles\Edit.cshtml" />
     <Content Include="Views\EmployeeRoles\Index.cshtml" />
     <Content Include="Views\Institutions\EditType.cshtml" />
     <Content Include="Views\Institutions\DeleteType.cshtml" />
     <Content Include="Views\Institutions\Types.cshtml" />
     <Content Include="Views\Institutions\CreateType.cshtml" />
+    <Content Include="Views\EmployeeRoles\View.cshtml" />
+    <Content Include="Views\Messages\SelectSend.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

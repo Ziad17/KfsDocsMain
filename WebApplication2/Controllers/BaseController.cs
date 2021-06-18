@@ -63,7 +63,7 @@ namespace WebApplication2.Controllers
             var EmpRole = getPrimaryRole();
             if (EmpRole != null)
             {
-                viewModel.canCreateEmployee = hasPersonPermission(EmpRole.RoleID, PersonPermissions.CREATE_PERSON_WITHIN_INSTITUTION);
+                viewModel.canCreateEmployee = hasPersonPermission(EmpRole.RoleID, PersonPermissions.CREATE_PERSON);
               //  viewModel.canDeleteEmployee = hasPersonPermission(EmpRole.RoleID, PersonPermissions.DELETE_PERSON);
 
 
@@ -370,15 +370,20 @@ namespace WebApplication2.Controllers
 
         protected static class PersonPermissions
         {
-            
-            public static string VIEW_PERSON_ROLE = "VIEW_PERSON_ROLE";
-            public static string DELETE_PERSON = "DELETE_PERSON";
+   
 
-            public static string CREATE_PERSON_WITHIN_INSTITUTION = "CREATE_PERSON_WITHIN_INSTITUTION";
+            public static string DELETE_PERSON = "DELETE_PERSON";
+            public static string CREATE_PERSON = "CREATE_PERSON";
             public static string VIEW_PERSON_PROFILE = "VIEW_PERSON_PROFILE";
+
+
+            public static string VIEW_ALL_EMPLOYEE_ROLES = "VIEW_ALL_EMPLOYEE_ROLES";
+
+            public static string DELETE_EMPLOYEE_ROLE = "DELETE_EMPLOYEE_ROLE";
+            public static string VIEW_EMPLOYEE_ROLE = "VIEW_EMPLOYEE_ROLE";
             public static string ATTACH_ROLE_TO_PERSON = "ATTACH_ROLE_TO_PERSON";
-            public static string ACTIVATE_PERSON_WITHIN_INSTITUTION = "ACTIVATE_PERSON_WITHIN_INSTITUTION";
-            public static string DEACTIVATE_PERSON_WITHIN_INSTITUTION = "DEACTIVATE_PERSON_WITHIN_INSTITUTION";
+            public static string ACTIVE_EMPLOYEE_ROLE = "ACTIVATE_EMPLOYEE_ROLE";
+            public static string DEACTIVATE_EMPLOYEE_ROLE = "DEACTIVATE_EMPLOYEE_ROLE";
 
 
         }
