@@ -1,101 +1,146 @@
-﻿@model WebApplication2.Models.EmployeeRole
+﻿@model WebApplication2.Models.ViewModels.AddRoleModel
 
-@{ ViewBag.Title = "تعيين"; }
 
-<h2>ٍ@ViewBag.Title</h2>
 
-@using (Html.BeginForm())
+@{ ViewBag.Title = "إنشاء وظيفة"; }
+
+
+@using (Html.BeginForm("AddRole", "Roles", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
 @Html.AntiForgeryToken()
+                <div class="col-md-7">
 
-                <div class="form-horizontal">
-                    <h4>الوظيفة</h4>
-                    <hr />
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-group">
-                        <div class="col-md-10">
-                            @Html.DropDownList("EmployeeID", null, htmlAttributes: new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.EmployeeID, "", new { @class = "text-danger" })
+
+                    <h3> الأذونات الممنوحة</h3>
+
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingOne">
+                                <h4 class="panel-title">
+                                    <a class="tabs" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                        الأشخاص
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                    <table id="table" class="display table table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th>الأسم</th>
+                                                <th>أختيار</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @for (var i = 0; i < Model.AvailablePersonPermissions.Count; i++)
+                                            {
+                            <tr>
+                                <td>@Model.AvailablePersonPermissions[i].Text</td>
+                                <td>
+                                    @Html.CheckBoxFor(model => Model.AvailablePersonPermissions[i].Selected)
+                                    @Html.HiddenFor(m => m.AvailablePersonPermissions[i].Text)
+                                    @Html.HiddenFor(m => m.AvailablePersonPermissions[i].Value)
+                                </td>
+                            </tr>}
+
+                                        </tbody>
+
+
+                                    </table>
+
+                                </div>
+                            </div>
                         </div>
-                        @Html.LabelFor(model => model.EmployeeID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingTwo">
+                                <h4 class="panel-title">
+                                    <a class="collapsed tabs" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        المؤسسات
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                <div class="panel-body">
+                                    <table id="table" class="display table table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th>الأسم</th>
+                                                <th>أختيار</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for (var i = 0; i < Model.AvailableInstitutionPermissions.Count; i++)
+                                            {
+                            <tr>
+                                <td>@Model.AvailableInstitutionPermissions[i].Text</td>
+                                <td>
+                                    @Html.CheckBoxFor(model => Model.AvailableInstitutionPermissions[i].Selected)
+                                    @Html.HiddenFor(m => m.AvailableInstitutionPermissions[i].Text)
+                                    @Html.HiddenFor(m => m.AvailableInstitutionPermissions[i].Value)
+                                </td>
+                            </tr>}
+
+                                        </tbody>
+
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
 
                     </div>
-                    <div class="form-group">
-                        <div class="col-md-10">
-                            @Html.DropDownList("InstitutionID", null, htmlAttributes: new { @class = "form-control", @id = "institutionDrop" })
-                            @Html.ValidationMessageFor(model => model.InstitutionID, "", new { @class = "text-danger" })
-                        </div>
-                        @Html.Label("المؤسسة", htmlAttributes: new { @class = "control-label col-md-2" })
-
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-10">
-                            @Html.DropDownList("RoleID", null, htmlAttributes: new { @class = "form-control", @id = "roleDrop" })
-                            @Html.ValidationMessageFor(model => model.RoleID, "", new { @class = "text-danger" })
-                        </div>
-                        @Html.Label("الوظيفة", htmlAttributes: new { @class = "control-label col-md-2" })
-
-                    </div>
 
 
 
+                </div>
+
+                                <div class="col-md-5">
+                                    <h3>المعلومات</h3>
 
 
-                    <div class="form-group">
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.ArabicJobDesc, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.ArabicJobDesc, "", new { @class = "text-danger" })
-                        </div>
-                        @Html.LabelFor(model => model.ArabicJobDesc, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="form-horizontal">
 
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.HiringDate, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.HiringDate, "", new { @class = "text-danger" })
-                        </div>
-                        @Html.LabelFor(model => model.HiringDate, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="إنشاء" class="btn btn-default" />
-                        </div>
-                    </div>
-                </div>}
-@section scripts{
-    <script>
-        $("#institutionDrop").change(function () {
-
-            var end = this.value;
-            $.ajax({
-                url: '@Url.Action("getAvailableRolesForInstitution")',
-                dataType: "json",
-                data: { 'id': end },
-                method: 'get',
-                success: function (data) {
-
-
-                    var roleTable = $("#roleDrop");
-                    roleTable.empty();
-                    $(data).each(function (index, role) {
-                        roleTable.append($("<option></option>").val(role.ID).html(role.Name));
-                    });
-                },
-                error: function (err) {
-                    alert(err.responseText);
-                }
-            });
-            return false;
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
 
-        });</script>
-  
-   
-    
-    
-  
+                                        <div class="form-group">
+                                            <div class="col-md-9">
+                                                @Html.EditorFor(model => model.RoleName, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.RoleName, "", new { @class = "text-danger" })
+                                            </div>
+                                            @Html.LabelFor(model => model.RoleName, htmlAttributes: new { @class = "control-label col-md-3" })
 
-}
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <div class="col-md-9">
+                                                @Html.DropDownList("ParentID", null, htmlAttributes: new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.ParentID, "", new { @class = "text-danger" })
+                                            </div>
+                                            @Html.Label("المشرف", "المشرف", htmlAttributes: new { @class = "control-label col-md-3" })
+
+                                        </div>
+
+
+
+
+
+
+
+
+
+
+
+                                        <div class="form-group">
+                                            <div class="col-md-offset-2 col-md-10">
+                                                <input type="submit" value="إنشاء" class="btn btn-default" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>}
+

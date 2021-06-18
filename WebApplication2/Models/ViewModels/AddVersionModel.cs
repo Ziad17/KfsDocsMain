@@ -15,6 +15,7 @@ namespace WebApplication2.Models.ViewModels
  
         public string InstitutionName { get; set; }
 
+
         public string RoleName { get; set; }
 
 
@@ -34,13 +35,16 @@ namespace WebApplication2.Models.ViewModels
         [DataType(DataType.Upload)]
         public HttpPostedFileBase file_content { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "هذا الحقل مطلوب")]
+
         [Display(Name = "تاريخ الإنشاء")]
         [DataType(DataType.DateTime)]
         public System.DateTime DateCreated { get; set; }
 
         [Required(ErrorMessage = "برجاء كتابة أسم النسخة")]
-
+        [DataType(DataType.Text)]
+        [StringLength(50, MinimumLength = 3,
+        ErrorMessage = "هذا الحقل يجب أن يكون بين 3 و 50 حرف حرف أو رقم")]
         [Display(Name = "أسم النسخة")]
         public string Name { get; set; }
         public string FileName { get; set; }

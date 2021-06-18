@@ -55,11 +55,6 @@ namespace WebApplication2.Controllers
 
 
 
-
-
-
-
-        // GET: Roles
         public ActionResult Index()
         {
             var EmpRole = getPrimaryRole();
@@ -87,7 +82,7 @@ namespace WebApplication2.Controllers
             return View(viewModel);
         }
 
-        public ActionResult EditRole(int? id)
+        public ActionResult Edit(int? id)
         {
 
 
@@ -148,7 +143,7 @@ namespace WebApplication2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditRole(EditRoleModel viewModel)
+        public ActionResult Edit(EditRoleModel viewModel)
         {
 
             var EmpRole = getPrimaryRole();
@@ -232,7 +227,7 @@ namespace WebApplication2.Controllers
 
         }
 
-        public ActionResult AddRole()
+        public ActionResult Create()
         {
             var EmpRole = getPrimaryRole();
             if (EmpRole == null)
@@ -254,7 +249,7 @@ namespace WebApplication2.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddRole(AddRoleModel viewModel)
+        public ActionResult Create(AddRoleModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -335,179 +330,175 @@ namespace WebApplication2.Controllers
 
         }
 
-        public ActionResult View(int id)
-        {
-            var myEmpRole = getPrimaryRole();
+        //public ActionResult View(int id)
+        //{
+        //    var myEmpRole = getPrimaryRole();
 
-            if (myEmpRole == null)
-            {
-                return getErrorView(HttpStatusCode.Unauthorized);
-            }
-            var role = myEmpRole.Role;
-            if (hasPersonPermission(role.ID, PersonPermissions.VIEW_PERSON_ROLE))
-            {
-                EmployeeRole empRole = db.EmployeeRoles.Find(id);
-                if (empRole == null)
-                {
-                    return getErrorView(HttpStatusCode.NotFound);
-                }
-                ViewEmployeeRoleModel viewModel = new ViewEmployeeRoleModel();
-                viewModel.EmployeeRole = empRole;
-                if (isRolePriorityValid(role.ID, empRole.RoleID))
-                {
-                    viewModel.canDeactive = hasPersonPermission(role.ID, PersonPermissions.DEACTIVATE_PERSON_WITHIN_INSTITUTION);
-                    viewModel.canActive = hasPersonPermission(role.ID, PersonPermissions.ACTIVATE_PERSON_WITHIN_INSTITUTION);
+        //    if (myEmpRole == null)
+        //    {
+        //        return getErrorView(HttpStatusCode.Unauthorized);
+        //    }
+        //    var role = myEmpRole.Role;
+        //    if (hasPersonPermission(role.ID, PersonPermissions.VIEW_EMPLOYEE_ROLE))
+        //    {
+        //        EmployeeRole empRole = db.EmployeeRoles.Find(id);
+        //        if (empRole == null)
+        //        {
+        //            return getErrorView(HttpStatusCode.NotFound);
+        //        }
+        //        ViewEmployeeRoleModel viewModel = new ViewEmployeeRoleModel();
+        //        viewModel.EmployeeRole = empRole;
+        //        if (isRolePriorityValid(role.ID, empRole.RoleID))
+        //        {
+        //            viewModel.canDeactive = hasPersonPermission(role.ID, PersonPermissions.DEACTIVATE_EMPLOYEE_ROLE);
+        //            viewModel.canActive = hasPersonPermission(role.ID, PersonPermissions.ACTIVE_EMPLOYEE_ROLE);
 
-                }
-                return View(viewModel);
-            }
-            return getErrorView(HttpStatusCode.BadRequest);
+        //        }
+        //        return View(viewModel);
+        //    }
+        //    return getErrorView(HttpStatusCode.BadRequest);
 
-        }
-
-
-        public ActionResult Deactive(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var EmpRole = getPrimaryRole();
-            if (EmpRole == null)
-            {
-                return getErrorView(HttpStatusCode.Unauthorized);
-
-            }
-            var role = EmpRole.Role;
-
-            EmployeeRole employeeRole = db.EmployeeRoles.Find(id);
-            if (employeeRole == null)
-            {
-                return getErrorView(HttpStatusCode.NotFound);
-            }
-            if (hasPersonPermission(role.ID, PersonPermissions.DEACTIVATE_PERSON_WITHIN_INSTITUTION) && operationValidInInstitution(EmpRole.ID, employeeRole.InstitutionID) && (employeeRole.Active) && isRolePriorityValid(EmpRole.Role.ID, employeeRole.Role.ID))
-            {
-
-                return View(employeeRole);
-
-            }
-
-            return getErrorView(HttpStatusCode.Unauthorized);
-        }
+        //}
 
 
-        [HttpPost, ActionName("Deactive")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeactiveConfirmed(int id)
-        {
+        //public ActionResult Deactive(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    var EmpRole = getPrimaryRole();
+        //    if (EmpRole == null)
+        //    {
+        //        return getErrorView(HttpStatusCode.Unauthorized);
+
+        //    }
+        //    var role = EmpRole.Role;
+
+        //    EmployeeRole employeeRole = db.EmployeeRoles.Find(id);
+        //    if (employeeRole == null)
+        //    {
+        //        return getErrorView(HttpStatusCode.NotFound);
+        //    }
+        //    if (hasPersonPermission(role.ID, PersonPermissions.DEACTIVATE_EMPLOYEE_ROLE) && operationValidInInstitution(EmpRole.ID, employeeRole.InstitutionID) && (employeeRole.Active) && isRolePriorityValid(EmpRole.Role.ID, employeeRole.Role.ID))
+        //    {
+
+        //        return View(employeeRole);
+
+        //    }
+
+        //    return getErrorView(HttpStatusCode.Unauthorized);
+        //}
 
 
-            var EmpRole = getPrimaryRole();
-            if (EmpRole == null)
-            {
-                return getErrorView(HttpStatusCode.Unauthorized);
-
-            }
-            var role = EmpRole.Role;
-
-            EmployeeRole employeeRole = db.EmployeeRoles.Find(id);
-
-            if (employeeRole == null)
-            {
-                return getErrorView(HttpStatusCode.NotFound);
-            }
-            if (hasPersonPermission(role.ID, PersonPermissions.DEACTIVATE_PERSON_WITHIN_INSTITUTION) && operationValidInInstitution(EmpRole.ID, employeeRole.InstitutionID) && (employeeRole.Active) && isRolePriorityValid(EmpRole.Role.ID, employeeRole.Role.ID))
-            {
-
-                db.EmployeeRoles.Find(employeeRole.ID).Active = false;
-                PersonActionLog log = new PersonActionLog();
-                log.ActionDate = DateTime.Now;
-                log.ConductorEmployeeID = EmpRole.ID;
-                log.AffectedEmployeeID = employeeRole.EmployeeID;
-                log.PermissionName = PersonPermissions.DEACTIVATE_PERSON_WITHIN_INSTITUTION;
-
-                db.PersonActionLogs.Add(log);
-
-                db.SaveChanges();
-                return RedirectToAction("View", new { id = employeeRole.ID });
-
-            }
-            return getErrorView(HttpStatusCode.NotFound);
-
-        }
+        //[HttpPost, ActionName("Deactive")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeactiveConfirmed(int id)
+        //{
 
 
+        //    var EmpRole = getPrimaryRole();
+        //    if (EmpRole == null)
+        //    {
+        //        return getErrorView(HttpStatusCode.Unauthorized);
 
-        public ActionResult Active(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var EmpRole = getPrimaryRole();
-            if (EmpRole == null)
-            {
-                return getErrorView(HttpStatusCode.Unauthorized);
+        //    }
+        //    var role = EmpRole.Role;
 
-            }
-            var role = EmpRole.Role;
+        //    EmployeeRole employeeRole = db.EmployeeRoles.Find(id);
 
-            EmployeeRole employeeRole = db.EmployeeRoles.Find(id);
-            if (employeeRole == null)
-            {
-                return getErrorView(HttpStatusCode.NotFound);
-            }
-            if (hasPersonPermission(role.ID, PersonPermissions.ACTIVATE_PERSON_WITHIN_INSTITUTION) && operationValidInInstitution(EmpRole.ID, employeeRole.InstitutionID) && (!employeeRole.Active) && isRolePriorityValid(EmpRole.Role.ID, employeeRole.Role.ID))
-            {
+        //    if (employeeRole == null)
+        //    {
+        //        return getErrorView(HttpStatusCode.NotFound);
+        //    }
+        //    if (hasPersonPermission(role.ID, PersonPermissions.DEACTIVATE_EMPLOYEE_ROLE) && operationValidInInstitution(EmpRole.ID, employeeRole.InstitutionID) && (employeeRole.Active) && isRolePriorityValid(EmpRole.Role.ID, employeeRole.Role.ID))
+        //    {
 
-                return View(employeeRole);
+        //        db.EmployeeRoles.Find(employeeRole.ID).Active = false;
+        //        PersonActionLog log = new PersonActionLog();
+        //        log.ActionDate = DateTime.Now;
+        //        log.ConductorEmployeeID = EmpRole.ID;
+        //        log.AffectedEmployeeID = employeeRole.EmployeeID;
+        //        log.PermissionName = PersonPermissions.DEACTIVATE_EMPLOYEE_ROLE;
 
-            }
+        //        db.PersonActionLogs.Add(log);
 
-            return getErrorView(HttpStatusCode.Unauthorized);
-        }
+        //        db.SaveChanges();
+        //        return RedirectToAction("View", new { id = employeeRole.ID });
+
+        //    }
+        //    return getErrorView(HttpStatusCode.NotFound);
+
+        //}
+
+        //public ActionResult Active(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    var EmpRole = getPrimaryRole();
+        //    if (EmpRole == null)
+        //    {
+        //        return getErrorView(HttpStatusCode.Unauthorized);
+
+        //    }
+        //    var role = EmpRole.Role;
+
+        //    EmployeeRole employeeRole = db.EmployeeRoles.Find(id);
+        //    if (employeeRole == null)
+        //    {
+        //        return getErrorView(HttpStatusCode.NotFound);
+        //    }
+        //    if (hasPersonPermission(role.ID, PersonPermissions.ACTIVE_EMPLOYEE_ROLE) && operationValidInInstitution(EmpRole.ID, employeeRole.InstitutionID) && (!employeeRole.Active) && isRolePriorityValid(EmpRole.Role.ID, employeeRole.Role.ID))
+        //    {
+
+        //        return View(employeeRole);
+
+        //    }
+
+        //    return getErrorView(HttpStatusCode.Unauthorized);
+        //}
+
+        //[HttpPost, ActionName("Active")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult ActiveConfirmed(int id)
+        //{
 
 
-        [HttpPost, ActionName("Active")]
-        [ValidateAntiForgeryToken]
-        public ActionResult ActiveConfirmed(int id)
-        {
+        //    var EmpRole = getPrimaryRole();
+        //    if (EmpRole == null)
+        //    {
+        //        return getErrorView(HttpStatusCode.Unauthorized);
 
+        //    }
+        //    var role = EmpRole.Role;
 
-            var EmpRole = getPrimaryRole();
-            if (EmpRole == null)
-            {
-                return getErrorView(HttpStatusCode.Unauthorized);
+        //    EmployeeRole employeeRole = db.EmployeeRoles.Find(id);
 
-            }
-            var role = EmpRole.Role;
+        //    if (employeeRole == null)
+        //    {
+        //        return getErrorView(HttpStatusCode.NotFound);
+        //    }
+        //    if (hasPersonPermission(role.ID, PersonPermissions.ACTIVE_EMPLOYEE_ROLE) && operationValidInInstitution(EmpRole.ID, employeeRole.InstitutionID) && (!employeeRole.Active) && isRolePriorityValid(EmpRole.Role.ID, employeeRole.Role.ID))
+        //    {
 
-            EmployeeRole employeeRole = db.EmployeeRoles.Find(id);
+        //        db.EmployeeRoles.Find(employeeRole.ID).Active = true;
+        //        PersonActionLog log = new PersonActionLog();
+        //        log.ActionDate = DateTime.Now;
+        //        log.ConductorEmployeeID = EmpRole.ID;
+        //        log.AffectedEmployeeID = employeeRole.EmployeeID;
+        //        log.PermissionName = PersonPermissions.ACTIVE_EMPLOYEE_ROLE;
 
-            if (employeeRole == null)
-            {
-                return getErrorView(HttpStatusCode.NotFound);
-            }
-            if (hasPersonPermission(role.ID, PersonPermissions.ACTIVATE_PERSON_WITHIN_INSTITUTION) && operationValidInInstitution(EmpRole.ID, employeeRole.InstitutionID) && (!employeeRole.Active) && isRolePriorityValid(EmpRole.Role.ID, employeeRole.Role.ID))
-            {
+        //        db.PersonActionLogs.Add(log);
 
-                db.EmployeeRoles.Find(employeeRole.ID).Active = true;
-                PersonActionLog log = new PersonActionLog();
-                log.ActionDate = DateTime.Now;
-                log.ConductorEmployeeID = EmpRole.ID;
-                log.AffectedEmployeeID = employeeRole.EmployeeID;
-                log.PermissionName = PersonPermissions.ACTIVATE_PERSON_WITHIN_INSTITUTION;
+        //        db.SaveChanges();
+        //        return RedirectToAction("View", new { id = employeeRole.ID });
 
-                db.PersonActionLogs.Add(log);
+        //    }
+        //    return getErrorView(HttpStatusCode.NotFound);
 
-                db.SaveChanges();
-                return RedirectToAction("View", new { id = employeeRole.ID });
-
-            }
-            return getErrorView(HttpStatusCode.NotFound);
-
-        }
-
+        //}
 
         [HttpPost, ActionName("ChooseDefault")]
         [ValidateAntiForgeryToken]
@@ -528,7 +519,6 @@ namespace WebApplication2.Controllers
             db.SaveChanges();
             return ChooseDefault();
         }
-
 
         public ActionResult ChooseDefault()
         {
@@ -563,110 +553,6 @@ namespace WebApplication2.Controllers
 
 
 
-
-
-
-        public ActionResult Create(int? id)
-        {
-
-            var EmpRole = getPrimaryRole();
-
-
-            if (EmpRole == null)
-            {
-                return getErrorView(HttpStatusCode.Unauthorized);
-            }
-            var role = EmpRole.Role;
-
-
-
-            if (hasPersonPermission(role.ID, PersonPermissions.ATTACH_ROLE_TO_PERSON))
-            {
-
-
-                if (id != null)
-                {
-                    Employee employee = db.Employees.Find(id);
-                    if (employee == null)
-                    {
-                        return getErrorView(HttpStatusCode.NotFound);
-                    }
-                    else
-                    {
-                        ViewBag.EmployeeID = new SelectList(db.Employees, "ID", "Name", employee.ID);
-                    }
-                }
-                else
-                {
-                    ViewBag.EmployeeID = new SelectList(db.Employees, "ID", "Name");
-
-                }
-
-
-                var availableInstitutions = getChildrenInstitutionWithParent(EmpRole.InstitutionID).ToList<Institution>();
-                ViewBag.InstitutionID = new SelectList(availableInstitutions, "ID", "ArabicName",EmpRole.InstitutionID);
-
-                ViewBag.RoleID = new SelectList(db.Roles.Where(x => x.PriorityOrder > EmpRole.Role.PriorityOrder), "ID", "ArabicName");
-                return View();
-            }
-
-            return getErrorView(HttpStatusCode.Unauthorized);
-
-
-        }
-
-
-
-        // POST: Roles/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EmployeeID,RoleID,ArabicJobDesc,InstitutionID,HiringDate")] EmployeeRole employeeRole)
-        {
-
-            var EmpRole = getPrimaryRole();
-
-
-            if (EmpRole == null)
-            {
-                return getErrorView(HttpStatusCode.Unauthorized);
-            }
-            if (ModelState.IsValid)
-            {
-                var role = EmpRole.Role;
-
-
-                if (hasPersonPermission(role.ID, PersonPermissions.ATTACH_ROLE_TO_PERSON) && operationValidInInstitution(EmpRole.ID, employeeRole.InstitutionID) && isRolePriorityValid(role.ID, employeeRole.RoleID))
-                {
-                    employeeRole.Active = true;
-                    db.EmployeeRoles.Add(employeeRole);
-                    PersonActionLog log = new PersonActionLog()
-                    {
-                        ConductorEmployeeID = EmpRole.ID,
-                        AffectedEmployeeID = employeeRole.EmployeeID,
-                        PermissionName = PersonPermissions.ATTACH_ROLE_TO_PERSON,
-                        ActionDate = DateTime.Now
-                    };
-                    db.PersonActionLogs.Add(log);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                return getErrorView(HttpStatusCode.Unauthorized);
-            }
-
-            ViewBag.EmployeeID = new SelectList(db.Employees, "ID", "Name", employeeRole.EmployeeID);
-            ViewBag.InstitutionID = new SelectList(db.Institutions, "ID", "ArabicName", employeeRole.InstitutionID);
-            ViewBag.RoleID = new SelectList(db.Roles, "ID", "ArabicName", employeeRole.RoleID);
-            return View(employeeRole);
-        }
-
-
-
-
-
-
-
-
-        // GET: Roles/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)

@@ -3,36 +3,36 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
-namespace WebApplication2.Models.ViewModels
+namespace WebApplication2.Models.ViewModels.Messages
 {
-    public class SendMessageModel
+    public class SelectSendMessageModel
     {
+     
 
 
         public Employee Sender { get; set; }
-        
-        public Employee Reciever { get; set; }
 
-        [Required(ErrorMessage ="This Field Is Required")]
 
+
+        public List<SelectListItem> Employees { get; set; }
         public int RecieverID { get; set; }
-        [Required(ErrorMessage = "This Field Is Required")]
 
         public int SenderID { get; set; }
 
-        [Required(ErrorMessage = "This Field Is Required")]
+        [Required(ErrorMessage = "هذا الحقل مطلوب")]
 
-        [Display(Name  ="العنوان")]
+        [Display(Name = "العنوان")]
         [DataType(DataType.Text)]
         public string Header { get; set; }
         [DataType(DataType.MultilineText)]
         [Display(Name = "نص الرسالة")]
 
-        public string Text{ get; set; }
+        public string Text { get; set; }
 
 
-        [Required(ErrorMessage = "This Field Is Required")]
+        [Required(ErrorMessage = "هذا الحقل مطلوب")]
         [DataType(DataType.Upload)]
         public HttpPostedFileBase File { get; set; }
 

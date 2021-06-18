@@ -122,7 +122,7 @@
                     {
                 <ul>
                     <li class="card-text">
-                        @Html.ActionLink(Model.Roles[i].Role.ArabicName + " لدى " + Model.Roles[i].Institution.ArabicName, "InstitutionProfile", "Institutions", new { id = Model.Roles[i].Institution.ID }, null)
+                        @Html.ActionLink(Model.Roles[i].Role.ArabicName + " لدى " + Model.Roles[i].Institution.ArabicName, "View", "EmployeeRoles", new { id = Model.Roles[i].ID }, null)
                     </li>
                 </ul>}
                     <h4>

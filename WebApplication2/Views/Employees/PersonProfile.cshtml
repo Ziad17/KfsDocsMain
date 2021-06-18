@@ -169,7 +169,7 @@
             @for (int i = 0; i < Model.Roles.Count; i++)
             {
                 <h4 class="card-text">
-                    @Html.ActionLink(Model.Roles[i].Role.ArabicName + " لدى " + Model.Roles[i].Institution.ArabicName, "View", "Roles", new { id = Model.Roles[i].ID }, null)
+                    @Html.ActionLink(Model.Roles[i].Role.ArabicName + " لدى " + Model.Roles[i].Institution.ArabicName, "View", "EmployeeRoles", new { id = Model.Roles[i].ID }, null)
                 </h4>
 
             }

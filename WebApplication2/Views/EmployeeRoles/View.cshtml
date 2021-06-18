@@ -1,0 +1,143 @@
+﻿@model WebApplication2.Models.ViewModels.EmployeeRoles.ViewEmployeeRoleModel
+
+
+@{
+    ViewBag.Title = "معلومات موظف";
+}
+
+
+
+<h2>
+    @ViewBag.Title
+</h2>
+
+@if (!Model.isActive)
+{
+    <h4 class="text-danger"> لقد تم إلغاء تفعيل هذا الموظف </h4>
+}
+
+<div class="col-md-8">
+
+    <h3>الملفات</h3>
+    @if (Model.FilesPublished.Count > 0)
+    {
+        <table class="table table-hover">
+            <tr>
+                <th>
+                    إسم الملف
+                </th>
+                <th>
+                    المؤسسة
+                </th>
+                <th>
+                    مستوى الملف
+                </th>
+            </tr>
+
+
+            @foreach (var file in Model.FilesPublished)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(file.Name, "View", "Files", new { id = file.ID }, null)
+                    </td>
+                    <td>
+                        @Html.ActionLink(file.EmployeeRole.Institution.ArabicName, "InstitutionProfile", "Institutions", new { id = file.EmployeeRole.InstitutionID }, null)
+
+                    </td>
+                    <td>
+                        @Html.ActionLink(file.FileLevel.Name, "FileLevels", "Files", new { id = file.LevelID }, null)
+
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <h5>لم يقم هذا الشخص برفع أي ملف بصفة @Model.RoleName </h5>
+    }
+</div>
+<div class="col-md-4">
+    <div class="data_labels">
+        @Html.DisplayNameFor(model => model.PersonName)
+
+        <h5>
+            @Html.ActionLink(Model.PersonName, "PersonProfile", "Employees", new { id = Model.EmpID }, null)
+        </h5>
+
+        @Html.DisplayNameFor(model => model.RoleName)
+
+        <h5>
+            @Html.ActionLink(Model.RoleName,"Index", "Roles")
+
+        </h5>
+
+        @Html.DisplayNameFor(model => model.InstitutionName)
+
+        <h5>
+            @Html.ActionLink(Model.InstitutionName, "InstitutionProfile", "Institutions", new { id = Model.InstitutionID }, null)
+
+        </h5>
+
+        @Html.DisplayNameFor(model => model.Desc)
+
+        <h5>
+            @Html.DisplayFor(model => model.Desc)
+        </h5>
+
+        @Html.DisplayNameFor(model => model.HiringDate)
+
+        <h5>
+            @Html.DisplayFor(model => model.HiringDate)
+        </h5>
+
+
+
+
+        @if (Model.canDelete&&Model.isDeleteable || (Model.canActive && !Model.isActive) || (Model.canDeactive && Model.isActive))
+        {
+            <hr>
+            <h3>
+                الخيارات
+            </h3>
+            <ul>
+                @if (Model.isActive && Model.canDeactive)
+                {
+                <li>
+                    @using (Html.BeginForm("Deactive", "EmployeeRoles"))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        @Html.Hidden("id", Model.EmployeeRoleID)
+
+                        <div class="form-actions no-color">
+                            <input type="submit" value="إلغاء تفعيل" class="btn btn-default" /> 
+                        </div>
+                    }
+                </li>
+                }
+                @if (!Model.isActive && Model.canActive)
+                {
+                    <li>
+                        @using (Html.BeginForm("Active", "EmployeeRoles"))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("id", Model.EmployeeRoleID)
+                            <div class="form-actions no-color">
+                                <input type="submit" value="تفعيل" class="btn btn-default" />
+                            </div>
+                        }
+                    </li>
+                }
+                @if (Model.canDelete && Model.isDeleteable)
+                {
+                    <li>@Html.ActionLink("مسح", "Delete", "EmployeeRoles", new { id = Model.EmployeeRoleID },htmlAttributes:new { @class= "btn btn-default" })</li>
+                }
+            </ul>
+        }
+
+
+    </div>
+</div>
+

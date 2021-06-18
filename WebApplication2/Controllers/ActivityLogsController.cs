@@ -16,7 +16,7 @@ namespace WebApplication2.Controllers
 
         public ActionResult Index()
         {
-
+                                                                                                                    
             var EmpRole = getPrimaryRole();
             if (EmpRole == null)
             

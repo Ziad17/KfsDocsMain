@@ -134,7 +134,7 @@ namespace WebApplication2.Controllers
             }
             var role = EmpRole.Role;
 
-            if (hasPersonPermission(role.ID, PersonPermissions.CREATE_PERSON_WITHIN_INSTITUTION))
+            if (hasPersonPermission(role.ID, PersonPermissions.CREATE_PERSON))
             {
                 ViewBag.CityID = new SelectList(db.Cities, "ID", "Name");
                 ViewBag.Gender = new SelectList(new List<Genders> { new Genders { ID = "M", Name = "Male" }, new Genders { ID = "F", Name = "Female" } }, "ID", "Name");
@@ -162,7 +162,7 @@ namespace WebApplication2.Controllers
 
                 
                 var role = EmpRole.Role;
-                if (hasPersonPermission(role.ID, PersonPermissions.CREATE_PERSON_WITHIN_INSTITUTION))
+                if (hasPersonPermission(role.ID, PersonPermissions.CREATE_PERSON))
                 {
                     
                         employee.Active = true;
@@ -171,7 +171,7 @@ namespace WebApplication2.Controllers
                         {
                             ConductorEmployeeID = EmpRole.ID,
                             AffectedEmployeeID = employee.ID,
-                            PermissionName = PersonPermissions.CREATE_PERSON_WITHIN_INSTITUTION,
+                            PermissionName = PersonPermissions.CREATE_PERSON,
                             ActionDate = DateTime.Now
                         };
                         db.PersonActionLogs.Add(log);
@@ -291,7 +291,7 @@ namespace WebApplication2.Controllers
                     {
                         db.EmployeeCredentials.Remove(cred);
                     }
-                    var log = db.PersonActionLogs.Where(x => x.AffectedEmployeeID == employee.ID && x.PermissionName==PersonPermissions.CREATE_PERSON_WITHIN_INSTITUTION).FirstOrDefault();
+                    var log = db.PersonActionLogs.Where(x => x.AffectedEmployeeID == employee.ID && x.PermissionName==PersonPermissions.CREATE_PERSON).FirstOrDefault();
                     if (log != null)
                     {
                         db.PersonActionLogs.Remove(log);
