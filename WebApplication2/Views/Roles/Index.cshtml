@@ -3,13 +3,12 @@
 @{
     ViewBag.Title = "الوظائف";
 }
+<br />
 @*<img style="display:inline-block;padding-bottom:10px" src="~/Content/businessman.png" width="80" height="80" />*@
-<h2 style="display: inline-block; padding-bottom: 10px; position: relative; top: 15px; left: -15px;">@ViewBag.Title</h2>
-<br />
-<br />
-<p class="btn btn-default btn-lg">
-    @Html.ActionLink("إضافة وظيفة", "AddRole")
-</p>
+
+<i style="font-size:50px;padding:5px;margin-top:10px" class="fas fa-briefcase"></i><h2 style="display:inline-block">@ViewBag.Title</h2>
+
+<a class="btn btn-primary but1" href="~/Roles/Create">أضافة وظيفة </a>
 <br />
 <br />
 <div class="table-responsive">
@@ -81,16 +80,16 @@
         <td>
             @if (Model.canEdit)
             {
-                <i class="btn btn-default">
-                    @Html.ActionLink("تعديل", "EditRole", new { id = item.ID })
-                </i>
+                
+                    @Html.ActionLink("تعديل", "EditRole", new { id = item.ID },htmlAttributes:new { @class = "btn btn-primary" })
+               
 
             }
             @if (Model.canDelete && item.EmployeeRoles.Count == 0 &&item.Role1.Count==0)
             {
-                <i class="btn btn-default">
-                    @Html.ActionLink("مسح", "Delete", new { id = item.ID })
-                </i>
+                
+                    @Html.ActionLink("مسح", "Delete", new { id = item.ID }, htmlAttributes: new { @class = "btn btn-danger" })
+               
             }
         </td>
     </tr>

@@ -341,6 +341,7 @@
     <Content Include="Content\star-clicked.png" />
     <Content Include="Content\star.png" />
     <Content Include="Content\temp.txt" />
+    <Content Include="Content\university.png" />
     <Content Include="Content\x-mark.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
