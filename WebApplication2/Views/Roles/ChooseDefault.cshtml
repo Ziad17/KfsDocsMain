@@ -6,7 +6,7 @@
 <br/>
 @if (Model.DefaultRole != null)
 {
-    <h4>وظيفتك الأساسية هي @Html.ActionLink(Model.DefaultRole.Role.ArabicName,"View","Roles",new { id=Model.DefaultRole.RoleID},null) لدى @Html.ActionLink(Model.DefaultRole.Institution.ArabicName,"InstitutionProfile","Institutions",new { id= Model.DefaultRole.InstitutionID},null)</h4>
+    <h4>وظيفتك الأساسية هي @Html.ActionLink(Model.DefaultRole.Role.ArabicName,"Index","Roles") لدى @Html.ActionLink(Model.DefaultRole.Institution.ArabicName,"InstitutionProfile","Institutions",new { id= Model.DefaultRole.InstitutionID},null)</h4>
   
 }
 else
@@ -42,7 +42,7 @@ else
     {
         <tr>
             <td>
-                @Html.ActionLink(item.Role.ArabicName,"View","Roles",new { id=item.RoleID},null)
+                @Html.ActionLink(item.Role.ArabicName,"Index","Roles")
             </td>
             <td>
                 @Html.ActionLink(item.Institution.ArabicName, "InstitutionProfile", "Institutions", new { id = item.InstitutionID }, null)

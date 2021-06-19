@@ -17,7 +17,7 @@ namespace WebApplication2.Models.ViewModels
 
         [Required(ErrorMessage = "هذا الحقل مطلوب")]
         [DataType(DataType.Text)]
-        [StringLength(50, MinimumLength = 3,
+        [StringLength(50, MinimumLength = 1,
       ErrorMessage = "هذا الحقل يجب أن يكون بين1 و 30 حرف")]
         [Display(Name ="إسم المستوى")]
         public string levelName { get; set; }

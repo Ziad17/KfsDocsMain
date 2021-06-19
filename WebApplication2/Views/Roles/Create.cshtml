@@ -5,7 +5,7 @@
 @{ ViewBag.Title = "إنشاء وظيفة"; }
 
 
-@using (Html.BeginForm("AddRole", "Roles", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Create", "Roles", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
 @Html.AntiForgeryToken()
                 <div class="col-md-7">

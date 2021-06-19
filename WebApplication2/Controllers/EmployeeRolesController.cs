@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication2.Models;
+using WebApplication2.Models.ViewModels;
 using WebApplication2.Models.ViewModels.EmployeeRoles;
 
 namespace WebApplication2.Controllers
@@ -71,7 +72,7 @@ namespace WebApplication2.Controllers
             }
             if (hasPersonPermission(myEmp.RoleID, PersonPermissions.VIEW_EMPLOYEE_ROLE))
             {
-                ViewEmployeeRoleModel viewModel = new ViewEmployeeRoleModel()
+                Models.ViewModels.EmployeeRoles.ViewEmployeeRoleModel viewModel = new Models.ViewModels.EmployeeRoles.ViewEmployeeRoleModel()
                 {
                     EmpID = EmpRole.EmployeeID,
                     EmployeeRoleID = EmpRole.ID,
@@ -147,7 +148,44 @@ namespace WebApplication2.Controllers
             return getErrorView(HttpStatusCode.NotFound);
 
         }
+        public ActionResult getAvailableRolesForInstitution(int id)
+        {
 
+            var EmpRole = getPrimaryRole();
+            if (EmpRole == null)
+            {
+                return getErrorView(HttpStatusCode.Unauthorized);
+            }
+            var institution = db.Institutions.Find(id);
+
+            if (institution == null)
+            {
+                return getErrorView(HttpStatusCode.NotFound);
+
+            }
+
+            List<RoleJSONmodel> availableRoles;
+            if (institution.ID == EmpRole.InstitutionID)
+            {
+
+                availableRoles = db.Roles.Where(x => x.PriorityOrder > EmpRole.Role.PriorityOrder).Select(x => new RoleJSONmodel()
+                {
+                    ID = x.ID,
+                    Name = x.ArabicName
+                }).ToList();
+                return new JsonResult { Data = availableRoles, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+
+            }
+            availableRoles = db.Roles.Where(x => x.PriorityOrder >= EmpRole.Role.PriorityOrder).Select(x => new RoleJSONmodel()
+            {
+                ID = x.ID,
+                Name = x.ArabicName
+            }).ToList();
+            return new JsonResult { Data = availableRoles, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+
+        }
 
         [HttpPost, ActionName("Active")]
         [ValidateAntiForgeryToken]
@@ -256,7 +294,7 @@ namespace WebApplication2.Controllers
                 var role = EmpRole.Role;
 
 
-                if (hasPersonPermission(role.ID, PersonPermissions.ATTACH_ROLE_TO_PERSON) && operationValidInInstitution(EmpRole.ID, employeeRole.InstitutionID) && isRolePriorityValid(role.ID, employeeRole.RoleID))
+                if (hasPersonPermission(role.ID, PersonPermissions.ATTACH_ROLE_TO_PERSON) && operationValidInInstitution(EmpRole.ID, employeeRole.InstitutionID) && isRolePriorityValidByEmpRole(role.ID, employeeRole.RoleID))
                 {
                     employeeRole.Active = true;
                     db.EmployeeRoles.Add(employeeRole);
@@ -280,7 +318,13 @@ namespace WebApplication2.Controllers
             return View(employeeRole);
         }
 
+        protected bool isRolePriorityValidByEmpRole(int BiggerRoleID, int SmallerRoleID)
+        {
 
+            if (db.Roles.Find(BiggerRoleID).PriorityOrder <= db.Roles.Find(SmallerRoleID).PriorityOrder)
+            { return true; }
+            return false;
+        }
 
         public ActionResult Delete(int? id)
         {

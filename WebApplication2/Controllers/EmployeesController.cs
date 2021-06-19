@@ -18,9 +18,46 @@ namespace WebApplication2.Controllers
     {
 
 
-      
 
 
+        public ActionResult getAvailableRolesForInstitution(int id)
+        {
+
+            var EmpRole = getPrimaryRole();
+            if (EmpRole == null)
+            {
+                return getErrorView(HttpStatusCode.Unauthorized);
+            }
+            var institution = db.Institutions.Find(id);
+
+            if (institution == null)
+            {
+                return getErrorView(HttpStatusCode.NotFound);
+
+            }
+
+            List<RoleJSONmodel> availableRoles;
+            if (institution.ID == EmpRole.InstitutionID)
+            {
+
+                availableRoles = db.Roles.Where(x => x.PriorityOrder > EmpRole.Role.PriorityOrder).Select(x => new RoleJSONmodel()
+                {
+                    ID = x.ID,
+                    Name = x.ArabicName
+                }).ToList();
+                return new JsonResult { Data = availableRoles, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+
+            }
+            availableRoles = db.Roles.Where(x => x.PriorityOrder >= EmpRole.Role.PriorityOrder).Select(x => new RoleJSONmodel()
+            {
+                ID = x.ID,
+                Name = x.ArabicName
+            }).ToList();
+            return new JsonResult { Data = availableRoles, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+
+        }
 
 
 
@@ -176,7 +213,7 @@ namespace WebApplication2.Controllers
                         };
                         db.PersonActionLogs.Add(log);
                         db.SaveChanges();
-                        return RedirectToAction("Create", "Roles", new { id = (employee.ID) });
+                        return RedirectToAction("Create", "EmployeesRoles", new { id = (employee.ID) });
                     
                 }
                 return getErrorView(HttpStatusCode.Unauthorized);

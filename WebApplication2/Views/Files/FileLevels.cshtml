@@ -16,7 +16,7 @@
 
 
 
-                <h2>@Model.Level.LevelDesc</h2> if (Model.canEdit)
+                <h5>@Model.Level.LevelDesc</h5> if (Model.canEdit)
                                 {
                 @Html.ActionLink(" تعديل ", "EditLevel", "Files", new { id = Model.Level.ID }, null) }
                                 if (Model.canEdit)

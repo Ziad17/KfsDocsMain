@@ -522,7 +522,7 @@ VALUES ( 'CREATE_PERSON',N'إنشاء حساب شخص',1,null);
 Go;
 
 
-INSERT INTO Employee VALUES(N'زياد','M',1,'1111111111111111',1,null,'','','','')
+INSERT INTO Employee VALUES(N'زياد','M',1,'1618120170100170',1,null,'','','','')
 
 
 GO;
@@ -541,7 +541,7 @@ INSERT INTO [dbo].[RoleInstitutionPermission](RoleID,PermissionName)
 
 
 GO;
-INSERT INTO InstitutionType VALUES('SYSTEM','');
+INSERT INTO InstitutionType VALUES('إدارة الجامعة','');
 Insert INTO [dbo].[Institution] VALUES(N'النظام',1,1,null,'','',1,'','','','')
 
 
@@ -586,6 +586,7 @@ GO;
 
 
 
+             INSERT INTO EmployeeRole VALUES(1,1,1,'',GETDATE(),1)
 
 
 
