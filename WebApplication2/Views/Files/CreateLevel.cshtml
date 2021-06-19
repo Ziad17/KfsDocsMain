@@ -4,108 +4,72 @@
 
 
 
-@{ ViewBag.Title = "إنشاء مستوى ملف";
-}
-<h2>@ViewBag.Title</h2>
+@{ ViewBag.Title = "إنشاء مستوى ملف"; }
+<br />
+<img style="display:inline-block;padding-bottom:10px;" src="~/Content/university.png" width="80" height="80" />
+<h2 style="display: inline-block; padding-bottom: 10px; position: relative; top: 9px; left: -15px;">@ViewBag.Title</h2>
 
 
 
 
 @using (Html.BeginForm("CreateLevel", "Files", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    @Html.AntiForgeryToken()
-    <div class="col-md-7">
+@Html.AntiForgeryToken()
+<div class="col-md-7">
+        <h3></h3>
 
-
-        <h3>الصلاحيات الممنوحة للموظفين على المستوى الحالي</h3>
-
-
-        <table id="table" class="display table table-responsive">
-            <thead>
-                <tr>
-                    <th>الوظيفة</th>
-                    <th>الصلاحيات</th>
-                </tr>
-            </thead>
-            <tbody>
-
-                @for (int x  =0;x < Model.RolesIds.Count;x++)
-                {
-                <tr>
+          <i style="display:inline-block;padding-bottom:10px;" class="fas fa-check-double"></i>
+    <h5 style="display: inline-block; padding-bottom: 10px; position: relative; top: 9px; left: -15px;"> الصلاحيات الممنوحة للموظفين على المستوى الحالي</h5>
 
 
 
-                    <td>@Model.RolesNames[x]</td>
-                    @Html.HiddenFor(m => m.RolesNames[x])
+    <table id="table" class="display table table-responsive">
+        <thead>
+            <tr>
+                <th>الوظيفة</th>
+                <th>الصلاحيات</th>
+            </tr>
+        </thead>
+        <tbody>
 
-                    <td>
-                        <ul>
-                            @for (var i = 0; i < Model.Permissions[x].Count; i++)
-                            {
-                                <li>
-
-
-
-                                    @Html.CheckBoxFor(model => model.Permissions[x][i].Selected)
-                                    @Html.HiddenFor(m => m.Permissions[x][i].Text)
-                                    @Html.HiddenFor(m => m.Permissions[x][i].Value)
-                                    @Html.HiddenFor(m => m.RolesIds[x])
-
-
-                                    @Model.Permissions[x][i].Text
-
-                                </li>
-
-
-                            }
-                        </ul>
-                    </td>
-                </tr>
-                }
-
-            </tbody>
-
-
-        </table>
-
-    </div>
+            @for (int x = 0; x < Model.RolesIds.Count; x++)
+            {
+<tr>
 
 
 
+    <td>@Model.RolesNames[x]</td>
+    @Html.HiddenFor(m => m.RolesNames[x])
+
+    <td>
+        <ul>
+            @for (var i = 0; i < Model.Permissions[x].Count; i++)
+            {
+<li>
 
 
 
+    @Html.CheckBoxFor(model => model.Permissions[x][i].Selected)
+    @Html.HiddenFor(m => m.Permissions[x][i].Text)
+    @Html.HiddenFor(m => m.Permissions[x][i].Value)
+    @Html.HiddenFor(m => m.RolesIds[x])
 
 
-    <div class="col-md-5">
-        <h3>المعلومات</h3>
+    @Model.Permissions[x][i].Text
+
+</li>
+}
+        </ul>
+    </td>
+</tr>
+}
+
+        </tbody>
 
 
-        <div class="form-horizontal">
+    </table>
 
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-
-
-            <div class="form-group">
-                <div class="col-md-9">
-                    @Html.EditorFor(model => model.levelName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.levelName, "", new { @class = "text-danger" })
-                </div>
-                @Html.LabelFor(model => model.levelName, htmlAttributes: new { @class = "control-label col-md-3" })
-
-            </div>
-
-
-
-            <div class="form-group">
-                <div class="col-md-9">
-                    @Html.EditorFor(model => model.Desc, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Desc, "", new { @class = "text-danger" })
-                </div>
-                @Html.LabelFor(model => model.Desc, htmlAttributes: new { @class = "control-label col-md-3" })
-
-            </div>
+</div>
 
 
 
@@ -114,14 +78,51 @@
 
 
 
+                                <div class="col-md-5">
+                                    <h3>المعلومات</h3>
+
+
+                                    <div class="form-horizontal">
+
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
 
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="إنشاء" class="btn btn-default" />
-                </div>
-            </div>
-        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-9">
+                                                @Html.EditorFor(model => model.levelName, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.levelName, "", new { @class = "text-danger" })
+                                            </div>
+                                            @Html.LabelFor(model => model.levelName, htmlAttributes: new { @class = "control-label col-md-3" })
 
-    </div>}
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <div class="col-md-9">
+                                                @Html.TextAreaFor(model => model.Desc, new { htmlAttributes = new { @class = "form-control txera" } })
+                                                @Html.ValidationMessageFor(model => model.Desc, "", new { @class = "text-danger" })
+                                            </div>
+                                            @Html.LabelFor(model => model.Desc, htmlAttributes: new { @class = "control-label col-md-3" })
+
+                                        </div>
+
+
+
+
+
+
+
+
+
+
+
+                                        <div class="form-group">
+                                            <div style="text-align:center" class="col-md-offset-2 col-md-10">
+                                                <input style="width:100%" type="submit" value="إنشاء" class="btn btn-primary but1" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>}
