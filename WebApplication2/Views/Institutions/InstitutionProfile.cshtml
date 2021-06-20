@@ -6,10 +6,6 @@
 
 
 
-@if (!Model.Institution.Active)
-{
-<h2 class="text-danger">This Institution Has Been Deactivated</h2>
-                <hr />}
 
 <br />
 <br />
@@ -29,8 +25,7 @@
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
-            @*------------------------------------------------------------------------------*@
-            @*------------------------------------------------------------------------------*@
+      
             <div class="tab-pane fade active in" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <ul>
                     @if (Model.Employees.Count > 0)
@@ -134,7 +129,7 @@
                     </h4>
                 </div>
 
-                    @if (Model.canActive || Model.canDeactive || Model.canEditInfo)
+                    @if ( Model.canEditInfo)
                     {
         <hr />
                         <i class="fas fa-circle"></i><h4 style="display:inline-block;padding-right:10px">الخيارات</h4>
@@ -144,14 +139,7 @@
                                             {
                             <li>@Html.ActionLink("تعديل", "Edit", "Institutions", new { id = Model.Institution.ID }, null)</li>
 }
-                                            @if (((!Model.Institution.Active) && Model.canActive))
-                                            {
-                            <li>@Html.ActionLink("تفعيل", "Active", "Institutions", new { id = Model.Institution.ID }, null)</li>
-}
-                                            @if (((Model.Institution.Active) && Model.canDeactive))
-                                            {
-                            <li>@Html.ActionLink("إلغاء التفعيل", "Deactive", "Institutions", new { id = Model.Institution.ID }, null)</li>
-}
+                         
 
 
 

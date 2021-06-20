@@ -121,7 +121,9 @@ namespace WebApplication2.Controllers
 
         protected bool isPartOfInstitution(int EmployeeRoleID, int InstitutionID)
         {
-            if (db.EmployeeRoles.Find(EmployeeRoleID).InstitutionID == InstitutionID)
+            var Institution = db.Institutions.Find(InstitutionID);
+            var EmpRole = db.EmployeeRoles.Find(EmployeeRoleID);
+            if (EmpRole.InstitutionID == InstitutionID || Institution.ParentID==EmpRole.InstitutionID)
             { return true; }
             return false;
         }
@@ -315,12 +317,19 @@ namespace WebApplication2.Controllers
             return false;
         }
 
-        protected bool isRolePriorityValid(int BiggerRoleID, int SmallerRoleID)
+        protected bool isRolePriorityValidInTheSameInstitution(int BiggerRoleID, int SmallerRoleID)
         {
             if (db.Roles.Find(BiggerRoleID).PriorityOrder < db.Roles.Find(SmallerRoleID).PriorityOrder)
             { return true; }
             return false;
         }
+        protected bool isRolePriorityValidInTheChildInstitution(int BiggerRoleID, int SmallerRoleID)
+        {
+            if (db.Roles.Find(BiggerRoleID).PriorityOrder <= db.Roles.Find(SmallerRoleID).PriorityOrder)
+            { return true; }
+            return false;
+        }
+
 
 
         protected ViewResult getErrorView(HttpStatusCode statusCode, string msg)

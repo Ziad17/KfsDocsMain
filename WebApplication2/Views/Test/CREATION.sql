@@ -431,7 +431,7 @@ GO;
 
 
 INSERT INTO City 
-VALUES ('cairo',
+VALUES (N'القاهرة',
 
         11865
        );
@@ -451,20 +451,17 @@ INSERT INTO InstitutionPermission
 VALUES ( 'VIEW_ROLES',N'عرض الوظائف',1,null);
 INSERT INTO InstitutionPermission
 VALUES ( 'DELETE_ROLE',N'مسح وظيفة',0,null);
-          INSERT INTO InstitutionPermission
-VALUES ( 'ACTIVATE_INSTITUTION',N'تفعيل',1,null);
-   INSERT INTO InstitutionPermission
-VALUES ( 'DEACTIVATE_INSTITUTION',N'تعطيل',0,null);
+
 INSERT INTO InstitutionPermission
 VALUES ( 'VIEW_PERSONS_IN_INSTITUTION',N'عرض أشخاص في مؤسسة',1,null);
 INSERT INTO InstitutionPermission
 VALUES ( 'VIEW_INSTITUTION',N'عرض ',1,null);
 INSERT INTO InstitutionPermission
-VALUES ( 'CREATE_INSTITUTION',N'إنشاء',0,null);
+VALUES ( 'CREATE_INSTITUTION',N'إنشاء',1,null);
 INSERT INTO InstitutionPermission
 VALUES ( 'EDIT_INSTITUTION_INFO',N'تعديل معلومات',1,null);
 INSERT INTO InstitutionPermission
-VALUES ( 'DELETE_INSTITUTION',N'مسح',0,null);
+VALUES ( 'DELETE_INSTITUTION',N'مسح',1,null);
 
 
 INSERT INTO InstitutionPermission
@@ -528,7 +525,7 @@ INSERT INTO Employee VALUES(N'زياد','M',1,'1618120170100170',1,null,'','',''
 GO;
 
 
-INSERT INTO [Role] VALUES(null,1,N'مدير نظام');
+INSERT INTO [Role] VALUES(null,1,N'رئيس الجامعة');
 
 GO;
 
@@ -541,8 +538,8 @@ INSERT INTO [dbo].[RoleInstitutionPermission](RoleID,PermissionName)
 
 
 GO;
-INSERT INTO InstitutionType VALUES('إدارة الجامعة','');
-Insert INTO [dbo].[Institution] VALUES(N'النظام',1,1,null,'','',1,'','','','')
+INSERT INTO InstitutionType VALUES(N'إدارة عامة','');
+Insert INTO [dbo].[Institution] VALUES(N'إدارة الجامعة',1,1,null,'','',1,'','','','')
 
 
 

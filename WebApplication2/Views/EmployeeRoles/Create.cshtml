@@ -1,4 +1,4 @@
-﻿@model WebApplication2.Models.EmployeeRole
+﻿@model WebApplication2.Models.ViewModels.EmployeeRoles.CreateEmployeeRoleModel
 
 @{ ViewBag.Title = "تعيين"; }
 
@@ -14,7 +14,7 @@
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="form-group">
                         <div class="col-md-10">
-                            @Html.DropDownList("EmployeeID", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.DropDownListFor(x=>x.EmployeeID, Model.Employees, htmlAttributes: new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.EmployeeID, "", new { @class = "text-danger" })
                         </div>
                         @Html.Label("الشخص", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -22,7 +22,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-10">
-                            @Html.DropDownList("InstitutionID", null, htmlAttributes: new { @class = "form-control", @id = "institutionDrop" })
+                            @Html.DropDownListFor(x => x.InstitutionID,Model.Institutions, htmlAttributes: new { @class = "form-control", @id = "institutionDrop" })
                             @Html.ValidationMessageFor(model => model.InstitutionID, "", new { @class = "text-danger" })
                         </div>
                         @Html.Label("المؤسسة", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -30,7 +30,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-10">
-                            @Html.DropDownList("RoleID", null, htmlAttributes: new { @class = "form-control", @id = "roleDrop" })
+                            @Html.DropDownListFor(x=>x.RoleID, Model.Roles, htmlAttributes: new { @class = "form-control", @id = "roleDrop" })
                             @Html.ValidationMessageFor(model => model.RoleID, "", new { @class = "text-danger" })
                         </div>
                         @Html.Label("الوظيفة", htmlAttributes: new { @class = "control-label col-md-2" })

@@ -276,6 +276,8 @@
     <Compile Include="Models\ViewModels\AddVersionModel.cs" />
     <Compile Include="Models\ViewModels\CreateFileLevelModel.cs" />
     <Compile Include="Models\ViewModels\CreateFileModel.cs" />
+    <Compile Include="Models\ViewModels\EmployeeRoles\CreateEmployeeRoleModel.cs" />
+    <Compile Include="Models\ViewModels\InstitutionsModels\CreateInstitutionModel.cs" />
     <Compile Include="Models\ViewModels\CreateInstitutionTypeModel.cs" />
     <Compile Include="Models\ViewModels\DeleteFileLevelModel.cs" />
     <Compile Include="Models\ViewModels\DeleteInstitutionTypeModel.cs" />
@@ -290,6 +292,7 @@
     <Compile Include="Models\ViewModels\FirstLoginModel.cs" />
     <Compile Include="Models\ViewModels\HttpErrors.cs" />
     <Compile Include="Models\ViewModels\InstitutionProfileModel.cs" />
+    <Compile Include="Models\ViewModels\InstitutionsModels\EditInstitutionModel.cs" />
     <Compile Include="Models\ViewModels\LogsViewModel.cs" />
     <Compile Include="Models\ViewModels\MainIndexModel.cs" />
     <Compile Include="Models\ViewModels\MenuModel.cs" />

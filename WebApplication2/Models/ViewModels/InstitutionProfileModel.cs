@@ -13,7 +13,8 @@ namespace WebApplication2.Models.ViewModels
         public List<File> Files { get; set; }
 
         public bool canEditInfo { get; set; }
-        public bool canDeactive { get; set; }
-        public bool canActive { get; set; }
+        public bool canDelete { get; set; }
+        public bool isDeletable { get; set; }
+
     }
 }

@@ -10,6 +10,7 @@ using WebApplication2.Models;
 using WebApplication2.Models.ViewModels;
 using WebApplication2.Models.ViewModels.InstitutionModels;
 using WebApplication2.Models.ViewModels.Institutions;
+using WebApplication2.Models.ViewModels.InstitutionsModels;
 
 namespace WebApplication2.Controllers
 {
@@ -25,7 +26,6 @@ namespace WebApplication2.Controllers
         }
 
 
-        // GET: Institutions/Create
         public ActionResult Create()
         {
 
@@ -38,12 +38,17 @@ namespace WebApplication2.Controllers
 
             if (hasInstitutionPermission(role.ID, InstitutionPermissions.CREATE_INSTITUTION))
             {
-                ViewBag.InstitutionTypeID = new SelectList(db.InstitutionTypes, "ID", "ArabicName");
+
+                CreateInstitutionModel viewModel = new CreateInstitutionModel()
+                {
+                    ParentID = EmpRole.InstitutionID,
+                    ParentName = EmpRole.Institution.ArabicName,
+                    InstitutionTypes = db.InstitutionTypes.Select(x => new SelectListItem() { Value = x.ID.ToString(), Text = x.ArabicName }).ToList()
+                };
 
 
-                var institution = db.Institutions.Find(EmpRole.InstitutionID);
 
-                return View(institution);
+                return View(viewModel);
             }
             else 
             {
@@ -299,11 +304,10 @@ namespace WebApplication2.Controllers
 
 
 
-        // POST: Institutions/Create
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ArabicName,InstitutionTypeID,Active,ParentID,Website,ImageURL,InsideCampus,PrimaryPhone,SecondaryPhone,Fax,Email")] Institution institution)
+        public ActionResult Create(CreateInstitutionModel viewModel)
         {
           
             var EmpRole = getPrimaryRole();
@@ -317,9 +321,18 @@ namespace WebApplication2.Controllers
 
                 if (hasInstitutionPermission(role.ID, InstitutionPermissions.CREATE_INSTITUTION))
                 {
+                    Institution institution = new Institution()
+                    {
+                        ParentID=viewModel.ParentID,
+                        ArabicName=viewModel.InstitutionName,
+                        Fax=viewModel.Fax,
+                        PrimaryPhone= viewModel.PrimaryPhone,
+                        SecondaryPhone= viewModel.SecondaryPhone,
+                        Website= viewModel.Website,
+                        InstitutionTypeID=viewModel.InstitutionTypeID
+                    };
                     institution.InsideCampus = true;
                     institution.Active = true;
-                    institution.ParentID = EmpRole.InstitutionID;
                     db.Institutions.Add(institution);
 
 
@@ -334,17 +347,22 @@ namespace WebApplication2.Controllers
 
 
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index","Institutions");
                 }
                 return getErrorView(HttpStatusCode.Unauthorized);
 
             }
 
-            ViewBag.InstitutionTypeID = new SelectList(db.InstitutionTypes, "ID", "ArabicName", institution.InstitutionTypeID);
-            return View(institution);
+            CreateInstitutionModel viewModel1 = new CreateInstitutionModel()
+            {
+                ParentID = EmpRole.InstitutionID,
+                ParentName = EmpRole.Institution.ArabicName,
+                InstitutionTypes = db.InstitutionTypes.Select(x => new SelectListItem() { Value = x.ID.ToString(), Text = x.ArabicName }).ToList()
+            };
+
+            return View(viewModel1);
         }
 
-        // GET: Institutions/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -366,6 +384,21 @@ namespace WebApplication2.Controllers
 
             if (hasInstitutionPermission(role.ID, InstitutionPermissions.EDIT_INSTITUTION_INFO) && isPartOfInstitution(EmpRole.ID, institution.ID))
             {
+
+                EditInstitutionModel viewModel = new EditInstitutionModel()
+                {
+                  ID=institution.ID,
+                    InstitutionName = institution.ArabicName,
+                    Fax = institution.Fax,
+                    PrimaryPhone = institution.PrimaryPhone,
+                    SecondaryPhone = institution.SecondaryPhone,
+                    Email = institution.Email,
+                    Website = institution.Website,
+                    
+
+                };
+
+
                 return View(institution);
             }
             else { return  getErrorView(HttpStatusCode.Unauthorized); }
@@ -374,10 +407,11 @@ namespace WebApplication2.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ArabicName,Website,ImageURL,PrimaryPhone,SecondaryPhone,Fax,Email")] Institution institution)
+        public ActionResult Edit(EditInstitutionModel viewModel)
         {
             if (ModelState.IsValid)
             {
+                var institution = db.Institutions.Find(viewModel.ID);
                 if (institution == null)
                 {
                     return getErrorView(HttpStatusCode.NotFound);
@@ -392,13 +426,13 @@ namespace WebApplication2.Controllers
 
                 if (hasInstitutionPermission(role.ID, InstitutionPermissions.EDIT_INSTITUTION_INFO) && isPartOfInstitution(EmpRole.ID, institution.ID))
                 {
-                    db.Institutions.Find(institution.ID).ArabicName = institution.ArabicName;
-                    db.Institutions.Find(institution.ID).Website = institution.Website;
-                    db.Institutions.Find(institution.ID).ImageURL = institution.ImageURL;
-                    db.Institutions.Find(institution.ID).PrimaryPhone = institution.PrimaryPhone;
-                    db.Institutions.Find(institution.ID).SecondaryPhone = institution.SecondaryPhone;
-                    db.Institutions.Find(institution.ID).Fax = institution.Fax;
-                    db.Institutions.Find(institution.ID).Email = institution.Email;
+                    db.Institutions.Find(institution.ID).ArabicName = viewModel.InstitutionName;
+                    db.Institutions.Find(institution.ID).Website = viewModel.Website;
+          
+                    db.Institutions.Find(institution.ID).PrimaryPhone = viewModel.PrimaryPhone;
+                    db.Institutions.Find(institution.ID).SecondaryPhone = viewModel.SecondaryPhone;
+                    db.Institutions.Find(institution.ID).Fax = viewModel.Fax;
+                    db.Institutions.Find(institution.ID).Email = viewModel.Email;
 
 
                     InstitutionActionLog log = new InstitutionActionLog()
@@ -416,7 +450,7 @@ namespace WebApplication2.Controllers
                 }
            
             }
-            return View(institution);
+            return View(viewModel);
         }
 
 
@@ -463,10 +497,7 @@ namespace WebApplication2.Controllers
                 return getErrorView(HttpStatusCode.NotFound);
             }
 
-            if (institution.ParentID == null)
-            {
-                return getErrorView(HttpStatusCode.NotFound);
-            }
+       
             Role role = EmpRole.Role;
          
             if (hasInstitutionPermission(role.ID, InstitutionPermissions.VIEW_INSTITUTION))
@@ -482,7 +513,7 @@ namespace WebApplication2.Controllers
                 var myMentions = getMyMentions().Where(x => x.EmployeeRole.InstitutionID == institution.ID);
                 var MyFiles = getMyFiles().Where(x => x.EmployeeRole.InstitutionID == institution.ID);
 
-                viewModel.Files = avilableFiles.Union(myMentions).Union(MyFiles).OrderBy(x => x.DateCreatedSys).ToList(); 
+                viewModel.Files = avilableFiles.Union(myMentions).Union(MyFiles).OrderBy(x => x.DateCreatedSys).ToList();
 
 
 
@@ -495,7 +526,8 @@ namespace WebApplication2.Controllers
             }
 
             //IMPLMENT UNAUTHORIZED VIEW
-            return getErrorView(HttpStatusCode.Unauthorized);
+            return getErrorView(HttpStatusCode.Unauthorized);   
+            
         }
 
 

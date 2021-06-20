@@ -79,15 +79,15 @@ namespace WebApplication2.Controllers
                         return RedirectToAction("Login");
 
                     }
-                    ModelState.AddModelError("", "You Already Have Email And Password");
+                    ModelState.AddModelError("", "أنت بالفعل تمتلك حساب مسبقا");
                     return View();
 
                 }
-                ModelState.AddModelError("", "The Passwords Are Not Identical");
+                ModelState.AddModelError("", "كلمتي السر غير متطابقتين");
                 return View();
 
             }
-            ModelState.AddModelError("", "The Acadmic Number Is Invaild");
+            ModelState.AddModelError("", "الرقم الأكاديمي غير مسجل بالنظام");
             return View();
 
         }
@@ -112,7 +112,7 @@ namespace WebApplication2.Controllers
             EmployeeCredential employeeToValidate = db.EmployeeCredentials.Where(e => e.Email.Equals(employeeCredential.Email)).FirstOrDefault();
             if (employeeToValidate == null)
             {
-                ModelState.AddModelError("", "Invalid Email");
+                ModelState.AddModelError("", "بريد إالكتروني خاطئ");
                 return View();
             }
 
@@ -125,7 +125,7 @@ namespace WebApplication2.Controllers
                 return RedirectToAction("Index");
             }
             else {
-                ModelState.AddModelError("", "invalid Password");
+                ModelState.AddModelError("", "كلمة سر خاطئة");
                 return View();
             }
 

@@ -8,14 +8,12 @@
 
 <i style="font-size:50px;padding:5px;margin-top:10px" class="fas fa-briefcase"></i><h2 style="display:inline-block">@ViewBag.Title</h2>
 
+@if (Model.canAdd)
+{
 <a class="btn btn-primary but1" href="~/Roles/Create">أضافة وظيفة </a>
+}
 <br />
-<br />
-<p class="btn btn-default btn-lg">
-    @Html.ActionLink("إضافة وظيفة", "Create")
-</p>
-<br />
-<br />
+
 <div class="table-responsive">
     <table class="table table-hover">
         <tr style="color:white;background-color:black">

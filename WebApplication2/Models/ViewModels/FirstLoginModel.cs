@@ -13,6 +13,8 @@ namespace WebApplication2.Models.ViewModels
         [DataType(DataType.EmailAddress,ErrorMessage ="برجاء إدخال بريد إلكتروني صحيح")]
         [Required(ErrorMessage ="البريد الإلكتروني مطلوب")]
         public string Email { get; set; }
+        [Display(Name = "الرقم الأكاديمي")]
+
         [Required(ErrorMessage ="الرقم الأكاديمي مطلوب")]
         [MinLength(length:16,ErrorMessage ="الرقم الأكاديمي لابد أن يكون 16 رقم")]
         [MaxLength(length: 16, ErrorMessage = "الرقم الأكاديمي لابد أن يكون 16 رقم")]
@@ -21,8 +23,10 @@ namespace WebApplication2.Models.ViewModels
         [MinLength(length: 8, ErrorMessage = "كلمة السر يجب أن تكون على الأفل 8 أحرف أو أرقام")]
         [Required(ErrorMessage = "كلمة السر مطلوبة")]
         [DataType(DataType.Password)]
+        [Display(Name = "كلمة السر")]
 
         public string Password { get; set; }
+        [Display(Name = "تأكيد كلمة السر")]
 
         [MinLength(length: 8, ErrorMessage = "كلمة السر يجب أن تكون على الأفل 8 أحرف أو أرقام")]
         [Required(ErrorMessage = "كلمة السر مطلوبة")]

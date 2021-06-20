@@ -101,7 +101,7 @@ namespace WebApplication2.Controllers
                 return getErrorView(HttpStatusCode.NotFound);
             }
 
-            if (hasInstitutionPermission(EmpRole.RoleID, InstitutionPermissions.EDIT_ROLE) && isRolePriorityValid(EmpRole.RoleID, role.ID))
+            if (hasInstitutionPermission(EmpRole.RoleID, InstitutionPermissions.EDIT_ROLE) && isRolePriorityValidInTheSameInstitution(EmpRole.RoleID, role.ID))
             {
                 EditRoleModel viewModel = new EditRoleModel();
                 viewModel.RoleName = role.ArabicName;
@@ -160,7 +160,7 @@ namespace WebApplication2.Controllers
                     return getErrorView(HttpStatusCode.NotFound);
                 }
 
-                if (hasInstitutionPermission(EmpRole.RoleID, InstitutionPermissions.EDIT_ROLE) && isRolePriorityValid(EmpRole.RoleID, role.ID))
+                if (hasInstitutionPermission(EmpRole.RoleID, InstitutionPermissions.EDIT_ROLE) && isRolePriorityValidInTheSameInstitution(EmpRole.RoleID, role.ID))
                 {
                     db.Roles.Find(role.ID).ArabicName = viewModel.RoleName;
 

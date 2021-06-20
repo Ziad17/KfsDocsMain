@@ -19,9 +19,10 @@ namespace WebApplication2.Controllers
 
 
 
-
+                                           
         public ActionResult getAvailableRolesForInstitution(int id)
         {
+            
 
             var EmpRole = getPrimaryRole();
             if (EmpRole == null)
@@ -213,7 +214,7 @@ namespace WebApplication2.Controllers
                         };
                         db.PersonActionLogs.Add(log);
                         db.SaveChanges();
-                        return RedirectToAction("Create", "EmployeesRoles", new { id = (employee.ID) });
+                        return RedirectToAction("Create", "EmployeeRoles", new { id = (employee.ID) });
                     
                 }
                 return getErrorView(HttpStatusCode.Unauthorized);
@@ -332,6 +333,24 @@ namespace WebApplication2.Controllers
                     if (log != null)
                     {
                         db.PersonActionLogs.Remove(log);
+                    }
+
+
+
+                    //delete mentions
+                    foreach (var mention in db.FileMentions.Where(x => x.EmployeeID == employee.ID || x.EmployeeRole.EmployeeID == employee.ID))
+                    {
+                        db.FileMentions.Remove(mention);
+
+                    }
+
+
+
+                    //delete messages
+                    foreach (var msg in db.Messages.Where(x => x.RecieverID == employee.ID || x.SenderID == employee.ID))
+                    {
+                        db.Messages.Remove(msg);
+                        
                     }
 
                     db.Employees.Remove(employee);

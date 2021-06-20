@@ -70,6 +70,11 @@ namespace WebApplication2.Controllers
                 return getErrorView(HttpStatusCode.NotFound);
 
             }
+
+
+
+
+
             if (hasPersonPermission(myEmp.RoleID, PersonPermissions.VIEW_EMPLOYEE_ROLE))
             {
                 Models.ViewModels.EmployeeRoles.ViewEmployeeRoleModel viewModel = new Models.ViewModels.EmployeeRoles.ViewEmployeeRoleModel()
@@ -88,9 +93,9 @@ namespace WebApplication2.Controllers
 
 
 
-                viewModel.canActive = hasPersonPermission(myEmp.RoleID, PersonPermissions.ACTIVE_EMPLOYEE_ROLE) && isRolePriorityValid(myEmp.RoleID, EmpRole.RoleID);
-                viewModel.canDeactive = hasPersonPermission(myEmp.RoleID, PersonPermissions.DEACTIVATE_EMPLOYEE_ROLE) && isRolePriorityValid(myEmp.RoleID, EmpRole.RoleID);
-                viewModel.canDelete = hasPersonPermission(myEmp.RoleID, PersonPermissions.DELETE_EMPLOYEE_ROLE) && isRolePriorityValid(myEmp.RoleID, EmpRole.RoleID);
+                viewModel.canActive = hasPersonPermission(myEmp.RoleID, PersonPermissions.ACTIVE_EMPLOYEE_ROLE) && isOperationFromEmpTOEmpValid(myEmp,EmpRole);
+                viewModel.canDeactive = hasPersonPermission(myEmp.RoleID, PersonPermissions.DEACTIVATE_EMPLOYEE_ROLE) && isOperationFromEmpTOEmpValid(myEmp, EmpRole);
+                viewModel.canDelete = hasPersonPermission(myEmp.RoleID, PersonPermissions.DELETE_EMPLOYEE_ROLE) && isOperationFromEmpTOEmpValid(myEmp, EmpRole);
                 viewModel.FilesPublished = getAvaiableFilesForMeByScope().Union(getMyFiles()).Union(getMyMentions()).Where(x => x.AuthorID == EmpRole.ID).ToList();
 
                 if (EmpRole.ID == myEmp.ID)
@@ -107,8 +112,29 @@ namespace WebApplication2.Controllers
 
         }
 
+        private bool isOperationFromEmpTOEmpValid(EmployeeRole CreatorEmpRole,EmployeeRole affectedEmpRole)
+        {
+            //if they are in the same institutions same roles can't effect eachother
 
- 
+            //if they are not in the same institutions same roles cant effect eachother depending on the institutionLevel
+
+
+
+            if (CreatorEmpRole.InstitutionID == affectedEmpRole.InstitutionID)
+            {
+                return isRolePriorityValidInTheSameInstitution(CreatorEmpRole.RoleID, affectedEmpRole.RoleID);
+            }
+            else if (affectedEmpRole.Institution.ParentID == CreatorEmpRole.InstitutionID)
+            {
+                return isRolePriorityValidInTheChildInstitution(CreatorEmpRole.RoleID, affectedEmpRole.RoleID);
+
+            }
+            return false;
+
+        }
+
+
+
         [HttpPost, ActionName("Deactive")]
         [ValidateAntiForgeryToken]
         public ActionResult DeactiveConfirmed(int id)
@@ -129,7 +155,7 @@ namespace WebApplication2.Controllers
             {
                 return getErrorView(HttpStatusCode.NotFound);
             }
-            if (hasPersonPermission(role.ID, PersonPermissions.DEACTIVATE_EMPLOYEE_ROLE) && operationValidInInstitution(EmpRole.ID, employeeRole.InstitutionID) && (employeeRole.Active) && isRolePriorityValid(EmpRole.Role.ID, employeeRole.Role.ID))
+            if (hasPersonPermission(role.ID, PersonPermissions.DEACTIVATE_EMPLOYEE_ROLE) && isOperationFromEmpTOEmpValid( EmpRole,employeeRole))
             {
 
                 db.EmployeeRoles.Find(employeeRole.ID).Active = false;
@@ -168,7 +194,7 @@ namespace WebApplication2.Controllers
             if (institution.ID == EmpRole.InstitutionID)
             {
 
-                availableRoles = db.Roles.Where(x => x.PriorityOrder > EmpRole.Role.PriorityOrder).Select(x => new RoleJSONmodel()
+                availableRoles = db.Roles.Where(x => x.PriorityOrder > EmpRole.Role.PriorityOrder && x.ParentID != null).Select(x => new RoleJSONmodel()
                 {
                     ID = x.ID,
                     Name = x.ArabicName
@@ -177,7 +203,7 @@ namespace WebApplication2.Controllers
 
 
             }
-            availableRoles = db.Roles.Where(x => x.PriorityOrder >= EmpRole.Role.PriorityOrder).Select(x => new RoleJSONmodel()
+            availableRoles = db.Roles.Where(x => x.PriorityOrder >= EmpRole.Role.PriorityOrder && x.ParentID != null).Select(x => new RoleJSONmodel()
             {
                 ID = x.ID,
                 Name = x.ArabicName
@@ -207,7 +233,7 @@ namespace WebApplication2.Controllers
             {
                 return getErrorView(HttpStatusCode.NotFound);
             }
-            if (hasPersonPermission(role.ID, PersonPermissions.ACTIVE_EMPLOYEE_ROLE) && operationValidInInstitution(EmpRole.ID, employeeRole.InstitutionID) && (!employeeRole.Active) && isRolePriorityValid(EmpRole.Role.ID, employeeRole.Role.ID))
+            if (hasPersonPermission(role.ID, PersonPermissions.ACTIVE_EMPLOYEE_ROLE) && isOperationFromEmpTOEmpValid( EmpRole,employeeRole))
             {
 
                 db.EmployeeRoles.Find(employeeRole.ID).Active = true;
@@ -246,6 +272,9 @@ namespace WebApplication2.Controllers
             {
 
 
+                CreateEmployeeRoleModel viewModel = new CreateEmployeeRoleModel();
+                viewModel.Employees = db.Employees.OrderBy(x => x.Name).Select(x => new SelectListItem() { Value = x.ID.ToString(), Text = x.Name }).ToList();
+
                 if (id != null)
                 {
                     Employee employee = db.Employees.Find(id);
@@ -255,21 +284,18 @@ namespace WebApplication2.Controllers
                     }
                     else
                     {
-                        ViewBag.EmployeeID = new SelectList(db.Employees, "ID", "Name", employee.ID);
+
+                        viewModel.InstitutionID = EmpRole.InstitutionID;
+                        viewModel.EmployeeID = employee.ID;
                     }
                 }
-                else
-                {
-                    ViewBag.EmployeeID = new SelectList(db.Employees, "ID", "Name");
-
-                }
+          
 
 
-                var availableInstitutions = getChildrenInstitutionWithParent(EmpRole.InstitutionID).ToList<Institution>();
-                ViewBag.InstitutionID = new SelectList(availableInstitutions, "ID", "ArabicName", EmpRole.InstitutionID);
+                viewModel.Institutions = getChildrenInstitutionWithParent(EmpRole.InstitutionID).OrderBy(x => x.ParentID).Select(x => new SelectListItem() { Value = x.ID.ToString(), Text = x.ArabicName }).ToList();
 
-                ViewBag.RoleID = new SelectList(db.Roles.Where(x => x.PriorityOrder > EmpRole.Role.PriorityOrder), "ID", "ArabicName");
-                return View();
+                viewModel.Roles = db.Roles.Where(x => x.PriorityOrder > EmpRole.Role.PriorityOrder).OrderBy(x => x.ParentID).Select(x => new SelectListItem() { Value = x.ID.ToString(), Text = x.ArabicName }).ToList();
+                return View(viewModel);
             }
 
             return getErrorView(HttpStatusCode.Unauthorized);
@@ -279,7 +305,7 @@ namespace WebApplication2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EmployeeID,RoleID,ArabicJobDesc,InstitutionID,HiringDate")] EmployeeRole employeeRole)
+        public ActionResult Create(CreateEmployeeRoleModel viewModel)
         {
 
             var EmpRole = getPrimaryRole();
@@ -293,9 +319,34 @@ namespace WebApplication2.Controllers
             {
                 var role = EmpRole.Role;
 
-
-                if (hasPersonPermission(role.ID, PersonPermissions.ATTACH_ROLE_TO_PERSON) && operationValidInInstitution(EmpRole.ID, employeeRole.InstitutionID) && isRolePriorityValidByEmpRole(role.ID, employeeRole.RoleID))
+                var institution = db.Institutions.Find(viewModel.InstitutionID);
+                bool isOperationValid = false;
+                if (viewModel.InstitutionID == EmpRole.InstitutionID)
                 {
+                    //   isOperationValid = isRolePriorityValidInTheSameInstitution(EmpRole.ID, viewModel.RoleID);
+                    isOperationValid = true;
+                }
+                else if (institution.ParentID == EmpRole.InstitutionID)
+                {
+
+                    isOperationValid = isRolePriorityValidInTheChildInstitution(EmpRole.ID, viewModel.RoleID);
+
+                }
+                else {
+                    isOperationValid = false;
+                }
+                if (hasPersonPermission(role.ID, PersonPermissions.ATTACH_ROLE_TO_PERSON) && isOperationValid)
+                {
+                    EmployeeRole employeeRole = new EmployeeRole()
+                    {
+                        EmployeeID=viewModel.EmployeeID,
+                        RoleID=viewModel.RoleID,
+                        InstitutionID=viewModel.InstitutionID,
+                        HiringDate=viewModel.HiringDate,
+                        ArabicJobDesc=viewModel.ArabicJobDesc
+                    };
+
+
                     employeeRole.Active = true;
                     db.EmployeeRoles.Add(employeeRole);
                     PersonActionLog log = new PersonActionLog()
@@ -312,19 +363,15 @@ namespace WebApplication2.Controllers
                 return getErrorView(HttpStatusCode.Unauthorized);
             }
 
-            ViewBag.EmployeeID = new SelectList(db.Employees, "ID", "Name", employeeRole.EmployeeID);
-            ViewBag.InstitutionID = new SelectList(db.Institutions, "ID", "ArabicName", employeeRole.InstitutionID);
-            ViewBag.RoleID = new SelectList(db.Roles, "ID", "ArabicName", employeeRole.RoleID);
-            return View(employeeRole);
+            viewModel.Employees = db.Employees.OrderBy(x => x.Name).Select(x => new SelectListItem() { Value = x.ID.ToString(), Text = x.Name }).ToList();
+                viewModel.Institutions = getChildrenInstitutionWithParent(EmpRole.InstitutionID).OrderBy(x => x.ParentID).Select(x => new SelectListItem() { Value = x.ID.ToString(), Text = x.ArabicName }).ToList();
+
+            viewModel.Roles = db.Roles.Where(x => x.PriorityOrder > EmpRole.Role.PriorityOrder).OrderBy(x => x.ParentID).Select(x => new SelectListItem() { Value = x.ID.ToString(), Text = x.ArabicName }).ToList();
+
+            return View(viewModel);
         }
 
-        protected bool isRolePriorityValidByEmpRole(int BiggerRoleID, int SmallerRoleID)
-        {
-
-            if (db.Roles.Find(BiggerRoleID).PriorityOrder <= db.Roles.Find(SmallerRoleID).PriorityOrder)
-            { return true; }
-            return false;
-        }
+     
 
         public ActionResult Delete(int? id)
         {
@@ -339,6 +386,17 @@ namespace WebApplication2.Controllers
             }
             return View(employeeRole);
         }
+
+        public bool isEmployeeRoleDeletable()
+        {
+            
+
+
+
+
+
+        }
+
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
