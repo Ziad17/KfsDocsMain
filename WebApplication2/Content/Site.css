@@ -149,3 +149,7 @@ textarea{
     direction: ltr;
     text-align: right;
 }
+.navbar {
+    font-size: 18px;
+    font-weight: 700;
+}
