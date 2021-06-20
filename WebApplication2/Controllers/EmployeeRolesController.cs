@@ -387,15 +387,15 @@ namespace WebApplication2.Controllers
             return View(employeeRole);
         }
 
-        public bool isEmployeeRoleDeletable()
-        {
+        //public bool isEmployeeRoleDeletable()
+        //{
             
 
 
 
 
 
-        }
+        //}
 
 
         [HttpPost, ActionName("Delete")]
