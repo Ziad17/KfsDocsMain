@@ -81,7 +81,9 @@
                     else
                     {
                         <hr />
-                        <h4>لا يوجد أي ملفات للعرض           </h4>
+                           <div class="danger taps" style="background-color: #dc3545;color :#fff">
+                            <i style="font-size:18px" class="far fa-times-circle"> &nbsp; &nbsp;</i><h4 style="display:inline-block;font-weight:600;padding-right:5px">لا يوجد أي ملفات للعرض </h4>
+                        </div>
                     }
                 </div>
             </div>
@@ -141,7 +143,9 @@
                     else
                     {
                         <hr />
-                        <h4>لا يوجد أي ملفات للعرض           </h4>
+                        <div class="danger taps" style="background-color: #dc3545;color :#fff">
+                            <i style="font-size:18px" class="far fa-times-circle"> &nbsp; &nbsp;</i><h4 style="display:inline-block;font-weight:600;padding-right:5px">لم يقم أي شخص بذكرك في أي ملف</h4>
+                        </div>
                     }
                 </div>
             </div>
@@ -153,23 +157,23 @@
 <div class="col-md-1"></div>
 
 
-<div class="col-md-3">
+<div class="col-md-3 taps">
 
     <div class="card-group" style="margin-top:10px">
-
-        <img class="img-rounded" width="170" height="170" src="data:image/jpg;base64,@(img)">
-
+        <div align="center">
+            <img class="img-rounded" width="170" height="170" src="data:image/jpg;base64,@(img)">
+        </div>
 
 
         <div class="card-body">
             <h2>
-                @Html.DisplayFor(model => model.Employee.Name, new { htmlAttributes = new { @class = "card-title" } })
+                <i class="far fa-id-badge"></i> @Html.DisplayFor(model => model.Employee.Name, new { htmlAttributes = new { @class = "card-title" } })
 
             </h2>
             @for (int i = 0; i < Model.Roles.Count; i++)
             {
                 <h4 class="card-text">
-                    @Html.ActionLink(Model.Roles[i].Role.ArabicName + " لدى " + Model.Roles[i].Institution.ArabicName, "View", "EmployeeRoles", new { id = Model.Roles[i].ID }, null)
+                    <i class="far fa-hand-point-left"></i> @Html.ActionLink(Model.Roles[i].Role.ArabicName + " لدى " + Model.Roles[i].Institution.ArabicName, "View", "EmployeeRoles", new { id = Model.Roles[i].ID }, null)
                 </h4>
 
             }

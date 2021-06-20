@@ -2,55 +2,56 @@
 
 
 
-@{
-    ViewBag.Title = "الإشارات";
-}
-<h2 >@ViewBag.Title</h2>
+@{ ViewBag.Title = "الإشارات"; }
+<br />
+<img style="display:inline-block;padding-bottom:10px;" src="~/Content/contact (1).png" width="80" height="80" />
+<h2 style="display: inline-block; padding-bottom: 10px; position: relative; top: 9px; left: -15px;font-weight:600">@ViewBag.Title</h2>
 <br />
 @if (Model.Count() > 0)
 {
-    <table id="table" class="display table table-hover  table-responsive">
-        <tr style="background-color: #120d0d1c ">
-            <th>
-                إسم الملف
-            </th>
-            <th>
-                المالك
-            </th>
-            <th>
-                مستوى الملف
-            </th>
-            <th>
-                التاريخ 
-            </th>
-        </tr>
+<table id="table" class="display table table-hover  table-responsive">
+    <tr style="background-color: #120d0d1c ">
+        <th>
+            إسم الملف
+        </th>
+        <th>
+            المالك
+        </th>
+        <th>
+            مستوى الملف
+        </th>
+        <th>
+            التاريخ
+        </th>
+    </tr>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.ActionLink(item.File.Name, "View", "Files", new { id = item.FileID }, null)
-                </td>
-                <td>
-                    @Html.ActionLink(item.File.EmployeeRole.Employee.Name, "PersonProfile", "Employees", new { id = item.File.EmployeeRole.EmployeeID }, null)
-                </td>
-                <td>
-                    @Html.ActionLink(item.File.FileLevel.Name, "FileLevels", "Files", new { id = item.File.LevelID }, null)
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.ActionLink(item.File.Name, "View", "Files", new { id = item.FileID }, null)
+    </td>
+    <td>
+        @Html.ActionLink(item.File.EmployeeRole.Employee.Name, "PersonProfile", "Employees", new { id = item.File.EmployeeRole.EmployeeID }, null)
+    </td>
+    <td>
+        @Html.ActionLink(item.File.FileLevel.Name, "FileLevels", "Files", new { id = item.File.LevelID }, null)
 
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateCreated)
-                </td>
-             
-            </tr>
-        }
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DateCreated)
+    </td>
 
-    </table>
+</tr>
 }
+
+</table> }
 else
 {
-    <h4>لم يقم أي شخص بذكرك في أي ملف</h4>}
 
+<div class="danger taps" style="background-color: #dc3545;color :#fff">
+    <i style="font-size:18px" class="far fa-times-circle"> &nbsp; &nbsp;</i><h4 style="display:inline-block;font-weight:600;padding-right:5px">لم يقم أي شخص بذكرك في أي ملف</h4>
+</div>}
 
 
 

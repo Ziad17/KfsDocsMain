@@ -1,9 +1,9 @@
 ﻿@model WebApplication2.Models.Employee
 
     @{ViewBag.Title = "تأكيد المسح؟"; }
-
-
-<h3>هل أنت متأكد أنك تريد المسح؟</h3>
+<div class="danger taps" style="background-color: #dc3545;color :#fff">
+    <i style="font-size:18px" class="fas fa-exclamation-triangle"> &nbsp; &nbsp;</i><h4 style="display:inline-block;font-weight:600;padding-right:5px">هل أنت متأكد أنك تريد المسح؟</h4>
+</div>
 <div>
     <hr />
 
@@ -45,8 +45,8 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="تأكيد المسح" class="btn btn-default" />
+        <div class="form-actions btn-lg">
+            <input style="width100%" type="submit" value="تأكيد المسح" class="btn btn-danger btn-lg" />
 
         </div>
 
