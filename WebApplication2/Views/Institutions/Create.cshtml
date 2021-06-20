@@ -1,18 +1,16 @@
 ﻿@model WebApplication2.Models.ViewModels.InstitutionModels.CreateInstitutionModel
 
-@{
-    ViewBag.Title = "إضافة مؤسسة";
-}
-  
-<h2 >@ViewBag.Title لدى @Html.ActionLink(Model.ParentName,"InstitutionProfile","Institutions",new { id=Model.ParentID},null) </h2>
+@{ ViewBag.Title = "إضافة مؤسسة"; }
+<br />
+<h2 style="display: inline-block; padding-bottom: 10px; position: relative; top: 9px; left: -15px;font-weight:600"><i class="fas fa-plus"></i> @ViewBag.Title لدى @Html.ActionLink(Model.ParentName, "InstitutionProfile", "Institutions", new { id = Model.ParentID }, null) </h2>
+
 
 
 @using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
+@Html.AntiForgeryToken()
 
-
-    @Html.HiddenFor(x=>x.ParentName)
+  @Html.HiddenFor(x=>x.ParentName)
 
     @Html.HiddenFor(x=>x.ParentID)
     <div class="form-horizontal">
@@ -39,7 +37,7 @@
 
 
 
-  
+
 
     <div class="form-group">
         <div class="col-md-10">
@@ -94,11 +92,10 @@
 
     </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="إنشاء" class="btn btn-default" />
-            </div>
+    <div class="form-group">
+        <div  class="col-md-12">
+            <input style="width:100%" type="submit" value="إنشاء" class="btn btn-primary  " />
         </div>
     </div>
-}
+</div>}
 

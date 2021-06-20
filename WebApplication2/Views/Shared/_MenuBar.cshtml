@@ -34,33 +34,33 @@
 
 
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">المؤسسات <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-university"></i> المؤسسات <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="~/Institutions">عرض كل المؤسسات</a></li>
-                        <li><a href="~/Institutions/Types">أنواع المؤسسات</a></li>
+                        <li><a href="~/Institutions">عرض كل المؤسسات  <i class="far fa-eye"></i></a></li>
+                        <li><a href="~/Institutions/Types">أنواع المؤسسات  <i class="fas fa-university"></i></a></li>
 
 
                         <li role="separator" class="divider"></li>
                         @if (Model.canCreateInstitution)
                         {
-                            <li><a href="~/Institutions/Create">إنشاء جديد</a></li>
+                            <li><a href="~/Institutions/Create">إنشاء جديد  <i class="fas fa-plus"></i></a></li>
                         }
 
 
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">الوظائف <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-briefcase"></i>  الوظائف   <span class="caret"></span></a>
                     <ul class="dropdown-menu">
 
 
                         @if (Model.canViewAllRoles)
                         {
-                            <li><a href="~/Roles">عرض الوظائف</a></li>
+                            <li><a href="~/Roles">عرض الوظائف  <i class="far fa-eye"></i></a></li>
                         }
                         @if (Model.canCreateRole)
                         {
-                            <li><a href="~/Roles/Create">إنشاء وظيفة</a></li>
+                            <li><a href="~/Roles/Create">إنشاء وظيفة  <i class="fas fa-plus"></i></a></li>
                         }
 
 
@@ -68,44 +68,44 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">الموظفين <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-users"></i>  الموظفين <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="~/EmployeeRoles/Index">كافة الموظفين</a></li>
+                        <li><a href="~/EmployeeRoles/Index">كافة الموظفين  <i class="fas fa-users"></i></a></li>
 
                         <li role="separator" class="divider"></li>
                         @if (Model.canCreateEmployee)
                         {
-                            <li><a href="~/Employees/Create">إنشاء شخص</a></li>
+                            <li><a href="~/Employees/Create">إنشاء شخص  <i class="fas fa-user-plus"></i></a></li>
                         }
 
                         @if (Model.canAttachRole)
                         {
-                            <li><a href="~/EmployeeRoles/Create">تعيين شخص</a></li>
+                            <li><a href="~/EmployeeRoles/Create">تعيين شخص  <i class="fas fa-user-check"></i></a></li>
                         }
-                    
 
-                      
+
+
                     </ul>
                 </li>
 
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">الملفات <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">  <i class="far fa-folder-open"></i>  الملفات  <span class="caret"></span></a>
                     <ul class="dropdown-menu">
 
-                        <li><a href="~/Files/Mentions">الإشارات</a></li>
+                        <li><a href="~/Files/Mentions">الإشارات  <i class="fas fa-quote-left"></i></a></li>
 
-                        <li><a href="~/Bookmarks">المفضلة</a></li>
+                        <li><a href="~/Bookmarks">المفضلة  <i class="far fa-star"></i></a></li>
 
-                        <li><a href="~/Files/FileLevels">مستويات الخصوصية</a></li>
+                        <li><a href="~/Files/FileLevels">مستويات الخصوصية  <i class="fas fa-shield-alt"></i></a></li>
 
                         <li role="separator" class="divider"></li>
                         @if (Model.canCreateFile)
                         {
-                            <li><a href="~/Files/Create">إنشاء ملف</a></li>
+                            <li><a href="~/Files/Create">إنشاء ملف  <i class="fas fa-folder-plus"></i></a></li>
                         }
                         @if (Model.canCreateLevel)
                         {
-                            <li><a href="~/Files/CreateLevel">إنشاء مستوى ملف</a></li>
+                            <li><a href="~/Files/CreateLevel">إنشاء مستوى ملف  <i class="far fa-plus-square"></i></a></li>
                         }
 
                     </ul>
@@ -113,12 +113,12 @@
 
 
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">الرسائل <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="far fa-comments"></i>  الرسائل   <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="~/Messages/Send">إرسال رسالة</a></li>
+                        <li><a href="~/Messages/Send">إرسال رسالة  <i class="far fa-envelope"></i></a></li>
 
-                        <li><a href="~/Messages/Inbox">الواردة</a></li>
-                        <li><a href="~/Messages/Sent">المرسلة</a></li>
+                        <li><a href="~/Messages/Inbox">الواردة  <i class="fas fa-reply"></i> </a></li>
+                        <li><a href="~/Messages/Sent"> المرسلة  <i class="fas fa-share"></i></a></li>
 
                     </ul>
                 </li>
@@ -132,23 +132,33 @@
 
 
                 @*<li>@Html.ActionLink("تسجيل الدخول", "Login", "Home")</li>
-        <li>@Html.ActionLink("إنشاء حساب", "SetupAccount", "Home")</li>*@
+            <li>@Html.ActionLink("إنشاء حساب", "SetupAccount", "Home")</li>*@
 
 
             </ul>
             <div style="float:left">
-               @* <a style=" position: relative; left: 35px; top: -2px; color: aquamarine;" class="" href="~/Home/Logout">
-                    <img style="display:inline-block;padding-bottom:10px;margin-top:15px;position:relative;top:0px;left:8px" src="~/Content/logout.png" width="40" height="40" /> 
-                </a>*@
-                    @using (Html.BeginForm("Search", "Home", FormMethod.Post, htmlAttributes: new { @class = "form-inline my-3 my-lg-5 navbar-right navbar-form", @style = "margin-top:8px;margin-left:170px;direction: ltr;" }))
-                    {
-                <div class="form-group">
-                    @Html.TextBox("query", null, new { @style = "border-radius:50px;padding-top: 10px;padding-bottom: 9px; padding-right: 33px;padding-left: 38px;background-color: #f0f2f5;border:0;outline: none;direction: rtl;", @placeholder = " بحث (أشخاص - ملفات - المؤسسات )" })
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        <p style=" display: inline-block; font-size: x-large; font-weight: 600; letter-spacing: 4px;">KFSDOCS</p>
+                        <img style="display: inline-block; margin-top: -5px; " alt="Brand" src="~/Content/book.png" width="35" height="37">
+
+                    </a>
                 </div>
+            </div>
+            <div style="float:left">
+                @* <a style=" position: relative; left: 35px; top: -2px; color: aquamarine;" class="" href="~/Home/Logout">
+                <img style="display:inline-block;padding-bottom:10px;margin-top:15px;position:relative;top:0px;left:8px" src="~/Content/logout.png" width="40" height="40" />
+            </a>*@
+                @using (Html.BeginForm("Search", "Home", FormMethod.Post, htmlAttributes: new { @class = "form-inline my-3 my-lg-5 navbar-right navbar-form", @style = "margin-top:8px;margin-left:170px;direction: ltr;" }))
+                {
+                    <div class="form-group">
+                        @Html.TextBox("query", null, new { @style = "border-radius:50px;padding-top: 10px;padding-bottom: 9px; padding-right: 33px;padding-left: 38px;background-color: #f0f2f5;border:0;outline: none;direction: rtl;", @placeholder = " بحث (أشخاص - ملفات - المؤسسات )" })
+                    </div>
                     <button type="submit" style="background-color: inherit; border: none; outline: none; position: relative; right: 36px; top: 2px; font-size: 18px; color: #808080fa; "> <i class="fas fa-search"></i></button>
 
-                    }
-                </div>
+                }
+            </div>
+
 
 
         </div>

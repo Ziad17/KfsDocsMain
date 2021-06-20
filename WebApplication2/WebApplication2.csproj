@@ -324,9 +324,11 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\businessman.png" />
+    <Content Include="Content\contact %281%29.png" />
     <Content Include="Content\contact.png" />
     <Content Include="Content\delete.png" />
     <Content Include="Content\download-button.png" />
+    <Content Include="Content\favicon.png" />
     <Content Include="Content\fontawesome.min.css" />
     <Content Include="Content\go-back-arrow.png" />
     <Content Include="Content\inbox%281%29.png" />

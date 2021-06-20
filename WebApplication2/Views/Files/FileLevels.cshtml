@@ -1,8 +1,9 @@
 ﻿@model WebApplication2.Models.ViewModels.ViewFileLevelsModel
 
 @{
-                ViewBag.Title= "مستويات الملفات"; }
-<h2>@ViewBag.Title</h2>
+    ViewBag.Title = "مستويات الملفات"; }
+<br />
+<h2 style="display: inline-block; padding-bottom: 10px; position: relative; top: 9px; left: -15px;font-weight:600"><i class="fas fa-shield-alt"></i>  @ViewBag.Title</h2>
 
 @try
 {
@@ -11,57 +12,63 @@
 
 
 
-@Html.DropDownList("Levels", null, htmlAttributes: new { @id = "drop", @class = "form-control" })
+    @Html.DropDownList("Levels", null, htmlAttributes: new { @id = "drop", @class = "form-control",@style = "display: inline-block;float: left;" })
+
+    <br />
+    <br />
+    <br />
 
 
+    <h5>@Model.Level.LevelDesc</h5> if (Model.canEdit)
+    {
+        @Html.ActionLink(" تعديل ", "EditLevel", "Files", new { id = Model.Level.ID}, htmlAttributes:new { @class= "btn btn-primary", @style = " float: left;width:25%" }) }
+    if (Model.canEdit)
+    {
+        @Html.ActionLink(" مسح ", "DeleteLevel", "Files", new { id = Model.Level.ID }, htmlAttributes: new { @class = "btn btn-danger", @style = " float: left;margin-left: 20px;width:25%;" }) }
+    <br />
+    <br />
+    <div class="table-responsive">
+        <table border="0" class="table table-hover">
+            <tr>
+                <th>
+                    @Html.DisplayName("الوظيفة")
+                </th>
+                <th>
+                    @Html.DisplayName("العمليات")
+                </th>
 
+            </tr>
 
-                <h5>@Model.Level.LevelDesc</h5> if (Model.canEdit)
-                                {
-                @Html.ActionLink(" تعديل ", "EditLevel", "Files", new { id = Model.Level.ID }, null) }
-                                if (Model.canEdit)
-                                {
-                @Html.ActionLink(" مسح ", "DeleteLevel", "Files", new { id = Model.Level.ID }, null) }
-                <div class="table-responsive">
-                    <table border="0" class="table table-hover">
-                        <tr>
-                            <th>
-                                @Html.DisplayName("الوظيفة")
-                            </th>
-                            <th>
-                                @Html.DisplayName("العمليات")
-                            </th>
+            @foreach (var item in Model.RolesDirectory)
+            {
+                <tr>
+                    <td>
+                        <h3>
+                            @item.Key
+                        </h3>
+                    </td>
 
-                        </tr>
-
-                        @foreach (var item in Model.RolesDirectory)
-                        {
-        <tr>
-            <td>
-                <h3>
-                    @item.Key
-                </h3>
-            </td>
-
-            <td>
-                <ul>
-                    @foreach (var permission in item.Value)
-                    {
-<li>
-
-    @permission
-</li>}
-                </ul>
-            </td>
-
-        </tr>}
-
-
-                    </table>
-                </div> }
-                            catch (Exception e)
+                    <td>
+                        <ul>
+                            @foreach (var permission in item.Value)
                             {
-                <h2> مستوى ملف غير موجود</h2>}
+                                <li>
+
+                                    @permission
+                                </li>
+}
+                        </ul>
+                    </td>
+
+                </tr>
+}
+
+
+        </table>
+    </div> }
+catch (Exception e)
+{
+    <h2> مستوى ملف غير موجود</h2>}
 
 
 @section scripts{

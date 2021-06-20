@@ -8,7 +8,8 @@
 {
 
     @Html.AntiForgeryToken()
-<div align="center" style="direction:ltr;margin:0px auto;" class="form">
+
+<div align="center" style="direction: ltr; margin: 0px auto; background-color: #fff; padding-bottom: 94px; padding-top: 10px; width: 40%;" class="form card">
   @* <div class="bg-danger alert ">*@
         @Html.ValidationSummary(true, "", new {@class = "text-info" })
         @*<button type="button" class="close  " data-dismiss="alert" aria-label="Close">
@@ -27,7 +28,7 @@
             </div>
             <label for="inputEmail" class="col-sm-1 control-label"></label>
             <div class="col-md-10">
-                <i style=" height: 40px; float: left; position: relative; top: -4px; left: 333px; color: #999;" class="icon fa fa-envelope fa-fw "></i>
+                <i style=" height: 40px; float: left; position: relative; top: -4px; left: 35px; color: #999;" class="icon fa fa-envelope fa-fw "></i>
 
                 @Html.TextBoxFor(model => model.Email, htmlAttributes: new { @class = "form-control", @id = "inputEmail", @placeholder = "Email", @type = "Email", @style = "    padding-left: 29px" })
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
@@ -40,7 +41,7 @@
         <div class="form-group">
             <label for="inputpass" class="col-sm-1 control-label"></label>
             <div class="col-md-10">
-                <i style=" height: 40px; float: left; position: relative; top: -4px; left: 333px; color: #999;" class="fas fa-key fa-fw icon"></i>
+                <i style=" height: 40px; float: left; position: relative; top: -4px; left: 35px; color: #999;" class="fas fa-key fa-fw icon"></i>
                 @Html.TextBoxFor(model => model.Password, htmlAttributes: new { @class = "form-control", @id = "inputpass", @placeholder = "Password", @type = "password", @style = "    padding-left: 29px" })
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>

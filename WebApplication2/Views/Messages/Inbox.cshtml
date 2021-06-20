@@ -1,8 +1,6 @@
 ﻿@model  WebApplication2.Models.ViewModels.Messages.InboxModel
 
-@{
-    ViewBag.Title = "صندوق الوارد";
-}
+@{ ViewBag.Title = "صندوق الوارد"; }
 <img style="display:inline-block;padding-bottom:10px" src="~/Content/inbox(1).png" width="32" height="32" />
 <h2 style="display:inline-block;padding-bottom:10px"> صندوق الوارد</h2>
 
@@ -10,68 +8,67 @@
 
 @if (Model.MyMessages.Count > 0)
 {
-    <table id="table" class="display table table-responsive">
-        <thead>
-            <tr style="color:white;background-color:black">
+<table id="table" class="display table table-responsive">
+    <thead>
+        <tr style="color:white;background-color:black">
 
-                <th>
-                    المرسل
-                </th>
-                <th>
-                    عنوان الرسالة
-                </th>
+            <th>
+                المرسل
+            </th>
+            <th>
+                عنوان الرسالة
+            </th>
 
-                <th>
-                    التاريخ
-                </th>
+            <th>
+                التاريخ
+            </th>
 
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.MyMessages)
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.MyMessages)
+        {
+
+            string style = "";
+
+            if (item.Seen != true)
             {
-
-                string style = "";
-
-                if (item.Seen != true)
-                {
-                    style = "background-color:#e2e2e1;";
-
-                }
-
-
-                <tr style="@style">
-
-
-                    <td>
-                        @Html.ActionLink(item.Employee1.Name, "PersonProfile", "Employees", new { id = item.SenderID }, null)
-
-                    </td>
-                    <td>
-                        @Html.ActionLink(item.HeaderText, "View", "Messages", new { id = item.ID }, null)
-                    </td>
-
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateCreated)
-                    </td>
-
-
-
-                </tr>
-
+                style = "background-color:#e2e2e1;";
 
             }
-        </tbody>
+
+
+<tr style="@style">
+
+
+    <td>
+        @Html.ActionLink(item.Employee1.Name, "PersonProfile", "Employees", new { id = item.SenderID }, null)
+
+    </td>
+    <td>
+        @Html.ActionLink(item.HeaderText, "View", "Messages", new { id = item.ID }, null)
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.DateCreated)
+    </td>
 
 
 
-    </table>
-}
-else
-{
-    <hr />
-    <h4> لا يوجد رسائل واردة           </h4>
-}
+</tr>}
+    </tbody>
+
+
+
+</table> }
+            else
+            {
+<hr/>
+                                <div class="danger taps" style="background-color: #dc3545;color :#fff">
+                                    <i style="font-size:18px" class="far fa-times-circle"> &nbsp; &nbsp;</i><h4 style="display:inline-block;font-weight:600;padding-right:5px">لا يوجد رسائل واردة</h4>
+                                </div>
+
+                            }
 @section scripts{
     <script type="text/javascript">
 

@@ -83,9 +83,9 @@
         <td>
             @if (Model.canEdit)
             {
-                <i class="btn btn-default">
-                    @Html.ActionLink("تعديل", "Edit", new { id = item.ID })
-                </i>
+                <h6 style="color:#fff" class="btn btn-primary">
+                    @Html.ActionLink("تعديل", "Edit", new { id = item.ID }, htmlAttributes: new { @style = "color:#fff;" })
+                </h6>
 
             }
             @if (Model.canDelete && item.EmployeeRoles.Count == 0 &&item.Role1.Count==0)

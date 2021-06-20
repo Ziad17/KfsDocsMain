@@ -7,18 +7,19 @@
 
 
 
-<h2>
-    @ViewBag.Title
-</h2>
+<br />
+<h2 style="display: inline-block; padding-bottom: 10px; position: relative; top: 9px; left: -15px;font-weight:600"><i class="fas fa-info"></i>  @ViewBag.Title</h2>
 
 @if (!Model.isActive)
 {
-    <h4 class="text-danger"> لقد تم إلغاء تفعيل هذا الموظف </h4>
+    <div class="danger taps" style="background-color: #dc3545;color :#fff">
+        <i style="font-size:18px" class="far fa-times-circle"> &nbsp; &nbsp;</i><h4 style="display:inline-block;font-weight:600;padding-right:5px">لقد تم إلغاء تفعيل هذا الموظف</h4>
+    </div>
 }
 
 <div class="col-md-8">
 
-    <h3>الملفات</h3>
+    <h3><i class="far fa-folder"></i>  الملفات </h3>
     @if (Model.FilesPublished.Count > 0)
     {
         <table class="table table-hover">
@@ -55,10 +56,12 @@
     }
     else
     {
-        <h5>لم يقم هذا الشخص برفع أي ملف بصفة @Model.RoleName </h5>
+         <div class="danger taps" style="background-color: #dc3545;color :#fff">
+            <i style="font-size:18px" class="far fa-times-circle"> &nbsp; &nbsp;</i><h4 style="display:inline-block;font-weight:600;padding-right:5px">لم يقم هذا الشخص برفع أي ملف بصفة @Model.RoleName </h4>
+        </div>
     }
 </div>
-<div class="col-md-4">
+<div class="col-md-4 taps">
     <div class="data_labels">
         @Html.DisplayNameFor(model => model.PersonName)
 
@@ -69,7 +72,7 @@
         @Html.DisplayNameFor(model => model.RoleName)
 
         <h5>
-            @Html.ActionLink(Model.RoleName,"Index", "Roles")
+            @Html.ActionLink(Model.RoleName, "Index", "Roles")
 
         </h5>
 
@@ -95,7 +98,7 @@
 
 
 
-        @if (Model.canDelete&&Model.isDeleteable || (Model.canActive && !Model.isActive) || (Model.canDeactive && Model.isActive))
+        @if (Model.canDelete && Model.isDeleteable || (Model.canActive && !Model.isActive) || (Model.canDeactive && Model.isActive))
         {
             <hr>
             <h3>
@@ -104,18 +107,18 @@
             <ul>
                 @if (Model.isActive && Model.canDeactive)
                 {
-                <li>
-                    @using (Html.BeginForm("Deactive", "EmployeeRoles"))
-                    {
-                        @Html.AntiForgeryToken()
+                    <li>
+                        @using (Html.BeginForm("Deactive", "EmployeeRoles"))
+                        {
+                            @Html.AntiForgeryToken()
 
-                        @Html.Hidden("id", Model.EmployeeRoleID)
+                            @Html.Hidden("id", Model.EmployeeRoleID)
 
-                        <div class="form-actions no-color">
-                            <input type="submit" value="إلغاء تفعيل" class="btn btn-default" /> 
-                        </div>
-                    }
-                </li>
+                            <div class="form-actions no-color">
+                                <input type="submit" value="إلغاء تفعيل" class="btn btn-default" />
+                            </div>
+                        }
+                    </li>
                 }
                 @if (!Model.isActive && Model.canActive)
                 {
@@ -132,7 +135,7 @@
                 }
                 @if (Model.canDelete && Model.isDeleteable)
                 {
-                    <li>@Html.ActionLink("مسح", "Delete", "EmployeeRoles", new { id = Model.EmployeeRoleID },htmlAttributes:new { @class= "btn btn-default" })</li>
+                    <li>@Html.ActionLink("مسح", "Delete", "EmployeeRoles", new { id = Model.EmployeeRoleID }, htmlAttributes: new { @class = "btn btn-default" })</li>
                 }
             </ul>
         }
