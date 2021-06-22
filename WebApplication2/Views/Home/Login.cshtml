@@ -1,65 +1,42 @@
 ﻿@model WebApplication2.Models.EmployeeCredential
 
-@{
-    ViewBag.Title = "Login";
-}
+@{ ViewBag.Title = "Login"; }
 
 @using (Html.BeginForm())
 {
 
-    @Html.AntiForgeryToken()
+@Html.AntiForgeryToken()
 
-<div align="center" style="direction: ltr; margin: 0px auto; background-color: #fff; padding-bottom: 94px; padding-top: 10px; width: 40%;" class="form card">
-  @* <div class="bg-danger alert ">*@
-        @Html.ValidationSummary(true, "", new {@class = "text-info" })
-        @*<button type="button" class="close  " data-dismiss="alert" aria-label="Close">
-            <span style="position: relative; top: -32px; font-size: 30px;" aria-hidden="true">&times;</span>
-        </button>
-    </div>*@
-
-        <br />
-        <br />
-   
-
-
-        <div class="form-group">
-            <div class="mb-4 animate__animated animate__zoomIn img-circle" style="margin-bottom: 20px;direction: rtl;" align="center">
-                <p style=" display: inline-block; font-size: x-large; font-weight: 600; letter-spacing: 4px;">KFSDOCS</p>
-                <img style="display: inline-block; margin-top: -5px; " alt="Brand" src="~/Content/book.png" width="35" height="37">
-                @*<img style="" class="mb-4 animate__animated animate__zoomIn img" src="~/Content/logo.png" alt="" width="200" height="80">*@
-            </div>
-            <label for="inputEmail" class="col-sm-1 control-label"></label>
-            <div class="col-md-10">
-                <i style=" height: 40px; float: left; position: relative; top: -4px; left: 35px; color: #999;" class="icon fa fa-envelope fa-fw "></i>
-
-                @Html.TextBoxFor(model => model.Email, htmlAttributes: new { @class = "form-control", @id = "inputEmail", @placeholder = "Email", @type = "Email", @style = "    padding-left: 29px" })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-            </div>
+<main align="center" class="form-signin">
+    @*<div class="bg-danger alert ">*@
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @* <button type="button" class="close  " data-dismiss="alert" aria-label="Close">
+                <span style="position: relative; top: -32px; font-size: 30px;" aria-hidden="true">&times;</span>
+            </button>
+        </div>*@
+    <form>
+        @*<img class="mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">*@
+        <div class="mb-4 animate__animated animate__zoomIn img-circle" style="margin-bottom: 20px;direction: rtl;" align="center">
+            <p style=" display: inline-block; font-size: x-large; font-weight: 600; letter-spacing: 4px;">KFSDOCS</p>
+            <img style="display: inline-block; margin-top: -5px; " alt="Brand" src="~/Content/book.png" width="35" height="37">
         </div>
-        <br />
-        <br />
-        <br />
+        <h1 class="h3 mb-3 fw-normal">تسجيل الدخول</h1>
 
-        <div class="form-group">
-            <label for="inputpass" class="col-sm-1 control-label"></label>
-            <div class="col-md-10">
-                <i style=" height: 40px; float: left; position: relative; top: -4px; left: 35px; color: #999;" class="fas fa-key fa-fw icon"></i>
-                @Html.TextBoxFor(model => model.Password, htmlAttributes: new { @class = "form-control", @id = "inputpass", @placeholder = "Password", @type = "password", @style = "    padding-left: 29px" })
-                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-            </div>
-        </div>
+
+        @*@Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })*@
+        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @type = "email", @id = "inputEmail", @class = "form-control", @placeholder = "البريد الألكتروني", @required = "required", @autofocus = "autofocus" } })
+        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        @*@Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })*@
+        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @type = "password", @id = "inputPassword", @class = "form-control", @placeholder = "كلمة السر", @required = "required" } })
+        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
 
         <br />
+        <input type="submit" value="تسجيل الدخول" style="width:100%" class=" btn btn-lg btn-primary" />
         <br />
-        <div class="form-group">
-            <div class="col-md-offset-1 col-md-10">
-                <input style=" width: 100%; background-color: #0274b4; color: #fff; margin-left:20px" type="submit" value="Login" class="w-100 btn btn-primary btn-block" />
-                <a href="~/Home/SetupAccount">لا تملك حساب؟ </a>
+        <br />
+        <a href="~/Home/SetupAccount">لا تملك حساب؟  </a>
 
-            </div>
-        </div>
-    
-    </div>
-    }
+    </form>
+</main>}
 
 

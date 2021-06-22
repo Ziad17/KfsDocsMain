@@ -1,13 +1,13 @@
 ﻿@model WebApplication2.Models.ViewModels.RolesChooseDefaultModel
-<img style="display:inline-block;padding-bottom:10px;margin-top:15px" src="~/Content/name.png" width="80" height="80" />
-<h2  style="display: inline-block; padding-bottom: 10px; position: relative; top: 9px; left: -15px;font-weight:600">@Model.Employee.Name</h2>
 
+<br />
+<h2 style="display: inline-block; padding-bottom: 10px; position: relative; top: 9px; left: -15px;font-weight:600"><i class="fas fa-address-card"></i>  @Model.Employee.Name</h2>
 
-<br/>
+<br />
 @if (Model.DefaultRole != null)
 {
-    <h4><i class="far fa-hand-point-left"></i>  وظيفتك الأساسية هي @Html.ActionLink(Model.DefaultRole.Role.ArabicName,"Index","Roles") لدى @Html.ActionLink(Model.DefaultRole.Institution.ArabicName,"InstitutionProfile","Institutions",new { id= Model.DefaultRole.InstitutionID},null) </h4>
-  
+    <h4><i class="far fa-hand-point-left"></i>  وظيفتك الأساسية هي @Html.ActionLink(Model.DefaultRole.Role.ArabicName, "Index", "Roles") لدى @Html.ActionLink(Model.DefaultRole.Institution.ArabicName, "InstitutionProfile", "Institutions", new { id = Model.DefaultRole.InstitutionID }, null) </h4>
+
 }
 else
 
@@ -16,7 +16,7 @@ else
 <table class="table">
     <tr>
         <th>
-           الوظيفة
+            الوظيفة
         </th>
         <th>
             المؤسسة
@@ -27,7 +27,7 @@ else
         <th>
             تاريخ التعيين
         </th>
-     
+
         <th></th>
     </tr>
 
@@ -36,7 +36,7 @@ else
     {
         <tr>
             <td>
-                @Html.ActionLink(item.Role.ArabicName,"Index","Roles")
+                @Html.ActionLink(item.Role.ArabicName, "Index", "Roles")
             </td>
             <td>
                 @Html.ActionLink(item.Institution.ArabicName, "InstitutionProfile", "Institutions", new { id = item.InstitutionID }, null)
@@ -48,17 +48,17 @@ else
             <td>
                 @Html.DisplayFor(modelItem => item.HiringDate)
             </td>
-           
+
             @if (item.Active)
             {
-        <td>
-            @using (Html.BeginForm("ChooseDefault", "Roles"))
-            {     @Html.AntiForgeryToken()
-                <input type="hidden" name="id"  value="@item.ID" />
+                <td>
+                    @using (Html.BeginForm("ChooseDefault", "Roles"))
+                    {@Html.AntiForgeryToken()
+                    <input type="hidden" name="id" value="@item.ID" />
 
-                <input type="submit" class="btn btn-default" value="إختيار" />
-            }
-        </td>
+                    <input type="submit" class="btn btn-default" value="إختيار" />
+                }
+                </td>
             }
         </tr>
     }
