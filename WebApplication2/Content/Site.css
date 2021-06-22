@@ -1,6 +1,6 @@
 ﻿body {
-    padding-top: 50px;
     padding-bottom: 20px;
+    padding-top: 50px;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -57,9 +57,16 @@ th {
     margin:0px;
     margin-bottom:20px;
 }
+.dropdown {
+    padding-top: 10px;
+}
+.navbar-nav > li > a {
+    padding-bottom: 0;
+    padding-top: 5px
+}
 .img-circle {
-    margin-top: 8px;
-    margin-right: 5px;
+    margin-top: 5px;
+    margin-right: -3px;
 }
 .tabs {
     font-size: 25px;
@@ -152,6 +159,7 @@ textarea{
 .navbar {
     font-size: 18px;
     font-weight: 700;
+    padding-bottom:5px;
 }
 .form-signin {
     width: 100%;
@@ -189,4 +197,8 @@ textarea{
     border-radius: .25rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     max-width:300px;
+}
+.navbar-right {
+    float: right !important;
+    margin-right: -25px;
 }

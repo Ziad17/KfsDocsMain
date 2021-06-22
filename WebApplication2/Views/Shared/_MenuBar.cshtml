@@ -2,58 +2,64 @@
 @model  WebApplication2.Models.ViewModels.MenuModel
 
 
-<div class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
-        <div style="float:right" class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
 
-            @*@Html.ActionLink(Model.Name, "PersonProfile", "Employees", new { id = Model.ID, area = "" }, new { @class = "navbar-brand" })*@
-        <div style="float:right">
+                <a class="navbar-brand" href="~/Home/Index">
+                    <p style=" display: inline-block; font-size: x-large; font-weight: 600; letter-spacing: 4px;">KFSDOCS</p>
+                    <img style="display: inline-block; margin-top: -5px; " alt="Brand" src="~/Content/book.png" width="35" height="37">
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+            <form class="navbar-form navbar-left" action="~/Home/Search">
+                @using (Html.BeginForm("Search", "Home", FormMethod.Post, htmlAttributes: new { @class = "form-inline my-3 my-lg-5 navbar-right navbar-form", @style = "margin-top:8px;margin-left:170px;direction: ltr;" }))
+                {
+                    <div class="form-group">
+                        @Html.TextBox("query", null, new { @class = "form-control", @type = "text", @style = "border-radius:50px;padding-top: 10px;padding-bottom: 9px; padding-right: 33px;font-size:14px;font-weight: 700;background-color: #f0f2f5;border:0;outline: none;direction: rtl;", @placeholder = " بحث (أشخاص - ملفات - المؤسسات )" })
+                    </div>
+                    <button type="submit" style="background-color: inherit; border: none; outline: none; position: relative; right: -227px; top: 2px; font-size: 18px; color: #808080fa; "> <i class="fas fa-search"></i></button>
+                }
+            </form>
             <ul class="nav navbar-nav navbar-right">
-                <li style="display: inline-table" class="dropdown">
+                <li class="dropdown">
                     <a style="font-size:20px" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Html.Label(Model.Name) <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="~/Roles/ChooseDefault">تغيير وظيفتي <i class="fas fa-exchange-alt"></i></a></li>
                         <li><a href="~/ActivityLogs">سجل العمليات <i class="far fa-clipboard"></i></a></li>
-
                         <li><a href="~/Employees/MyProfile">الصفحة الشخصية  <i class="far fa-address-card"></i> </a></li>
+                        <li role="separator" class="divider"></li>
                         <li><a href="~/Home/Logout">تسجيل الخروج  <i class="fas fa-sign-out-alt"></i></a></li>
-
                     </ul>
                 </li>
-                <a href="~/Employees/MyProfile"><img class="img-circle" height="35" width="35" src="data:image/jpg;base64,@Model.Img"></a>
-                </ul>
-        </div>
-        </div>
-        <div class="navbar-collapse collapse">
+                <li><a href="~/Employees/MyProfile"><img class="img-circle" height="35" width="35" src="data:image/jpg;base64,@Model.Img"></a></li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
-
-
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-university"></i> المؤسسات <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="~/Institutions">عرض كل المؤسسات  <i class="far fa-eye"></i></a></li>
                         <li><a href="~/Institutions/Types">أنواع المؤسسات  <i class="fas fa-university"></i></a></li>
-
-
                         <li role="separator" class="divider"></li>
                         @if (Model.canCreateInstitution)
                         {
                             <li><a href="~/Institutions/Create">إنشاء جديد  <i class="fas fa-plus"></i></a></li>
                         }
-
-
                     </ul>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-briefcase"></i>  الوظائف   <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-
-
                         @if (Model.canViewAllRoles)
                         {
                             <li><a href="~/Roles">عرض الوظائف  <i class="far fa-eye"></i></a></li>
@@ -62,8 +68,6 @@
                         {
                             <li><a href="~/Roles/Create">إنشاء وظيفة  <i class="fas fa-plus"></i></a></li>
                         }
-
-
 
                     </ul>
                 </li>
@@ -84,14 +88,11 @@
                         }
 
 
-
                     </ul>
                 </li>
-
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">  <i class="far fa-folder-open"></i>  الملفات  <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-
                         <li><a href="~/Files/Mentions">الإشارات  <i class="fas fa-quote-left"></i></a></li>
 
                         <li><a href="~/Bookmarks">المفضلة  <i class="far fa-star"></i></a></li>
@@ -107,59 +108,17 @@
                         {
                             <li><a href="~/Files/CreateLevel">إنشاء مستوى ملف  <i class="far fa-plus-square"></i></a></li>
                         }
-
                     </ul>
                 </li>
-
-
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="far fa-comments"></i>  الرسائل   <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="~/Messages/Send">إرسال رسالة  <i class="far fa-envelope"></i></a></li>
-
                         <li><a href="~/Messages/Inbox">الواردة  <i class="fas fa-reply"></i> </a></li>
                         <li><a href="~/Messages/Sent"> المرسلة  <i class="fas fa-share"></i></a></li>
-
                     </ul>
                 </li>
-
-
-
-
-
-
-
-
-
-                @*<li>@Html.ActionLink("تسجيل الدخول", "Login", "Home")</li>
-            <li>@Html.ActionLink("إنشاء حساب", "SetupAccount", "Home")</li>*@
-
             </ul>
-            <div style="float:left">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="~/Home/Index">
-                        <p style=" display: inline-block; font-size: x-large; font-weight: 600; letter-spacing: 4px;">KFSDOCS</p>
-                        <img style="display: inline-block; margin-top: -5px; " alt="Brand" src="~/Content/book.png" width="35" height="37">
-
-                    </a>
-                </div>
-            </div>
-            <div style="float:left">
-                @* <a style=" position: relative; left: 35px; top: -2px; color: aquamarine;" class="" href="~/Home/Logout">
-                <img style="display:inline-block;padding-bottom:10px;margin-top:15px;position:relative;top:0px;left:8px" src="~/Content/logout.png" width="40" height="40" />
-            </a>*@
-                @using (Html.BeginForm("Search", "Home", FormMethod.Post, htmlAttributes: new { @class = "form-inline my-3 my-lg-5 navbar-right navbar-form", @style = "margin-top:8px;margin-left:170px;direction: ltr;" }))
-                {
-                    <div class="form-group">
-                        @Html.TextBox("query", null, new { @style = "border-radius:50px;padding-top: 10px;padding-bottom: 9px; padding-right: 33px;font-size:14px;background-color: #f0f2f5;border:0;outline: none;direction: rtl;", @placeholder = " بحث (أشخاص - ملفات - المؤسسات )" })
-                    </div>
-                    <button type="submit" style="background-color: inherit; border: none; outline: none; position: relative; right: 36px; top: 2px; font-size: 18px; color: #808080fa; "> <i class="fas fa-search"></i></button>
-
-                }
-            </div>
-
-
-
-        </div>
-    </div>
-</div>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
