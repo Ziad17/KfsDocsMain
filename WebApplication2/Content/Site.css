@@ -32,7 +32,7 @@ direction:rtl;
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width:300px;
 }
 
 th {
