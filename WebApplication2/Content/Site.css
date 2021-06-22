@@ -32,7 +32,7 @@ direction:rtl;
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width:300px;
 }
 
 th {
@@ -152,4 +152,41 @@ textarea{
 .navbar {
     font-size: 18px;
     font-weight: 700;
+}
+.form-signin {
+    width: 100%;
+    max-width: 360px;
+    padding: 28px;
+    margin: auto;
+    background-color: #ffff;
+    border-top: 3px solid #0084ff;
+    border-bottom: 3px solid #0084ff;
+    border-radius: 7px;
+    margin-top:70px;
+}
+.form-signin .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 5.5px;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    max-width:300px;
 }
