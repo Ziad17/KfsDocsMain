@@ -124,7 +124,7 @@ a:active {
     float: left;
     display: inline-block;
     margin-top: 15px;
-    width: 25%;
+    width: 50%;
     font-size: 18px;
     font-weight: 600
 }
@@ -201,4 +201,28 @@ textarea{
 .navbar-right {
     float: right !important;
     margin-right: -25px;
+}
+.panel-default > .panel-heading {
+    color: #fff;
+    background-color: #333333;
+}
+.creat {
+    width: 100%;
+    max-width: 360px;
+    margin-top: 70px;
+    font-size: 16px;
+    margin-bottom: 5.5px;
+}
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    cursor: pointer;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 6px;
+    border-radius: .25rem;
 }
