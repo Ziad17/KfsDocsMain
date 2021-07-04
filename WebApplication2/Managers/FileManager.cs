@@ -16,7 +16,7 @@ namespace WebApplication2.Managers
         string MAIN_CONTAINER = "general";
         string IMAGE_CONTAINER = "images";
         BlobServiceClient blobService;
-        string CONNECTION_STRINGS = "DefaultEndpointsProtocol=https;AccountName=kfsdocs;AccountKey=X2N+Kzd/wHAhNsPk2vLTiWtfD5E7k/MUiPsmOqhUes47pPdsuxFeG8JDIRJul7m0S6VA9eO8dguuN5DAfcEUFg==;EndpointSuffix=core.windows.net";
+        string CONNECTION_STRINGS = "DefaultEndpointsProtocol=https;AccountName=docskfs;AccountKey=MSGSnU9laJ4uZIFZtoUakaX9mClZG689F19Ha1VTHEopXFXxRtyKQW1p3iVFODPNImwlQXcmAZZ9dfrxQgk3YA==;EndpointSuffix=core.windows.net";
         BlobContainerClient containerClient;
         public FileManager()
         {

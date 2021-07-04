@@ -19,7 +19,7 @@ namespace WebApplication2.Controllers
                                                                                          
 
         protected Employee UserRefrence;
-        protected DMS_dbEntities15 db = new DMS_dbEntities15();
+        protected KfsDocsEntities db = new KfsDocsEntities();
 
 
 
@@ -382,7 +382,7 @@ namespace WebApplication2.Controllers
    
 
             public static string DELETE_PERSON = "DELETE_PERSON";
-            public static string CREATE_PERSON = "CREATE_PERSON";
+            public static string CREATE_PERSON = "CREATE_PERSON_WITHIN_INSTITUTION";
             public static string VIEW_PERSON_PROFILE = "VIEW_PERSON_PROFILE";
 
 

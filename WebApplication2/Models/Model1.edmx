@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DMS_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="KfsDocsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Bookmark">
           <Key>
             <PropertyRef Name="ID" />
@@ -97,7 +97,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar(max)" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="LevelDesc" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="FileMention">
@@ -255,7 +255,7 @@
           <Property Name="RoleID" Type="int" Nullable="false" />
           <Property Name="PermissionName" Type="varchar" MaxLength="200" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Bookmark__Employ__3E923B2D">
+        <Association Name="FK__Bookmark__Employ__37703C52">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="Bookmark" Type="Self.Bookmark" Multiplicity="*" />
           <ReferentialConstraint>
@@ -267,7 +267,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Bookmark__FileID__3D9E16F4">
+        <Association Name="FK__Bookmark__FileID__367C1819">
           <End Role="File" Type="Self.File" Multiplicity="1" />
           <End Role="Bookmark" Type="Self.Bookmark" Multiplicity="*" />
           <ReferentialConstraint>
@@ -279,7 +279,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Employee__CityID__75235608">
+        <Association Name="FK__Employee__CityID__6E01572D">
           <End Role="City" Type="Self.City" Multiplicity="1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
@@ -291,7 +291,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Employee__Primar__027D5126">
+        <Association Name="FK__Employee__Primar__7B5B524B">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="0..1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
@@ -303,7 +303,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EmployeeC__Emplo__705EA0EB">
+        <Association Name="FK__EmployeeC__Emplo__693CA210">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="EmployeeCredentials" Type="Self.EmployeeCredentials" Multiplicity="*" />
           <ReferentialConstraint>
@@ -315,7 +315,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EmployeeR__Emplo__064DE20A">
+        <Association Name="FK__EmployeeR__Emplo__7F2BE32F">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -327,7 +327,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EmployeeR__Insti__08362A7C">
+        <Association Name="FK__EmployeeR__Insti__01142BA1">
           <End Role="Institution" Type="Self.Institution" Multiplicity="1" />
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -339,7 +339,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EmployeeR__RoleI__07420643">
+        <Association Name="FK__EmployeeR__RoleI__00200768">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -351,7 +351,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__File__AuthorID__1C3D2329">
+        <Association Name="FK__File__AuthorID__151B244E">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="File" Type="Self.File" Multiplicity="*" />
           <ReferentialConstraint>
@@ -363,7 +363,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__File__CurrentVer__2B7F66B9">
+        <Association Name="FK__File__CurrentVer__245D67DE">
           <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="0..1" />
           <End Role="File" Type="Self.File" Multiplicity="*" />
           <ReferentialConstraint>
@@ -375,7 +375,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__File__LevelID__1D314762">
+        <Association Name="FK__File__LevelID__160F4887">
           <End Role="FileLevel" Type="Self.FileLevel" Multiplicity="1" />
           <End Role="File" Type="Self.File" Multiplicity="*" />
           <ReferentialConstraint>
@@ -387,7 +387,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileActio__Emplo__322C6448">
+        <Association Name="FK__FileActio__Emplo__2B0A656D">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="FileActionLog" Type="Self.FileActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -399,7 +399,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileActio__FileI__33208881">
+        <Association Name="FK__FileActio__FileI__2BFE89A6">
           <End Role="File" Type="Self.File" Multiplicity="1" />
           <End Role="FileActionLog" Type="Self.FileActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -411,7 +411,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileActio__Permi__3414ACBA">
+        <Association Name="FK__FileActio__Permi__2CF2ADDF">
           <End Role="FilePermission" Type="Self.FilePermission" Multiplicity="1" />
           <End Role="FileActionLog" Type="Self.FileActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -423,7 +423,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileMenti__Creat__39CD8610">
+        <Association Name="FK__FileMenti__Creat__32AB8735">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="FileMention" Type="Self.FileMention" Multiplicity="*" />
           <ReferentialConstraint>
@@ -435,7 +435,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileMenti__Emplo__38D961D7">
+        <Association Name="FK__FileMenti__Emplo__31B762FC">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="FileMention" Type="Self.FileMention" Multiplicity="*" />
           <ReferentialConstraint>
@@ -447,7 +447,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileMenti__FileI__37E53D9E">
+        <Association Name="FK__FileMenti__FileI__30C33EC3">
           <End Role="File" Type="Self.File" Multiplicity="1" />
           <End Role="FileMention" Type="Self.FileMention" Multiplicity="*" />
           <ReferentialConstraint>
@@ -459,7 +459,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FilesScop__Level__2101D846">
+        <Association Name="FK__FilesScop__Level__19DFD96B">
           <End Role="FileLevel" Type="Self.FileLevel" Multiplicity="1" />
           <End Role="FilesScope" Type="Self.FilesScope" Multiplicity="*" />
           <ReferentialConstraint>
@@ -471,7 +471,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FilesScop__Permi__22EA20B8">
+        <Association Name="FK__FilesScop__Permi__1BC821DD">
           <End Role="FilePermission" Type="Self.FilePermission" Multiplicity="1" />
           <End Role="FilesScope" Type="Self.FilesScope" Multiplicity="*" />
           <ReferentialConstraint>
@@ -483,7 +483,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FilesScop__RoleI__21F5FC7F">
+        <Association Name="FK__FilesScop__RoleI__1AD3FDA4">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="FilesScope" Type="Self.FilesScope" Multiplicity="*" />
           <ReferentialConstraint>
@@ -495,7 +495,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileVersi__Autho__2D67AF2B">
+        <Association Name="FK__FileVersi__Autho__2645B050">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -507,7 +507,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileVersi__FileC__2F4FF79D">
+        <Association Name="FK__FileVersi__FileC__282DF8C2">
           <End Role="FileContent" Type="Self.FileContent" Multiplicity="1" />
           <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -519,7 +519,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileVersi__FileI__2C738AF2">
+        <Association Name="FK__FileVersi__FileI__25518C17">
           <End Role="File" Type="Self.File" Multiplicity="0..1" />
           <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -531,7 +531,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileVersi__FileT__2E5BD364">
+        <Association Name="FK__FileVersi__FileT__2739D489">
           <End Role="FileType" Type="Self.FileType" Multiplicity="1" />
           <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -543,7 +543,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Instituti__Emplo__13A7DD28">
+        <Association Name="FK__Instituti__Emplo__0C85DE4D">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="InstitutionActionLog" Type="Self.InstitutionActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -555,7 +555,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Instituti__Insti__0B129727">
+        <Association Name="FK__Instituti__Insti__03F0984C">
           <End Role="InstitutionType" Type="Self.InstitutionType" Multiplicity="1" />
           <End Role="Institution" Type="Self.Institution" Multiplicity="*" />
           <ReferentialConstraint>
@@ -567,7 +567,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Instituti__Insti__149C0161">
+        <Association Name="FK__Instituti__Insti__0D7A0286">
           <End Role="Institution" Type="Self.Institution" Multiplicity="1" />
           <End Role="InstitutionActionLog" Type="Self.InstitutionActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -579,7 +579,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Instituti__Paren__0C06BB60">
+        <Association Name="FK__Instituti__Paren__04E4BC85">
           <End Role="Institution" Type="Self.Institution" Multiplicity="0..1" />
           <End Role="Institution1" Type="Self.Institution" Multiplicity="*" />
           <ReferentialConstraint>
@@ -591,7 +591,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Instituti__Permi__1590259A">
+        <Association Name="FK__Instituti__Permi__0E6E26BF">
           <End Role="InstitutionPermission" Type="Self.InstitutionPermission" Multiplicity="1" />
           <End Role="InstitutionActionLog" Type="Self.InstitutionActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -603,7 +603,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Message__FileCon__4356F04A">
+        <Association Name="FK__Message__FileCon__3C34F16F">
           <End Role="FileContent" Type="Self.FileContent" Multiplicity="1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
@@ -615,7 +615,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Message__FileTyp__444B1483">
+        <Association Name="FK__Message__FileTyp__3D2915A8">
           <End Role="FileType" Type="Self.FileType" Multiplicity="1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
@@ -627,7 +627,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Message__Recieve__4262CC11">
+        <Association Name="FK__Message__Recieve__3B40CD36">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
@@ -639,7 +639,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Message__SenderI__416EA7D8">
+        <Association Name="FK__Message__SenderI__3A4CA8FD">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
@@ -651,7 +651,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PersonAct__Affec__11BF94B6">
+        <Association Name="FK__PersonAct__Affec__0A9D95DB">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="PersonActionLog" Type="Self.PersonActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -663,7 +663,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PersonAct__Condu__10CB707D">
+        <Association Name="FK__PersonAct__Condu__09A971A2">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="PersonActionLog" Type="Self.PersonActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -675,7 +675,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PersonAct__Permi__12B3B8EF">
+        <Association Name="FK__PersonAct__Permi__0B91BA14">
           <End Role="PersonPermission" Type="Self.PersonPermission" Multiplicity="1" />
           <End Role="PersonActionLog" Type="Self.PersonActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -687,7 +687,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Role__ParentID__742F31CF">
+        <Association Name="FK__Role__ParentID__6D0D32F4">
           <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
           <End Role="Role1" Type="Self.Role" Multiplicity="*" />
           <ReferentialConstraint>
@@ -699,7 +699,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RoleInsti__Permi__7EACC042">
+        <Association Name="FK__RoleInsti__Permi__778AC167">
           <End Role="InstitutionPermission" Type="Self.InstitutionPermission" Multiplicity="1" />
           <End Role="RoleInstitutionPermission" Type="Self.RoleInstitutionPermission" Multiplicity="*" />
           <ReferentialConstraint>
@@ -711,7 +711,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RoleInsti__RoleI__7DB89C09">
+        <Association Name="FK__RoleInsti__RoleI__76969D2E">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="RoleInstitutionPermission" Type="Self.RoleInstitutionPermission" Multiplicity="*" />
           <ReferentialConstraint>
@@ -723,7 +723,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RolePerso__Permi__7CC477D0">
+        <Association Name="FK__RolePerso__Permi__75A278F5">
           <End Role="PersonPermission" Type="Self.PersonPermission" Multiplicity="1" />
           <End Role="RolePersonPermission" Type="Self.RolePersonPermission" Multiplicity="*" />
           <ReferentialConstraint>
@@ -735,7 +735,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RolePerso__RoleI__7BD05397">
+        <Association Name="FK__RolePerso__RoleI__74AE54BC">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="RolePersonPermission" Type="Self.RolePersonPermission" Multiplicity="*" />
           <ReferentialConstraint>
@@ -747,7 +747,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DMS_dbModelStoreContainer">
+        <EntityContainer Name="KfsDocsModelStoreContainer">
           <EntitySet Name="Bookmark" EntityType="Self.Bookmark" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
@@ -772,167 +772,167 @@
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoleInstitutionPermission" EntityType="Self.RoleInstitutionPermission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RolePersonPermission" EntityType="Self.RolePersonPermission" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Bookmark__Employ__3E923B2D" Association="Self.FK__Bookmark__Employ__3E923B2D">
+          <AssociationSet Name="FK__Bookmark__Employ__37703C52" Association="Self.FK__Bookmark__Employ__37703C52">
             <End Role="EmployeeRole" EntitySet="EmployeeRole" />
             <End Role="Bookmark" EntitySet="Bookmark" />
           </AssociationSet>
-          <AssociationSet Name="FK__Bookmark__FileID__3D9E16F4" Association="Self.FK__Bookmark__FileID__3D9E16F4">
+          <AssociationSet Name="FK__Bookmark__FileID__367C1819" Association="Self.FK__Bookmark__FileID__367C1819">
             <End Role="File" EntitySet="File" />
             <End Role="Bookmark" EntitySet="Bookmark" />
           </AssociationSet>
-          <AssociationSet Name="FK__Employee__CityID__75235608" Association="Self.FK__Employee__CityID__75235608">
+          <AssociationSet Name="FK__Employee__CityID__6E01572D" Association="Self.FK__Employee__CityID__6E01572D">
             <End Role="City" EntitySet="City" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
-          <AssociationSet Name="FK__Employee__Primar__027D5126" Association="Self.FK__Employee__Primar__027D5126">
+          <AssociationSet Name="FK__Employee__Primar__7B5B524B" Association="Self.FK__Employee__Primar__7B5B524B">
             <End Role="EmployeeRole" EntitySet="EmployeeRole" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
-          <AssociationSet Name="FK__EmployeeC__Emplo__705EA0EB" Association="Self.FK__EmployeeC__Emplo__705EA0EB">
+          <AssociationSet Name="FK__EmployeeC__Emplo__693CA210" Association="Self.FK__EmployeeC__Emplo__693CA210">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="EmployeeCredentials" EntitySet="EmployeeCredentials" />
           </AssociationSet>
-          <AssociationSet Name="FK__EmployeeR__Emplo__064DE20A" Association="Self.FK__EmployeeR__Emplo__064DE20A">
+          <AssociationSet Name="FK__EmployeeR__Emplo__7F2BE32F" Association="Self.FK__EmployeeR__Emplo__7F2BE32F">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="EmployeeRole" EntitySet="EmployeeRole" />
           </AssociationSet>
-          <AssociationSet Name="FK__EmployeeR__Insti__08362A7C" Association="Self.FK__EmployeeR__Insti__08362A7C">
+          <AssociationSet Name="FK__EmployeeR__Insti__01142BA1" Association="Self.FK__EmployeeR__Insti__01142BA1">
             <End Role="Institution" EntitySet="Institution" />
             <End Role="EmployeeRole" EntitySet="EmployeeRole" />
           </AssociationSet>
-          <AssociationSet Name="FK__EmployeeR__RoleI__07420643" Association="Self.FK__EmployeeR__RoleI__07420643">
+          <AssociationSet Name="FK__EmployeeR__RoleI__00200768" Association="Self.FK__EmployeeR__RoleI__00200768">
             <End Role="Role" EntitySet="Role" />
             <End Role="EmployeeRole" EntitySet="EmployeeRole" />
           </AssociationSet>
-          <AssociationSet Name="FK__File__AuthorID__1C3D2329" Association="Self.FK__File__AuthorID__1C3D2329">
+          <AssociationSet Name="FK__File__AuthorID__151B244E" Association="Self.FK__File__AuthorID__151B244E">
             <End Role="EmployeeRole" EntitySet="EmployeeRole" />
             <End Role="File" EntitySet="File" />
           </AssociationSet>
-          <AssociationSet Name="FK__File__CurrentVer__2B7F66B9" Association="Self.FK__File__CurrentVer__2B7F66B9">
+          <AssociationSet Name="FK__File__CurrentVer__245D67DE" Association="Self.FK__File__CurrentVer__245D67DE">
             <End Role="FileVersion" EntitySet="FileVersion" />
             <End Role="File" EntitySet="File" />
           </AssociationSet>
-          <AssociationSet Name="FK__File__LevelID__1D314762" Association="Self.FK__File__LevelID__1D314762">
+          <AssociationSet Name="FK__File__LevelID__160F4887" Association="Self.FK__File__LevelID__160F4887">
             <End Role="FileLevel" EntitySet="FileLevel" />
             <End Role="File" EntitySet="File" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileActio__Emplo__322C6448" Association="Self.FK__FileActio__Emplo__322C6448">
+          <AssociationSet Name="FK__FileActio__Emplo__2B0A656D" Association="Self.FK__FileActio__Emplo__2B0A656D">
             <End Role="EmployeeRole" EntitySet="EmployeeRole" />
             <End Role="FileActionLog" EntitySet="FileActionLog" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileActio__FileI__33208881" Association="Self.FK__FileActio__FileI__33208881">
+          <AssociationSet Name="FK__FileActio__FileI__2BFE89A6" Association="Self.FK__FileActio__FileI__2BFE89A6">
             <End Role="File" EntitySet="File" />
             <End Role="FileActionLog" EntitySet="FileActionLog" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileActio__Permi__3414ACBA" Association="Self.FK__FileActio__Permi__3414ACBA">
+          <AssociationSet Name="FK__FileActio__Permi__2CF2ADDF" Association="Self.FK__FileActio__Permi__2CF2ADDF">
             <End Role="FilePermission" EntitySet="FilePermission" />
             <End Role="FileActionLog" EntitySet="FileActionLog" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileMenti__Creat__39CD8610" Association="Self.FK__FileMenti__Creat__39CD8610">
+          <AssociationSet Name="FK__FileMenti__Creat__32AB8735" Association="Self.FK__FileMenti__Creat__32AB8735">
             <End Role="EmployeeRole" EntitySet="EmployeeRole" />
             <End Role="FileMention" EntitySet="FileMention" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileMenti__Emplo__38D961D7" Association="Self.FK__FileMenti__Emplo__38D961D7">
+          <AssociationSet Name="FK__FileMenti__Emplo__31B762FC" Association="Self.FK__FileMenti__Emplo__31B762FC">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="FileMention" EntitySet="FileMention" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileMenti__FileI__37E53D9E" Association="Self.FK__FileMenti__FileI__37E53D9E">
+          <AssociationSet Name="FK__FileMenti__FileI__30C33EC3" Association="Self.FK__FileMenti__FileI__30C33EC3">
             <End Role="File" EntitySet="File" />
             <End Role="FileMention" EntitySet="FileMention" />
           </AssociationSet>
-          <AssociationSet Name="FK__FilesScop__Level__2101D846" Association="Self.FK__FilesScop__Level__2101D846">
+          <AssociationSet Name="FK__FilesScop__Level__19DFD96B" Association="Self.FK__FilesScop__Level__19DFD96B">
             <End Role="FileLevel" EntitySet="FileLevel" />
             <End Role="FilesScope" EntitySet="FilesScope" />
           </AssociationSet>
-          <AssociationSet Name="FK__FilesScop__Permi__22EA20B8" Association="Self.FK__FilesScop__Permi__22EA20B8">
+          <AssociationSet Name="FK__FilesScop__Permi__1BC821DD" Association="Self.FK__FilesScop__Permi__1BC821DD">
             <End Role="FilePermission" EntitySet="FilePermission" />
             <End Role="FilesScope" EntitySet="FilesScope" />
           </AssociationSet>
-          <AssociationSet Name="FK__FilesScop__RoleI__21F5FC7F" Association="Self.FK__FilesScop__RoleI__21F5FC7F">
+          <AssociationSet Name="FK__FilesScop__RoleI__1AD3FDA4" Association="Self.FK__FilesScop__RoleI__1AD3FDA4">
             <End Role="Role" EntitySet="Role" />
             <End Role="FilesScope" EntitySet="FilesScope" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileVersi__Autho__2D67AF2B" Association="Self.FK__FileVersi__Autho__2D67AF2B">
+          <AssociationSet Name="FK__FileVersi__Autho__2645B050" Association="Self.FK__FileVersi__Autho__2645B050">
             <End Role="EmployeeRole" EntitySet="EmployeeRole" />
             <End Role="FileVersion" EntitySet="FileVersion" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileVersi__FileC__2F4FF79D" Association="Self.FK__FileVersi__FileC__2F4FF79D">
+          <AssociationSet Name="FK__FileVersi__FileC__282DF8C2" Association="Self.FK__FileVersi__FileC__282DF8C2">
             <End Role="FileContent" EntitySet="FileContent" />
             <End Role="FileVersion" EntitySet="FileVersion" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileVersi__FileI__2C738AF2" Association="Self.FK__FileVersi__FileI__2C738AF2">
+          <AssociationSet Name="FK__FileVersi__FileI__25518C17" Association="Self.FK__FileVersi__FileI__25518C17">
             <End Role="File" EntitySet="File" />
             <End Role="FileVersion" EntitySet="FileVersion" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileVersi__FileT__2E5BD364" Association="Self.FK__FileVersi__FileT__2E5BD364">
+          <AssociationSet Name="FK__FileVersi__FileT__2739D489" Association="Self.FK__FileVersi__FileT__2739D489">
             <End Role="FileType" EntitySet="FileType" />
             <End Role="FileVersion" EntitySet="FileVersion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Instituti__Emplo__13A7DD28" Association="Self.FK__Instituti__Emplo__13A7DD28">
+          <AssociationSet Name="FK__Instituti__Emplo__0C85DE4D" Association="Self.FK__Instituti__Emplo__0C85DE4D">
             <End Role="EmployeeRole" EntitySet="EmployeeRole" />
             <End Role="InstitutionActionLog" EntitySet="InstitutionActionLog" />
           </AssociationSet>
-          <AssociationSet Name="FK__Instituti__Insti__0B129727" Association="Self.FK__Instituti__Insti__0B129727">
+          <AssociationSet Name="FK__Instituti__Insti__03F0984C" Association="Self.FK__Instituti__Insti__03F0984C">
             <End Role="InstitutionType" EntitySet="InstitutionType" />
             <End Role="Institution" EntitySet="Institution" />
           </AssociationSet>
-          <AssociationSet Name="FK__Instituti__Insti__149C0161" Association="Self.FK__Instituti__Insti__149C0161">
+          <AssociationSet Name="FK__Instituti__Insti__0D7A0286" Association="Self.FK__Instituti__Insti__0D7A0286">
             <End Role="Institution" EntitySet="Institution" />
             <End Role="InstitutionActionLog" EntitySet="InstitutionActionLog" />
           </AssociationSet>
-          <AssociationSet Name="FK__Instituti__Paren__0C06BB60" Association="Self.FK__Instituti__Paren__0C06BB60">
+          <AssociationSet Name="FK__Instituti__Paren__04E4BC85" Association="Self.FK__Instituti__Paren__04E4BC85">
             <End Role="Institution" EntitySet="Institution" />
             <End Role="Institution1" EntitySet="Institution" />
           </AssociationSet>
-          <AssociationSet Name="FK__Instituti__Permi__1590259A" Association="Self.FK__Instituti__Permi__1590259A">
+          <AssociationSet Name="FK__Instituti__Permi__0E6E26BF" Association="Self.FK__Instituti__Permi__0E6E26BF">
             <End Role="InstitutionPermission" EntitySet="InstitutionPermission" />
             <End Role="InstitutionActionLog" EntitySet="InstitutionActionLog" />
           </AssociationSet>
-          <AssociationSet Name="FK__Message__FileCon__4356F04A" Association="Self.FK__Message__FileCon__4356F04A">
+          <AssociationSet Name="FK__Message__FileCon__3C34F16F" Association="Self.FK__Message__FileCon__3C34F16F">
             <End Role="FileContent" EntitySet="FileContent" />
             <End Role="Message" EntitySet="Message" />
           </AssociationSet>
-          <AssociationSet Name="FK__Message__FileTyp__444B1483" Association="Self.FK__Message__FileTyp__444B1483">
+          <AssociationSet Name="FK__Message__FileTyp__3D2915A8" Association="Self.FK__Message__FileTyp__3D2915A8">
             <End Role="FileType" EntitySet="FileType" />
             <End Role="Message" EntitySet="Message" />
           </AssociationSet>
-          <AssociationSet Name="FK__Message__Recieve__4262CC11" Association="Self.FK__Message__Recieve__4262CC11">
+          <AssociationSet Name="FK__Message__Recieve__3B40CD36" Association="Self.FK__Message__Recieve__3B40CD36">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Message" EntitySet="Message" />
           </AssociationSet>
-          <AssociationSet Name="FK__Message__SenderI__416EA7D8" Association="Self.FK__Message__SenderI__416EA7D8">
+          <AssociationSet Name="FK__Message__SenderI__3A4CA8FD" Association="Self.FK__Message__SenderI__3A4CA8FD">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Message" EntitySet="Message" />
           </AssociationSet>
-          <AssociationSet Name="FK__PersonAct__Affec__11BF94B6" Association="Self.FK__PersonAct__Affec__11BF94B6">
+          <AssociationSet Name="FK__PersonAct__Affec__0A9D95DB" Association="Self.FK__PersonAct__Affec__0A9D95DB">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="PersonActionLog" EntitySet="PersonActionLog" />
           </AssociationSet>
-          <AssociationSet Name="FK__PersonAct__Condu__10CB707D" Association="Self.FK__PersonAct__Condu__10CB707D">
+          <AssociationSet Name="FK__PersonAct__Condu__09A971A2" Association="Self.FK__PersonAct__Condu__09A971A2">
             <End Role="EmployeeRole" EntitySet="EmployeeRole" />
             <End Role="PersonActionLog" EntitySet="PersonActionLog" />
           </AssociationSet>
-          <AssociationSet Name="FK__PersonAct__Permi__12B3B8EF" Association="Self.FK__PersonAct__Permi__12B3B8EF">
+          <AssociationSet Name="FK__PersonAct__Permi__0B91BA14" Association="Self.FK__PersonAct__Permi__0B91BA14">
             <End Role="PersonPermission" EntitySet="PersonPermission" />
             <End Role="PersonActionLog" EntitySet="PersonActionLog" />
           </AssociationSet>
-          <AssociationSet Name="FK__Role__ParentID__742F31CF" Association="Self.FK__Role__ParentID__742F31CF">
+          <AssociationSet Name="FK__Role__ParentID__6D0D32F4" Association="Self.FK__Role__ParentID__6D0D32F4">
             <End Role="Role" EntitySet="Role" />
             <End Role="Role1" EntitySet="Role" />
           </AssociationSet>
-          <AssociationSet Name="FK__RoleInsti__Permi__7EACC042" Association="Self.FK__RoleInsti__Permi__7EACC042">
+          <AssociationSet Name="FK__RoleInsti__Permi__778AC167" Association="Self.FK__RoleInsti__Permi__778AC167">
             <End Role="InstitutionPermission" EntitySet="InstitutionPermission" />
             <End Role="RoleInstitutionPermission" EntitySet="RoleInstitutionPermission" />
           </AssociationSet>
-          <AssociationSet Name="FK__RoleInsti__RoleI__7DB89C09" Association="Self.FK__RoleInsti__RoleI__7DB89C09">
+          <AssociationSet Name="FK__RoleInsti__RoleI__76969D2E" Association="Self.FK__RoleInsti__RoleI__76969D2E">
             <End Role="Role" EntitySet="Role" />
             <End Role="RoleInstitutionPermission" EntitySet="RoleInstitutionPermission" />
           </AssociationSet>
-          <AssociationSet Name="FK__RolePerso__Permi__7CC477D0" Association="Self.FK__RolePerso__Permi__7CC477D0">
+          <AssociationSet Name="FK__RolePerso__Permi__75A278F5" Association="Self.FK__RolePerso__Permi__75A278F5">
             <End Role="PersonPermission" EntitySet="PersonPermission" />
             <End Role="RolePersonPermission" EntitySet="RolePersonPermission" />
           </AssociationSet>
-          <AssociationSet Name="FK__RolePerso__RoleI__7BD05397" Association="Self.FK__RolePerso__RoleI__7BD05397">
+          <AssociationSet Name="FK__RolePerso__RoleI__74AE54BC" Association="Self.FK__RolePerso__RoleI__74AE54BC">
             <End Role="Role" EntitySet="Role" />
             <End Role="RolePersonPermission" EntitySet="RolePersonPermission" />
           </AssociationSet>
@@ -941,7 +941,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="DMS_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="KfsDocsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Bookmark">
           <Key>
             <PropertyRef Name="ID" />
@@ -950,8 +950,8 @@
           <Property Name="FileID" Type="Int32" Nullable="false" />
           <Property Name="EmployeeID" Type="Int32" Nullable="false" />
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__Bookmark__Employ__3E923B2D" FromRole="Bookmark" ToRole="EmployeeRole" />
-          <NavigationProperty Name="File" Relationship="Self.FK__Bookmark__FileID__3D9E16F4" FromRole="Bookmark" ToRole="File" />
+          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__Bookmark__Employ__37703C52" FromRole="Bookmark" ToRole="EmployeeRole" />
+          <NavigationProperty Name="File" Relationship="Self.FK__Bookmark__FileID__367C1819" FromRole="Bookmark" ToRole="File" />
         </EntityType>
         <EntityType Name="City">
           <Key>
@@ -960,7 +960,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PostalCode" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Employees" Relationship="Self.FK__Employee__CityID__75235608" FromRole="City" ToRole="Employee" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK__Employee__CityID__6E01572D" FromRole="City" ToRole="Employee" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -977,14 +977,14 @@
           <Property Name="PHD" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="ImageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="City" Relationship="Self.FK__Employee__CityID__75235608" FromRole="Employee" ToRole="City" />
-          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__Employee__Primar__027D5126" FromRole="Employee" ToRole="EmployeeRole" />
-          <NavigationProperty Name="EmployeeCredentials" Relationship="Self.FK__EmployeeC__Emplo__705EA0EB" FromRole="Employee" ToRole="EmployeeCredentials" />
-          <NavigationProperty Name="EmployeeRoles" Relationship="Self.FK__EmployeeR__Emplo__064DE20A" FromRole="Employee" ToRole="EmployeeRole" />
-          <NavigationProperty Name="FileMentions" Relationship="Self.FK__FileMenti__Emplo__38D961D7" FromRole="Employee" ToRole="FileMention" />
-          <NavigationProperty Name="Messages" Relationship="Self.FK__Message__Recieve__4262CC11" FromRole="Employee" ToRole="Message" />
-          <NavigationProperty Name="Messages1" Relationship="Self.FK__Message__SenderI__416EA7D8" FromRole="Employee" ToRole="Message" />
-          <NavigationProperty Name="PersonActionLogs" Relationship="Self.FK__PersonAct__Affec__11BF94B6" FromRole="Employee" ToRole="PersonActionLog" />
+          <NavigationProperty Name="City" Relationship="Self.FK__Employee__CityID__6E01572D" FromRole="Employee" ToRole="City" />
+          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__Employee__Primar__7B5B524B" FromRole="Employee" ToRole="EmployeeRole" />
+          <NavigationProperty Name="EmployeeCredentials" Relationship="Self.FK__EmployeeC__Emplo__693CA210" FromRole="Employee" ToRole="EmployeeCredentials" />
+          <NavigationProperty Name="EmployeeRoles" Relationship="Self.FK__EmployeeR__Emplo__7F2BE32F" FromRole="Employee" ToRole="EmployeeRole" />
+          <NavigationProperty Name="FileMentions" Relationship="Self.FK__FileMenti__Emplo__31B762FC" FromRole="Employee" ToRole="FileMention" />
+          <NavigationProperty Name="Messages" Relationship="Self.FK__Message__Recieve__3B40CD36" FromRole="Employee" ToRole="Message" />
+          <NavigationProperty Name="Messages1" Relationship="Self.FK__Message__SenderI__3A4CA8FD" FromRole="Employee" ToRole="Message" />
+          <NavigationProperty Name="PersonActionLogs" Relationship="Self.FK__PersonAct__Affec__0A9D95DB" FromRole="Employee" ToRole="PersonActionLog" />
         </EntityType>
         <EntityType Name="EmployeeCredential">
           <Key>
@@ -994,7 +994,7 @@
           <Property Name="Email" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK__EmployeeC__Emplo__705EA0EB" FromRole="EmployeeCredentials" ToRole="Employee" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__EmployeeC__Emplo__693CA210" FromRole="EmployeeCredentials" ToRole="Employee" />
         </EntityType>
         <EntityType Name="EmployeeRole">
           <Key>
@@ -1007,17 +1007,17 @@
           <Property Name="ArabicJobDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="HiringDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Bookmarks" Relationship="Self.FK__Bookmark__Employ__3E923B2D" FromRole="EmployeeRole" ToRole="Bookmark" />
-          <NavigationProperty Name="Employees" Relationship="Self.FK__Employee__Primar__027D5126" FromRole="EmployeeRole" ToRole="Employee" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK__EmployeeR__Emplo__064DE20A" FromRole="EmployeeRole" ToRole="Employee" />
-          <NavigationProperty Name="Institution" Relationship="Self.FK__EmployeeR__Insti__08362A7C" FromRole="EmployeeRole" ToRole="Institution" />
-          <NavigationProperty Name="Role" Relationship="Self.FK__EmployeeR__RoleI__07420643" FromRole="EmployeeRole" ToRole="Role" />
-          <NavigationProperty Name="Files" Relationship="Self.FK__File__AuthorID__1C3D2329" FromRole="EmployeeRole" ToRole="File" />
-          <NavigationProperty Name="FileActionLogs" Relationship="Self.FK__FileActio__Emplo__322C6448" FromRole="EmployeeRole" ToRole="FileActionLog" />
-          <NavigationProperty Name="FileMentions" Relationship="Self.FK__FileMenti__Creat__39CD8610" FromRole="EmployeeRole" ToRole="FileMention" />
-          <NavigationProperty Name="FileVersions" Relationship="Self.FK__FileVersi__Autho__2D67AF2B" FromRole="EmployeeRole" ToRole="FileVersion" />
-          <NavigationProperty Name="InstitutionActionLogs" Relationship="Self.FK__Instituti__Emplo__13A7DD28" FromRole="EmployeeRole" ToRole="InstitutionActionLog" />
-          <NavigationProperty Name="PersonActionLogs" Relationship="Self.FK__PersonAct__Condu__10CB707D" FromRole="EmployeeRole" ToRole="PersonActionLog" />
+          <NavigationProperty Name="Bookmarks" Relationship="Self.FK__Bookmark__Employ__37703C52" FromRole="EmployeeRole" ToRole="Bookmark" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK__Employee__Primar__7B5B524B" FromRole="EmployeeRole" ToRole="Employee" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__EmployeeR__Emplo__7F2BE32F" FromRole="EmployeeRole" ToRole="Employee" />
+          <NavigationProperty Name="Institution" Relationship="Self.FK__EmployeeR__Insti__01142BA1" FromRole="EmployeeRole" ToRole="Institution" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__EmployeeR__RoleI__00200768" FromRole="EmployeeRole" ToRole="Role" />
+          <NavigationProperty Name="Files" Relationship="Self.FK__File__AuthorID__151B244E" FromRole="EmployeeRole" ToRole="File" />
+          <NavigationProperty Name="FileActionLogs" Relationship="Self.FK__FileActio__Emplo__2B0A656D" FromRole="EmployeeRole" ToRole="FileActionLog" />
+          <NavigationProperty Name="FileMentions" Relationship="Self.FK__FileMenti__Creat__32AB8735" FromRole="EmployeeRole" ToRole="FileMention" />
+          <NavigationProperty Name="FileVersions" Relationship="Self.FK__FileVersi__Autho__2645B050" FromRole="EmployeeRole" ToRole="FileVersion" />
+          <NavigationProperty Name="InstitutionActionLogs" Relationship="Self.FK__Instituti__Emplo__0C85DE4D" FromRole="EmployeeRole" ToRole="InstitutionActionLog" />
+          <NavigationProperty Name="PersonActionLogs" Relationship="Self.FK__PersonAct__Condu__09A971A2" FromRole="EmployeeRole" ToRole="PersonActionLog" />
         </EntityType>
         <EntityType Name="File">
           <Key>
@@ -1033,13 +1033,13 @@
           <Property Name="Locked" Type="Boolean" Nullable="false" />
           <Property Name="LockedUntil" Type="DateTime" Precision="3" />
           <Property Name="LevelID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Bookmarks" Relationship="Self.FK__Bookmark__FileID__3D9E16F4" FromRole="File" ToRole="Bookmark" />
-          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__File__AuthorID__1C3D2329" FromRole="File" ToRole="EmployeeRole" />
-          <NavigationProperty Name="FileVersion" Relationship="Self.FK__File__CurrentVer__2B7F66B9" FromRole="File" ToRole="FileVersion" />
-          <NavigationProperty Name="FileLevel" Relationship="Self.FK__File__LevelID__1D314762" FromRole="File" ToRole="FileLevel" />
-          <NavigationProperty Name="FileActionLogs" Relationship="Self.FK__FileActio__FileI__33208881" FromRole="File" ToRole="FileActionLog" />
-          <NavigationProperty Name="FileMentions" Relationship="Self.FK__FileMenti__FileI__37E53D9E" FromRole="File" ToRole="FileMention" />
-          <NavigationProperty Name="FileVersions" Relationship="Self.FK__FileVersi__FileI__2C738AF2" FromRole="File" ToRole="FileVersion" />
+          <NavigationProperty Name="Bookmarks" Relationship="Self.FK__Bookmark__FileID__367C1819" FromRole="File" ToRole="Bookmark" />
+          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__File__AuthorID__151B244E" FromRole="File" ToRole="EmployeeRole" />
+          <NavigationProperty Name="FileVersion" Relationship="Self.FK__File__CurrentVer__245D67DE" FromRole="File" ToRole="FileVersion" />
+          <NavigationProperty Name="FileLevel" Relationship="Self.FK__File__LevelID__160F4887" FromRole="File" ToRole="FileLevel" />
+          <NavigationProperty Name="FileActionLogs" Relationship="Self.FK__FileActio__FileI__2BFE89A6" FromRole="File" ToRole="FileActionLog" />
+          <NavigationProperty Name="FileMentions" Relationship="Self.FK__FileMenti__FileI__30C33EC3" FromRole="File" ToRole="FileMention" />
+          <NavigationProperty Name="FileVersions" Relationship="Self.FK__FileVersi__FileI__25518C17" FromRole="File" ToRole="FileVersion" />
         </EntityType>
         <EntityType Name="FileActionLog">
           <Key>
@@ -1050,9 +1050,9 @@
           <Property Name="FileID" Type="Int32" Nullable="false" />
           <Property Name="ActionDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PermissionName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__FileActio__Emplo__322C6448" FromRole="FileActionLog" ToRole="EmployeeRole" />
-          <NavigationProperty Name="File" Relationship="Self.FK__FileActio__FileI__33208881" FromRole="FileActionLog" ToRole="File" />
-          <NavigationProperty Name="FilePermission" Relationship="Self.FK__FileActio__Permi__3414ACBA" FromRole="FileActionLog" ToRole="FilePermission" />
+          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__FileActio__Emplo__2B0A656D" FromRole="FileActionLog" ToRole="EmployeeRole" />
+          <NavigationProperty Name="File" Relationship="Self.FK__FileActio__FileI__2BFE89A6" FromRole="FileActionLog" ToRole="File" />
+          <NavigationProperty Name="FilePermission" Relationship="Self.FK__FileActio__Permi__2CF2ADDF" FromRole="FileActionLog" ToRole="FilePermission" />
         </EntityType>
         <EntityType Name="FileContent">
           <Key>
@@ -1061,18 +1061,18 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Href" Type="String" MaxLength="3000" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="FileSize" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="FileVersions" Relationship="Self.FK__FileVersi__FileC__2F4FF79D" FromRole="FileContent" ToRole="FileVersion" />
-          <NavigationProperty Name="Messages" Relationship="Self.FK__Message__FileCon__4356F04A" FromRole="FileContent" ToRole="Message" />
+          <NavigationProperty Name="FileVersions" Relationship="Self.FK__FileVersi__FileC__282DF8C2" FromRole="FileContent" ToRole="FileVersion" />
+          <NavigationProperty Name="Messages" Relationship="Self.FK__Message__FileCon__3C34F16F" FromRole="FileContent" ToRole="Message" />
         </EntityType>
         <EntityType Name="FileLevel">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="LevelDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Files" Relationship="Self.FK__File__LevelID__1D314762" FromRole="FileLevel" ToRole="File" />
-          <NavigationProperty Name="FilesScopes" Relationship="Self.FK__FilesScop__Level__2101D846" FromRole="FileLevel" ToRole="FilesScope" />
+          <NavigationProperty Name="Files" Relationship="Self.FK__File__LevelID__160F4887" FromRole="FileLevel" ToRole="File" />
+          <NavigationProperty Name="FilesScopes" Relationship="Self.FK__FilesScop__Level__19DFD96B" FromRole="FileLevel" ToRole="FilesScope" />
         </EntityType>
         <EntityType Name="FileMention">
           <Key>
@@ -1084,9 +1084,9 @@
           <Property Name="EmployeeID" Type="Int32" Nullable="false" />
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Seen" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK__FileMenti__Emplo__38D961D7" FromRole="FileMention" ToRole="Employee" />
-          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__FileMenti__Creat__39CD8610" FromRole="FileMention" ToRole="EmployeeRole" />
-          <NavigationProperty Name="File" Relationship="Self.FK__FileMenti__FileI__37E53D9E" FromRole="FileMention" ToRole="File" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__FileMenti__Emplo__31B762FC" FromRole="FileMention" ToRole="Employee" />
+          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__FileMenti__Creat__32AB8735" FromRole="FileMention" ToRole="EmployeeRole" />
+          <NavigationProperty Name="File" Relationship="Self.FK__FileMenti__FileI__30C33EC3" FromRole="FileMention" ToRole="File" />
         </EntityType>
         <EntityType Name="FilePermission">
           <Key>
@@ -1095,8 +1095,8 @@
           <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ArabicName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Grantable" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="FileActionLogs" Relationship="Self.FK__FileActio__Permi__3414ACBA" FromRole="FilePermission" ToRole="FileActionLog" />
-          <NavigationProperty Name="FilesScopes" Relationship="Self.FK__FilesScop__Permi__22EA20B8" FromRole="FilePermission" ToRole="FilesScope" />
+          <NavigationProperty Name="FileActionLogs" Relationship="Self.FK__FileActio__Permi__2CF2ADDF" FromRole="FilePermission" ToRole="FileActionLog" />
+          <NavigationProperty Name="FilesScopes" Relationship="Self.FK__FilesScop__Permi__1BC821DD" FromRole="FilePermission" ToRole="FilesScope" />
         </EntityType>
         <EntityType Name="FilesScope">
           <Key>
@@ -1106,9 +1106,9 @@
           <Property Name="LevelID" Type="Int32" Nullable="false" />
           <Property Name="RoleID" Type="Int32" Nullable="false" />
           <Property Name="Permission" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="FileLevel" Relationship="Self.FK__FilesScop__Level__2101D846" FromRole="FilesScope" ToRole="FileLevel" />
-          <NavigationProperty Name="FilePermission" Relationship="Self.FK__FilesScop__Permi__22EA20B8" FromRole="FilesScope" ToRole="FilePermission" />
-          <NavigationProperty Name="Role" Relationship="Self.FK__FilesScop__RoleI__21F5FC7F" FromRole="FilesScope" ToRole="Role" />
+          <NavigationProperty Name="FileLevel" Relationship="Self.FK__FilesScop__Level__19DFD96B" FromRole="FilesScope" ToRole="FileLevel" />
+          <NavigationProperty Name="FilePermission" Relationship="Self.FK__FilesScop__Permi__1BC821DD" FromRole="FilesScope" ToRole="FilePermission" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__FilesScop__RoleI__1AD3FDA4" FromRole="FilesScope" ToRole="Role" />
         </EntityType>
         <EntityType Name="FileType">
           <Key>
@@ -1117,8 +1117,8 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Extension" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ArabicName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="FileVersions" Relationship="Self.FK__FileVersi__FileT__2E5BD364" FromRole="FileType" ToRole="FileVersion" />
-          <NavigationProperty Name="Messages" Relationship="Self.FK__Message__FileTyp__444B1483" FromRole="FileType" ToRole="Message" />
+          <NavigationProperty Name="FileVersions" Relationship="Self.FK__FileVersi__FileT__2739D489" FromRole="FileType" ToRole="FileVersion" />
+          <NavigationProperty Name="Messages" Relationship="Self.FK__Message__FileTyp__3D2915A8" FromRole="FileType" ToRole="Message" />
         </EntityType>
         <EntityType Name="FileVersion">
           <Key>
@@ -1134,11 +1134,11 @@
           <Property Name="AuthorID" Type="Int32" Nullable="false" />
           <Property Name="FileTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="FileContentID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__FileVersi__Autho__2D67AF2B" FromRole="FileVersion" ToRole="EmployeeRole" />
-          <NavigationProperty Name="Files" Relationship="Self.FK__File__CurrentVer__2B7F66B9" FromRole="FileVersion" ToRole="File" />
-          <NavigationProperty Name="File" Relationship="Self.FK__FileVersi__FileI__2C738AF2" FromRole="FileVersion" ToRole="File" />
-          <NavigationProperty Name="FileContent" Relationship="Self.FK__FileVersi__FileC__2F4FF79D" FromRole="FileVersion" ToRole="FileContent" />
-          <NavigationProperty Name="FileType" Relationship="Self.FK__FileVersi__FileT__2E5BD364" FromRole="FileVersion" ToRole="FileType" />
+          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__FileVersi__Autho__2645B050" FromRole="FileVersion" ToRole="EmployeeRole" />
+          <NavigationProperty Name="Files" Relationship="Self.FK__File__CurrentVer__245D67DE" FromRole="FileVersion" ToRole="File" />
+          <NavigationProperty Name="File" Relationship="Self.FK__FileVersi__FileI__25518C17" FromRole="FileVersion" ToRole="File" />
+          <NavigationProperty Name="FileContent" Relationship="Self.FK__FileVersi__FileC__282DF8C2" FromRole="FileVersion" ToRole="FileContent" />
+          <NavigationProperty Name="FileType" Relationship="Self.FK__FileVersi__FileT__2739D489" FromRole="FileVersion" ToRole="FileType" />
         </EntityType>
         <EntityType Name="Institution">
           <Key>
@@ -1156,11 +1156,11 @@
           <Property Name="SecondaryPhone" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="Fax" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="EmployeeRoles" Relationship="Self.FK__EmployeeR__Insti__08362A7C" FromRole="Institution" ToRole="EmployeeRole" />
-          <NavigationProperty Name="InstitutionType" Relationship="Self.FK__Instituti__Insti__0B129727" FromRole="Institution" ToRole="InstitutionType" />
-          <NavigationProperty Name="InstitutionActionLogs" Relationship="Self.FK__Instituti__Insti__149C0161" FromRole="Institution" ToRole="InstitutionActionLog" />
-          <NavigationProperty Name="Institution1" Relationship="Self.FK__Instituti__Paren__0C06BB60" FromRole="Institution" ToRole="Institution1" />
-          <NavigationProperty Name="Institution2" Relationship="Self.FK__Instituti__Paren__0C06BB60" FromRole="Institution1" ToRole="Institution" />
+          <NavigationProperty Name="EmployeeRoles" Relationship="Self.FK__EmployeeR__Insti__01142BA1" FromRole="Institution" ToRole="EmployeeRole" />
+          <NavigationProperty Name="InstitutionType" Relationship="Self.FK__Instituti__Insti__03F0984C" FromRole="Institution" ToRole="InstitutionType" />
+          <NavigationProperty Name="InstitutionActionLogs" Relationship="Self.FK__Instituti__Insti__0D7A0286" FromRole="Institution" ToRole="InstitutionActionLog" />
+          <NavigationProperty Name="Institution1" Relationship="Self.FK__Instituti__Paren__04E4BC85" FromRole="Institution" ToRole="Institution1" />
+          <NavigationProperty Name="Institution2" Relationship="Self.FK__Instituti__Paren__04E4BC85" FromRole="Institution1" ToRole="Institution" />
         </EntityType>
         <EntityType Name="InstitutionActionLog">
           <Key>
@@ -1171,9 +1171,9 @@
           <Property Name="InstitutionID" Type="Int32" Nullable="false" />
           <Property Name="ActionDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PermissionName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__Instituti__Emplo__13A7DD28" FromRole="InstitutionActionLog" ToRole="EmployeeRole" />
-          <NavigationProperty Name="Institution" Relationship="Self.FK__Instituti__Insti__149C0161" FromRole="InstitutionActionLog" ToRole="Institution" />
-          <NavigationProperty Name="InstitutionPermission" Relationship="Self.FK__Instituti__Permi__1590259A" FromRole="InstitutionActionLog" ToRole="InstitutionPermission" />
+          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__Instituti__Emplo__0C85DE4D" FromRole="InstitutionActionLog" ToRole="EmployeeRole" />
+          <NavigationProperty Name="Institution" Relationship="Self.FK__Instituti__Insti__0D7A0286" FromRole="InstitutionActionLog" ToRole="Institution" />
+          <NavigationProperty Name="InstitutionPermission" Relationship="Self.FK__Instituti__Permi__0E6E26BF" FromRole="InstitutionActionLog" ToRole="InstitutionPermission" />
         </EntityType>
         <EntityType Name="InstitutionPermission">
           <Key>
@@ -1183,8 +1183,8 @@
           <Property Name="ArabicName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Grantable" Type="Boolean" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="InstitutionActionLogs" Relationship="Self.FK__Instituti__Permi__1590259A" FromRole="InstitutionPermission" ToRole="InstitutionActionLog" />
-          <NavigationProperty Name="RoleInstitutionPermissions" Relationship="Self.FK__RoleInsti__Permi__7EACC042" FromRole="InstitutionPermission" ToRole="RoleInstitutionPermission" />
+          <NavigationProperty Name="InstitutionActionLogs" Relationship="Self.FK__Instituti__Permi__0E6E26BF" FromRole="InstitutionPermission" ToRole="InstitutionActionLog" />
+          <NavigationProperty Name="RoleInstitutionPermissions" Relationship="Self.FK__RoleInsti__Permi__778AC167" FromRole="InstitutionPermission" ToRole="RoleInstitutionPermission" />
         </EntityType>
         <EntityType Name="InstitutionType">
           <Key>
@@ -1193,7 +1193,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ArabicName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Institutions" Relationship="Self.FK__Instituti__Insti__0B129727" FromRole="InstitutionType" ToRole="Institution" />
+          <NavigationProperty Name="Institutions" Relationship="Self.FK__Instituti__Insti__03F0984C" FromRole="InstitutionType" ToRole="Institution" />
         </EntityType>
         <EntityType Name="Message">
           <Key>
@@ -1210,10 +1210,10 @@
           <Property Name="Seen" Type="Boolean" Nullable="false" />
           <Property Name="DeletedFromSender" Type="Boolean" Nullable="false" />
           <Property Name="DeletedFromReciever" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK__Message__Recieve__4262CC11" FromRole="Message" ToRole="Employee" />
-          <NavigationProperty Name="Employee1" Relationship="Self.FK__Message__SenderI__416EA7D8" FromRole="Message" ToRole="Employee" />
-          <NavigationProperty Name="FileContent" Relationship="Self.FK__Message__FileCon__4356F04A" FromRole="Message" ToRole="FileContent" />
-          <NavigationProperty Name="FileType" Relationship="Self.FK__Message__FileTyp__444B1483" FromRole="Message" ToRole="FileType" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__Message__Recieve__3B40CD36" FromRole="Message" ToRole="Employee" />
+          <NavigationProperty Name="Employee1" Relationship="Self.FK__Message__SenderI__3A4CA8FD" FromRole="Message" ToRole="Employee" />
+          <NavigationProperty Name="FileContent" Relationship="Self.FK__Message__FileCon__3C34F16F" FromRole="Message" ToRole="FileContent" />
+          <NavigationProperty Name="FileType" Relationship="Self.FK__Message__FileTyp__3D2915A8" FromRole="Message" ToRole="FileType" />
         </EntityType>
         <EntityType Name="PersonActionLog">
           <Key>
@@ -1224,9 +1224,9 @@
           <Property Name="AffectedEmployeeID" Type="Int32" Nullable="false" />
           <Property Name="ActionDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PermissionName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK__PersonAct__Affec__11BF94B6" FromRole="PersonActionLog" ToRole="Employee" />
-          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__PersonAct__Condu__10CB707D" FromRole="PersonActionLog" ToRole="EmployeeRole" />
-          <NavigationProperty Name="PersonPermission" Relationship="Self.FK__PersonAct__Permi__12B3B8EF" FromRole="PersonActionLog" ToRole="PersonPermission" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__PersonAct__Affec__0A9D95DB" FromRole="PersonActionLog" ToRole="Employee" />
+          <NavigationProperty Name="EmployeeRole" Relationship="Self.FK__PersonAct__Condu__09A971A2" FromRole="PersonActionLog" ToRole="EmployeeRole" />
+          <NavigationProperty Name="PersonPermission" Relationship="Self.FK__PersonAct__Permi__0B91BA14" FromRole="PersonActionLog" ToRole="PersonPermission" />
         </EntityType>
         <EntityType Name="PersonPermission">
           <Key>
@@ -1236,8 +1236,8 @@
           <Property Name="ArabicName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Grantable" Type="Boolean" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="PersonActionLogs" Relationship="Self.FK__PersonAct__Permi__12B3B8EF" FromRole="PersonPermission" ToRole="PersonActionLog" />
-          <NavigationProperty Name="RolePersonPermissions" Relationship="Self.FK__RolePerso__Permi__7CC477D0" FromRole="PersonPermission" ToRole="RolePersonPermission" />
+          <NavigationProperty Name="PersonActionLogs" Relationship="Self.FK__PersonAct__Permi__0B91BA14" FromRole="PersonPermission" ToRole="PersonActionLog" />
+          <NavigationProperty Name="RolePersonPermissions" Relationship="Self.FK__RolePerso__Permi__75A278F5" FromRole="PersonPermission" ToRole="RolePersonPermission" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -1247,12 +1247,12 @@
           <Property Name="ParentID" Type="Int32" />
           <Property Name="PriorityOrder" Type="Int32" Nullable="false" />
           <Property Name="ArabicName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="EmployeeRoles" Relationship="Self.FK__EmployeeR__RoleI__07420643" FromRole="Role" ToRole="EmployeeRole" />
-          <NavigationProperty Name="FilesScopes" Relationship="Self.FK__FilesScop__RoleI__21F5FC7F" FromRole="Role" ToRole="FilesScope" />
-          <NavigationProperty Name="Role1" Relationship="Self.FK__Role__ParentID__742F31CF" FromRole="Role" ToRole="Role1" />
-          <NavigationProperty Name="Role2" Relationship="Self.FK__Role__ParentID__742F31CF" FromRole="Role1" ToRole="Role" />
-          <NavigationProperty Name="RoleInstitutionPermissions" Relationship="Self.FK__RoleInsti__RoleI__7DB89C09" FromRole="Role" ToRole="RoleInstitutionPermission" />
-          <NavigationProperty Name="RolePersonPermissions" Relationship="Self.FK__RolePerso__RoleI__7BD05397" FromRole="Role" ToRole="RolePersonPermission" />
+          <NavigationProperty Name="EmployeeRoles" Relationship="Self.FK__EmployeeR__RoleI__00200768" FromRole="Role" ToRole="EmployeeRole" />
+          <NavigationProperty Name="FilesScopes" Relationship="Self.FK__FilesScop__RoleI__1AD3FDA4" FromRole="Role" ToRole="FilesScope" />
+          <NavigationProperty Name="Role1" Relationship="Self.FK__Role__ParentID__6D0D32F4" FromRole="Role" ToRole="Role1" />
+          <NavigationProperty Name="Role2" Relationship="Self.FK__Role__ParentID__6D0D32F4" FromRole="Role1" ToRole="Role" />
+          <NavigationProperty Name="RoleInstitutionPermissions" Relationship="Self.FK__RoleInsti__RoleI__76969D2E" FromRole="Role" ToRole="RoleInstitutionPermission" />
+          <NavigationProperty Name="RolePersonPermissions" Relationship="Self.FK__RolePerso__RoleI__74AE54BC" FromRole="Role" ToRole="RolePersonPermission" />
         </EntityType>
         <EntityType Name="RoleInstitutionPermission">
           <Key>
@@ -1261,8 +1261,8 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoleID" Type="Int32" Nullable="false" />
           <Property Name="PermissionName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="InstitutionPermission" Relationship="Self.FK__RoleInsti__Permi__7EACC042" FromRole="RoleInstitutionPermission" ToRole="InstitutionPermission" />
-          <NavigationProperty Name="Role" Relationship="Self.FK__RoleInsti__RoleI__7DB89C09" FromRole="RoleInstitutionPermission" ToRole="Role" />
+          <NavigationProperty Name="InstitutionPermission" Relationship="Self.FK__RoleInsti__Permi__778AC167" FromRole="RoleInstitutionPermission" ToRole="InstitutionPermission" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__RoleInsti__RoleI__76969D2E" FromRole="RoleInstitutionPermission" ToRole="Role" />
         </EntityType>
         <EntityType Name="RolePersonPermission">
           <Key>
@@ -1271,10 +1271,10 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoleID" Type="Int32" Nullable="false" />
           <Property Name="PermissionName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="PersonPermission" Relationship="Self.FK__RolePerso__Permi__7CC477D0" FromRole="RolePersonPermission" ToRole="PersonPermission" />
-          <NavigationProperty Name="Role" Relationship="Self.FK__RolePerso__RoleI__7BD05397" FromRole="RolePersonPermission" ToRole="Role" />
+          <NavigationProperty Name="PersonPermission" Relationship="Self.FK__RolePerso__Permi__75A278F5" FromRole="RolePersonPermission" ToRole="PersonPermission" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__RolePerso__RoleI__74AE54BC" FromRole="RolePersonPermission" ToRole="Role" />
         </EntityType>
-        <Association Name="FK__Bookmark__Employ__3E923B2D">
+        <Association Name="FK__Bookmark__Employ__37703C52">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="Bookmark" Type="Self.Bookmark" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1286,7 +1286,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Bookmark__FileID__3D9E16F4">
+        <Association Name="FK__Bookmark__FileID__367C1819">
           <End Role="File" Type="Self.File" Multiplicity="1" />
           <End Role="Bookmark" Type="Self.Bookmark" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1298,7 +1298,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Employee__CityID__75235608">
+        <Association Name="FK__Employee__CityID__6E01572D">
           <End Role="City" Type="Self.City" Multiplicity="1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1310,7 +1310,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Employee__Primar__027D5126">
+        <Association Name="FK__Employee__Primar__7B5B524B">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="0..1" />
           <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1322,7 +1322,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EmployeeC__Emplo__705EA0EB">
+        <Association Name="FK__EmployeeC__Emplo__693CA210">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="EmployeeCredentials" Type="Self.EmployeeCredential" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1334,7 +1334,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EmployeeR__Emplo__064DE20A">
+        <Association Name="FK__EmployeeR__Emplo__7F2BE32F">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1346,7 +1346,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileMenti__Emplo__38D961D7">
+        <Association Name="FK__FileMenti__Emplo__31B762FC">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="FileMention" Type="Self.FileMention" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1358,7 +1358,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Message__Recieve__4262CC11">
+        <Association Name="FK__Message__Recieve__3B40CD36">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1370,7 +1370,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Message__SenderI__416EA7D8">
+        <Association Name="FK__Message__SenderI__3A4CA8FD">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1382,7 +1382,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PersonAct__Affec__11BF94B6">
+        <Association Name="FK__PersonAct__Affec__0A9D95DB">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="PersonActionLog" Type="Self.PersonActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1394,7 +1394,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EmployeeR__Insti__08362A7C">
+        <Association Name="FK__EmployeeR__Insti__01142BA1">
           <End Role="Institution" Type="Self.Institution" Multiplicity="1" />
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1406,7 +1406,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EmployeeR__RoleI__07420643">
+        <Association Name="FK__EmployeeR__RoleI__00200768">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1418,7 +1418,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__File__AuthorID__1C3D2329">
+        <Association Name="FK__File__AuthorID__151B244E">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="File" Type="Self.File" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1430,7 +1430,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileActio__Emplo__322C6448">
+        <Association Name="FK__FileActio__Emplo__2B0A656D">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="FileActionLog" Type="Self.FileActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1442,7 +1442,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileMenti__Creat__39CD8610">
+        <Association Name="FK__FileMenti__Creat__32AB8735">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="FileMention" Type="Self.FileMention" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1454,7 +1454,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileVersi__Autho__2D67AF2B">
+        <Association Name="FK__FileVersi__Autho__2645B050">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1466,7 +1466,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Instituti__Emplo__13A7DD28">
+        <Association Name="FK__Instituti__Emplo__0C85DE4D">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="InstitutionActionLog" Type="Self.InstitutionActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1478,7 +1478,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PersonAct__Condu__10CB707D">
+        <Association Name="FK__PersonAct__Condu__09A971A2">
           <End Role="EmployeeRole" Type="Self.EmployeeRole" Multiplicity="1" />
           <End Role="PersonActionLog" Type="Self.PersonActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1490,7 +1490,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__File__CurrentVer__2B7F66B9">
+        <Association Name="FK__File__CurrentVer__245D67DE">
           <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="0..1" />
           <End Role="File" Type="Self.File" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1502,7 +1502,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__File__LevelID__1D314762">
+        <Association Name="FK__File__LevelID__160F4887">
           <End Role="FileLevel" Type="Self.FileLevel" Multiplicity="1" />
           <End Role="File" Type="Self.File" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1514,7 +1514,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileActio__FileI__33208881">
+        <Association Name="FK__FileActio__FileI__2BFE89A6">
           <End Role="File" Type="Self.File" Multiplicity="1" />
           <End Role="FileActionLog" Type="Self.FileActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1526,7 +1526,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileMenti__FileI__37E53D9E">
+        <Association Name="FK__FileMenti__FileI__30C33EC3">
           <End Role="File" Type="Self.File" Multiplicity="1" />
           <End Role="FileMention" Type="Self.FileMention" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1538,7 +1538,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileVersi__FileI__2C738AF2">
+        <Association Name="FK__FileVersi__FileI__25518C17">
           <End Role="File" Type="Self.File" Multiplicity="0..1" />
           <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1550,7 +1550,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileActio__Permi__3414ACBA">
+        <Association Name="FK__FileActio__Permi__2CF2ADDF">
           <End Role="FilePermission" Type="Self.FilePermission" Multiplicity="1" />
           <End Role="FileActionLog" Type="Self.FileActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1562,7 +1562,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileVersi__FileC__2F4FF79D">
+        <Association Name="FK__FileVersi__FileC__282DF8C2">
           <End Role="FileContent" Type="Self.FileContent" Multiplicity="1" />
           <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1574,7 +1574,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Message__FileCon__4356F04A">
+        <Association Name="FK__Message__FileCon__3C34F16F">
           <End Role="FileContent" Type="Self.FileContent" Multiplicity="1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1586,7 +1586,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FilesScop__Level__2101D846">
+        <Association Name="FK__FilesScop__Level__19DFD96B">
           <End Role="FileLevel" Type="Self.FileLevel" Multiplicity="1" />
           <End Role="FilesScope" Type="Self.FilesScope" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1598,7 +1598,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FilesScop__Permi__22EA20B8">
+        <Association Name="FK__FilesScop__Permi__1BC821DD">
           <End Role="FilePermission" Type="Self.FilePermission" Multiplicity="1" />
           <End Role="FilesScope" Type="Self.FilesScope" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1610,7 +1610,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FilesScop__RoleI__21F5FC7F">
+        <Association Name="FK__FilesScop__RoleI__1AD3FDA4">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="FilesScope" Type="Self.FilesScope" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1622,7 +1622,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FileVersi__FileT__2E5BD364">
+        <Association Name="FK__FileVersi__FileT__2739D489">
           <End Role="FileType" Type="Self.FileType" Multiplicity="1" />
           <End Role="FileVersion" Type="Self.FileVersion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1634,7 +1634,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Message__FileTyp__444B1483">
+        <Association Name="FK__Message__FileTyp__3D2915A8">
           <End Role="FileType" Type="Self.FileType" Multiplicity="1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1646,7 +1646,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Instituti__Insti__0B129727">
+        <Association Name="FK__Instituti__Insti__03F0984C">
           <End Role="InstitutionType" Type="Self.InstitutionType" Multiplicity="1" />
           <End Role="Institution" Type="Self.Institution" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1658,7 +1658,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Instituti__Insti__149C0161">
+        <Association Name="FK__Instituti__Insti__0D7A0286">
           <End Role="Institution" Type="Self.Institution" Multiplicity="1" />
           <End Role="InstitutionActionLog" Type="Self.InstitutionActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1670,7 +1670,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Instituti__Paren__0C06BB60">
+        <Association Name="FK__Instituti__Paren__04E4BC85">
           <End Role="Institution" Type="Self.Institution" Multiplicity="0..1" />
           <End Role="Institution1" Type="Self.Institution" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1682,7 +1682,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Instituti__Permi__1590259A">
+        <Association Name="FK__Instituti__Permi__0E6E26BF">
           <End Role="InstitutionPermission" Type="Self.InstitutionPermission" Multiplicity="1" />
           <End Role="InstitutionActionLog" Type="Self.InstitutionActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1694,7 +1694,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RoleInsti__Permi__7EACC042">
+        <Association Name="FK__RoleInsti__Permi__778AC167">
           <End Role="InstitutionPermission" Type="Self.InstitutionPermission" Multiplicity="1" />
           <End Role="RoleInstitutionPermission" Type="Self.RoleInstitutionPermission" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1706,7 +1706,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__PersonAct__Permi__12B3B8EF">
+        <Association Name="FK__PersonAct__Permi__0B91BA14">
           <End Role="PersonPermission" Type="Self.PersonPermission" Multiplicity="1" />
           <End Role="PersonActionLog" Type="Self.PersonActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1718,7 +1718,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RolePerso__Permi__7CC477D0">
+        <Association Name="FK__RolePerso__Permi__75A278F5">
           <End Role="PersonPermission" Type="Self.PersonPermission" Multiplicity="1" />
           <End Role="RolePersonPermission" Type="Self.RolePersonPermission" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1730,7 +1730,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Role__ParentID__742F31CF">
+        <Association Name="FK__Role__ParentID__6D0D32F4">
           <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
           <End Role="Role1" Type="Self.Role" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1742,7 +1742,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RoleInsti__RoleI__7DB89C09">
+        <Association Name="FK__RoleInsti__RoleI__76969D2E">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="RoleInstitutionPermission" Type="Self.RoleInstitutionPermission" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1754,7 +1754,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__RolePerso__RoleI__7BD05397">
+        <Association Name="FK__RolePerso__RoleI__74AE54BC">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="RolePersonPermission" Type="Self.RolePersonPermission" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1766,7 +1766,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DMS_dbEntities15" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="KfsDocsEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Bookmarks" EntityType="Self.Bookmark" />
           <EntitySet Name="Cities" EntityType="Self.City" />
           <EntitySet Name="Employees" EntityType="Self.Employee" />
@@ -1791,167 +1791,167 @@
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="RoleInstitutionPermissions" EntityType="Self.RoleInstitutionPermission" />
           <EntitySet Name="RolePersonPermissions" EntityType="Self.RolePersonPermission" />
-          <AssociationSet Name="FK__Bookmark__Employ__3E923B2D" Association="Self.FK__Bookmark__Employ__3E923B2D">
+          <AssociationSet Name="FK__Bookmark__Employ__37703C52" Association="Self.FK__Bookmark__Employ__37703C52">
             <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
             <End Role="Bookmark" EntitySet="Bookmarks" />
           </AssociationSet>
-          <AssociationSet Name="FK__Bookmark__FileID__3D9E16F4" Association="Self.FK__Bookmark__FileID__3D9E16F4">
+          <AssociationSet Name="FK__Bookmark__FileID__367C1819" Association="Self.FK__Bookmark__FileID__367C1819">
             <End Role="File" EntitySet="Files" />
             <End Role="Bookmark" EntitySet="Bookmarks" />
           </AssociationSet>
-          <AssociationSet Name="FK__Employee__CityID__75235608" Association="Self.FK__Employee__CityID__75235608">
+          <AssociationSet Name="FK__Employee__CityID__6E01572D" Association="Self.FK__Employee__CityID__6E01572D">
             <End Role="City" EntitySet="Cities" />
             <End Role="Employee" EntitySet="Employees" />
           </AssociationSet>
-          <AssociationSet Name="FK__Employee__Primar__027D5126" Association="Self.FK__Employee__Primar__027D5126">
+          <AssociationSet Name="FK__Employee__Primar__7B5B524B" Association="Self.FK__Employee__Primar__7B5B524B">
             <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
             <End Role="Employee" EntitySet="Employees" />
           </AssociationSet>
-          <AssociationSet Name="FK__EmployeeC__Emplo__705EA0EB" Association="Self.FK__EmployeeC__Emplo__705EA0EB">
+          <AssociationSet Name="FK__EmployeeC__Emplo__693CA210" Association="Self.FK__EmployeeC__Emplo__693CA210">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="EmployeeCredentials" EntitySet="EmployeeCredentials" />
           </AssociationSet>
-          <AssociationSet Name="FK__EmployeeR__Emplo__064DE20A" Association="Self.FK__EmployeeR__Emplo__064DE20A">
+          <AssociationSet Name="FK__EmployeeR__Emplo__7F2BE32F" Association="Self.FK__EmployeeR__Emplo__7F2BE32F">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileMenti__Emplo__38D961D7" Association="Self.FK__FileMenti__Emplo__38D961D7">
+          <AssociationSet Name="FK__FileMenti__Emplo__31B762FC" Association="Self.FK__FileMenti__Emplo__31B762FC">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="FileMention" EntitySet="FileMentions" />
           </AssociationSet>
-          <AssociationSet Name="FK__Message__Recieve__4262CC11" Association="Self.FK__Message__Recieve__4262CC11">
+          <AssociationSet Name="FK__Message__Recieve__3B40CD36" Association="Self.FK__Message__Recieve__3B40CD36">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="Message" EntitySet="Messages" />
           </AssociationSet>
-          <AssociationSet Name="FK__Message__SenderI__416EA7D8" Association="Self.FK__Message__SenderI__416EA7D8">
+          <AssociationSet Name="FK__Message__SenderI__3A4CA8FD" Association="Self.FK__Message__SenderI__3A4CA8FD">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="Message" EntitySet="Messages" />
           </AssociationSet>
-          <AssociationSet Name="FK__PersonAct__Affec__11BF94B6" Association="Self.FK__PersonAct__Affec__11BF94B6">
+          <AssociationSet Name="FK__PersonAct__Affec__0A9D95DB" Association="Self.FK__PersonAct__Affec__0A9D95DB">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="PersonActionLog" EntitySet="PersonActionLogs" />
           </AssociationSet>
-          <AssociationSet Name="FK__EmployeeR__Insti__08362A7C" Association="Self.FK__EmployeeR__Insti__08362A7C">
+          <AssociationSet Name="FK__EmployeeR__Insti__01142BA1" Association="Self.FK__EmployeeR__Insti__01142BA1">
             <End Role="Institution" EntitySet="Institutions" />
             <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
           </AssociationSet>
-          <AssociationSet Name="FK__EmployeeR__RoleI__07420643" Association="Self.FK__EmployeeR__RoleI__07420643">
+          <AssociationSet Name="FK__EmployeeR__RoleI__00200768" Association="Self.FK__EmployeeR__RoleI__00200768">
             <End Role="Role" EntitySet="Roles" />
             <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
           </AssociationSet>
-          <AssociationSet Name="FK__File__AuthorID__1C3D2329" Association="Self.FK__File__AuthorID__1C3D2329">
+          <AssociationSet Name="FK__File__AuthorID__151B244E" Association="Self.FK__File__AuthorID__151B244E">
             <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
             <End Role="File" EntitySet="Files" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileActio__Emplo__322C6448" Association="Self.FK__FileActio__Emplo__322C6448">
+          <AssociationSet Name="FK__FileActio__Emplo__2B0A656D" Association="Self.FK__FileActio__Emplo__2B0A656D">
             <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
             <End Role="FileActionLog" EntitySet="FileActionLogs" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileMenti__Creat__39CD8610" Association="Self.FK__FileMenti__Creat__39CD8610">
+          <AssociationSet Name="FK__FileMenti__Creat__32AB8735" Association="Self.FK__FileMenti__Creat__32AB8735">
             <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
             <End Role="FileMention" EntitySet="FileMentions" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileVersi__Autho__2D67AF2B" Association="Self.FK__FileVersi__Autho__2D67AF2B">
+          <AssociationSet Name="FK__FileVersi__Autho__2645B050" Association="Self.FK__FileVersi__Autho__2645B050">
             <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
             <End Role="FileVersion" EntitySet="FileVersions" />
           </AssociationSet>
-          <AssociationSet Name="FK__Instituti__Emplo__13A7DD28" Association="Self.FK__Instituti__Emplo__13A7DD28">
+          <AssociationSet Name="FK__Instituti__Emplo__0C85DE4D" Association="Self.FK__Instituti__Emplo__0C85DE4D">
             <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
             <End Role="InstitutionActionLog" EntitySet="InstitutionActionLogs" />
           </AssociationSet>
-          <AssociationSet Name="FK__PersonAct__Condu__10CB707D" Association="Self.FK__PersonAct__Condu__10CB707D">
+          <AssociationSet Name="FK__PersonAct__Condu__09A971A2" Association="Self.FK__PersonAct__Condu__09A971A2">
             <End Role="EmployeeRole" EntitySet="EmployeeRoles" />
             <End Role="PersonActionLog" EntitySet="PersonActionLogs" />
           </AssociationSet>
-          <AssociationSet Name="FK__File__CurrentVer__2B7F66B9" Association="Self.FK__File__CurrentVer__2B7F66B9">
+          <AssociationSet Name="FK__File__CurrentVer__245D67DE" Association="Self.FK__File__CurrentVer__245D67DE">
             <End Role="FileVersion" EntitySet="FileVersions" />
             <End Role="File" EntitySet="Files" />
           </AssociationSet>
-          <AssociationSet Name="FK__File__LevelID__1D314762" Association="Self.FK__File__LevelID__1D314762">
+          <AssociationSet Name="FK__File__LevelID__160F4887" Association="Self.FK__File__LevelID__160F4887">
             <End Role="FileLevel" EntitySet="FileLevels" />
             <End Role="File" EntitySet="Files" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileActio__FileI__33208881" Association="Self.FK__FileActio__FileI__33208881">
+          <AssociationSet Name="FK__FileActio__FileI__2BFE89A6" Association="Self.FK__FileActio__FileI__2BFE89A6">
             <End Role="File" EntitySet="Files" />
             <End Role="FileActionLog" EntitySet="FileActionLogs" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileMenti__FileI__37E53D9E" Association="Self.FK__FileMenti__FileI__37E53D9E">
+          <AssociationSet Name="FK__FileMenti__FileI__30C33EC3" Association="Self.FK__FileMenti__FileI__30C33EC3">
             <End Role="File" EntitySet="Files" />
             <End Role="FileMention" EntitySet="FileMentions" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileVersi__FileI__2C738AF2" Association="Self.FK__FileVersi__FileI__2C738AF2">
+          <AssociationSet Name="FK__FileVersi__FileI__25518C17" Association="Self.FK__FileVersi__FileI__25518C17">
             <End Role="File" EntitySet="Files" />
             <End Role="FileVersion" EntitySet="FileVersions" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileActio__Permi__3414ACBA" Association="Self.FK__FileActio__Permi__3414ACBA">
+          <AssociationSet Name="FK__FileActio__Permi__2CF2ADDF" Association="Self.FK__FileActio__Permi__2CF2ADDF">
             <End Role="FilePermission" EntitySet="FilePermissions" />
             <End Role="FileActionLog" EntitySet="FileActionLogs" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileVersi__FileC__2F4FF79D" Association="Self.FK__FileVersi__FileC__2F4FF79D">
+          <AssociationSet Name="FK__FileVersi__FileC__282DF8C2" Association="Self.FK__FileVersi__FileC__282DF8C2">
             <End Role="FileContent" EntitySet="FileContents" />
             <End Role="FileVersion" EntitySet="FileVersions" />
           </AssociationSet>
-          <AssociationSet Name="FK__Message__FileCon__4356F04A" Association="Self.FK__Message__FileCon__4356F04A">
+          <AssociationSet Name="FK__Message__FileCon__3C34F16F" Association="Self.FK__Message__FileCon__3C34F16F">
             <End Role="FileContent" EntitySet="FileContents" />
             <End Role="Message" EntitySet="Messages" />
           </AssociationSet>
-          <AssociationSet Name="FK__FilesScop__Level__2101D846" Association="Self.FK__FilesScop__Level__2101D846">
+          <AssociationSet Name="FK__FilesScop__Level__19DFD96B" Association="Self.FK__FilesScop__Level__19DFD96B">
             <End Role="FileLevel" EntitySet="FileLevels" />
             <End Role="FilesScope" EntitySet="FilesScopes" />
           </AssociationSet>
-          <AssociationSet Name="FK__FilesScop__Permi__22EA20B8" Association="Self.FK__FilesScop__Permi__22EA20B8">
+          <AssociationSet Name="FK__FilesScop__Permi__1BC821DD" Association="Self.FK__FilesScop__Permi__1BC821DD">
             <End Role="FilePermission" EntitySet="FilePermissions" />
             <End Role="FilesScope" EntitySet="FilesScopes" />
           </AssociationSet>
-          <AssociationSet Name="FK__FilesScop__RoleI__21F5FC7F" Association="Self.FK__FilesScop__RoleI__21F5FC7F">
+          <AssociationSet Name="FK__FilesScop__RoleI__1AD3FDA4" Association="Self.FK__FilesScop__RoleI__1AD3FDA4">
             <End Role="Role" EntitySet="Roles" />
             <End Role="FilesScope" EntitySet="FilesScopes" />
           </AssociationSet>
-          <AssociationSet Name="FK__FileVersi__FileT__2E5BD364" Association="Self.FK__FileVersi__FileT__2E5BD364">
+          <AssociationSet Name="FK__FileVersi__FileT__2739D489" Association="Self.FK__FileVersi__FileT__2739D489">
             <End Role="FileType" EntitySet="FileTypes" />
             <End Role="FileVersion" EntitySet="FileVersions" />
           </AssociationSet>
-          <AssociationSet Name="FK__Message__FileTyp__444B1483" Association="Self.FK__Message__FileTyp__444B1483">
+          <AssociationSet Name="FK__Message__FileTyp__3D2915A8" Association="Self.FK__Message__FileTyp__3D2915A8">
             <End Role="FileType" EntitySet="FileTypes" />
             <End Role="Message" EntitySet="Messages" />
           </AssociationSet>
-          <AssociationSet Name="FK__Instituti__Insti__0B129727" Association="Self.FK__Instituti__Insti__0B129727">
+          <AssociationSet Name="FK__Instituti__Insti__03F0984C" Association="Self.FK__Instituti__Insti__03F0984C">
             <End Role="InstitutionType" EntitySet="InstitutionTypes" />
             <End Role="Institution" EntitySet="Institutions" />
           </AssociationSet>
-          <AssociationSet Name="FK__Instituti__Insti__149C0161" Association="Self.FK__Instituti__Insti__149C0161">
+          <AssociationSet Name="FK__Instituti__Insti__0D7A0286" Association="Self.FK__Instituti__Insti__0D7A0286">
             <End Role="Institution" EntitySet="Institutions" />
             <End Role="InstitutionActionLog" EntitySet="InstitutionActionLogs" />
           </AssociationSet>
-          <AssociationSet Name="FK__Instituti__Paren__0C06BB60" Association="Self.FK__Instituti__Paren__0C06BB60">
+          <AssociationSet Name="FK__Instituti__Paren__04E4BC85" Association="Self.FK__Instituti__Paren__04E4BC85">
             <End Role="Institution" EntitySet="Institutions" />
             <End Role="Institution1" EntitySet="Institutions" />
           </AssociationSet>
-          <AssociationSet Name="FK__Instituti__Permi__1590259A" Association="Self.FK__Instituti__Permi__1590259A">
+          <AssociationSet Name="FK__Instituti__Permi__0E6E26BF" Association="Self.FK__Instituti__Permi__0E6E26BF">
             <End Role="InstitutionPermission" EntitySet="InstitutionPermissions" />
             <End Role="InstitutionActionLog" EntitySet="InstitutionActionLogs" />
           </AssociationSet>
-          <AssociationSet Name="FK__RoleInsti__Permi__7EACC042" Association="Self.FK__RoleInsti__Permi__7EACC042">
+          <AssociationSet Name="FK__RoleInsti__Permi__778AC167" Association="Self.FK__RoleInsti__Permi__778AC167">
             <End Role="InstitutionPermission" EntitySet="InstitutionPermissions" />
             <End Role="RoleInstitutionPermission" EntitySet="RoleInstitutionPermissions" />
           </AssociationSet>
-          <AssociationSet Name="FK__PersonAct__Permi__12B3B8EF" Association="Self.FK__PersonAct__Permi__12B3B8EF">
+          <AssociationSet Name="FK__PersonAct__Permi__0B91BA14" Association="Self.FK__PersonAct__Permi__0B91BA14">
             <End Role="PersonPermission" EntitySet="PersonPermissions" />
             <End Role="PersonActionLog" EntitySet="PersonActionLogs" />
           </AssociationSet>
-          <AssociationSet Name="FK__RolePerso__Permi__7CC477D0" Association="Self.FK__RolePerso__Permi__7CC477D0">
+          <AssociationSet Name="FK__RolePerso__Permi__75A278F5" Association="Self.FK__RolePerso__Permi__75A278F5">
             <End Role="PersonPermission" EntitySet="PersonPermissions" />
             <End Role="RolePersonPermission" EntitySet="RolePersonPermissions" />
           </AssociationSet>
-          <AssociationSet Name="FK__Role__ParentID__742F31CF" Association="Self.FK__Role__ParentID__742F31CF">
+          <AssociationSet Name="FK__Role__ParentID__6D0D32F4" Association="Self.FK__Role__ParentID__6D0D32F4">
             <End Role="Role" EntitySet="Roles" />
             <End Role="Role1" EntitySet="Roles" />
           </AssociationSet>
-          <AssociationSet Name="FK__RoleInsti__RoleI__7DB89C09" Association="Self.FK__RoleInsti__RoleI__7DB89C09">
+          <AssociationSet Name="FK__RoleInsti__RoleI__76969D2E" Association="Self.FK__RoleInsti__RoleI__76969D2E">
             <End Role="Role" EntitySet="Roles" />
             <End Role="RoleInstitutionPermission" EntitySet="RoleInstitutionPermissions" />
           </AssociationSet>
-          <AssociationSet Name="FK__RolePerso__RoleI__7BD05397" Association="Self.FK__RolePerso__RoleI__7BD05397">
+          <AssociationSet Name="FK__RolePerso__RoleI__74AE54BC" Association="Self.FK__RolePerso__RoleI__74AE54BC">
             <End Role="Role" EntitySet="Roles" />
             <End Role="RolePersonPermission" EntitySet="RolePersonPermissions" />
           </AssociationSet>
@@ -1961,9 +1961,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DMS_dbModelStoreContainer" CdmEntityContainer="DMS_dbEntities15">
+        <EntityContainerMapping StorageEntityContainer="KfsDocsModelStoreContainer" CdmEntityContainer="KfsDocsEntities">
           <EntitySetMapping Name="Bookmarks">
-            <EntityTypeMapping TypeName="DMS_dbModel.Bookmark">
+            <EntityTypeMapping TypeName="KfsDocsModel.Bookmark">
               <MappingFragment StoreEntitySet="Bookmark">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="FileID" ColumnName="FileID" />
@@ -1973,7 +1973,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Cities">
-            <EntityTypeMapping TypeName="DMS_dbModel.City">
+            <EntityTypeMapping TypeName="KfsDocsModel.City">
               <MappingFragment StoreEntitySet="City">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1982,7 +1982,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Employees">
-            <EntityTypeMapping TypeName="DMS_dbModel.Employee">
+            <EntityTypeMapping TypeName="KfsDocsModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1999,7 +1999,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EmployeeCredentials">
-            <EntityTypeMapping TypeName="DMS_dbModel.EmployeeCredential">
+            <EntityTypeMapping TypeName="KfsDocsModel.EmployeeCredential">
               <MappingFragment StoreEntitySet="EmployeeCredentials">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
@@ -2009,7 +2009,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EmployeeRoles">
-            <EntityTypeMapping TypeName="DMS_dbModel.EmployeeRole">
+            <EntityTypeMapping TypeName="KfsDocsModel.EmployeeRole">
               <MappingFragment StoreEntitySet="EmployeeRole">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
@@ -2022,7 +2022,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Files">
-            <EntityTypeMapping TypeName="DMS_dbModel.File">
+            <EntityTypeMapping TypeName="KfsDocsModel.File">
               <MappingFragment StoreEntitySet="File">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -2038,7 +2038,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="FileActionLogs">
-            <EntityTypeMapping TypeName="DMS_dbModel.FileActionLog">
+            <EntityTypeMapping TypeName="KfsDocsModel.FileActionLog">
               <MappingFragment StoreEntitySet="FileActionLog">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
@@ -2049,7 +2049,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="FileContents">
-            <EntityTypeMapping TypeName="DMS_dbModel.FileContent">
+            <EntityTypeMapping TypeName="KfsDocsModel.FileContent">
               <MappingFragment StoreEntitySet="FileContent">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Href" ColumnName="Href" />
@@ -2058,7 +2058,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="FileLevels">
-            <EntityTypeMapping TypeName="DMS_dbModel.FileLevel">
+            <EntityTypeMapping TypeName="KfsDocsModel.FileLevel">
               <MappingFragment StoreEntitySet="FileLevel">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -2067,7 +2067,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="FileMentions">
-            <EntityTypeMapping TypeName="DMS_dbModel.FileMention">
+            <EntityTypeMapping TypeName="KfsDocsModel.FileMention">
               <MappingFragment StoreEntitySet="FileMention">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="CreatorID" ColumnName="CreatorID" />
@@ -2079,7 +2079,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="FilePermissions">
-            <EntityTypeMapping TypeName="DMS_dbModel.FilePermission">
+            <EntityTypeMapping TypeName="KfsDocsModel.FilePermission">
               <MappingFragment StoreEntitySet="FilePermission">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ArabicName" ColumnName="ArabicName" />
@@ -2088,7 +2088,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="FilesScopes">
-            <EntityTypeMapping TypeName="DMS_dbModel.FilesScope">
+            <EntityTypeMapping TypeName="KfsDocsModel.FilesScope">
               <MappingFragment StoreEntitySet="FilesScope">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="LevelID" ColumnName="LevelID" />
@@ -2098,7 +2098,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="FileTypes">
-            <EntityTypeMapping TypeName="DMS_dbModel.FileType">
+            <EntityTypeMapping TypeName="KfsDocsModel.FileType">
               <MappingFragment StoreEntitySet="FileType">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Extension" ColumnName="Extension" />
@@ -2107,7 +2107,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="FileVersions">
-            <EntityTypeMapping TypeName="DMS_dbModel.FileVersion">
+            <EntityTypeMapping TypeName="KfsDocsModel.FileVersion">
               <MappingFragment StoreEntitySet="FileVersion">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="FileID" ColumnName="FileID" />
@@ -2123,7 +2123,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Institutions">
-            <EntityTypeMapping TypeName="DMS_dbModel.Institution">
+            <EntityTypeMapping TypeName="KfsDocsModel.Institution">
               <MappingFragment StoreEntitySet="Institution">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ArabicName" ColumnName="ArabicName" />
@@ -2141,7 +2141,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="InstitutionActionLogs">
-            <EntityTypeMapping TypeName="DMS_dbModel.InstitutionActionLog">
+            <EntityTypeMapping TypeName="KfsDocsModel.InstitutionActionLog">
               <MappingFragment StoreEntitySet="InstitutionActionLog">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
@@ -2152,7 +2152,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="InstitutionPermissions">
-            <EntityTypeMapping TypeName="DMS_dbModel.InstitutionPermission">
+            <EntityTypeMapping TypeName="KfsDocsModel.InstitutionPermission">
               <MappingFragment StoreEntitySet="InstitutionPermission">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ArabicName" ColumnName="ArabicName" />
@@ -2162,7 +2162,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="InstitutionTypes">
-            <EntityTypeMapping TypeName="DMS_dbModel.InstitutionType">
+            <EntityTypeMapping TypeName="KfsDocsModel.InstitutionType">
               <MappingFragment StoreEntitySet="InstitutionType">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ArabicName" ColumnName="ArabicName" />
@@ -2171,7 +2171,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Messages">
-            <EntityTypeMapping TypeName="DMS_dbModel.Message">
+            <EntityTypeMapping TypeName="KfsDocsModel.Message">
               <MappingFragment StoreEntitySet="Message">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="SenderID" ColumnName="SenderID" />
@@ -2188,7 +2188,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PersonActionLogs">
-            <EntityTypeMapping TypeName="DMS_dbModel.PersonActionLog">
+            <EntityTypeMapping TypeName="KfsDocsModel.PersonActionLog">
               <MappingFragment StoreEntitySet="PersonActionLog">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ConductorEmployeeID" ColumnName="ConductorEmployeeID" />
@@ -2199,7 +2199,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PersonPermissions">
-            <EntityTypeMapping TypeName="DMS_dbModel.PersonPermission">
+            <EntityTypeMapping TypeName="KfsDocsModel.PersonPermission">
               <MappingFragment StoreEntitySet="PersonPermission">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ArabicName" ColumnName="ArabicName" />
@@ -2209,7 +2209,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Roles">
-            <EntityTypeMapping TypeName="DMS_dbModel.Role">
+            <EntityTypeMapping TypeName="KfsDocsModel.Role">
               <MappingFragment StoreEntitySet="Role">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ParentID" ColumnName="ParentID" />
@@ -2219,7 +2219,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RoleInstitutionPermissions">
-            <EntityTypeMapping TypeName="DMS_dbModel.RoleInstitutionPermission">
+            <EntityTypeMapping TypeName="KfsDocsModel.RoleInstitutionPermission">
               <MappingFragment StoreEntitySet="RoleInstitutionPermission">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
@@ -2228,7 +2228,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RolePersonPermissions">
-            <EntityTypeMapping TypeName="DMS_dbModel.RolePersonPermission">
+            <EntityTypeMapping TypeName="KfsDocsModel.RolePersonPermission">
               <MappingFragment StoreEntitySet="RolePersonPermission">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />

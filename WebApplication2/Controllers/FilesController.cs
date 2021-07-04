@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using WebApplication2.Managers;
 using WebApplication2.Models;
 using WebApplication2.Models.ViewModels;
+using WebApplication2.Models.ViewModels.Files;
 
 namespace WebApplication2.Controllers
 {
@@ -54,7 +55,6 @@ namespace WebApplication2.Controllers
                 ViewFileModel viewModel = new ViewFileModel()
                 {
                     File = file,
-
                     Owner=owner,
                     Versions=versions,
                     CurrentVersion=  currentVersion
@@ -162,6 +162,70 @@ namespace WebApplication2.Controllers
             return getErrorView(HttpStatusCode.Unauthorized);
 
         }
+
+        public ActionResult CreateWithVersion()
+        {
+
+
+
+            var EmpRole = getPrimaryRole();
+
+            if (EmpRole == null)
+            {
+                return getErrorView(HttpStatusCode.Unauthorized);
+            }
+            if (hasInstitutionPermission(EmpRole.Role.ID, InstitutionPermissions.CREATE_FILE))
+            {
+
+
+                CreateFileWithVersionModel viewModel = new CreateFileWithVersionModel();
+                viewModel.Levels = new SelectList(db.FileLevels, "ID", "Name");
+
+                viewModel.InstitutionName = EmpRole.Institution.ArabicName;
+                viewModel.RoleName = EmpRole.Role.ArabicName;
+                viewModel.AuthorName = EmpRole.Employee.Name;
+                viewModel.DateCreated = DateTime.Now;
+                viewModel.RoleID = EmpRole.RoleID;
+                viewModel.InstitutionID = EmpRole.InstitutionID;
+                viewModel.AvailableEmployees = db.Employees.Where(x => x.ID != EmpRole.EmployeeID && x.Active == true).Select(x => new SelectListItem() { Text = x.Name, Value = x.ID.ToString() }).ToList();
+                return View(viewModel);
+            }
+            return getErrorView(HttpStatusCode.Unauthorized);
+
+        }
+        public ActionResult AddVersion(int id)
+        {
+
+            var EmpRole = getPrimaryRole();
+
+            if (EmpRole == null)
+            {
+                return getErrorView(HttpStatusCode.Unauthorized);
+            }
+            var file = db.Files.Find(id);
+            if (file == null)
+            { return getErrorView(HttpStatusCode.NotFound); }
+
+
+
+            //      
+            if (hasFileLevelPermission(EmpRole.Role.ID, file.LevelID, FilePermissions.ADD_VERSION, EmpRole.ID, file.ID) || isFileAuthor(id, EmpRole.ID))
+            {
+                AddVersionModel model = new AddVersionModel()
+                {
+                    FileID = id,
+                    FileName = file.Name,
+                    DateCreated = DateTime.Now
+
+                };
+                ViewBag.FileName = file.Name;
+                return View(model);
+
+            }
+            return getErrorView(HttpStatusCode.Unauthorized);
+
+        }
+
         public ActionResult CreateLevel()
         {
             var EmpRole = getPrimaryRole();
@@ -497,29 +561,34 @@ namespace WebApplication2.Controllers
 
                     db.FileActionLogs.Add(log);
 
-                    List<int> MentionedIDs = new List<int>();
-                    foreach (var emp in viewModel.AvailableEmployees)
+
+
+
+                   List<int> MentionedIDs = new List<int>();
+                    if (viewModel.AvailableEmployees != null)
                     {
-                        if (emp.Selected)
+                        foreach (var emp in viewModel.AvailableEmployees)
                         {
-                            MentionedIDs.Add(int.Parse(emp.Value));
+                            if (emp.Selected)
+                            {
+                                MentionedIDs.Add(int.Parse(emp.Value));
+                            }
+                        }
+
+
+                        foreach (var ID in MentionedIDs)
+                        {
+                            FileMention mention = new FileMention()
+                            {
+                                FileID = file.ID,
+                                EmployeeID = ID,
+                                CreatorID = EmpRole.ID,
+                                DateCreated = DateTime.Now,
+                                Seen = false
+                            };
+                            db.FileMentions.Add(mention);
                         }
                     }
-
-
-                    foreach (var ID in MentionedIDs)
-                    {
-                        FileMention mention = new FileMention()
-                        {
-                            FileID = file.ID,
-                            EmployeeID = ID,
-                            CreatorID = EmpRole.ID,
-                            DateCreated = DateTime.Now,
-                            Seen = false
-                        };
-                        db.FileMentions.Add(mention);
-                    }
-
 
                     db.SaveChanges();
                     return RedirectToAction("AddVersion", new { id = file.ID });
@@ -540,39 +609,7 @@ namespace WebApplication2.Controllers
 
 
 
-        public ActionResult AddVersion(int id)
-        {
-
-            var EmpRole = getPrimaryRole();
-
-            if (EmpRole == null)
-            {
-                return getErrorView(HttpStatusCode.Unauthorized);
-            }
-            var file = db.Files.Find(id);
-            if (file == null)
-            { return getErrorView(HttpStatusCode.NotFound); }
-
-
-
-            //      
-            if (hasFileLevelPermission(EmpRole.Role.ID, file.LevelID, FilePermissions.ADD_VERSION, EmpRole.ID, file.ID) || isFileAuthor(id, EmpRole.ID))
-            {
-                AddVersionModel model = new AddVersionModel()
-                {
-                    FileID = id,
-                    FileName = file.Name,
-                    DateCreated = DateTime.Now
-
-                };
-                ViewBag.FileName = file.Name;
-                return View(model);
-
-            }
-            return getErrorView(HttpStatusCode.Unauthorized);
-
-        }
-
+    
 
 
         [HttpPost]

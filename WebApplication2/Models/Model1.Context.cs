@@ -13,10 +13,10 @@ namespace WebApplication2.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DMS_dbEntities15 : DbContext
+    public partial class KfsDocsEntities : DbContext
     {
-        public DMS_dbEntities15()
-            : base("name=DMS_dbEntities15")
+        public KfsDocsEntities()
+            : base("name=KfsDocsEntities")
         {
         }
     
@@ -49,9 +49,5 @@ namespace WebApplication2.Models
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<RoleInstitutionPermission> RoleInstitutionPermissions { get; set; }
         public virtual DbSet<RolePersonPermission> RolePersonPermissions { get; set; }
-
-        public System.Data.Entity.DbSet<WebApplication2.Models.ViewModels.Institutions.EditInstitutionTypeModel> EditInstitutionTypeModels { get; set; }
-
-        public System.Data.Entity.DbSet<WebApplication2.Models.ViewModels.Institutions.DeleteInstitutionTypeModel> DeleteInstitutionTypeModels { get; set; }
     }
 }
