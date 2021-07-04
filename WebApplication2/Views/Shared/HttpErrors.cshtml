@@ -1,21 +1,26 @@
 ﻿@model WebApplication2.Models.ViewModels.HttpErrors
 
 
-       @{ ViewBag.Title = "خطأ";}
+@{ ViewBag.Title = "خطأ";}
 
 <h3>@ViewBag.msg</h3>
 
 @if (Model.StatusCode == 401)
 {
 
-    <h1>عملية غير مصرحة</h1>
-    <h2>عذرا. المسمى الوظيفي لا يصلح لإكمال هذا الطلب</h2>
-    <br />
-    <h5> @Html.ActionLink("تغيير الوظيفة؟ ", "ChooseDefault", "Roles")</h5>
-    <h5>
-        أو تواصل مع أحد المشرفين
-    </h5>
+    <h1><i class="fas fa-times-circle" style="color:red"></i>  عملية غير مصرحة  </h1>
+    <div class="danger taps" style="background-color: #dc3545;color :#fff">
+        <i style="font-size:18px" class="far fa-times-circle"> &nbsp; &nbsp;</i><h4 style="display:inline-block;font-weight:600;padding-right:5px">عذرا. المسمى الوظيفي لا يصلح لإكمال هذا الطلب</h4>
+    </div>
 
+    <br />
+    <h3><i class="fas fa-exchange-alt"></i>  @Html.ActionLink("تغيير الوظيفة؟ ", "ChooseDefault", "Roles")</h3>
+
+    <div class="danger taps" style="background-color: #9de6af; color: #000 ">
+        <i style="font-size:18px" class="fas fa-link"> &nbsp; &nbsp;</i><h4 style="display:inline-block;font-weight:600;padding-right:5px">
+            أو تواصل مع أحد المشرفين
+        </h4>
+    </div>
 
 }
 
@@ -23,32 +28,36 @@
 
 @if (Model.StatusCode == 400)
 {
-
-    <h1>طلب خاطئ </h1>
+    <h1><i class="fas fa-times-circle" style="color:red"></i>  طلب خاطئ  </h1>
     <br />
-    <h5>لم نستطع تفسير طلبك بصورة صحيحة @Html.ActionLink("الرجوع للصفحة الرئيسية؟", "Index", "Home")</h5>
-
+    <div class="danger taps" style="background-color: #dc3545; color: #000 ">
+        <i style="font-size:18px" class="fas fa-link"> &nbsp; &nbsp;</i><h4 style="display:inline-block;font-weight:600;padding-right:5px">
+            لم نستطع تفسير طلبك بصورة صحيحة @Html.ActionLink("الرجوع للصفحة الرئيسية؟", "Index", "Home")
+        </h4>
+    </div>
 }
 
 @if (Model.StatusCode == 404)
 {
-
-    <h1>غير موجود</h1>
-    <h2>عذرا. لم نستطع إيجاد ما تبحث عنه</h2>
+    <h1><i class="fas fa-times-circle" style="color:red"></i>  غير موجود  </h1>
     <br />
-    <h5>  @Html.ActionLink("الرجوع للصفحة الرئيسية؟", "Index", "Home")</h5>
-
+    <div class="danger taps" style="background-color: #dc3545;color :#fff">
+        <i style="font-size:18px" class="far fa-times-circle"> &nbsp; &nbsp;</i><h4 style="display:inline-block;font-weight:600;padding-right:5px">عذرا. لم نستطع إيجاد ما تبحث عنه   @Html.ActionLink("الرجوع للصفحة الرئيسية؟", "Index", "Home")</h4>
+    </div>
 
 }
 
 @if (Model.StatusCode == 500)
 {
-
-    <h1>خطأ</h1>
-    <h2>حدث خطأ في الخادم</h2>
+    <h1><i class="fas fa-times-circle" style="color:red"></i>   خطأ  </h1>
+    <div class="danger taps" style="background-color: #dc3545;color :#fff">
+        <i style="font-size:18px" class="far fa-times-circle"> &nbsp; &nbsp;</i><h2 style="display:inline-block;font-weight:600;padding-right:5px"> حدث خطأ في الخادم</h2>
+    </div>
     <br />
-    <h5>برجاء إبلاغ أحد المشرفين عن هذه المشكلة </h5>
-
+    <h5></h5>
+    <div class="danger taps" style="background-color: #9de6af; color: #000">
+        <i style="font-size:18px" class="far fa-times-circle"> &nbsp; &nbsp;</i><h2 style="display:inline-block;font-weight:600;padding-right:5px"> برجاء إبلاغ أحد المشرفين عن هذه المشكلة    </h2>
+    </div>
 }
 
 

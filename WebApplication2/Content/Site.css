@@ -1,6 +1,8 @@
 ﻿body {
     padding-bottom: 20px;
     padding-top: 50px;
+    font-size: large;
+    font-weight: 600;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -157,9 +159,9 @@ textarea{
     text-align: right;
 }
 .navbar {
-    font-size: 18px;
+    font-size: x-large;
     font-weight: 700;
-    padding-bottom:5px;
+    padding-bottom: 5px;
 }
 .form-signin {
     width: 100%;

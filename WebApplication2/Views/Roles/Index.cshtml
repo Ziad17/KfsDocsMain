@@ -83,15 +83,15 @@
         <td>
             @if (Model.canEdit)
             {
-                <h6 style="color:#fff" class="btn btn-primary">
-                    @Html.ActionLink("تعديل", "Edit", new { id = item.ID }, htmlAttributes: new { @style = "color:#fff;" })
-                </h6>
+                
+                    @Html.ActionLink("تعديل", "Edit", new { id = item.ID }, htmlAttributes: new { @class = "btn btn-primary" })
+                
 
             }
             @if (Model.canDelete && item.EmployeeRoles.Count == 0 &&item.Role1.Count==0)
             {
                 
-                                        @Html.ActionLink("مسح", "Delete", new { id = item.ID }, htmlAttributes: new { @class = "btn btn - default" })
+                                        @Html.ActionLink("مسح", "Delete", new { id = item.ID }, htmlAttributes: new { @class = "btn btn-danger" })
 
                
             }

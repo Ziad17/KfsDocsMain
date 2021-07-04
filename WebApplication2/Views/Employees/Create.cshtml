@@ -1,69 +1,64 @@
 ﻿@model WebApplication2.Models.Employee
 
 @{ ViewBag.Title = "إنشاء شخص"; }
-<br />
-<h2 style="display: inline-block; padding-bottom: 10px; position: relative; top: 9px; left: -15px;font-weight:600"><i class="fas fa-user-plus"></i>  @ViewBag.Title</h2>
+
 
 @using (Html.BeginForm())
 {
 @Html.AntiForgeryToken()
+    <br />
+    <h2 style="display: inline-block; padding-bottom: 10px; position: relative; top: 9px; left: -15px;font-weight:600"><i class="fas fa-user-plus"></i>  @ViewBag.Title  </h2>
+    <main align="center" class="creat">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <form>
+            <div class="row">
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @required = "required", @autofocus = "autofocus", @style = "" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    @Html.Label("الإسم", htmlAttributes: new { @class = "control-label" })
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-9">
+                    @Html.DropDownList("Gender", null, htmlAttributes: new { @class = "form-control", @required = "required", @autofocus = "autofocus", @style = "" })
+                    @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    @Html.Label("النوع", htmlAttributes: new { @class = "control-label" })
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.AcadmicNumber, new { htmlAttributes = new { @class = "form-control", @required = "required", @autofocus = "autofocus", @style = "" } })
+                    @Html.ValidationMessageFor(model => model.AcadmicNumber, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    @Html.Label("الرقم الأكاديمي", htmlAttributes: new { @class = "control-label" })
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-9">
+                    @Html.DropDownList("CityID", null, htmlAttributes: new { @class = "form-control", @required = "required", @autofocus = "autofocus", @style = "" })
+                    @Html.ValidationMessageFor(model => model.CityID, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    @Html.Label("المدينة", htmlAttributes: new { @class = "control-label" })
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-9">
+                    <input type="submit" value="إنشاء" style="width:100%" class=" btn btn-group-sm btn-primary"  />
+                </div>
+            </div>
+        </form>
+    </main>
 
-                <div class="form-horizontal">
-                    <hr />
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="row  form-group">
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @required = "" } })
-                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                        </div>
-                        @Html.Label("الإسم", htmlAttributes: new { @class = "control-label col-md-2" })
-
-                    </div>
-
-
-
-                    <div class="form-group">
-
-                        <div class="col-md-10">
-                            @Html.DropDownList("Gender", null, htmlAttributes: new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
-                        </div>
-                        @Html.Label("النوع", htmlAttributes: new { @class = "control-label col-md-2" })
-
-                    </div>
-
-
-
-
-
-                    <div class="form-group">
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.AcadmicNumber, new { htmlAttributes = new { @class = "form-control", @required = "" } })
-                            @Html.ValidationMessageFor(model => model.AcadmicNumber, "", new { @class = "text-danger" })
-                        </div>
-                        @Html.Label("الرقم الأكاديمي", htmlAttributes: new { @class = "control-label col-md-2" })
-
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-10">
-                            @Html.DropDownList("CityID", null, htmlAttributes: new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.CityID, "", new { @class = "text-danger" })
-                        </div>
-                        @Html.Label("المدينة", htmlAttributes: new { @class = "control-label col-md-2" })
-
-                    </div>
-
-                    <br />
-
-
-
-
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            <input style="position:relative;top:20px;right:110px" type="submit" value="إنشاء" class="btn btn-primary form-control btn-group-lg" />
-                        </div>
-                    </div>
-                </div>}
+    }
 
 

@@ -45,12 +45,12 @@
     <td>
         @if (Model.canEdit)
         {
-<a href="~/Institutions/EditType/@item.ID">  تعديل  </a>}
+<a class="btn btn-primary" href="~/Institutions/EditType/@item.ID">  تعديل  </a>}
         @if (Model.canEdit && Model.canDelete && item.Institutions.Count == 0)
         { <span>|</span>}
         @if (Model.canDelete && item.Institutions.Count == 0)
         {
-<a href="~/Institutions/DeleteType/@item.ID">  مسح</a>}
+<a class="btn btn-danger" href="~/Institutions/DeleteType/@item.ID">  مسح</a>}
 
     </td>
 
