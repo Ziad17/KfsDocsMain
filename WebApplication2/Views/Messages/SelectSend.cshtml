@@ -5,63 +5,61 @@
 @using (Html.BeginForm("SelectSend", "Messages", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-
-<div class="form-horizontal">
     <br />
     <h2 style="display: inline-block; padding-bottom: 10px; position: relative; top: 9px; left: -15px;font-weight:600"><i class="far fa-envelope"></i>  إرسال رسالة </h2>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="row">
-        <div class="col-md-6"></div>
-        <div class="col-md-6">
-            <form class="form-horizontal">
-                <div class="form-group">
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(x => x.RecieverID, Model.Employees, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.RecieverID, "", new { @class = "text-danger" })
-                    </div>
-                    @Html.Label("إرسال إلى", htmlAttributes: new { @class = "control-label col-md-2" })
+    <main align="center" class="creat">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <form>
+            <div class="row">
+                <div class="col-md-9">
+                    @Html.DropDownListFor(x => x.RecieverID, Model.Employees, htmlAttributes: new { @class = "form-control", @required = "required", @autofocus = "autofocus", @style = "" })
+                    @Html.ValidationMessageFor(model => model.RecieverID, "", new { @class = "text-danger" })
                 </div>
-
-                <div class="form-group">
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Header, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Header, "", new { @class = "text-danger" })
-                    </div>
-                    @Html.LabelFor(model => model.Header, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.Label("إرسال إلى", htmlAttributes: new { @style = "" })
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(model => model.File, new { type = "file", name = "File", @class = "form-control" })
-                    </div>
-                    @Html.Label("الملف", htmlAttributes: new { @class = "control-label col-md-2" })
+            <br />
+            <div class="row">
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.Header, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.Header, "", new { @class = "text-danger" })
                 </div>
-
-                <div class="form-group">
-                    <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.Text, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
-                    </div>
-                    @Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Header, htmlAttributes: new { @class = "control-label" })
                 </div>
-
-                <input type="hidden" name="SenderID" value="@Model.Sender.ID" class="control-label" />
-                
-                    <div class="form-group">
-                        
-                        <div algin="center" class="col-md-offset-2 col-md-10">
-                            <input style="width: 100%; position: absolute; right: 108px;" type="submit" value="إرسال" class="btn btn-primary but1" />
-                        </div>
-                    </div>
-                    
-                
-
-
-
-            </form>
-        </div>
-    </div>
-</div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-9">
+                    <label class="custom-file-upload">
+                        @Html.TextBoxFor(model => model.File, new { @type = "file", @name = "File", @class = "form-control", @required = "required", @size = "60", @style = "" })
+                        تحميل الملف   <i class="fas fa-cloud-upload-alt"></i>
+                    </label>
+                </div>
+                <div class="col-md-3">
+                    @Html.Label("الملف", htmlAttributes: new { @class = "control-label" })
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-9">
+                    @Html.TextAreaFor(model => model.Text, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                    @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label" })
+                </div>
+            </div>
+            <input type="hidden" name="SenderID" value="@Model.Sender.ID" class="control-label" />
+            <br />
+            <div class="row">
+                <div class="col-md-9">
+                    <input type="submit" value="إرسال" style="width:100%" class=" btn btn-group-sm btn-primary" />
+                </div>
+            </div>
+        </form>
+    </main>
 }
 

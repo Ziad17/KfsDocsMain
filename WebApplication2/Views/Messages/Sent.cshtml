@@ -3,9 +3,8 @@
 @model  WebApplication2.Models.ViewModels.Messages.InboxModel
 
 @{ ViewBag.Title = "صندوق المرسل"; }
-<img style="display:inline-block;padding-bottom:10px" src="~/Content/package.png" width="32" height="32" />
-<h2 style="display:inline-block;padding-bottom:10px">صندوق المرسل</h2>
-
+<br />
+<h2 style="display: inline-block; padding-bottom: 10px; position: relative; top: 9px; left: -15px;font-weight:600"><i class="far fa-paper-plane"></i>  @ViewBag.Title</h2>
 
 
 @if (Model.MyMessages.Count > 0)
@@ -59,20 +58,19 @@
 
 
 
-</tr>}
+</tr>
+}
 
 
 
     </tbody>
 </table> }
-            else
-            {
+else
+{
 <hr />
-                                <div class="danger taps" style="background-color: #dc3545;color :#fff">
-                                    <i style="font-size:18px" class="far fa-times-circle"> &nbsp; &nbsp;</i><h4 style="display:inline-block;font-weight:600;padding-right:5px">لا يوجد رسائل مرسلة </h4>
-                                </div>
-
-                            }
+                <div class="danger taps" style="background-color: #dc3545;color :#fff">
+                    <i style="font-size:18px" class="far fa-times-circle"> &nbsp; &nbsp;</i><h4 style="display:inline-block;font-weight:600;padding-right:5px">لا يوجد رسائل مرسلة </h4>
+                </div>}
 @section scripts{
     <script type="text/javascript">
 
