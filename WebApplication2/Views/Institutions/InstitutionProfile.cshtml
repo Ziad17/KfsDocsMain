@@ -30,7 +30,7 @@
                 <ul>
                     @if (Model.Employees.Count > 0)
                     {
-                <div class="taps">
+                <div class="taps" style=" box-shadow: 2px 2px 10px #000; height: 200px;">
                     @foreach (var emp in Model.Employees)
                     {
                 <li style="font-size:18px;font-weight:600">
@@ -52,7 +52,7 @@
                 <ul>
                     @if (Model.Files.Count > 0)
                     {
-        <div class="taps">
+        <div class="taps" style=" box-shadow: 2px 2px 10px #000; height: 200px;">
             @foreach (var file in Model.Files)
             {
         <li>
@@ -73,7 +73,7 @@
             <ul>
                 @if (Model.Files.Count > 0)
                 {
-            <div class="taps">
+            <div class="taps" style=" box-shadow: 2px 2px 10px #000; height: 200px;"> 
                 
                 @foreach (var ins in Model.Children)
                 {
