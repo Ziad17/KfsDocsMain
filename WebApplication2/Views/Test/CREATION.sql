@@ -497,6 +497,9 @@ INSERT INTO FilePermission VALUES('CREATE_FILE',N'إنشاء ملف',0)
 GO;
 
 INSERT INTO PersonPermission
+VALUES ( 'VIEW_ALL_EMPLOYEE_ROLES',N'عرض كافة الوظائف',0,null);
+
+INSERT INTO PersonPermission
 VALUES ( 'VIEW_EMPLOYEE_ROLE',N'عرض وظيفة شخص',1,null);
 INSERT INTO PersonPermission
 VALUES ( 'DELETE_EMPLOYEE_ROLE',N'مسح وظيفة شخص',1,null);
