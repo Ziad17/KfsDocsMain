@@ -12,75 +12,78 @@
 
 
 
-    @Html.DropDownList("Levels", null, htmlAttributes: new { @id = "drop", @class = "form-control",@style = "display: inline-block;float: left;" })
+    @Html.DropDownList("Levels", null, htmlAttributes: new { @id = "drop", @class = "form-control", @style = "display: inline-block;float: left;" })
 
     <br />
     <br />
-    <br />
 
 
-    <h5>@Model.Level.LevelDesc</h5> if (Model.canEdit)
-    {
-        @Html.ActionLink(" تعديل ", "EditLevel", "Files", new { id = Model.Level.ID}, htmlAttributes:new { @class= "btn btn-primary", @style = " float: left;width:25%" }) }
-    if (Model.canEdit)
-    {
+    <div class="danger taps" style="background-color: #9de6af; color: #000 ;">
+        <h5 style="font-weight: 600;font-size:16px"><i class="far fa-hand-peace"></i>  @Model.Level.LevelDesc</h5>
+        </div>
+        <br />
+        if (Model.canEdit)
+        {
+        @Html.ActionLink(" تعديل ", "EditLevel", "Files", new { id = Model.Level.ID }, htmlAttributes: new { @class = "btn btn-primary", @style = " float: left;width:25%" }) }
+        if (Model.canEdit)
+        {
         @Html.ActionLink(" مسح ", "DeleteLevel", "Files", new { id = Model.Level.ID }, htmlAttributes: new { @class = "btn btn-danger", @style = " float: left;margin-left: 20px;width:25%;" }) }
-    <br />
-    <br />
-    <div class="table-responsive">
-        <table border="0" class="table table-hover">
-            <tr>
-                <th>
-                    @Html.DisplayName("الوظيفة")
-                </th>
-                <th>
-                    @Html.DisplayName("العمليات")
-                </th>
-
-            </tr>
-
-            @foreach (var item in Model.RolesDirectory)
-            {
+        <br />
+        <br />
+        <div class="table-responsive">
+            <table border="0" class="table table-hover">
                 <tr>
-                    <td>
-                        <h3>
-                            @item.Key
-                        </h3>
-                    </td>
-
-                    <td>
-                        <ul>
-                            @foreach (var permission in item.Value)
-                            {
-                                <li>
-
-                                    @permission
-                                </li>
-}
-                        </ul>
-                    </td>
+                    <th>
+                        @Html.DisplayName("الوظيفة")
+                    </th>
+                    <th>
+                        @Html.DisplayName("العمليات")
+                    </th>
 
                 </tr>
-}
+
+                @foreach (var item in Model.RolesDirectory)
+                {
+                    <tr>
+                        <td>
+                            <h3>
+                                @item.Key
+                            </h3>
+                        </td>
+
+                        <td>
+                            <ul>
+                                @foreach (var permission in item.Value)
+                                {
+                                    <li>
+
+                                        @permission
+                                    </li>
+                                }
+                            </ul>
+                        </td>
+
+                    </tr>
+                }
 
 
-        </table>
-    </div> }
-catch (Exception e)
-{
-    <h2> مستوى ملف غير موجود</h2>}
+            </table>
+        </div> }
+        catch (Exception e)
+        {
+        <h2> مستوى ملف غير موجود</h2>}
 
 
-@section scripts{
-    <script>
-        $("#drop").change(function () {
-            var end = this.value;
-            window.location.href = '/Files/FileLevels?id=' + end;
-        });
-    </script>
+        @section scripts{
+            <script>
+                $("#drop").change(function () {
+                    var end = this.value;
+                    window.location.href = '/Files/FileLevels?id=' + end;
+                });
+            </script>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#table').DataTable();
-        });</script>
-}
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('#table').DataTable();
+                });</script>
+        }

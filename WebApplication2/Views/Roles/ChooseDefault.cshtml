@@ -12,55 +12,56 @@
 else
 
 { <h4 class="text-danger">لم يتم أختيار أي وظيفة أساسية  <i class="far fa-hand-point-left"></i></h4>}
-
-<table class="table">
-    <tr>
-        <th>
-            الوظيفة
-        </th>
-        <th>
-            المؤسسة
-        </th>
-        <th>
-            متاحة
-        </th>
-        <th>
-            تاريخ التعيين
-        </th>
-
-        <th></th>
-    </tr>
-
-
-    @foreach (var item in Model.EmployeeRoles)
-    {
+<div class="table-responsive">
+    <table class="table table-hover">
         <tr>
-            <td>
-                @Html.ActionLink(item.Role.ArabicName, "Index", "Roles")
-            </td>
-            <td>
-                @Html.ActionLink(item.Institution.ArabicName, "InstitutionProfile", "Institutions", new { id = item.InstitutionID }, null)
+            <th>
+                الوظيفة
+            </th>
+            <th>
+                المؤسسة
+            </th>
+            <th>
+                متاحة
+            </th>
+            <th>
+                تاريخ التعيين
+            </th>
 
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Active)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HiringDate)
-            </td>
-
-            @if (item.Active)
-            {
-                <td>
-                    @using (Html.BeginForm("ChooseDefault", "Roles"))
-                    {@Html.AntiForgeryToken()
-                    <input type="hidden" name="id" value="@item.ID" />
-
-                    <input type="submit" class="btn btn-default" value="إختيار" />
-                }
-                </td>
-            }
+            <th></th>
         </tr>
-    }
 
-</table>
+
+        @foreach (var item in Model.EmployeeRoles)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.Role.ArabicName, "Index", "Roles")
+                </td>
+                <td>
+                    @Html.ActionLink(item.Institution.ArabicName, "InstitutionProfile", "Institutions", new { id = item.InstitutionID }, null)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Active)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HiringDate)
+                </td>
+
+                @if (item.Active)
+                {
+                    <td>
+                        @using (Html.BeginForm("ChooseDefault", "Roles"))
+                        {@Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@item.ID" />
+
+                        <input type="submit" class="btn btn-primary" value="إختيار" />
+                    }
+                    </td>
+                }
+            </tr>
+        }
+
+    </table>
+</div>

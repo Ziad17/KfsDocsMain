@@ -2,84 +2,100 @@
 
 
 
-<h2>إضافة نسخة إلى @Html.ActionLink(Model.FileName,"Files","View",new { id=Model.FileID},null)</h2>
-                                          <hr/>
+<h2><i class="fas fa-code-branch"></i>  إضافة نسخة إلى @Html.ActionLink(Model.FileName, "Files", "View", new { id = Model.FileID }, null) </h2>
+<hr />
 
 
 
 @using (Html.BeginForm("AddVersion", "Files", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    @Html.AntiForgeryToken()
-
-<div class="form-horizontal">
-
-
-
-
-        <div class="form-group">
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-
-        </div>
-
-         
-        <div class="form-group">
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DateCreated, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DateCreated, "", new { @class = "text-danger" })
-            </div>
-            @Html.LabelFor(model => model.DateCreated, htmlAttributes: new { @class = "control-label col-md-2" })
-
-        </div>
-        <div class="form-group">
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control",placeholder="إختياري"} })
-                @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
-            </div>
-            @Html.LabelFor(model => model.Notes, htmlAttributes: new { @class = "control-label col-md-2" })
-
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Number, new { htmlAttributes = new { @class = "form-control", placeholder = "إختياري" } })
-                @Html.ValidationMessageFor(model => model.Number, "", new { @class = "text-danger" })
-            </div>
-            @Html.LabelFor(model => model.Number, htmlAttributes: new { @class = "control-label col-md-2" })
-
-        </div>
+@Html.AntiForgeryToken()
 
 
 
 
 
+                <main align="center" class="creat taps" style="box-shadow:2px 2px 10px">
+                    <form>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @required = "required", @autofocus = "autofocus", @style = "" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+                            </div>
+                        </div>
+                        <br />
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.DateCreated, new { htmlAttributes = new { @class = "form-control", @required = "required", @autofocus = "autofocus", @style = "" } })
+                                @Html.ValidationMessageFor(model => model.DateCreated, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.DateCreated, htmlAttributes: new { @class = "control-label" })
+                            </div>
+                        </div>
+                        <br />
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control", @autofocus = "autofocus", @style = "", placeholder = "إختياري" } })
+                                @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.Notes, htmlAttributes: new { @class = "control-label" })
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.Number, new { htmlAttributes = new { @class = "form-control", @autofocus = "autofocus", @style = "", placeholder = "إختياري" } })
+                                @Html.ValidationMessageFor(model => model.Number, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.Number, htmlAttributes: new { @class = "control-label" })
+                            </div>
+                        </div>
 
 
 
 
 
-    <input type="hidden" name="fileID" value="@Model.FileID" class="control-label" />
-
-    <div class="form-group">
-        <div class="col-md-10">
-
-            @Html.TextBoxFor(m => m.file_content, new { type = "file", name = "file_content",text="" })
 
 
 
-        </div>
-    </div>
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="إضافة" class="btn btn-default" />
-        </div>
-    </div>
-</div>
-}
+
+
+                        <input type="hidden" name="fileID" value="@Model.FileID" class="control-label" />
+
+                        <br />
+
+                        <div class="row">
+                            <div class="col-md-8">
+
+                                @Html.TextBoxFor(m => m.file_content, new { type = "file", name = "file_content", text = "" })
+
+
+
+                            </div>
+                        </div>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <input type="submit" value="إضافة" style="width:100%" class=" btn btn-group-sm btn-primary" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    </main>
+
+                        }
 
 
 

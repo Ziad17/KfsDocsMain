@@ -9,43 +9,45 @@
    
 </div>
 @if(Model.Files!=null && Model.Files.Count>0)
-{ 
-<table id="table" class="display table table-hover table-responsive">
-    <thead>
-        <tr>
-            <th>إسم الملف</th>
-            <th>المستوى</th>
+    {
+<div class="table-responsive">
+    <table id="table" class="display table table-hover">
+        <thead>
+            <tr>
+                <th>إسم الملف</th>
+                <th>المستوى</th>
 
-            <th>المالك</th>
-            <th>المؤسسة</th>
+                <th>المالك</th>
+                <th>المؤسسة</th>
 
-            <th>تاريخ الإنشاء</th>
+                <th>تاريخ الإنشاء</th>
 
-        </tr>
-    </thead>
-    <tbody>
-
-
-
-
-        @foreach (var file in Model.Files)
-        {
-
-        <tr>
-
-             <td>@Html.ActionLink(file.Name, "View", "Files", new { id = file.ID }, null)</td>
-             <td>@Html.ActionLink(file.FileLevel.Name, "FileLevels", "Files", new { id = file.LevelID }, null)</td>
-            <td>@Html.ActionLink(file.EmployeeRole.Employee.Name, "PersonProfile", "Employees", new { id = file.EmployeeRole.EmployeeID }, null)</td>
-            <td>@Html.ActionLink(file.EmployeeRole.Institution.ArabicName, "InstitutionProfile", "Institutions", new { id = file.EmployeeRole.InstitutionID }, null)</td>
-            <td>@file.DateCreated</td>
-
-        </tr>
+            </tr>
+        </thead>
+        <tbody>
 
 
-        }
 
-    </tbody>
-</table>
+
+            @foreach (var file in Model.Files)
+            {
+
+            <tr>
+
+                 <td>@Html.ActionLink(file.Name, "View", "Files", new { id = file.ID }, null)</td>
+                 <td>@Html.ActionLink(file.FileLevel.Name, "FileLevels", "Files", new { id = file.LevelID }, null)</td>
+                <td>@Html.ActionLink(file.EmployeeRole.Employee.Name, "PersonProfile", "Employees", new { id = file.EmployeeRole.EmployeeID }, null)</td>
+                <td>@Html.ActionLink(file.EmployeeRole.Institution.ArabicName, "InstitutionProfile", "Institutions", new { id = file.EmployeeRole.InstitutionID }, null)</td>
+                <td>@file.DateCreated</td>
+
+            </tr>
+
+
+            }
+
+        </tbody>
+    </table>
+</div>
                         }
 @section scripts{
     <script type="text/javascript">

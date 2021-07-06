@@ -8,45 +8,45 @@
     <h2 style="display: inline-block; padding-bottom: 10px; position: relative; top: 9px; left: -15px;">@ViewBag.Title</h2>
 <br />
 <br />
-<table id="table" class="display table table-responsive">
-    <thead>
-        <tr style="color:white;background-color:#333333">
-            <th>
-                الإسم
-            </th>
-            <th>
-                نوع المؤسسة
-            </th>
-            <th>
-                تابعة لـ
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.ActionLink(item.ArabicName, "InstitutionProfile", new { id = item.ID })
-                </td>
-
-
-
-
-
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.InstitutionType.ArabicName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Institution2.ArabicName)
-                </td>
-
+<div class="table-responsive">
+    <table id="table" class="display table table-hover">
+        <thead>
+            <tr style="color:white;background-color:#333333">
+                <th>
+                    الإسم
+                </th>
+                <th>
+                    نوع المؤسسة
+                </th>
+                <th>
+                    تابعة لـ
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+    <tr>
+        <td>
+            @Html.ActionLink(item.ArabicName, "InstitutionProfile", new { id = item.ID })
+        </td>
 
+
+
+
+
+
+        <td>
+            @Html.DisplayFor(modelItem => item.InstitutionType.ArabicName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Institution2.ArabicName)
+        </td>
+
+    </tr>}
+        </tbody>
+    </table>
+</div>
 @section scripts{
     <script type="text/javascript">
 

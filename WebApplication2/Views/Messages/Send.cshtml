@@ -11,6 +11,7 @@
     <h2 style="display: inline-block; padding-bottom: 10px; position: relative; top: 9px; left: -15px;font-weight:600"><i class="far fa-envelope"></i>  إرسال رسالة </h2>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="taps" style="box-shadow:2px 2px 10px">
     <div class="form-group">
 
 
@@ -37,7 +38,10 @@
     <div class="form-group">
 
         <div class="col-md-10">
-            @Html.TextBoxFor(model => model.File, new { type = "file", name = "File", @class = "form-control" })
+            <label class="custom-file-upload" style=" max-width: 300px;">
+                @Html.TextBoxFor(model => model.File, new { @type = "file", @name = "File", @class = "form-control", @required = "required", @size = "60", @style = "" })
+                تحميل الملف   <i class="fas fa-cloud-upload-alt"></i>
+            </label>
         </div>
         @Html.LabelFor(model => model.File, htmlAttributes: new { @class = "control-label col-md-2" })
 
@@ -59,10 +63,11 @@
 
     <div class="form-group">
 
-        <div algin="center" class="col-md-12">
-            <input style="width: 100%;float:right;right:100px" type="submit" value="إرسال" class="btn btn-primary but1" />
+        <div class="col-md-10">
+            <input  type="submit" value="إرسال" style="width:100%" class=" btn btn-group-sm btn-primary" />
         </div>
     </div>
+</div>
 </div>
     }
 
