@@ -216,9 +216,15 @@ textarea{
     margin-bottom: 5.5px;
 }
 input[type="file"] {
-    display: none;
+     border: 1px solid #ccc;
+    display: inline-block;
+    cursor: pointer;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 6px;
+    border-radius: .25rem;
 }
-
+/*
 .custom-file-upload {
     border: 1px solid #ccc;
     display: inline-block;
@@ -227,4 +233,4 @@ input[type="file"] {
     background-color: #ffffff;
     padding: 6px;
     border-radius: .25rem;
-}
+}*/

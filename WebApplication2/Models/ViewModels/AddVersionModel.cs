@@ -31,7 +31,8 @@ namespace WebApplication2.Models.ViewModels
 
         [Required(ErrorMessage = "لا يمكن أن يكون الملف فارغا")]
 
-        [Display(Name ="أختيار ملف")]
+        // [Display(Name ="أختيار ملف")]
+
         [DataType(DataType.Upload)]
         public HttpPostedFileBase file_content { get; set; }
 

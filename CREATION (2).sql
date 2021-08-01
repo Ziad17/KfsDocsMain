@@ -431,7 +431,7 @@ GO;
 
 
 INSERT INTO City 
-VALUES (N'القاهرة',
+VALUES ('cairo',
 
         11865
        );
@@ -451,17 +451,20 @@ INSERT INTO InstitutionPermission
 VALUES ( 'VIEW_ROLES',N'عرض الوظائف',1,null);
 INSERT INTO InstitutionPermission
 VALUES ( 'DELETE_ROLE',N'مسح وظيفة',0,null);
-
+          INSERT INTO InstitutionPermission
+VALUES ( 'ACTIVATE_INSTITUTION',N'تفعيل',1,null);
+   INSERT INTO InstitutionPermission
+VALUES ( 'DEACTIVATE_INSTITUTION',N'تعطيل',0,null);
 INSERT INTO InstitutionPermission
 VALUES ( 'VIEW_PERSONS_IN_INSTITUTION',N'عرض أشخاص في مؤسسة',1,null);
 INSERT INTO InstitutionPermission
 VALUES ( 'VIEW_INSTITUTION',N'عرض ',1,null);
 INSERT INTO InstitutionPermission
-VALUES ( 'CREATE_INSTITUTION',N'إنشاء',1,null);
+VALUES ( 'CREATE_INSTITUTION',N'إنشاء',0,null);
 INSERT INTO InstitutionPermission
 VALUES ( 'EDIT_INSTITUTION_INFO',N'تعديل معلومات',1,null);
 INSERT INTO InstitutionPermission
-VALUES ( 'DELETE_INSTITUTION',N'مسح',1,null);
+VALUES ( 'DELETE_INSTITUTION',N'مسح',0,null);
 
 
 INSERT INTO InstitutionPermission
@@ -497,32 +500,23 @@ INSERT INTO FilePermission VALUES('CREATE_FILE',N'إنشاء ملف',0)
 GO;
 
 INSERT INTO PersonPermission
-VALUES ( 'VIEW_ALL_EMPLOYEE_ROLES',N'عرض كافة الوظائف',0,null);
-
-INSERT INTO PersonPermission
-VALUES ( 'VIEW_EMPLOYEE_ROLE',N'عرض وظيفة شخص',1,null);
-INSERT INTO PersonPermission
-VALUES ( 'DELETE_EMPLOYEE_ROLE',N'مسح وظيفة شخص',1,null);
-INSERT INTO PersonPermission
-VALUES ( 'ATTACH_ROLE_TO_PERSON',N'تعيين وظيفة لشخص',1,null);
-INSERT INTO PersonPermission
-VALUES ( 'DEACTIVATE_EMPLOYEE_ROLE',N'تعطيل وظيفة شخص',1,null);
-INSERT INTO PersonPermission
-VALUES ( 'ACTIVATE_EMPLOYEE_ROLE',N'تفعيل وظيفة شخص',1,null);
-
- INSERT INTO PersonPermission
-VALUES ( 'VIEW_ALL_EMPLOYEE_ROLES',N'عرض كافة الوظاثف',1,null);
-
-INSERT INTO PersonPermission
-VALUES ( 'DELETE_PERSON',N'مسح حساب شخص',1,null);
+VALUES ( 'DELETE_PERSON',N'مسح حساب شخص',0,null);
 INSERT INTO PersonPermission
 VALUES ( 'VIEW_PERSON_PROFILE',N'عرض حساب شخص',1,null);
 INSERT INTO PersonPermission
-VALUES ( 'CREATE_PERSON',N'إنشاء حساب شخص',1,null);
+VALUES ( 'ATTACH_ROLE_TO_PERSON',N'تعيين وظيفة لشخص',1,null);
+INSERT INTO PersonPermission
+VALUES ( 'VIEW_ALL_PERSONS_HIERARCHY',N'عرض الهرم الوظيفي',1,null);
+INSERT INTO PersonPermission
+VALUES ( 'DEACTIVATE_PERSON_WITHIN_INSTITUTION',N'تعطيل حساب شخص',1,null);
+INSERT INTO PersonPermission
+VALUES ( 'ACTIVATE_PERSON_WITHIN_INSTITUTION',N'تفعيل حساب شخص',1,null);
+INSERT INTO PersonPermission
+VALUES ( 'CREATE_PERSON_WITHIN_INSTITUTION',N'إنشاء حساب شخص',1,null);
 Go;
 
 
-INSERT INTO Employee VALUES(N'زياد','M',1,'1618120170100170',1,null,'','','','')
+INSERT INTO Employee VALUES(N'زياد','M',1,'1111111111111111',1,null,'','','','')
 
 
 GO;
@@ -541,8 +535,8 @@ INSERT INTO [dbo].[RoleInstitutionPermission](RoleID,PermissionName)
 
 
 GO;
-INSERT INTO InstitutionType VALUES(N'إدارة عامة','');
-Insert INTO [dbo].[Institution] VALUES(N'إدارة الجامعة',1,1,null,'','',1,'','','','')
+INSERT INTO InstitutionType VALUES('إدارة عامة','');
+Insert INTO [dbo].[Institution] VALUES(N'رئاسة الجامعة',1,1,null,'','',1,'','','','')
 
 
 
@@ -563,9 +557,6 @@ VALUES ( 'DELETE_FILE',N'مسح ملف',1);
 INSERT INTO FilePermission
 VALUES ( 'SET_CURRENT_VERSION',N'تعيين نسخة لملف',1);
 
-INSERT INTO FilePermission
-VALUES ( 'PUBLIC_FILE',N'ملف عام',1);
-
   
 GO;
 
@@ -574,7 +565,7 @@ GO;
 
 
 
- INSERT INTO FileType(Extension,Name,ArabicName) VALUES('doc','Word Document',N'')
+
  INSERT INTO FileType(Extension,Name,ArabicName) VALUES('docx','Word Document',N'')
  INSERT INTO FileType(Extension,Name,ArabicName) VALUES('txt','Text Document',N'')
  INSERT INTO FileType(Extension,Name,ArabicName) VALUES('pdf','Portable Document',N'')
@@ -583,11 +574,9 @@ GO;
  INSERT INTO FileType(Extension,Name,ArabicName) VALUES('jpg','JPG Image',N'')
  INSERT INTO FileType(Extension,Name,ArabicName) VALUES('jpeg','JPEG Media',N'')
 
- INSERT INTO FileType(Extension,Name,ArabicName) VALUES('pptx','Power Point Document',N'')
 
 
 
-             INSERT INTO EmployeeRole VALUES(1,1,1,'',GETDATE(),1)
 
 
 
